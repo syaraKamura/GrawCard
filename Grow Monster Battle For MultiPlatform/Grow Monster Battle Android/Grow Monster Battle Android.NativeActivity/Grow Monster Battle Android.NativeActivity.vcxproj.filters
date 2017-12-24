@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="mainAndroid.cpp" />
+    <ClCompile Include="..\..\scr\Common\GameMgr.cpp">
+      <Filter>scr\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Task\TaskBase.cpp">
+      <Filter>scr\Common\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Task\TaskMgr.cpp">
+      <Filter>scr\Common\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\ISceneBase.cpp">
+      <Filter>scr\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\SceneMgr.cpp">
+      <Filter>scr\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Test\AITest.cpp">
+      <Filter>scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Test\Test1.cpp">
+      <Filter>scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Test\TestMenu.cpp">
+      <Filter>scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\Title\Scene_Title.cpp">
+      <Filter>scr\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\Opning\Scene_Opning.cpp">
+      <Filter>scr\Scene\Opning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\Boot\Scene_Boot.cpp">
+      <Filter>scr\Scene\Boot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Fade\Fade.cpp">
+      <Filter>scr\Common\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\android\Touch.cpp">
+      <Filter>scr\android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\FPS\FPS.cpp">
+      <Filter>scr\FPS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.cpp">
+      <Filter>scr\Scene\MainMenu</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="scr">
+      <UniqueIdentifier>{9f1fbd70-55b3-478d-b9e2-1dc099eff2fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\android">
+      <UniqueIdentifier>{f49562c5-f86c-4806-ba70-a64baeaac5e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Scene">
+      <UniqueIdentifier>{48e2036a-ca9d-498e-88b8-2b786d07168a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Common">
+      <UniqueIdentifier>{b9100c01-8789-4a26-bba2-33bccf5a0078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Test">
+      <UniqueIdentifier>{7badff7b-3945-4fa7-bbb7-b1c8763820f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Common\Task">
+      <UniqueIdentifier>{7733511b-2bcd-40aa-a2df-324e5d818173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Scene\Opning">
+      <UniqueIdentifier>{c4c3fccb-bc50-4a2f-bf0f-df8226da36e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Scene\Title">
+      <UniqueIdentifier>{eb3d91c2-c9db-46f5-9757-cf55992f94ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Scene\Boot">
+      <UniqueIdentifier>{99c2d3b4-3d31-45d2-b6ce-592ed91b1a17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Common\Fade">
+      <UniqueIdentifier>{375544d4-9c93-4940-89db-43ce888fc139}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\FPS">
+      <UniqueIdentifier>{ece7422c-6575-4f02-8e75-0165d753a7b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Scene\MainMenu">
+      <UniqueIdentifier>{8294802e-98ab-4ba9-9eb5-66cdb58ad69a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\scr\Common\GameMgr.h">
+      <Filter>scr\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Task\Task.h">
+      <Filter>scr\Common\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Task\TaskBase.h">
+      <Filter>scr\Common\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Task\TaskMgr.h">
+      <Filter>scr\Common\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\ISceneBase.h">
+      <Filter>scr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\SceneBase.h">
+      <Filter>scr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\SceneMgr.h">
+      <Filter>scr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Test\AITest.h">
+      <Filter>scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Test\Test1.h">
+      <Filter>scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Test\TestMenu.h">
+      <Filter>scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\Title\Scene_Title.h">
+      <Filter>scr\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\Opning\Scene_Opning.h">
+      <Filter>scr\Scene\Opning</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\Boot\Scene_Boot.h">
+      <Filter>scr\Scene\Boot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Fade\Fade.h">
+      <Filter>scr\Common\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\android\Touch.h">
+      <Filter>scr\android</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\FPS\FPS.h">
+      <Filter>scr\FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.h">
+      <Filter>scr\Scene\MainMenu</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

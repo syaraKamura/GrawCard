@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\scr">
+      <UniqueIdentifier>{86d035a5-859a-41ab-9425-76e3d7357fb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Common">
+      <UniqueIdentifier>{b1278e6a-2292-458e-bebb-8621541e480c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Test">
+      <UniqueIdentifier>{79cfc21c-a0e5-41b1-81c5-076c33a85193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene">
+      <UniqueIdentifier>{64f7d15d-9d02-4a6a-b87b-b69a506f37e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\win32">
+      <UniqueIdentifier>{c58ed2fb-263f-4a8d-918d-4f4b2483da35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\Title">
+      <UniqueIdentifier>{7a704b7b-79dc-46a7-b984-c52702cc3169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\Opning">
+      <UniqueIdentifier>{95cc15c5-892a-4320-b7e9-7ae40ba310a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Task">
+      <UniqueIdentifier>{bf951e15-f595-4aaf-a7be-e06e7a62079c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Fade">
+      <UniqueIdentifier>{6f1f9880-c98e-4cc5-98ef-3cb08d1ff2ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\Boot">
+      <UniqueIdentifier>{c27004ee-7b8b-490f-b880-1f7f3ed5e4f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Common\FPS">
+      <UniqueIdentifier>{c545dc6b-96ed-49fb-b154-59149b8281b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Graphics">
+      <UniqueIdentifier>{e1f8af0f-faeb-4d00-9ad8-d158990ba564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu">
+      <UniqueIdentifier>{93974491-997a-4077-b3d8-b4d5d821bee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon">
+      <UniqueIdentifier>{33c6a5ec-8cdf-4414-bca0-e8ce467bc235}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="mainWin32.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\GameMgr.cpp">
+      <Filter>ソース ファイル\scr\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Task\TaskBase.cpp">
+      <Filter>ソース ファイル\scr\Common\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Task\TaskMgr.cpp">
+      <Filter>ソース ファイル\scr\Common\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\ISceneBase.cpp">
+      <Filter>ソース ファイル\scr\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\SceneMgr.cpp">
+      <Filter>ソース ファイル\scr\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Test\AITest.cpp">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Test\Test1.cpp">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Test\TestMenu.cpp">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\win32\KeyBoard.cpp">
+      <Filter>ソース ファイル\scr\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\Boot\Scene_Boot.cpp">
+      <Filter>ソース ファイル\scr\Scene\Boot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\Opning\Scene_Opning.cpp">
+      <Filter>ソース ファイル\scr\Scene\Opning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\Title\Scene_Title.cpp">
+      <Filter>ソース ファイル\scr\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Fade\Fade.cpp">
+      <Filter>ソース ファイル\scr\Common\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\FPS\FPS.cpp">
+      <Filter>ソース ファイル\scr\Common\FPS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Graphics\Graphics.cpp">
+      <Filter>ソース ファイル\scr\Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Scene_MainMenu.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\scr\Common\GameMgr.h">
+      <Filter>ソース ファイル\scr\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Task\Task.h">
+      <Filter>ソース ファイル\scr\Common\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Task\TaskBase.h">
+      <Filter>ソース ファイル\scr\Common\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Task\TaskMgr.h">
+      <Filter>ソース ファイル\scr\Common\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\ISceneBase.h">
+      <Filter>ソース ファイル\scr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\SceneBase.h">
+      <Filter>ソース ファイル\scr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\SceneMgr.h">
+      <Filter>ソース ファイル\scr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Test\AITest.h">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Test\Test1.h">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Test\TestMenu.h">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\win32\KeyBoard.h">
+      <Filter>ソース ファイル\scr\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\Boot\Scene_Boot.h">
+      <Filter>ソース ファイル\scr\Scene\Boot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\Opning\Scene_Opning.h">
+      <Filter>ソース ファイル\scr\Scene\Opning</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\Title\Scene_Title.h">
+      <Filter>ソース ファイル\scr\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Fade\Fade.h">
+      <Filter>ソース ファイル\scr\Common\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\FPS\FPS.h">
+      <Filter>ソース ファイル\scr\Common\FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Graphics\Graphics.h">
+      <Filter>ソース ファイル\scr\Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Scene_MainMenu.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

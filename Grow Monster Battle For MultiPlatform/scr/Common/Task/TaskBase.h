@@ -1,0 +1,71 @@
+/*
+				ファイル名		:TaskBase.h
+				作成者			:
+				作成日時		:2017/12/05
+				ソース説明		:タスク基底クラス
+
+				
+				
+				備考
+					
+				
+				
+!*/
+
+#ifndef __TASK_BASE_H__
+#define __TASK_BASE_H__
+
+#include "Task.h"
+
+typedef void(*pointer_func)(void);
+
+class TaskBase : public Task{
+
+
+private:
+	//プライオリティ 数値が小さいほど優先順位が高い
+	int mPriorty;
+	
+	pointer_func m_pUpdata;
+	pointer_func m_pDraw;
+	pointer_func m_pDestroy;
+
+protected:
+	bool mIsInitalize;	//初期化フラグ
+	int mTaskId;		//タスク番号	
+	
+	
+
+public :
+
+	
+
+	TaskBase(){
+		mTaskId = 0;
+		mIsInitalize = false;
+		mPriorty = 0;
+	}
+
+
+	virtual ~TaskBase(){};
+
+	void SetTaskId(int taskId){mTaskId = taskId;}
+	int GetTaskId(){return mTaskId;}
+
+	//優先順位の設定
+	void SetPriorty(int priorty);
+	int GetPriorty(){return mPriorty;}
+
+	//初期化が終了しているか？
+	bool isInitialize(){return mIsInitalize;}
+	
+	void Initialize()override ;
+	void Finalize()override;
+	bool Updata()override;
+	void Draw()override;
+	
+	void SetFunction(pointer_func updata,pointer_func draw,pointer_func destroy);
+
+};
+
+#endif
