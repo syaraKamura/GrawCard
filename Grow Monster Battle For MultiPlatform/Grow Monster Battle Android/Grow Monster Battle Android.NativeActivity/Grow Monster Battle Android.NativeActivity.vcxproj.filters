@@ -47,6 +47,21 @@
     <ClCompile Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.cpp">
       <Filter>scr\Scene\MainMenu</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Graphics\Graphics.cpp">
+      <Filter>scr\Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Graphics\GraphicsBase.cpp">
+      <Filter>scr\Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Graphics\GraphicsDraw.cpp">
+      <Filter>scr\Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Graphics\GraphicsDrawMgr.cpp">
+      <Filter>scr\Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Graphics\GraphicsMulti.cpp">
+      <Filter>scr\Common\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="scr">
@@ -84,6 +99,9 @@
     </Filter>
     <Filter Include="scr\Scene\MainMenu">
       <UniqueIdentifier>{8294802e-98ab-4ba9-9eb5-66cdb58ad69a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Common\Graphics">
+      <UniqueIdentifier>{1fa8799d-c88d-43cd-8960-c7575b9aa140}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +155,21 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.h">
       <Filter>scr\Scene\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Graphics\Graphics.h">
+      <Filter>scr\Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Graphics\GraphicsBase.h">
+      <Filter>scr\Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Graphics\GraphicsDraw.h">
+      <Filter>scr\Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Graphics\GraphicsDrawMgr.h">
+      <Filter>scr\Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Graphics\GraphicsMulti.h">
+      <Filter>scr\Common\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

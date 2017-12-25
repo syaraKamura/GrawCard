@@ -108,6 +108,18 @@
     <ClCompile Include="..\scr\Scene\MainMenu\Scene_MainMenu.cpp">
       <Filter>ソース ファイル\scr\Scene\MainMenu</Filter>
     </ClCompile>
+    <ClCompile Include="..\scr\Common\Graphics\GraphicsBase.cpp">
+      <Filter>ソース ファイル\scr\Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Graphics\GraphicsDraw.cpp">
+      <Filter>ソース ファイル\scr\Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Graphics\GraphicsDrawMgr.cpp">
+      <Filter>ソース ファイル\scr\Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Graphics\GraphicsMulti.cpp">
+      <Filter>ソース ファイル\scr\Common\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\scr\Common\GameMgr.h">
@@ -163,6 +175,18 @@
     </ClInclude>
     <ClInclude Include="..\scr\Scene\MainMenu\Scene_MainMenu.h">
       <Filter>ソース ファイル\scr\Scene\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Graphics\GraphicsBase.h">
+      <Filter>ソース ファイル\scr\Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Graphics\GraphicsDraw.h">
+      <Filter>ソース ファイル\scr\Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Graphics\GraphicsDrawMgr.h">
+      <Filter>ソース ファイル\scr\Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Graphics\GraphicsMulti.h">
+      <Filter>ソース ファイル\scr\Common\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

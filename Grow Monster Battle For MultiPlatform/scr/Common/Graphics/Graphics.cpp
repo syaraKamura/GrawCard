@@ -1,5 +1,5 @@
 ﻿/*
-				ファイル名		:
+				ファイル名		:Graphics.cpp
 				作成者			:
 				作成日時		:
 				ソース説明		:
@@ -11,26 +11,40 @@
 				
 !*/
 
-//	------- インクルード宣言
+#include "Common/GameCommon.h"
+#include "Graphics.h"
 
-//	------- 固定定数宣言
+Graphics::Graphics() : GraphicsBase() {}
 
-//	-------	マクロ定義
+Graphics::~Graphics() {}
 
-//	------- 列挙体
+bool Graphics::Load(const char* path) {
 
-//	------- 構造体&共用体
+	mHandle = DxLib::LoadGraph(path);
 
-//	------- データテーブル
+	if (mHandle == -1) {
+		return false;
+	}
+	DxLib::GetGraphSize(mHandle, &mWidth, &mHeight);
 
-//	------- スタティック変数宣言
+	return true;
+};
 
-//	------- グローバル変数宣言
+void Graphics::Relese() {
+	if (mHandle > 0) {
+		DxLib::DeleteGraph(mHandle);
+	}
+}
 
-//	------- スタティックプロトタイプ宣言(内部関数)
+void Graphics::Draw(int posX, int posY, int alpha){
 
-//	------- プロトタイプ宣言していないスタティック関数(内部関数)
+	SetPosition(posX, posY);
+	SetAlpha(alpha);
 
-//	------- グローバル関数
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
+	DxLib::DrawGraph(mPosX, mPosY, mHandle, TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+}
 
 

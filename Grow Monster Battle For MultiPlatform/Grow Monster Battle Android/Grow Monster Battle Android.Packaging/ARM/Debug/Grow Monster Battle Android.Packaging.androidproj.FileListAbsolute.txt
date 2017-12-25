@@ -18,3 +18,9 @@ D:\デスクトップ\Project\Grow Monster Battle For MultiPlatform\Grow Monster
 D:\デスクトップ\Project\Grow Monster Battle For MultiPlatform\Grow Monster Battle For MultiPlatform\Grow Monster Battle Android\Grow Monster Battle Android.Packaging\ARM\Debug\Package\AndroidManifest.xml
 D:\デスクトップ\Project\Grow Monster Battle For MultiPlatform\Grow Monster Battle For MultiPlatform\Grow Monster Battle Android\Grow Monster Battle Android.Packaging\ARM\Debug\Package\project.properties
 D:\デスクトップ\Project\Grow Monster Battle For MultiPlatform\Grow Monster Battle For MultiPlatform\Grow Monster Battle Android\Grow Monster Battle Android.Packaging\ARM\Debug\Package\build.xml
+D:\デスクトップ\Project\PrjGrowCard\Grow Monster Battle For MultiPlatform\Grow Monster Battle Android\Grow Monster Battle Android.Packaging\ARM\Debug\Grow_Monster_Battle_Android.apk.recipe
+D:\デスクトップ\Project\PrjGrowCard\Grow Monster Battle For MultiPlatform\Grow Monster Battle Android\Grow Monster Battle Android.Packaging\ARM\Debug\Grow_Monster_Battle_Android.apk.recipe.merged
+D:\デスクトップ\Project\PrjGrowCard\Grow Monster Battle For MultiPlatform\Grow Monster Battle Android\Grow Monster Battle Android.Packaging\ARM\Debug\FileStringReplace.incremental
+D:\デスクトップ\Project\PrjGrowCard\Grow Monster Battle For MultiPlatform\Grow Monster Battle Android\Grow Monster Battle Android.Packaging\ARM\Debug\Grow_Monster_Battle_Android.apk
+D:\デスクトップ\Project\PrjGrowCard\Grow Monster Battle For MultiPlatform\Grow Monster Battle Android\Grow Monster Battle Android.Packaging\ARM\Debug\Grow_Monster_Battle_Android.lastsuccessfuldeploy
+D:\デスクトップ\Project\PrjGrowCard\Grow Monster Battle For MultiPlatform\Grow Monster Battle Android\Grow Monster Battle Android.Packaging\ARM\Debug\Package\libs\armeabi-v7a\libGrow_Monster_Battle_Android.so

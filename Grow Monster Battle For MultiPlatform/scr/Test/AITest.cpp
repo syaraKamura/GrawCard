@@ -5,6 +5,7 @@
 #ifdef __MY_DEBUG__
 #include "Scene/ISceneBase.h"
 #include "Test/AITest.h"
+#include "Common/Graphics/GraphicsMulti.h"
 #include "Common/Graphics/Graphics.h"
 
 

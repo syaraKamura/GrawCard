@@ -1,9 +1,10 @@
 ﻿/*
-				ファイル名		:
+				ファイル名		:GraphicsBase.h
 				作成者			:
-				作成日時		:
+				作成日時		:2017/12/25
 				ソース説明		:
-				
+					
+					画像基底クラス
 				
 				備考
 				
@@ -11,26 +12,25 @@
 				
 !*/
 
-#ifndef __TEMPLETE_H__
-#define __TEMPLETE_H__
+#ifndef __GRAPHICS_BASE_H__
+#define __GRAPHICS_BASE_H__
 
-//	------- インクルード宣言
+#include "GraphicsDraw.h"
 
-//	------- 固定定数宣言
+class GraphicsBase : public GraphicsDraw {
 
-//	-------	マクロ定義
+protected:
 
-//	------- 列挙体
+	int mHandle;
 
-//	------- 構造体&共用体
+public:
 
-//	------- グローバル関数
+	virtual bool Load(const char* path) = 0;
 
-//	------- インライン関数(ヘッダー内関数)
+	int GetHandle() { return mHandle; }
 
-//インライン関数の書き方
-inline int hoge(){
-	
-}
+
+
+};
 
 #endif // __TEMPLETE_H__
