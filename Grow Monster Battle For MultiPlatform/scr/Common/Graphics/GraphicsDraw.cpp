@@ -13,6 +13,19 @@
 
 #include "GraphicsDraw.h"
 
+GraphicsDraw::GraphicsDraw() {
+	mPosX = 0;
+	mPosY = 0;
+	mAlpha = 255;
+	mPrio = 0;
+
+	mIsVisible = true;
+	mIsRelese = false;
+
+}
+
+GraphicsDraw::~GraphicsDraw() {}
+
 int GraphicsDraw::GetPositionX() { 
 	return mPosX; 
 }
@@ -34,4 +47,27 @@ void GraphicsDraw::SetPosition(int posX, int posY) {
 	mPosY = posY;
 }
 
+void GraphicsDraw::SetPriorty(int prio) {
+	mPrio = prio;
+}
 
+int GraphicsDraw::GetPriorty() {
+	return mPrio;
+}
+
+
+void GraphicsDraw::SetVisible(bool visible) {
+	mIsVisible = visible;
+}
+
+void GraphicsDraw::ReleseRequest() {
+	mIsRelese = true;
+}
+
+bool GraphicsDraw::IsVisible() {
+	return mIsVisible;
+}
+
+bool GraphicsDraw::IsRelese() {
+	return mIsRelese;
+}

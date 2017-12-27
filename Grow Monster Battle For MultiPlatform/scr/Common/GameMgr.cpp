@@ -33,7 +33,7 @@ void GameMgr::Initialize(){
 }
 
 void GameMgr::Finalize(){
-	TaskMgr::getInstance().DeleteAll();
+	TaskMgr::getInstance().Finalize();
 	mSceneMgr->Finalize();
 }
 
@@ -59,8 +59,6 @@ void GameMgr::Draw(){
 	mFPS->Draw();
 
 	TaskMgr::getInstance().LateUpdata();
-
-	
 
 	mFPS->Wait();
 

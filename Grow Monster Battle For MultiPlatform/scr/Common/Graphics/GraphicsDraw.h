@@ -19,7 +19,7 @@ class GraphicsDraw {
 protected:
 
 	bool mIsVisible;	//表示フラグ
-	bool mIsKill;
+	bool mIsRelese;
 
 	int mPosX;
 	int mPosY;
@@ -28,7 +28,12 @@ protected:
 	int mWidth;
 	int mHeight;
 
+	int mPrio;	//プライオリティ
+
 public:
+
+	GraphicsDraw();
+	virtual ~GraphicsDraw();
 
 	virtual void Draw(int posX, int posY, int alpha) = 0;
 	virtual void Relese() = 0;
@@ -39,6 +44,16 @@ public:
 
 	void  SetAlpha(int alpha);
 	void SetPosition(int posX, int posY);
+
+	void SetPriorty(int prio);
+	int GetPriorty();
+
+	void SetVisible(bool visible);
+	void ReleseRequest();
+
+	bool IsVisible();
+	bool IsRelese();
+
 
 };
 

@@ -19,7 +19,7 @@
 class Scene_Boot :public SceneBase{
 
 private:
-
+	
 public :
 
 	Scene_Boot(ISceneBase* changer);

@@ -2,7 +2,7 @@
 #include "Common/GameCommon.h"
 #include "Scene/ISceneBase.h"
 #include "Scene_Title.h"
-
+#include "Common/Graphics/Graphics.h"
 
 
 #define PI 3.14
@@ -14,11 +14,6 @@ enum eImg{
 	eImg_Rogo,		//タイトルロゴ
 	eImg_Num,
 };
-
-typedef struct{
-	char *name;
-	int x,y;
-}Menu_t;
 
 typedef struct {
 	int imgHandle[eImg_Num];
@@ -36,14 +31,11 @@ int SoundControl(int kind,int sts);
 void deleteSound();					
 */
 
-Menu_t Menu[2] = {{"はじめから",260,430},
-				  {"つづきから",260,500},};
-
-
-
 
 Scene_Title::Scene_Title(ISceneBase* changer) :SceneBase(changer){ 
-
+	for (int i = 0; i < eImg_Num; i++) {
+		mGraphic[i] = new Graphics;
+	}
 }
 
 void Scene_Title::Initialize(){
@@ -61,12 +53,25 @@ void Scene_Title::Initialize(){
 	//setSound(2,"data/system/sound/se/決定.mp3");
 	//setSound(3,"data/system/sound/se/キャンセル.mp3");
 
-	mWork.imgHandle[eImg_Back] = LoadGraph("Resources/Graphics/BG/Title.png");
+	//mWork.imgHandle[eImg_Back] = LoadGraph("Resources/Graphics/BG/Title.png");
 	//RogoImg = LoadGraph("data/System/img/TitleRogo1.png");
 
-	mWork.imgHandle[eImg_NewGame] = LoadGraph("Resources/Graphics/UI/start.png");
-	mWork.imgHandle[eImg_Continue] = LoadGraph("Resources/Graphics/UI/continue.png");
+	//mWork.imgHandle[eImg_NewGame] = LoadGraph("Resources/Graphics/UI/start.png");
+	//mWork.imgHandle[eImg_Continue] = LoadGraph("Resources/Graphics/UI/continue.png");
 	
+	
+	mGraphic[eImg_Back]->Load("Resources/Graphics/BG/Title.png");
+	mGraphic[eImg_NewGame]->Load("Resources/Graphics/UI/start.png");
+	mGraphic[eImg_Continue]->Load("Resources/Graphics/UI/continue.png");
+
+	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_Back], 0);
+	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_NewGame], 1);
+	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_Continue], 1);
+
+	mGraphic[eImg_NewGame]->SetPosition(245,420);
+	mGraphic[eImg_NewGame]->SetVisible(false);
+	mGraphic[eImg_Continue]->SetPosition(145, 480);
+	mGraphic[eImg_Continue]->SetVisible(false);
 
 	SetUseASyncLoadFlag(FALSE);
 
@@ -102,6 +107,11 @@ void Scene_Title::Finalize(){
 	for(int i = 0;i < eImg_Num;i++){
 		DeleteGraph(mWork.imgHandle[i]);
 	}
+
+	mGraphic[eImg_Back]->ReleseRequest();
+	mGraphic[eImg_NewGame]->ReleseRequest();
+	mGraphic[eImg_Continue]->ReleseRequest();
+	
 	//deleteSound(0);
 }
 
@@ -112,6 +122,7 @@ bool Scene_Title::Updata(){
 	switch (mState) {
 	case eState_Initialize:
 		NexetState(eState_Main,eFadeType_In,180);
+		mGraphic[eImg_NewGame]->SetVisible(true);
 		break;
 	case eState_Fade:
 		if (Fade::GetInstance()->IsFadeEnd() == false) return true;
@@ -129,7 +140,7 @@ bool Scene_Title::Updata(){
 	case eState_ExitDone:
 		break;
 	}
-
+	
 	return true;
 }
 
@@ -141,10 +152,11 @@ void Scene_Title::Draw(){
 		return ;
 	}
 
-	DxLib::DrawGraph(0,0,mWork.imgHandle[eImg_Back],TRUE);	//背景
+	//DxLib::DrawGraph(0,0,mWork.imgHandle[eImg_Back],TRUE);	//背景
 
 	//DrawGraph(100,50,RogoImg,TRUE);	//タイトルロゴ
 
+#if false
 	if(mWork.isLoadSaveData == true){
 		for(int i = 0;i < 2;i++){
 			if(mWork.selectY == i){
@@ -165,7 +177,7 @@ void Scene_Title::Draw(){
 		DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND,0);
 		//DrawString(Menu[0].x,Menu[0].y,Menu[0].name,GetColor(255,0,0));
 	}
-
+#endif
 }
 
 
@@ -231,6 +243,23 @@ bool Scene_Title::UpdataProc() {
 
 #endif	//	__WINDOWS__
 
+	if (mWork.isLoadSaveData == true) {
+		for (int i = 0; i < 2; i++) {
+			if (mWork.selectY == i) {
+				float alpha = (1 + sin(PI / 2.0f / 30.0f * mWork.counter) / 2.0f) * 255.0f;
+				mGraphic[i + eImg_NewGame]->SetAlpha(alpha);
+				
+			}
+			else {
+				mGraphic[i + eImg_NewGame]->SetAlpha(255);
+				
+			}
+		}
+	}
+	else {
+		float alpha = (1+sin(PI / 2.0f / 30.0f * mWork.counter)/2.0f) * 255.0f;
+		mGraphic[eImg_NewGame]->SetAlpha(alpha);
+	}
 
 	mWork.counter++;
 	return true;

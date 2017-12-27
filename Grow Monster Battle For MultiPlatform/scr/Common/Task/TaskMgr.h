@@ -39,6 +39,7 @@ public :
 	}
 
 	 void Initialize();
+	 void Finalize();
 
 	//’ÊíXV
 	void Updata();

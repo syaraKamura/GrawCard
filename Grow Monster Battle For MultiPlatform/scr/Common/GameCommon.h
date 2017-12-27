@@ -5,6 +5,9 @@
 #include "../pre-processor.h"
 #include "Common/Task/TaskMgr.h"
 #include "Common/Fade/Fade.h"
+#include "Common/Graphics/Graphics.h"
+#include "Common/Graphics/GraphicsMulti.h"
+#include "Common/Graphics/GraphicsDrawMgr.h"
 
 #include <math.h>
 #include <string.h>

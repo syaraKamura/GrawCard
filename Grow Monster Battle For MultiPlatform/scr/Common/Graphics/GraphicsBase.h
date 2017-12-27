@@ -25,6 +25,8 @@ protected:
 
 public:
 
+	GraphicsBase() :GraphicsDraw() {}
+	
 	virtual bool Load(const char* path) = 0;
 
 	int GetHandle() { return mHandle; }

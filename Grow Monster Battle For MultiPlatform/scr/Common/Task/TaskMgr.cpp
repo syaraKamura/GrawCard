@@ -23,6 +23,13 @@ void TaskMgr::Initialize(){
 	DeleteAll();
 }
 
+/*
+	I—¹ˆ—
+*/
+void TaskMgr::Finalize() {
+	DeleteAll();
+}
+
 //’ÊíXV
 void TaskMgr::Updata(){
 	for(auto itr = mList.begin();itr != mList.end();itr++){

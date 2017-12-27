@@ -22,8 +22,20 @@ private:
 		eFadeType_None,
 	};
 
+	enum eImg {
+		eImg_Back,		//”wŒi
+		eImg_NewGame,	//‰‚ß‚©‚ç
+		eImg_Continue,	//‘±‚«‚©‚ç
+		eImg_Rogo,		//ƒ^ƒCƒgƒ‹ƒƒS
+		eImg_Num,
+	};
+
+private :
+
 	eState mState;
 	eState mNextState;
+
+	Graphics* mGraphic[eImg_Num];
 
 private:
 
