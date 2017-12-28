@@ -63,3 +63,6 @@ dkms.conf
 log.txt
 *.htm
 *.ipch
+*.db-wal
+*.opendb
+*.db-shm
