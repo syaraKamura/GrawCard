@@ -66,3 +66,4 @@ log.txt
 *.db-wal
 *.opendb
 *.db-shm
+*.db
