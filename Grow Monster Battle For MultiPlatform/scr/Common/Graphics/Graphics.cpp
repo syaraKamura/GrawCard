@@ -22,7 +22,8 @@ bool Graphics::Load(const char* path) {
 
 	mHandle = DxLib::LoadGraph(path);
 
-	if (mHandle == -1) {
+	if (mHandle == eGraphicsResult_ERROR) {
+
 		return false;
 	}
 	DxLib::GetGraphSize(mHandle, &mWidth, &mHeight);
@@ -31,12 +32,18 @@ bool Graphics::Load(const char* path) {
 };
 
 void Graphics::Relese() {
-	if (mHandle > 0) {
+	if (mHandle > eGraphicsResult_NONE) {
 		DxLib::DeleteGraph(mHandle);
+		mHandle = eGraphicsResult_NONE;
 	}
 }
 
 void Graphics::Draw(int posX, int posY, int alpha){
+
+	//画像データが存在していないならば処理を抜ける
+	if (mHandle <= eGraphicsResult_NONE) {
+		return;
+	}
 
 	SetPosition(posX, posY);
 	SetAlpha(alpha);

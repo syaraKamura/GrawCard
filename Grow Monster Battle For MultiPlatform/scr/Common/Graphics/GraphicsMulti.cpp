@@ -24,7 +24,10 @@ bool GraphicsMulti::Load(const char* path){
 
 bool GraphicsMulti::Load(const char* path, int scrX, int scrY) {
 	int handle = DxLib::LoadGraph(path);
-	if (handle < 0) return false;
+	if (handle == eGraphicsResult_ERROR) {
+
+		return false;
+	}
 	return Add(handle, scrX, scrY);
 }
 
@@ -33,7 +36,7 @@ void GraphicsMulti::Relese() {
 	if (mHandleList.empty() == true || mHandleList.size() <= 0) return;
 
 	for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
-		if ((*it).handle > 0) {
+		if ((*it).handle > eGraphicsResult_NONE) {
 			DxLib::DeleteGraph((*it).handle);
 		}
 	}
@@ -42,16 +45,19 @@ void GraphicsMulti::Relese() {
 
 bool GraphicsMulti::Add(int handle, int scrX, int scrY) {
 
-	if (handle > 0) {
+	if (handle > eGraphicsResult_NONE) {
 		GRAPHICS_MULTI_t multiGraphics = { handle,scrX,scrY };
 		mHandleList.push_back(multiGraphics);
 		return true;
 	}
-	return false;
+	else {
+
+		return false;
+	}
 }
 
 /*
-描画
+	描画
 */
 void GraphicsMulti::Draw(int posX, int posY, int alpha){
 
@@ -62,6 +68,11 @@ void GraphicsMulti::Draw(int posX, int posY, int alpha){
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
 	for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
+
+		if ((*it).handle <= eGraphicsResult_NONE) {
+			
+			continue;
+		}
 
 		int drawPosX = (*it).posX + mPosX;
 		int drawPosY = (*it).posY + mPosY;

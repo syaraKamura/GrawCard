@@ -21,11 +21,20 @@ class GraphicsBase : public GraphicsDraw {
 
 protected:
 
+	enum eGraphicsResult {
+		eGraphicsResult_ERROR = -1,	//エラー
+		eGraphicsResult_NONE,		//データなし
+	};
+
+protected:
+
 	int mHandle;
 
 public:
 
-	GraphicsBase() :GraphicsDraw() {}
+	GraphicsBase() :GraphicsDraw() {
+		mHandle = 0;
+	}
 	
 	virtual bool Load(const char* path) = 0;
 
