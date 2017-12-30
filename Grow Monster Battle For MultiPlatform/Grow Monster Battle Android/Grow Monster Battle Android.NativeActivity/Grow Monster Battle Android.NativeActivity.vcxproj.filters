@@ -62,6 +62,9 @@
     <ClCompile Include="..\..\scr\Common\Graphics\GraphicsMulti.cpp">
       <Filter>scr\Common\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Debug\Debug.cpp">
+      <Filter>scr\Common\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="scr">
@@ -102,6 +105,9 @@
     </Filter>
     <Filter Include="scr\Common\Graphics">
       <UniqueIdentifier>{1fa8799d-c88d-43cd-8960-c7575b9aa140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Common\Debug">
+      <UniqueIdentifier>{498e5bbe-a5aa-42b6-8780-382712c6d77d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +176,9 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Graphics\GraphicsMulti.h">
       <Filter>scr\Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Debug\Debug.h">
+      <Filter>scr\Common\Debug</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

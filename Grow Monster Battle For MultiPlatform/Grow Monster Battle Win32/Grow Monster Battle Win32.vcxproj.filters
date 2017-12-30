@@ -55,6 +55,9 @@
     <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon">
       <UniqueIdentifier>{33c6a5ec-8cdf-4414-bca0-e8ce467bc235}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Debug">
+      <UniqueIdentifier>{eb14c4c4-8149-4310-881f-cdaaa1132c51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -119,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\Graphics\GraphicsMulti.cpp">
       <Filter>ソース ファイル\scr\Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Debug\Debug.cpp">
+      <Filter>ソース ファイル\scr\Common\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +193,12 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\Graphics\GraphicsMulti.h">
       <Filter>ソース ファイル\scr\Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Debug\Debug.h">
+      <Filter>ソース ファイル\scr\Common\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\GameCommon.h">
+      <Filter>ソース ファイル\scr\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

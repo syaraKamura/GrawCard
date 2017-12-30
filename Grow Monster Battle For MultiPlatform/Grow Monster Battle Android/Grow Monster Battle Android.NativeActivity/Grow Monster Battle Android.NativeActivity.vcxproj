@@ -208,6 +208,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\scr\android\Touch.cpp" />
+    <ClCompile Include="..\..\scr\Common\Debug\Debug.cpp" />
     <ClCompile Include="..\..\scr\Common\Fade\Fade.cpp" />
     <ClCompile Include="..\..\scr\Common\FPS\FPS.cpp" />
     <ClCompile Include="..\..\scr\Common\GameMgr.cpp" />
@@ -231,6 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\scr\android\Touch.h" />
+    <ClInclude Include="..\..\scr\Common\Debug\Debug.h" />
     <ClInclude Include="..\..\scr\Common\Fade\Fade.h" />
     <ClInclude Include="..\..\scr\Common\FPS\FPS.h" />
     <ClInclude Include="..\..\scr\Common\GameMgr.h" />

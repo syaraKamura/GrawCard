@@ -349,6 +349,12 @@ void AITest::Initialize(){
 
 void AITest::Finalize(){
 
+	mGraphics->Relese();
+	mGraphicsMulti->Relese();
+
+	Delete(mGraphics);
+	Delete(mGraphicsMulti);
+
 }
 
 bool AITest::Updata(){

@@ -17,6 +17,7 @@
 
 class SceneMgr;
 class FPS;
+class Debug;
 
 class GameMgr{
 
@@ -24,7 +25,8 @@ private:
 
 	SceneMgr* mSceneMgr;
 	FPS* mFPS;
-	
+	Debug* mDebug;
+
 public :
 
 	GameMgr();

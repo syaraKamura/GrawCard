@@ -19,6 +19,8 @@
 	#include "Android/Touch.h"
 #endif
 
+#define WINDOW_BASE_WIDTH 1920
+#define WINDOW_BASE_HEIGHT 1080
 #define WINDOW_WIDTH 900
 #define WINDOW_HEIGHT 750
 

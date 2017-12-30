@@ -16,28 +16,34 @@
 #include "Scene/SceneMgr.h"
 #include "Common/Task/Task.h"
 #include "Common/FPS/FPS.h"
+#include "Common/Debug/Debug.h"
 
 GameMgr::GameMgr(){
 	mSceneMgr = new SceneMgr();
 	mFPS = new FPS(60);
+	mDebug = new Debug();
 }
 
 GameMgr::~GameMgr(){
 	Delete(mSceneMgr);
 	Delete(mFPS);
+	Delete(mDebug);
 }
 
 void GameMgr::Initialize(){
 	TaskMgr::getInstance().Initialize();
 	mSceneMgr->Initialize();
+	mDebug->Initialize();
 }
 
 void GameMgr::Finalize(){
 	TaskMgr::getInstance().Finalize();
 	mSceneMgr->Finalize();
+	mDebug->Finalize();
 }
 
 bool GameMgr::Updata(){
+
 
 	mFPS->Updata();
 
@@ -45,6 +51,12 @@ bool GameMgr::Updata(){
 	Keyboard_Updata();
 #else
 	Touch_Updata();
+#endif
+
+#ifdef __MY_DEBUG__
+	if (mDebug->Updata() == true) {
+		return true;
+	}
 #endif
 
 	mSceneMgr->Updata();
@@ -57,6 +69,10 @@ void GameMgr::Draw(){
 	
 	TaskMgr::getInstance().Draw();
 	mFPS->Draw();
+
+#ifdef __MY_DEBUG__
+	mDebug->Draw();
+#endif
 
 	TaskMgr::getInstance().LateUpdata();
 
