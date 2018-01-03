@@ -149,6 +149,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\scr\AppData\Character\CharacterBase.cpp" />
+    <ClCompile Include="..\scr\AppData\Character\Monster\Monster.cpp" />
+    <ClCompile Include="..\scr\AppData\SaveData\SaveData.cpp" />
     <ClCompile Include="..\scr\Common\Debug\Debug.cpp" />
     <ClCompile Include="..\scr\Common\Fade\Fade.cpp" />
     <ClCompile Include="..\scr\Common\FPS\FPS.cpp" />
@@ -173,6 +176,9 @@
     <ClCompile Include="mainWin32.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\scr\AppData\Character\CharacterBase.h" />
+    <ClInclude Include="..\scr\AppData\Character\Monster\Monster.h" />
+    <ClInclude Include="..\scr\AppData\SaveData\SaveData.h" />
     <ClInclude Include="..\scr\Common\Debug\Debug.h" />
     <ClInclude Include="..\scr\Common\Fade\Fade.h" />
     <ClInclude Include="..\scr\Common\FPS\FPS.h" />

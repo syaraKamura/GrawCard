@@ -73,9 +73,34 @@ void Debug::Draw() {
 	//一行目
 	DrawString(0, 0, "デバッグメニュー", GetColor(0, 255, 0));
 
+	//メモリのサイズと確保数
 	size_t nowAlloc = DxGetAllocSize();
 	float alloc = (nowAlloc - mOldAllocSize) / 1024.0f;
 	int allocNum = DxGetAllocNum() - mOldAllocNum;
 	DrawFormatString(DEBUG_WINDOW_LEFT, DEBUG_WINDOW_BOTTOM - 20, GetColor(255, 255, 255), "Alloc:%0.2fkb,NUM:%d", alloc,allocNum);
 
+}
+
+
+/*
+	出力ウィンドウに出力する(書式付き)
+	const char*		str
+	...
+*/
+void Debug::LogPrintf(const char* str, ...) {
+
+#ifdef __MY_DEBUG__ 
+	va_list ap;
+	char buffer[256];
+
+	va_start(ap, str);
+	vsprintfDx(buffer, str, ap);
+	va_end(ap);
+#ifdef __WINDOWS__
+	OutputDebugString(buffer);
+#elif __ANDROID__
+	printfDx(buffer);
+#endif	// __WINDOWS__
+
+#endif //__MY_DEBUG__
 }

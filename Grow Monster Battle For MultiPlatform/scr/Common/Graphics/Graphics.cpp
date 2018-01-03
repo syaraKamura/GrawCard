@@ -23,7 +23,7 @@ bool Graphics::Load(const char* path) {
 	mHandle = DxLib::LoadGraph(path);
 
 	if (mHandle == eGraphicsResult_ERROR) {
-
+		Debug::LogPrintf("[ERORR : FUNC %s] Graphic Load ERROR.(%s)",__func__,path);
 		return false;
 	}
 	DxLib::GetGraphSize(mHandle, &mWidth, &mHeight);
@@ -42,6 +42,7 @@ void Graphics::Draw(int posX, int posY, int alpha){
 
 	//画像データが存在していないならば処理を抜ける
 	if (mHandle <= eGraphicsResult_NONE) {
+		Debug::LogPrintf("[ERORR : (FUNC %s)] Graphic is Not Exist.",__func__);
 		return;
 	}
 

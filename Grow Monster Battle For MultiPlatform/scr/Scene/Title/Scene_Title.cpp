@@ -44,7 +44,7 @@ void Scene_Title::Initialize(){
 	//mFade->FadeIn(180);
 
 	//InitSound();	//サウンドの初期化
-	SetUseASyncLoadFlag(TRUE);
+	//SetUseASyncLoadFlag(TRUE);
 
 
 	//setSound(0,"data/system/sound/bgm/瑠璃の森.mp3");	//BGM読み込み
@@ -68,12 +68,13 @@ void Scene_Title::Initialize(){
 	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_NewGame], 1);
 	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_Continue], 1);
 
+	mGraphic[eImg_Back]->SetVisible(false);
 	mGraphic[eImg_NewGame]->SetPosition(245,420);
 	mGraphic[eImg_NewGame]->SetVisible(false);
 	mGraphic[eImg_Continue]->SetPosition(145, 480);
 	mGraphic[eImg_Continue]->SetVisible(false);
 
-	SetUseASyncLoadFlag(FALSE);
+	//SetUseASyncLoadFlag(FALSE);
 
 	mWork.isLoadSaveData = false;
 
@@ -123,6 +124,7 @@ bool Scene_Title::Updata(){
 	case eState_Initialize:
 		NexetState(eState_Main,eFadeType_In,180);
 		mGraphic[eImg_NewGame]->SetVisible(true);
+		mGraphic[eImg_Back]->SetVisible(true);
 		break;
 	case eState_Fade:
 		if (Fade::GetInstance()->IsFadeEnd() == false) return true;

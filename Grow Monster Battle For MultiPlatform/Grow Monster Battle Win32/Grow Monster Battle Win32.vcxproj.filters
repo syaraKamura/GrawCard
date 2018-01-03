@@ -58,6 +58,18 @@
     <Filter Include="ソース ファイル\scr\Common\Debug">
       <UniqueIdentifier>{eb14c4c4-8149-4310-881f-cdaaa1132c51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\AppData">
+      <UniqueIdentifier>{15bbe84c-e456-4503-99f2-49fff0c5c52b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\AppData\Character">
+      <UniqueIdentifier>{6f644666-712c-43d0-8225-0a1f6c0f4ac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\AppData\Character\Monster">
+      <UniqueIdentifier>{5597cdff-1d36-4771-a1b5-70f75eb21654}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\AppData\SaveData">
+      <UniqueIdentifier>{f469656b-8e3d-4fdb-b722-ae1fac079a20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -125,6 +137,15 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\Debug\Debug.cpp">
       <Filter>ソース ファイル\scr\Common\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\SaveData\SaveData.cpp">
+      <Filter>ソース ファイル\scr\AppData\SaveData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\Character\CharacterBase.cpp">
+      <Filter>ソース ファイル\scr\AppData\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\Character\Monster\Monster.cpp">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +220,15 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\GameCommon.h">
       <Filter>ソース ファイル\scr\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\AppData\SaveData\SaveData.h">
+      <Filter>ソース ファイル\scr\AppData\SaveData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\AppData\Character\CharacterBase.h">
+      <Filter>ソース ファイル\scr\AppData\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\AppData\Character\Monster\Monster.h">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

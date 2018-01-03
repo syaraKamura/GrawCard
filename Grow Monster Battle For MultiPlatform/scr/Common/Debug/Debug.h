@@ -74,6 +74,11 @@ public:
 	bool Updata();
 	void Draw();
 
+public :
+
+	//静的メソッド
+
+	static void LogPrintf(const char* str, ...);
 };
 
 

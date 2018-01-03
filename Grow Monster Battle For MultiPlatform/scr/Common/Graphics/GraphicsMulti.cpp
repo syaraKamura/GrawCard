@@ -25,7 +25,7 @@ bool GraphicsMulti::Load(const char* path){
 bool GraphicsMulti::Load(const char* path, int scrX, int scrY) {
 	int handle = DxLib::LoadGraph(path);
 	if (handle == eGraphicsResult_ERROR) {
-
+		Debug::LogPrintf("[ERORR: FUNC %s] Graphic Load ERROR.(%s)",__func__, path);
 		return false;
 	}
 	return Add(handle, scrX, scrY);
@@ -51,7 +51,7 @@ bool GraphicsMulti::Add(int handle, int scrX, int scrY) {
 		return true;
 	}
 	else {
-
+		Debug::LogPrintf("[ERORR : FUNC %s] This Graphic Data is Not Exits.",__func__);
 		return false;
 	}
 }

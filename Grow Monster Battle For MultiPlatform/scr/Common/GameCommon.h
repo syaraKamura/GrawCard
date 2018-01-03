@@ -9,6 +9,8 @@
 #include "Common/Graphics/GraphicsMulti.h"
 #include "Common/Graphics/GraphicsDrawMgr.h"
 
+#include "Common/Debug/Debug.h"
+
 #include <math.h>
 #include <string.h>
 
