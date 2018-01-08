@@ -18,36 +18,38 @@ class CharacterBase {
 
 protected:
 
-	int mLevel;
+	static const int LEVEL_MIN = 1;			//最小レベル
+	static const int LEVEL_MAX = 100;		//最大レベル
+	static const int COST_MIN = 1;			//最小コスト
+	static const int COST_MAX = 999;		//最大コスト
 
-	char mName[256];
+protected:
 
-	int mHp;
-	int mHpMax;
-	int mMp;
-	int mMpMax;
+	int mLevel;			//レベル
+	int mExp;			//経験値
+	int mNextExp;		//レベルアップに必要な経験値
+	
+	char mName[256];	//名前
+	
+	int mCost;			//コスト
 
-	int mAttack;
-	int mDeffence;
-	int mSpeed;
 
-public :
+public:
 
 	virtual ~CharacterBase();
 	CharacterBase();
 
+	void SetName(const char* name);
 	void SetLevel(int level);
-	void SetHp(int hp);
-	void SetHpMax(int hpMax);
-	void SetMp(int mp);
-	void SetMpMax(int mpMax);
+	void SetExp(int exp);
+	void SetNextExp(int nextExp);
+	void SetCost(int cost);
 
-	void SetAttack(int attack);
-	void SetDeffence(int deffence);
-	void SetSpeed(int speed);
-
-
-
+	const char* GetName();
+	int GetLevel();
+	int GetExp();
+	int GetNextExp();
+	int GetCost();
 };
 
 #endif // __CHARACTER_BASE_H__

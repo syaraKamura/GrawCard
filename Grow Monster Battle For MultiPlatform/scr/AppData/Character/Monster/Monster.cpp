@@ -1,8 +1,8 @@
 ﻿/*
-				ファイル名		:
+				ファイル名		:Monster.cpp
 				作成者			:
-				作成日時		:
-				ソース説明		:
+				作成日時		:2018/01/04
+				ソース説明		:モンスターデータ
 				
 				
 				備考
@@ -11,26 +11,89 @@
 				
 !*/
 
-//	------- インクルード宣言
+#include "Common/GameCommon.h"
+#include "Monster.h"
 
-//	------- 固定定数宣言
+Monster::Monster() : CharacterBase() {
 
-//	-------	マクロ定義
+	SetLevel(LEVEL_MIN);
+	SetName("None");
+	SetType(eType_None);
+	SetHp(10);
+	SetHpMax(GetHp());
+	SetMp(10);
+	SetMpMax(GetMp());
+	SetAttack(12);
+	SetDeffence(8);
+	SetSpeed(13);
+	
 
-//	------- 列挙体
+}
 
-//	------- 構造体&共用体
+Monster::~Monster() {
 
-//	------- データテーブル
+}
 
-//	------- スタティック変数宣言
+void Monster::SetType(eType type) {
+	mType = type;
+}
 
-//	------- グローバル変数宣言
+void Monster::SetHp(int hp) {
+	mHp = hp;
+}
 
-//	------- スタティックプロトタイプ宣言(内部関数)
+void Monster::SetHpMax(int hpMax) {
+	mHpMax = hpMax;
+}
 
-//	------- プロトタイプ宣言していないスタティック関数(内部関数)
+void Monster::SetMp(int mp) {
+	mMp = mp;
+}
 
-//	------- グローバル関数
+void Monster::SetMpMax(int mpMax) {
+	mMpMax = mpMax;
+}
 
+void Monster::SetAttack(int attack) {
+	mAttack = attack;
+}
 
+void Monster::SetDeffence(int deffence) {
+	mDeffence = deffence;
+}
+
+void Monster::SetSpeed(int speed) {
+	mSpeed = speed;
+}
+
+Monster::eType Monster::GetType() {
+	return mType;
+}
+
+int Monster::GetHp() {
+	return mHp;
+}
+
+int Monster::GetHpMax() {
+	return mHpMax;
+}
+
+int Monster::GetMp() {
+	return mMp;
+}
+
+int Monster::GetMpMax() {
+	return mMpMax;
+}
+
+int Monster::GetAttack() {
+	return mAttack;
+}
+
+int Monster::GetDeffence() {
+	return mDeffence;
+}
+
+int Monster::GetSpeed() {
+	return mSpeed;
+}

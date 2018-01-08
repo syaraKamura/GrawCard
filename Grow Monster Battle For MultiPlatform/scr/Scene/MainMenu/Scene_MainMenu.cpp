@@ -25,6 +25,8 @@ Scene_MainMenu::Scene_MainMenu(ISceneBase* changer) : SceneBase(changer) {
 void Scene_MainMenu::Initialize() {
 
 	mState = eState_Initialize;
+	mMenu = eMenu_MainMenu;
+	mNextMenu = eMenu_None;
 
 }
 
@@ -60,9 +62,65 @@ bool Scene_MainMenu::Updata() {
 
 void Scene_MainMenu::Draw() {
 
+	if (mState < eState_Fade) return;
+
+	switch (mMenu) {
+	case eMenu_MainMenu:
+
+		break;
+	case eMenu_Quest:
+
+		break;
+	case eMenu_PlayerStatus:
+
+		break;
+	case eMenu_Monster:
+
+		break;
+	case eMenu_Gatya:
+
+		break;
+	case eMenu_Shop:
+
+		break;
+	default:
+		Debug::LogPrintf("不正な値です。(%d)", (int)mMenu);
+		break;
+	}
+
 }
 
 bool Scene_MainMenu::UpdataProc() {
+
+	if (mNextMenu != eMenu_None) {
+		mMenu = mNextMenu;
+		mNextMenu = eMenu_None;
+	}
+
+	switch (mMenu) {
+	case eMenu_MainMenu:
+
+		break;
+	case eMenu_Quest:
+
+		break;
+	case eMenu_PlayerStatus:
+
+		break;
+	case eMenu_Monster:
+
+		break;
+	case eMenu_Gatya:
+
+		break;
+	case eMenu_Shop:
+
+		break;
+	default:
+		Debug::LogPrintf("不正な値です。(%d)",(int)mMenu);
+		break;
+	}
+
 
 #ifdef __WINDOWS__
 

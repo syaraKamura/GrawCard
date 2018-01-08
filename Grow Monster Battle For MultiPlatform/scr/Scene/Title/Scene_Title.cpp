@@ -3,6 +3,7 @@
 #include "Scene/ISceneBase.h"
 #include "Scene_Title.h"
 #include "Common/Graphics/Graphics.h"
+#include "AppData/AppData.h"
 
 
 #define PI 3.14
@@ -71,12 +72,16 @@ void Scene_Title::Initialize(){
 	mGraphic[eImg_Back]->SetVisible(false);
 	mGraphic[eImg_NewGame]->SetPosition(245,420);
 	mGraphic[eImg_NewGame]->SetVisible(false);
-	mGraphic[eImg_Continue]->SetPosition(145, 480);
+	mGraphic[eImg_Continue]->SetPosition(245, 500);
 	mGraphic[eImg_Continue]->SetVisible(false);
 
 	//SetUseASyncLoadFlag(FALSE);
 
 	mWork.isLoadSaveData = false;
+
+	if (AppData::GetInstance().Exits() == true) {
+		mWork.isLoadSaveData = true;
+	}
 
 	//MonsterData_Initalize();	//初期化
 
@@ -92,11 +97,9 @@ void Scene_Title::Initialize(){
 
 	//セーブデータの読み込み
 	//SaveData読み込み
-	//if(GameData_Exists() == false){
-		mWork.isLoadSaveData = false;
-	//}else{
-	//	mWork.isLoadSaveData = true;
-	//}
+	if (AppData::GetInstance().Exits() == true) {
+		mWork.isLoadSaveData = true;
+	}
 	
 	mWork.counter = 0;
 	mWork.selectY = 0;
@@ -125,6 +128,10 @@ bool Scene_Title::Updata(){
 		NexetState(eState_Main,eFadeType_In,180);
 		mGraphic[eImg_NewGame]->SetVisible(true);
 		mGraphic[eImg_Back]->SetVisible(true);
+		if (mWork.isLoadSaveData == true) {
+			mGraphic[eImg_Continue]->SetVisible(true);
+		}
+
 		break;
 	case eState_Fade:
 		if (Fade::GetInstance()->IsFadeEnd() == false) return true;
@@ -248,7 +255,7 @@ bool Scene_Title::UpdataProc() {
 	if (mWork.isLoadSaveData == true) {
 		for (int i = 0; i < 2; i++) {
 			if (mWork.selectY == i) {
-				float alpha = (1 + sin(PI / 2.0f / 30.0f * mWork.counter) / 2.0f) * 255.0f;
+				float alpha = (1 + sin(PI / 2.0f / 20.0f * mWork.counter) / 2.0f) * 255.0f;
 				mGraphic[i + eImg_NewGame]->SetAlpha(alpha);
 				
 			}

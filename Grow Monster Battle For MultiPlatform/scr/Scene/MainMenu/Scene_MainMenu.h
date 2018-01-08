@@ -35,8 +35,23 @@ private :
 		eFadeType_None,
 	};
 
+	enum eMenu {
+		eMenu_MainMenu,
+		eMenu_Quest,
+		eMenu_PlayerStatus,
+		eMenu_Monster,
+		eMenu_Gatya,
+		eMenu_Shop,
+
+		eMenu_None,
+
+	};
+
 	eState mState;
 	eState mNextState;
+
+	eMenu mMenu;
+	eMenu mNextMenu;
 
 private:
 

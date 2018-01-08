@@ -74,6 +74,21 @@
     <ClCompile Include="..\..\scr\AppData\Character\CharacterBase.cpp">
       <Filter>scr\AppData\Character</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\AppData\SaveData\SaveData_android.cpp">
+      <Filter>scr\AppData\SaveData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\AppData\Character\Player\Player.cpp">
+      <Filter>scr\AppData\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\AppData\AppData.cpp">
+      <Filter>scr\AppData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\AppData\Character\Monster\MonsterBox.cpp">
+      <Filter>scr\AppData\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\AppData\Character\Monster\MonsterDeck.cpp">
+      <Filter>scr\AppData\Character\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="scr">
@@ -126,6 +141,12 @@
     </Filter>
     <Filter Include="scr\AppData\Character\Monster">
       <UniqueIdentifier>{94ef3217-cb3b-45d2-8aad-bbe50c541159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\AppData\SaveData">
+      <UniqueIdentifier>{e85b7c74-1133-46fb-a37e-385631758b78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\AppData\Character\Player">
+      <UniqueIdentifier>{8d5968ac-2e64-4ba7-bd5c-fff97ede928f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +227,21 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\AppData\Character\CharacterBase.h">
       <Filter>scr\AppData\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\AppData\SaveData\SaveData.h">
+      <Filter>scr\AppData\SaveData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\AppData\Character\Player\Player.h">
+      <Filter>scr\AppData\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\AppData\AppData.h">
+      <Filter>scr\AppData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\AppData\Character\Monster\MonsterBox.h">
+      <Filter>scr\AppData\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\AppData\Character\Monster\MonsterDeck.h">
+      <Filter>scr\AppData\Character\Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

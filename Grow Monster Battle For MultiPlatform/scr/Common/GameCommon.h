@@ -12,6 +12,7 @@
 #include "Common/Debug/Debug.h"
 
 #include <math.h>
+#include <stdio.h>
 #include <string.h>
 
 #ifdef __WINDOWS__
@@ -26,8 +27,8 @@
 #define WINDOW_WIDTH 900
 #define WINDOW_HEIGHT 750
 
-#define Delete(x) {if(x!= NULL){delete x;x = 0;}}
-#define DeleteArry(x) {if(x!= NULL){delete[] x;x = 0;}}
+#define Delete(x) {if(x != NULL){delete x;x = NULL;}}
+#define DeleteArry(x) {if(x!= NULL){delete[] x;x = NULL;}}
 
 typedef void(*pointer_func)(void);
 

@@ -7,6 +7,7 @@
 #include "Test/AITest.h"
 #include "Common/Graphics/GraphicsMulti.h"
 #include "Common/Graphics/Graphics.h"
+#include "AppData/SaveData/SaveData.h"
 
 
 const int MAP_WIDTH = 41;
@@ -47,6 +48,7 @@ Enemy_t enemy[ENEMY_KIND_NUM];
 
 Graphics* mGraphics;
 GraphicsMulti* mGraphicsMulti;
+SaveData* mData;
 int posX = 0;
 int vecX = 4;
 
@@ -164,6 +166,9 @@ void Map_Initialize(){
 	mGraphicsMulti->Load("Resources/Graphics/UI/start.png", 0, 100);
 	mGraphicsMulti->Load("Resources/Graphics/UI/start.png", 0, 50);
 	mGraphicsMulti->Load("Resources/Graphics/UI/start.png", -200, 0);
+
+	mData = new SaveData();
+
 }
 
 /*
@@ -344,7 +349,9 @@ void AITest::Initialize(){
 	Map_Initialize();
 	Enemy_Initialize();
 	
-
+	
+	mData->GetMonsterBox()->Add(* new Monster());
+	mData->GetMonsterBox()->ChangeUseState(0, MonsterBox::eUseState_UnUse);
 }
 
 void AITest::Finalize(){
@@ -357,14 +364,43 @@ void AITest::Finalize(){
 
 }
 
-bool AITest::Updata(){
+bool AITest::Updata() {
 
 #ifdef __WINDOWS__
 	//テストメニューへ戻る
-	if(Keyboard_Press(KEY_INPUT_X)){
+	if (Keyboard_Press(KEY_INPUT_X)) {
 		mNextScene->SceneChange(ISceneBase::eScene_TestMenu);
 		return true;
 	}
+
+	if (Keyboard_Press(KEY_INPUT_Z)) {
+		mData->Save(*mData);
+	}
+	if (Keyboard_Press(KEY_INPUT_A)) {
+		mData = mData->Load();
+	}
+	if (Keyboard_Press(KEY_INPUT_Q)) {
+		static int num = 0;
+		Monster mon;
+		mon.SetName("テスト");
+		mon.SetLevel(++num);
+		mData->GetMonsterBox()->Add(mon);
+	}
+
+	if (Keyboard_Press(KEY_INPUT_W)) {
+		static int num = 0;
+		MonsterBox* monBox = mData->GetMonsterBox();
+		if (monBox->UseState(0) == MonsterBox::eUseState_UnUse) {
+			monBox->ChangeUseState(0, MonsterBox::eUseState_Use);
+			Monster mon = monBox->GetMonster(0);
+			
+			Player* player = mData->GetPlayer();
+			player->SetMonster(0, mon);
+
+		}
+	}
+
+
 #endif
 	Enemy_Updata();
 

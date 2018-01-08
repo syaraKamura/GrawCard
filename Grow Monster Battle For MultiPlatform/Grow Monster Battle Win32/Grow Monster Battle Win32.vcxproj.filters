@@ -70,6 +70,9 @@
     <Filter Include="ソース ファイル\scr\AppData\SaveData">
       <UniqueIdentifier>{f469656b-8e3d-4fdb-b722-ae1fac079a20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\AppData\Character\Player">
+      <UniqueIdentifier>{c1d97173-99c4-4c37-8d15-9e207ae24879}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -138,13 +141,25 @@
     <ClCompile Include="..\scr\Common\Debug\Debug.cpp">
       <Filter>ソース ファイル\scr\Common\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="..\scr\AppData\SaveData\SaveData.cpp">
-      <Filter>ソース ファイル\scr\AppData\SaveData</Filter>
-    </ClCompile>
     <ClCompile Include="..\scr\AppData\Character\CharacterBase.cpp">
       <Filter>ソース ファイル\scr\AppData\Character</Filter>
     </ClCompile>
     <ClCompile Include="..\scr\AppData\Character\Monster\Monster.cpp">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\SaveData\SaveData_win32.cpp">
+      <Filter>ソース ファイル\scr\AppData\SaveData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\Character\Player\Player.cpp">
+      <Filter>ソース ファイル\scr\AppData\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\AppData.cpp">
+      <Filter>ソース ファイル\scr\AppData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\Character\Monster\MonsterBox.cpp">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\Character\Monster\MonsterDeck.cpp">
       <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
     </ClCompile>
   </ItemGroup>
@@ -228,6 +243,18 @@
       <Filter>ソース ファイル\scr\AppData\Character</Filter>
     </ClInclude>
     <ClInclude Include="..\scr\AppData\Character\Monster\Monster.h">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\AppData\Character\Player\Player.h">
+      <Filter>ソース ファイル\scr\AppData\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\AppData\AppData.h">
+      <Filter>ソース ファイル\scr\AppData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\AppData\Character\Monster\MonsterBox.h">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\AppData\Character\Monster\MonsterDeck.h">
       <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
     </ClInclude>
   </ItemGroup>
