@@ -5,6 +5,9 @@
 #ifdef __MY_DEBUG__
 #include "Scene/ISceneBase.h"
 #include "Test/AITest.h"
+
+#include "Common/Input/Joypad.h"
+
 #include "Common/Graphics/GraphicsMulti.h"
 #include "Common/Graphics/Graphics.h"
 #include "AppData/SaveData/SaveData.h"
@@ -49,6 +52,8 @@ Enemy_t enemy[ENEMY_KIND_NUM];
 Graphics* mGraphics;
 GraphicsMulti* mGraphicsMulti;
 SaveData* mData;
+
+
 int posX = 0;
 int vecX = 4;
 
@@ -159,7 +164,8 @@ void Map_Initialize(){
 	}
 
 	mGraphics = new Graphics();
-	mGraphics->Load("Resources/Graphics/UI/start.png");
+	mGraphics->Load("Resources/Graphics/BG/menu_ui_re.png");
+	mGraphics->SetAlpha(200);
 
 	mGraphicsMulti = new GraphicsMulti();
 	mGraphicsMulti->Load("Resources/Graphics/UI/start.png", 0, 0);
@@ -168,6 +174,9 @@ void Map_Initialize(){
 	mGraphicsMulti->Load("Resources/Graphics/UI/start.png", -200, 0);
 
 	mData = new SaveData();
+
+	GraphicsDrawMgr::GetInstance()->Add(mGraphics, 0);
+	GraphicsDrawMgr::GetInstance()->Add(mGraphicsMulti,1);
 
 }
 
@@ -191,10 +200,6 @@ static void Map_Draw(){
 
 		}
 	}
-
-	//mGraphics->Draw(20, 100, 255);
-
-	mGraphicsMulti->Draw(posX, 200, 255);
 
 }
 
@@ -346,29 +351,41 @@ AITest::AITest(ISceneBase* changer) : SceneBase(changer){
 
 void AITest::Initialize(){
 	
+	mJoyPad = new Joypad();
+
 	Map_Initialize();
 	Enemy_Initialize();
 	
 	
 	mData->GetMonsterBox()->Add(* new Monster());
 	mData->GetMonsterBox()->ChangeUseState(0, MonsterBox::eUseState_UnUse);
+
+
 }
 
 void AITest::Finalize(){
 
-	mGraphics->Relese();
-	mGraphicsMulti->Relese();
+	mGraphics->ReleseRequest();
+	mGraphicsMulti->ReleseRequest();
 
-	Delete(mGraphics);
-	Delete(mGraphicsMulti);
+	Delete(mJoyPad);
+
+
+	//mGraphics->Relese();
+	//mGraphicsMulti->Relese();
+
+	//Delete(mGraphics);
+	//Delete(mGraphicsMulti);
 
 }
 
 bool AITest::Updata() {
 
+	mJoyPad->Update();
+
 #ifdef __WINDOWS__
 	//テストメニューへ戻る
-	if (Keyboard_Press(KEY_INPUT_X)) {
+	if (Keyboard_Press(KEY_INPUT_X) || mJoyPad->Press(Joypad::eJoypadXInput_X)) {
 		mNextScene->SceneChange(ISceneBase::eScene_TestMenu);
 		return true;
 	}
@@ -400,6 +417,18 @@ bool AITest::Updata() {
 		}
 	}
 
+	//mGraphics->Draw(20, 100, 255);
+	mGraphics->SetPosition(WINDOW_WIDTH / 2, 200);
+	//mGraphicsMulti->Draw(posX, 200, 255);
+	mGraphicsMulti->SetPosition(posX, 200);
+
+	static int count = 0;
+	static int timer = 0;
+	timer++;
+	if (timer % 60 == 0) {
+		mGraphics->SetPriorty(count % 2 * 10);
+		count++;
+	}
 
 #endif
 	Enemy_Updata();
@@ -408,7 +437,11 @@ bool AITest::Updata() {
 		vecX *= -1;
 	}
 
-	posX += vecX;
+	//posX += vecX;
+
+	posX += mJoyPad->GetLeftAnalogAxis(Joypad::eAnalogAxis_Horizontal) * 10.0f;
+
+	mGraphics->SetAngleRadian(mJoyPad->GetLeftAnalogAngleRadian());
 
 	return true;
 }
@@ -418,6 +451,13 @@ void AITest::Draw(){
 	
 	Map_Draw();
 	Enemy_Draw();
+
+	if (mJoyPad->On(Joypad::eJoypadXInput_A)) {
+		DrawString(0, 100, "入力されている", GetColor(255, 0, 0));
+	}
+
+	DrawFormatString(0, 600, GetColor(0, 255, 0), "度数  : %f", mJoyPad->GetLeftAnalogAngleDegree());
+	DrawFormatString(0, 620, GetColor(0, 255, 0), "弧度法: %f", mJoyPad->GetLeftAnalogAngleRadian());
 
 }
 

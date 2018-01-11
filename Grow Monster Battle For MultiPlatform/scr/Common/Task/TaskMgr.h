@@ -22,6 +22,33 @@
 
 class TaskMgr {
 
+public :
+
+	/*
+		óDêÊèáà 
+
+
+
+	*/
+	enum ePriorty {
+		ePriorty_0,
+		ePriorty_1,
+		ePriorty_2,
+		ePriorty_3,
+		ePriorty_4,
+		ePriorty_5,
+		ePriorty_6,
+		ePriorty_7,
+		ePriorty_Defaul,
+		ePriorty_9,
+		ePriorty_10,
+		ePriorty_11,
+		ePriorty_12,
+		ePriorty_13,
+		ePriorty_Graphics,
+		ePriorty_Fade,	
+	};
+
 private:
 
 	unsigned int mOrder;

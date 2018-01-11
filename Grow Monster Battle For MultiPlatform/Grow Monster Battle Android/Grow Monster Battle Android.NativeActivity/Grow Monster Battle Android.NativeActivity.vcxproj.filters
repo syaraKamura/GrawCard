@@ -89,6 +89,18 @@
     <ClCompile Include="..\..\scr\AppData\Character\Monster\MonsterDeck.cpp">
       <Filter>scr\AppData\Character\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Input\InputBase.cpp">
+      <Filter>scr\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Input\Joypad.cpp">
+      <Filter>scr\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Input\Keybaord.cpp">
+      <Filter>scr\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Input\Touch.cpp">
+      <Filter>scr\Common\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="scr">
@@ -147,6 +159,9 @@
     </Filter>
     <Filter Include="scr\AppData\Character\Player">
       <UniqueIdentifier>{8d5968ac-2e64-4ba7-bd5c-fff97ede928f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Common\Input">
+      <UniqueIdentifier>{7a10576a-88d3-4720-a24c-41c71de1a86b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +257,18 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\AppData\Character\Monster\MonsterDeck.h">
       <Filter>scr\AppData\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Input\InputBase.h">
+      <Filter>scr\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Input\Joypad.h">
+      <Filter>scr\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Input\Keybaord.h">
+      <Filter>scr\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Input\Touch.h">
+      <Filter>scr\Common\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

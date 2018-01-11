@@ -107,8 +107,7 @@ bool SceneMgr::SceneChangeProc(){
 	if(mNextScene != ISceneBase::eScene_None){
 		
 		mScene->Finalize();
-		delete mScene;
-		mScene = NULL;
+		Delete(mScene);
 
 
 		mPrevScene = mNowScene;

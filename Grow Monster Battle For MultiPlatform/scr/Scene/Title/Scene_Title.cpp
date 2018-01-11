@@ -70,9 +70,10 @@ void Scene_Title::Initialize(){
 	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_Continue], 1);
 
 	mGraphic[eImg_Back]->SetVisible(false);
-	mGraphic[eImg_NewGame]->SetPosition(245,420);
+	mGraphic[eImg_Back]->SetPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+	mGraphic[eImg_NewGame]->SetPosition(WINDOW_WIDTH / 2,420);
 	mGraphic[eImg_NewGame]->SetVisible(false);
-	mGraphic[eImg_Continue]->SetPosition(245, 500);
+	mGraphic[eImg_Continue]->SetPosition(WINDOW_WIDTH / 2, 500);
 	mGraphic[eImg_Continue]->SetVisible(false);
 
 	//SetUseASyncLoadFlag(FALSE);

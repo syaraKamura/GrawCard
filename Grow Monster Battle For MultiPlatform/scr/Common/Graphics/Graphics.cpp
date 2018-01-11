@@ -38,7 +38,7 @@ void Graphics::Relese() {
 	}
 }
 
-void Graphics::Draw(int posX, int posY, int alpha){
+void Graphics::Draw(int posX, int posY, int alpha, double angle, double scale){
 
 	//画像データが存在していないならば処理を抜ける
 	if (mHandle <= eGraphicsResult_NONE) {
@@ -48,9 +48,11 @@ void Graphics::Draw(int posX, int posY, int alpha){
 
 	SetPosition(posX, posY);
 	SetAlpha(alpha);
+	SetAngleRadian(angle);
+	SetScale(scale);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
-	DxLib::DrawGraph(mPosX, mPosY, mHandle, TRUE);
+	DxLib::DrawRotaGraph(mPosX, mPosY, mScale, mAngle, mHandle, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 }

@@ -18,6 +18,8 @@ GraphicsDraw::GraphicsDraw() {
 	mPosY = 0;
 	mAlpha = 255;
 	mPrio = 0;
+	mScale = 1.0;
+	mAngle = 0.0;
 
 	mIsVisible = true;
 	mIsRelese = false;
@@ -39,6 +41,9 @@ int GraphicsDraw::GetAlpah() {
 }
 
 void GraphicsDraw::SetAlpha(int alpha) { 
+	if (alpha < 0) {
+		alpha = 0;
+	}
 	mAlpha = alpha; 
 }
 
@@ -53,6 +58,49 @@ void GraphicsDraw::SetPriorty(int prio) {
 
 int GraphicsDraw::GetPriorty() {
 	return mPrio;
+}
+
+double GraphicsDraw::GetScale() {
+	return mScale;
+}
+
+/*
+	弧度法で角度を返却する
+*/
+double GraphicsDraw::GetAngleRadian() {
+	return mAngle;
+}
+
+/*
+	度数法で角度を返却する
+*/
+double GraphicsDraw::GetAngleDegree() {
+	const double PI = 3.14159265359;
+	return mAngle * PI / 180.0;
+}
+
+void GraphicsDraw::SetScale(double scale) {
+	
+	if (scale < 0.1) {
+		scale = 0.1;
+	}
+
+	mScale = scale;
+}
+
+/*
+	弧度法で角度を設定する
+*/
+void GraphicsDraw::SetAngleRadian(double rad) {
+	mAngle = rad;
+}
+
+/*
+	度数法で角度を設定する
+*/
+void GraphicsDraw::SetAngleDegree(double deg) {
+	const double PI = 3.14159265359;
+	mAngle = deg * 180.0 / PI;
 }
 
 

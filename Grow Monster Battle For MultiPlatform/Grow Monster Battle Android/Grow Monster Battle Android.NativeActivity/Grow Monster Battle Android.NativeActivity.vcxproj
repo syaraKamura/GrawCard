@@ -225,6 +225,10 @@
     <ClCompile Include="..\..\scr\Common\Graphics\GraphicsDraw.cpp" />
     <ClCompile Include="..\..\scr\Common\Graphics\GraphicsDrawMgr.cpp" />
     <ClCompile Include="..\..\scr\Common\Graphics\GraphicsMulti.cpp" />
+    <ClCompile Include="..\..\scr\Common\Input\InputBase.cpp" />
+    <ClCompile Include="..\..\scr\Common\Input\Joypad.cpp" />
+    <ClCompile Include="..\..\scr\Common\Input\Keybaord.cpp" />
+    <ClCompile Include="..\..\scr\Common\Input\Touch.cpp" />
     <ClCompile Include="..\..\scr\Common\Task\TaskBase.cpp" />
     <ClCompile Include="..\..\scr\Common\Task\TaskMgr.cpp" />
     <ClCompile Include="..\..\scr\Scene\Boot\Scene_Boot.cpp" />
@@ -257,6 +261,10 @@
     <ClInclude Include="..\..\scr\Common\Graphics\GraphicsDraw.h" />
     <ClInclude Include="..\..\scr\Common\Graphics\GraphicsDrawMgr.h" />
     <ClInclude Include="..\..\scr\Common\Graphics\GraphicsMulti.h" />
+    <ClInclude Include="..\..\scr\Common\Input\InputBase.h" />
+    <ClInclude Include="..\..\scr\Common\Input\Joypad.h" />
+    <ClInclude Include="..\..\scr\Common\Input\Keybaord.h" />
+    <ClInclude Include="..\..\scr\Common\Input\Touch.h" />
     <ClInclude Include="..\..\scr\Common\Task\Task.h" />
     <ClInclude Include="..\..\scr\Common\Task\TaskBase.h" />
     <ClInclude Include="..\..\scr\Common\Task\TaskMgr.h" />

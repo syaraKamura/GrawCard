@@ -22,8 +22,8 @@ Scene_Boot::Scene_Boot(ISceneBase* changer):SceneBase(changer){
 }
 
 void Scene_Boot::Initialize(){
-	TaskMgr::getInstance().Add(Fade::GetInstance(),1000);
-	TaskMgr::getInstance().Add(GraphicsDrawMgr::GetInstance(), 999);
+	TaskMgr::getInstance().Add(Fade::GetInstance(),TaskMgr::ePriorty_Fade);
+	TaskMgr::getInstance().Add(GraphicsDrawMgr::GetInstance(), TaskMgr::ePriorty_Graphics);
 }
 
 void Scene_Boot::Finalize(){

@@ -31,7 +31,7 @@ public:
 	
 	void Relese();
 
-	void Draw(int posX, int posY, int alpha) override;
+	void Draw(int posX, int posY, int alpha, double angle, double scale) override;
 
 };
 

@@ -73,6 +73,9 @@
     <Filter Include="ソース ファイル\scr\AppData\Character\Player">
       <UniqueIdentifier>{c1d97173-99c4-4c37-8d15-9e207ae24879}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Input">
+      <UniqueIdentifier>{f538b051-6719-4e63-b504-691cf5021072}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -161,6 +164,18 @@
     </ClCompile>
     <ClCompile Include="..\scr\AppData\Character\Monster\MonsterDeck.cpp">
       <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Input\InputBase.cpp">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Input\Joypad.cpp">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Input\Keybaord.cpp">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Input\Touch.cpp">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +271,18 @@
     </ClInclude>
     <ClInclude Include="..\scr\AppData\Character\Monster\MonsterDeck.h">
       <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Input\InputBase.h">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Input\Joypad.h">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Input\Keybaord.h">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Input\Touch.h">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

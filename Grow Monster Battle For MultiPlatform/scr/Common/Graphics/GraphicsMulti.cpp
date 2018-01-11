@@ -59,12 +59,15 @@ bool GraphicsMulti::Add(int handle, int scrX, int scrY) {
 /*
 	描画
 */
-void GraphicsMulti::Draw(int posX, int posY, int alpha){
+void GraphicsMulti::Draw(int posX, int posY, int alpha, double angle, double scale){
 
 	if (mHandleList.empty() == true || mHandleList.size() <= 0) return;
 
 	SetPosition(posX, posY);
 	SetAlpha(alpha);
+	SetAngleRadian(angle);
+	SetScale(scale);
+
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
 	for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
@@ -77,7 +80,7 @@ void GraphicsMulti::Draw(int posX, int posY, int alpha){
 		int drawPosX = (*it).posX + mPosX;
 		int drawPosY = (*it).posY + mPosY;
 
-		DxLib::DrawGraph(drawPosX, drawPosY, (*it).handle, TRUE);
+		DxLib::DrawRotaGraph(mPosX, mPosY, mScale, mAngle, (*it).handle, TRUE);
 	}
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

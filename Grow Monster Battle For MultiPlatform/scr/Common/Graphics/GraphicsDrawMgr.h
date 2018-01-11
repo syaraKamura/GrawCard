@@ -27,11 +27,12 @@ class GraphicsDrawMgr : public TaskBase {
 
 private:
 	std::list<GraphicsDraw*>* mList;
-
+	std::list<GraphicsDraw*>* mKillList;	//削除用リスト
 private:
 
 	GraphicsDrawMgr();
 	
+	void DeleteExecute();
 
 public:
 
