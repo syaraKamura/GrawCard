@@ -462,6 +462,8 @@ void AITest::Draw(){
 
 	DrawFormatString(0, 600, GetColor(0, 255, 0), "度数  : %f", mJoyPad->GetLeftAnalogAngleDegree());
 	DrawFormatString(0, 620, GetColor(0, 255, 0), "弧度法: %f", mJoyPad->GetLeftAnalogAngleRadian());
+	DrawFormatString(0, 640, GetColor(0, 255, 0), "フリック度数  : %f", mTouch->GetFlickAngleDegree(Touch::eTouchInput_1));
+	DrawFormatString(0, 660, GetColor(0, 255, 0), "フリック弧度法: %f", mTouch->GetFlickAngleRadian(Touch::eTouchInput_1));
 
 }
 
