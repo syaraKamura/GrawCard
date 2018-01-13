@@ -456,7 +456,7 @@ void AITest::Draw(){
 	Map_Draw();
 	Enemy_Draw();
 
-	if (mJoyPad->On(Joypad::eJoypadXInput_A) || mTouch->On(Touch::eTouchInput_1)) {
+	if (mJoyPad->Relese(Joypad::eJoypadXInput_A) || mTouch->On(Touch::eTouchInput_1)) {
 		DrawString(0, 100, "“ü—Í‚³‚ê‚Ä‚¢‚é", GetColor(255, 0, 0));
 	}
 

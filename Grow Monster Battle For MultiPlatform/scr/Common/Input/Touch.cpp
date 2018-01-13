@@ -96,9 +96,16 @@ bool Touch::Repeate(int code) {
 解放
 */
 bool Touch::Relese(int code) {
-	static int oldInput = 0;
-	oldInput = mInput.touch[code].counter;
-	return (oldInput > 0 && mInput.touch[code].counter == 0);
+	static int relesCnt = 0;
+
+	if (this->On(code) == true) {
+		relesCnt = 0;
+	}
+	else {
+		relesCnt++;
+	}
+
+	return (this->Off(code) && relesCnt == 1);
 }
 
 /*

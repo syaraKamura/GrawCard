@@ -130,9 +130,16 @@ bool Joypad::Repeate(int code) {
 */
 bool Joypad::Relese(int code) {
 	if (mIsActive == false) return false;
-	static int oldInput = 0;
-	oldInput = mjoypadXInput[code];
-	return (oldInput > 0 && mjoypadXInput[code] == 0);
+	static int relesCnt = 0;
+
+	if (On(code) == true) {
+		relesCnt = 0;
+	}
+	else {
+		relesCnt++;
+	}
+
+	return (Off(code) && relesCnt == 1);
 }
 
 /*
