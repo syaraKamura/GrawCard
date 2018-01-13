@@ -21,12 +21,13 @@ Joypad::Joypad(int padType) : InputBase() {
 	
 	mPadType = padType;
 
-#ifdef __MY_DEBUG__
 	int result = GetJoypadXInputState(mPadType, &mInput);
 	if (result == -1) {
-		mPadType = DX_INPUT_KEY;
+		mIsActive = false;
 	}
-#endif
+	else {
+		mIsActive = true;
+	}
 
 	memset(&mInput, 0, sizeof(XINPUT_STATE));
 	memset(mjoypadXInput, 0, sizeof(int) * eJoypadXInput_Num);
@@ -112,6 +113,7 @@ bool Joypad::Update() {
 	押下
 */
 bool Joypad::Press(int code) {
+	if (mIsActive == false) return false;
 	return mjoypadXInput[code] == 0;
 }
 
@@ -119,6 +121,7 @@ bool Joypad::Press(int code) {
 	繰り返し
 */
 bool Joypad::Repeate(int code) {
+	if (mIsActive == false) return false;
 	return (mjoypadXInput[code] == 0 || mjoypadXInput[code] % 4 == 0);
 }
 
@@ -126,6 +129,7 @@ bool Joypad::Repeate(int code) {
 	解放
 */
 bool Joypad::Relese(int code) {
+	if (mIsActive == false) return false;
 	static int oldInput = 0;
 	oldInput = mjoypadXInput[code];
 	return (oldInput > 0 && mjoypadXInput[code] == 0);
@@ -135,6 +139,7 @@ bool Joypad::Relese(int code) {
 入力されている
 */
 bool Joypad::On(int code) {
+	if (mIsActive == false) return false;
 	return (mjoypadXInput[code] >= 0);
 }
 
@@ -142,6 +147,7 @@ bool Joypad::On(int code) {
 入力されていない
 */
 bool Joypad::Off(int code){
+	if (mIsActive == false) return true;
 	return (mjoypadXInput[code] <= 0);
 }
 
@@ -151,6 +157,8 @@ bool Joypad::Off(int code){
 	return -1.0 ~ 1.0f
 */
 float Joypad::GetLeftAnalogAxis(int axis) {
+
+	if (mIsActive == false) return 0.0f;
 
 	float result = 0.0f;
 
@@ -171,6 +179,8 @@ float Joypad::GetLeftAnalogAxis(int axis) {
 	return -1.0 ~ 1.0f
 */
 float Joypad::GetRightAnalogAxis(int axis) {
+
+	if (mIsActive == false) return 0.0f;
 
 	float result = 0.0f;
 
@@ -193,6 +203,7 @@ float Joypad::GetRightAnalogAxis(int axis) {
 	return 度数法 0 ~ 360
 */
 float Joypad::GetLeftAnalogAngleDegree() {
+	if (mIsActive == false) return 0.0f;
 	float angle = atan2f(mLeftAnalogInputY, mLeftAnalogInputX) * 180.0f / PI;
 	
 	/*
@@ -211,7 +222,7 @@ float Joypad::GetLeftAnalogAngleDegree() {
 	return 弧度法
 */
 float Joypad::GetLeftAnalogAngleRadian() {
-
+	if (mIsActive == false) return 0.0f;
 	return GetLeftAnalogAngleDegree() * PI / 180.0f;
 }
 

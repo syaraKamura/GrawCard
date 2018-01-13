@@ -54,6 +54,8 @@ public:
 
 private:
 
+	bool mIsActive;
+
 	//ジョイパッドの押下判定用
 	int mjoypadXInput[eJoypadXInput_Num];
 
