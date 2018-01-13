@@ -7,6 +7,7 @@
 #include "Test/AITest.h"
 
 #include "Common/Input/Joypad.h"
+#include "Common/Input/Touch.h"
 
 #include "Common/Graphics/GraphicsMulti.h"
 #include "Common/Graphics/Graphics.h"
@@ -352,6 +353,7 @@ AITest::AITest(ISceneBase* changer) : SceneBase(changer){
 void AITest::Initialize(){
 	
 	mJoyPad = new Joypad();
+	mTouch = new Touch();
 
 	Map_Initialize();
 	Enemy_Initialize();
@@ -369,6 +371,7 @@ void AITest::Finalize(){
 	mGraphicsMulti->ReleseRequest();
 
 	Delete(mJoyPad);
+	Delete(mTouch);
 
 
 	//mGraphics->Relese();
@@ -382,6 +385,7 @@ void AITest::Finalize(){
 bool AITest::Updata() {
 
 	mJoyPad->Update();
+	mTouch->Update();
 
 #ifdef __WINDOWS__
 	//テストメニューへ戻る
@@ -452,7 +456,7 @@ void AITest::Draw(){
 	Map_Draw();
 	Enemy_Draw();
 
-	if (mJoyPad->On(Joypad::eJoypadXInput_A)) {
+	if (mJoyPad->On(Joypad::eJoypadXInput_A) || mTouch->On(Touch::eTouchInput_1)) {
 		DrawString(0, 100, "入力されている", GetColor(255, 0, 0));
 	}
 

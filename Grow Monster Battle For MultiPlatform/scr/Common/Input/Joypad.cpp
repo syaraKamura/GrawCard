@@ -15,7 +15,7 @@
 
 #ifdef __WINDOWS__
 
-#define PI (3.14159265359)
+#define PI (3.14159265359f)
 
 Joypad::Joypad(int padType) : InputBase() {
 	
@@ -212,7 +212,7 @@ float Joypad::GetLeftAnalogAngleDegree() {
 */
 float Joypad::GetLeftAnalogAngleRadian() {
 
-	return atan2f(mLeftAnalogInputY, mLeftAnalogInputX) * PI / 180.0f;
+	return GetLeftAnalogAngleDegree() * PI / 180.0f;
 }
 
 #endif	//__WINDOWS__

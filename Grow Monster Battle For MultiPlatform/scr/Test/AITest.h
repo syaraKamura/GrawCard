@@ -17,12 +17,14 @@
 #include "Scene/SceneBase.h"
 
 class Joypad;
+class Touch;
 
 class AITest :public SceneBase{
 
 private:
 
 	Joypad* mJoyPad;
+	Touch* mTouch;
 
 public:
 
