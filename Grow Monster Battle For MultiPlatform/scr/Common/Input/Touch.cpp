@@ -52,22 +52,27 @@ bool Touch::Update() {
 			mInput.touch[i].positionX = posX;
 			mInput.touch[i].positionY = posY;
 			mInput.touch[i].device = device;
+			mInput.touch[i].releseCounter = 0;
 
 			
 		}
 		else {
 			mInput.touch[i].id = eTouchInput_None;
-			mInput.touch[i].positionX = 0;
-			mInput.touch[i].positionY = 0;
-			mInput.touch[i].oldPositionX = 0;
-			mInput.touch[i].oldPositionY = 0;
 			mInput.touch[i].device = 0;
+			
 
 			if (mInput.touch[i].counter > 0) {
 				mInput.touch[i].counter = 0;
+				mInput.touch[i].releseCounter = 1;
 			}
 			else {
 				mInput.touch[i].counter--;
+				mInput.touch[i].releseCounter = 0;
+				mInput.touch[i].positionX = 0;
+				mInput.touch[i].positionY = 0;
+				mInput.touch[i].oldPositionX = 0;
+				mInput.touch[i].oldPositionY = 0;
+
 			}
 		}
 
@@ -82,37 +87,34 @@ bool Touch::Update() {
 押下
 */
 bool Touch::Press(int code) {
-	return mInput.touch[code].counter == 0;
+	return mInput.touch[code].counter == 1;
 }
 
 /*
 繰り返し
 */
 bool Touch::Repeate(int code) {
-	return (mInput.touch[code].counter == 0 || mInput.touch[code].counter % 4 == 0);
+	return (mInput.touch[code].counter == 1 || mInput.touch[code].counter % 4 == 0);
 }
 
 /*
 解放
 */
 bool Touch::Relese(int code) {
-	static int relesCnt = 0;
 
 	if (this->On(code) == true) {
-		relesCnt = 0;
-	}
-	else {
-		relesCnt++;
+		return false;
 	}
 
-	return (this->Off(code) && relesCnt == 1);
+	return mInput.touch[code].releseCounter == 1;
+
 }
 
 /*
 入力されている
 */
 bool Touch::On(int code) {
-	return (mInput.touch[code].counter >= 0);
+	return (mInput.touch[code].counter > 0);
 }
 
 /*
@@ -137,7 +139,7 @@ int Touch::GetFlick(int code,int axis) {
 		mInput.touch[code].oldPositionX = mInput.touch[code].positionX;
 		mInput.touch[code].oldPositionY = mInput.touch[code].positionY;
 	}
-	else if (this->Relese(code) == true) {
+	if (this->Relese(code) == true) {
 		switch (axis)
 		{
 		case eFlickAxis_Horizontal:

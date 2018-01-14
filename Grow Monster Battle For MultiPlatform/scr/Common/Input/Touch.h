@@ -50,6 +50,7 @@ private:
 		int oldPositionX;
 		int oldPositionY;
 		int counter;
+		int releseCounter;
 	}TOUCH_INFOMATION_t;
 
 	//入力データ
