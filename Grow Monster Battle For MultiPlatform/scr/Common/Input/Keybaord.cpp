@@ -14,6 +14,8 @@
 #include "Common/GameCommon.h"
 #include "Keybaord.h"
 
+static const int REPEATE_TIME = 20;
+
 Keyboard::Keyboard() : InputBase() {
 
 	memset(mInputKey, 0, sizeof(int) * KEY_NUM);
@@ -24,14 +26,14 @@ Keyboard::Keyboard() : InputBase() {
 押下
 */
 bool Keyboard::Press(int code) {
-	return mInputKey[code] == 0;
+	return mInputKey[code] == 1;
 }
 
 /*
 繰り返し
 */
 bool Keyboard::Repeate(int code) {
-	return (mInputKey[code] == 0 || mInputKey[code] % 4 == 0);
+	return (mInputKey[code] == 1 || (mInputKey[code] > 1 && mInputKey[code] % REPEATE_TIME == 0));
 }
 
 /*

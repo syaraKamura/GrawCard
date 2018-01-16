@@ -11,8 +11,8 @@
 				
 !*/
 
-#ifndef __TOUCH_H__
-#define __TOUCH_H__
+#ifndef __TOUCH_INPUT_H__
+#define __TOUCH_INPUT_H__
 
 #include "InputBase.h"
 
@@ -135,4 +135,4 @@ public :
 
 };
 
-#endif // __TOUCH_H__
+#endif //__TOUCH_INPUT_H__

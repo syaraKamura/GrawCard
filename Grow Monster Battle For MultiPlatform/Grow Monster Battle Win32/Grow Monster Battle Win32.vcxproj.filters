@@ -76,6 +76,12 @@
     <Filter Include="ソース ファイル\scr\Common\Input">
       <UniqueIdentifier>{f538b051-6719-4e63-b504-691cf5021072}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\String">
+      <UniqueIdentifier>{8ea25679-c91c-4364-9b64-86164219058e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Common\String\FontMgr">
+      <UniqueIdentifier>{74520f2e-75b5-46ff-8b9a-fdfff0f54b95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -176,6 +182,12 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\Input\Touch.cpp">
       <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\String\StringBase.cpp">
+      <Filter>ソース ファイル\scr\Common\String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\String\FontMgr\FontMgr.cpp">
+      <Filter>ソース ファイル\scr\Common\String\FontMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +295,12 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\Input\Touch.h">
       <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\String\StringBase.h">
+      <Filter>ソース ファイル\scr\Common\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\String\FontMgr\FontMgr.h">
+      <Filter>ソース ファイル\scr\Common\String\FontMgr</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -16,6 +16,8 @@
 
 #define PI (3.14159265359f)
 
+static const int REPEATE_TIME = 20;
+
 Touch::Touch() : InputBase() {
 	memset(&mInput, 0, sizeof(TOUCH_DATA_t));
 }
@@ -94,7 +96,7 @@ bool Touch::Press(int code) {
 繰り返し
 */
 bool Touch::Repeate(int code) {
-	return (mInput.touch[code].counter == 1 || mInput.touch[code].counter % 4 == 0);
+	return (mInput.touch[code].counter == 1 || (mInput.touch[code].counter > 1 && mInput.touch[code].counter % REPEATE_TIME == 0));
 }
 
 /*

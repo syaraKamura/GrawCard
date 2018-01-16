@@ -12,6 +12,7 @@
 #include "Common/Graphics/GraphicsMulti.h"
 #include "Common/Graphics/Graphics.h"
 #include "AppData/SaveData/SaveData.h"
+#include "Common/String/StringBase.h"
 
 
 const int MAP_WIDTH = 41;
@@ -53,6 +54,7 @@ Enemy_t enemy[ENEMY_KIND_NUM];
 Graphics* mGraphics;
 GraphicsMulti* mGraphicsMulti;
 SaveData* mData;
+StringBase* mString;
 
 
 int posX = 0;
@@ -354,6 +356,8 @@ void AITest::Initialize(){
 	
 	mJoyPad = new Joypad();
 	mTouch = new Touch();
+	mString = new StringBase();
+	mString->FontCreate("ＭＳ 明朝", 16, 1, -1);
 
 	Map_Initialize();
 	Enemy_Initialize();
@@ -372,6 +376,7 @@ void AITest::Finalize(){
 
 	Delete(mJoyPad);
 	Delete(mTouch);
+	Delete(mString)
 
 
 	//mGraphics->Relese();
@@ -447,6 +452,10 @@ bool AITest::Updata() {
 
 	mGraphics->SetAngleRadian(mJoyPad->GetLeftAnalogAngleRadian());
 
+	mString->SetColor(GetColor(255, 0, 0));
+	mString->SetString("Tこれはテストメッセージです。tが");
+
+
 	return true;
 }
 
@@ -456,7 +465,7 @@ void AITest::Draw(){
 	Map_Draw();
 	Enemy_Draw();
 
-	if (mJoyPad->Relese(Joypad::eJoypadXInput_A) || mTouch->On(Touch::eTouchInput_1)) {
+	if (mJoyPad->Repeate(Joypad::eJoypadXInput_A) || mTouch->On(Touch::eTouchInput_1)) {
 		DrawString(0, 100, "入力されている", GetColor(255, 0, 0));
 	}
 
@@ -464,6 +473,9 @@ void AITest::Draw(){
 	DrawFormatString(0, 620, GetColor(0, 255, 0), "弧度法: %f", mJoyPad->GetLeftAnalogAngleRadian());
 	DrawFormatString(0, 640, GetColor(0, 255, 0), "フリック度数  : %f", mTouch->GetFlickAngleDegree(Touch::eTouchInput_1));
 	DrawFormatString(0, 660, GetColor(0, 255, 0), "フリック弧度法: %f", mTouch->GetFlickAngleRadian(Touch::eTouchInput_1));
+
+	DrawFormatString(600, 220, GetColor(0, 255, 0), "文字数は%dです", mString->DrawString(600, 200));
+	
 
 }
 

@@ -1,22 +1,12 @@
-#include "DxLib.h"
-#include "Keyboard.h"
+#include "Common/GameCommon.h"
+#include "Common/Input/Keybaord.h"
+#include "KeyBoard.h"
 
 //-------------------------- 固定定数
-static const int KEY_MAX_NUM = 256;
-static const int PAD_MAX_NUM = 32;
 
 //-------------------------- スタティック変数定義
-static int s_ReleseCount[KEY_MAX_NUM] = {0};	//キーが開放されている間カウントする
-static int s_KeyInputCount[KEY_MAX_NUM];		//キーが押されている間カウントする
 
-
-/*
-	キー入力が入力されている時間を返却する
-	int		keyCode	:入力しているキーコード番号
-*/
-static int _CheckHitKey(int keyCode){
-	return s_KeyInputCount[keyCode];
-}
+Keyboard* mKey = NULL;
 
 /*
 	キーが入力されている
@@ -24,7 +14,7 @@ static int _CheckHitKey(int keyCode){
 			false	:	キーが入力されていない
 */
 bool Keyboard_On(int keyCode){
-	return _CheckHitKey(keyCode) > 0;
+	return mKey->On(keyCode);
 }
 
 /*
@@ -33,7 +23,7 @@ bool Keyboard_On(int keyCode){
 			false	:キーが入力されている
 */
 bool Keyboard_Off(int keyCode){
-	return _CheckHitKey(keyCode) == 0;
+	return mKey->Off(keyCode);
 }
 
 /*
@@ -42,12 +32,7 @@ bool Keyboard_Off(int keyCode){
 			false	:キーが開放されていない
 */
 bool Keyboard_Relese(int keyCode){
-	if(_CheckHitKey(keyCode) > 0){
-		s_ReleseCount[keyCode] = 0;
-		return false;
-	}
-	s_ReleseCount[keyCode]++;
-	return  s_ReleseCount[keyCode] == 1;
+	return mKey->Relese(keyCode);
 }
 
 /*
@@ -56,7 +41,7 @@ bool Keyboard_Relese(int keyCode){
 			false	:キーが押されていない
 */	
 bool Keyboard_Repeat(int keyCode){
-	return _CheckHitKey(keyCode) == 1 || (_CheckHitKey(keyCode) > 4 && _CheckHitKey(keyCode) % 20 == 0);
+	return mKey->Repeate(keyCode);
 }
 
 /*
@@ -65,24 +50,21 @@ bool Keyboard_Repeat(int keyCode){
 			false	:キーが押されていない
 */
 bool Keyboard_Press(int keyCode){
-	return _CheckHitKey(keyCode) == 1;
+	return mKey->Press(keyCode);
 }
 
 
+void Keyboard_Initialize() {
+	mKey = new Keyboard();
+}
+
+void Keyboard_Finalize() {
+	Delete(mKey);
+}
 
 /*
 	キー入力更新
 */
 void Keyboard_Updata(){
-
-	char key[KEY_MAX_NUM] = {};
-	GetHitKeyStateAll(key);
-
-	for(int i = 0;i < KEY_MAX_NUM;i++){
-		if(key[i] != 0){
-			s_KeyInputCount[i]++;
-		}else{
-			s_KeyInputCount[i] = 0;
-		}
-	}
+	mKey->Update();
 }

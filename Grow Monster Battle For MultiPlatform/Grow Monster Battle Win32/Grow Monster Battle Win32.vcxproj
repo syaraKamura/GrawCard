@@ -169,6 +169,8 @@
     <ClCompile Include="..\scr\Common\Input\Joypad.cpp" />
     <ClCompile Include="..\scr\Common\Input\Keybaord.cpp" />
     <ClCompile Include="..\scr\Common\Input\Touch.cpp" />
+    <ClCompile Include="..\scr\Common\String\FontMgr\FontMgr.cpp" />
+    <ClCompile Include="..\scr\Common\String\StringBase.cpp" />
     <ClCompile Include="..\scr\Common\Task\TaskBase.cpp" />
     <ClCompile Include="..\scr\Common\Task\TaskMgr.cpp" />
     <ClCompile Include="..\scr\Scene\Boot\Scene_Boot.cpp" />
@@ -205,6 +207,8 @@
     <ClInclude Include="..\scr\Common\Input\Joypad.h" />
     <ClInclude Include="..\scr\Common\Input\Keybaord.h" />
     <ClInclude Include="..\scr\Common\Input\Touch.h" />
+    <ClInclude Include="..\scr\Common\String\FontMgr\FontMgr.h" />
+    <ClInclude Include="..\scr\Common\String\StringBase.h" />
     <ClInclude Include="..\scr\Common\Task\Task.h" />
     <ClInclude Include="..\scr\Common\Task\TaskBase.h" />
     <ClInclude Include="..\scr\Common\Task\TaskMgr.h" />

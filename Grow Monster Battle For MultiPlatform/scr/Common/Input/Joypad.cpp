@@ -17,6 +17,8 @@
 
 #define PI (3.14159265359f)
 
+static const int REPEATE_TIME = 20;
+
 Joypad::Joypad(int padType) : InputBase() {
 	
 	mPadType = padType;
@@ -122,7 +124,7 @@ bool Joypad::Press(int code) {
 */
 bool Joypad::Repeate(int code) {
 	if (mIsActive == false) return false;
-	return (mjoypadXInput[code] == 0 || mjoypadXInput[code] % 4 == 0);
+	return (mjoypadXInput[code] == 0 || (mjoypadXInput[code] > 0 && mjoypadXInput[code] % REPEATE_TIME == 0));
 }
 
 /*

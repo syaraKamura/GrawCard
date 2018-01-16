@@ -18,6 +18,11 @@ bool Keyboard_Repeat(int keyCode);
 //ƒL[‚ª‰Ÿ‚³‚ê‚½
 bool Keyboard_Press(int keyCode);
 
+void Keyboard_Initialize();
+void Keyboard_Finalize();
+
 void Keyboard_Updata();
+
+
 
 #endif

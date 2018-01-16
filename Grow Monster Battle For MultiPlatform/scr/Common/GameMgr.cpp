@@ -34,12 +34,22 @@ void GameMgr::Initialize(){
 	TaskMgr::getInstance().Initialize();
 	mSceneMgr->Initialize();
 	mDebug->Initialize();
+
+#ifdef __MY_WINDOWS__
+	Keyboard_Initialize();
+#endif
+
 }
 
 void GameMgr::Finalize(){
 	TaskMgr::getInstance().Finalize();
 	mSceneMgr->Finalize();
 	mDebug->Finalize();
+
+#ifdef __MY_WINDOWS__
+	Keyboard_Finalize();
+#endif
+
 }
 
 bool GameMgr::Updata(){
