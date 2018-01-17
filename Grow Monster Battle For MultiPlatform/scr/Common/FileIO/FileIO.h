@@ -1,0 +1,37 @@
+﻿/*
+				ファイル名		:FileIO.h
+				作成者			:
+				作成日時		:2018/01/17
+				ソース説明		:
+				
+				
+				備考
+				
+				
+				
+!*/
+
+#ifndef __FILE_IO_H__
+#define __FILE_IO_H__
+
+#define FILE_DATA_SIZE (1024 * 64)
+
+class FileIO {
+
+protected:
+
+	FILE * mFilePointer;
+	unsigned char mBuffer[FILE_DATA_SIZE];
+	unsigned int mAddress;
+
+public :
+
+	FileIO();
+	virtual ~FileIO();
+
+	virtual bool Open(const char* fileName,...) = 0;
+	virtual bool Close() = 0;
+
+};
+
+#endif // __FILE_IO_H__

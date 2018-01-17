@@ -158,6 +158,9 @@
     <ClCompile Include="..\scr\AppData\SaveData\SaveData_win32.cpp" />
     <ClCompile Include="..\scr\Common\Debug\Debug.cpp" />
     <ClCompile Include="..\scr\Common\Fade\Fade.cpp" />
+    <ClCompile Include="..\scr\Common\FileIO\FileIO.cpp" />
+    <ClCompile Include="..\scr\Common\FileIO\ReadBynary.cpp" />
+    <ClCompile Include="..\scr\Common\FileIO\WriteBynary.cpp" />
     <ClCompile Include="..\scr\Common\FPS\FPS.cpp" />
     <ClCompile Include="..\scr\Common\GameMgr.cpp" />
     <ClCompile Include="..\scr\Common\Graphics\Graphics.cpp" />
@@ -195,6 +198,9 @@
     <ClInclude Include="..\scr\AppData\SaveData\SaveData.h" />
     <ClInclude Include="..\scr\Common\Debug\Debug.h" />
     <ClInclude Include="..\scr\Common\Fade\Fade.h" />
+    <ClInclude Include="..\scr\Common\FileIO\FileIO.h" />
+    <ClInclude Include="..\scr\Common\FileIO\ReadBynary.h" />
+    <ClInclude Include="..\scr\Common\FileIO\WriteBynary.h" />
     <ClInclude Include="..\scr\Common\FPS\FPS.h" />
     <ClInclude Include="..\scr\Common\GameCommon.h" />
     <ClInclude Include="..\scr\Common\GameMgr.h" />

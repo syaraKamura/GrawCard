@@ -104,6 +104,15 @@
     <ClCompile Include="..\..\scr\Common\String\StringBase.cpp">
       <Filter>scr\Common\String</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Common\FileIO\FileIO.cpp">
+      <Filter>scr\Common\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\FileIO\WriteBynary.cpp">
+      <Filter>scr\Common\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\FileIO\ReadBynary.cpp">
+      <Filter>scr\Common\FileIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="scr">
@@ -168,6 +177,9 @@
     </Filter>
     <Filter Include="scr\Common\String">
       <UniqueIdentifier>{456a03bd-039b-41d8-bf60-71332d86503c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Common\FileIO">
+      <UniqueIdentifier>{724522a8-495a-410d-bd84-e809d772cfbc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +290,15 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\String\StringBase.h">
       <Filter>scr\Common\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\FileIO\FileIO.h">
+      <Filter>scr\Common\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\FileIO\WriteBynary.h">
+      <Filter>scr\Common\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\FileIO\ReadBynary.h">
+      <Filter>scr\Common\FileIO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

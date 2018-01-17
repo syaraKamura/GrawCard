@@ -82,6 +82,9 @@
     <Filter Include="ソース ファイル\scr\Common\String\FontMgr">
       <UniqueIdentifier>{74520f2e-75b5-46ff-8b9a-fdfff0f54b95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\FileIO">
+      <UniqueIdentifier>{268826aa-b36e-4cb5-8948-6623c8e7d326}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -188,6 +191,15 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\String\FontMgr\FontMgr.cpp">
       <Filter>ソース ファイル\scr\Common\String\FontMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\FileIO\FileIO.cpp">
+      <Filter>ソース ファイル\scr\Common\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\FileIO\WriteBynary.cpp">
+      <Filter>ソース ファイル\scr\Common\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\FileIO\ReadBynary.cpp">
+      <Filter>ソース ファイル\scr\Common\FileIO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +313,15 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\String\FontMgr\FontMgr.h">
       <Filter>ソース ファイル\scr\Common\String\FontMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\FileIO\FileIO.h">
+      <Filter>ソース ファイル\scr\Common\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\FileIO\WriteBynary.h">
+      <Filter>ソース ファイル\scr\Common\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\FileIO\ReadBynary.h">
+      <Filter>ソース ファイル\scr\Common\FileIO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
