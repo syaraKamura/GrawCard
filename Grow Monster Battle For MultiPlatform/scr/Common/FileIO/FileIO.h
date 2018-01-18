@@ -32,6 +32,20 @@ public :
 	virtual bool Open(const char* fileName,...) = 0;
 	virtual bool Close() = 0;
 
+	/*
+		ファイルの有無を調べる
+		return	true	:存在している
+				false	:存在していない
+	*/
+	bool Exist(const char* fileName,...);
+
+	/*
+		ファイルの削除を行う
+		return	true	:成功
+				false	:失敗
+	*/
+	bool Remove(const char* fileName, ...);
+
 };
 
 #endif // __FILE_IO_H__

@@ -29,6 +29,8 @@ private:
 		eHomePosition_Back,		//後衛
 	};
 
+public :
+
 	enum eType {
 		eType_None = -1,
 		eType_Fire,

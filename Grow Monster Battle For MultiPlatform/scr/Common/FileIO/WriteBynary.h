@@ -16,7 +16,7 @@
 
 #include "FileIO.h"
 
-class WriteBynary : FileIO {
+class WriteBynary : public FileIO {
 
 private:
 

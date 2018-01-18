@@ -13,6 +13,8 @@
 
 #include "Common/GameCommon.h"
 #include "SaveData.h"
+#include "Common/FileIO/WriteBynary.h"
+#include "Common/FileIO/ReadBynary.h"
 
 #ifdef __ANDROID__
 
@@ -67,7 +69,7 @@ void SaveData::Save(SaveData save) {
 		Debug::LogPrintf("not Found File.(%s)",path);
 		return ;
 	}
-	
+
 
 	/*
 		ここに保存するデータを追加する
@@ -79,6 +81,101 @@ void SaveData::Save(SaveData save) {
 	fwrite(&save, sizeof(save), divSizeNum,fp);
 
 	fclose(fp);
+
+
+	WriteBynary* mFile = new WriteBynary();
+
+	mFile->Open("Test_%s",path);
+
+	mFile->WriteInt(save.HASTH);
+
+	//モンスターボックス
+	int monsterNum = save.GetMonsterBox()->Count();
+
+	mFile->WriteInt(monsterNum);
+
+	for (int i = 0; i < monsterNum; i++) {
+
+		int level = save.GetMonsterBox()->GetMonster(i).GetLevel();
+		const char* name = save.GetMonsterBox()->GetMonster(i).GetName();
+		int type = (int)save.GetMonsterBox()->GetMonster(i).GetType();
+		int exp = save.GetMonsterBox()->GetMonster(i).GetExp();
+		int nextExp = save.GetMonsterBox()->GetMonster(i).GetNextExp();
+		int hp = save.GetMonsterBox()->GetMonster(i).GetHp();
+		int maxHp = save.GetMonsterBox()->GetMonster(i).GetHpMax();
+		int mp = save.GetMonsterBox()->GetMonster(i).GetMp();
+		int maxMp = save.GetMonsterBox()->GetMonster(i).GetMpMax();
+		int atk = save.GetMonsterBox()->GetMonster(i).GetAttack();
+		int def = save.GetMonsterBox()->GetMonster(i).GetDeffence();
+		int spd = save.GetMonsterBox()->GetMonster(i).GetSpeed();
+		int cost = save.GetMonsterBox()->GetMonster(i).GetCost();
+
+		mFile->WriteInt(level);
+		mFile->WriteString(name);
+		mFile->WriteInt(type);
+		mFile->WriteInt(exp);
+		mFile->WriteInt(nextExp);
+		mFile->WriteInt(hp);
+		mFile->WriteInt(maxHp);
+		mFile->WriteInt(mp);
+		mFile->WriteInt(maxMp);
+		mFile->WriteInt(atk);
+		mFile->WriteInt(def);
+		mFile->WriteInt(spd);
+		mFile->WriteInt(cost);
+
+	}
+
+	//PlayerCharctor
+	int level = save.GetPlayer()->GetLevel();
+	const char* name = save.GetPlayer()->GetName();
+	int gender = save.GetPlayer()->GetGender();
+	int exp = save.GetPlayer()->GetExp();
+	int nextExp = save.GetPlayer()->GetNextExp();
+	int cost = save.GetPlayer()->GetCost();
+
+	mFile->WriteInt(level);
+	mFile->WriteString(name);
+	mFile->WriteInt(gender);
+	mFile->WriteInt(exp);
+	mFile->WriteInt(nextExp);
+	mFile->WriteInt(cost);
+	
+	//デッキ
+	for (int i = 0; i < 5; i++) {
+
+		Monster monster = *save.GetPlayer()->GetMonster(i);
+
+		int level = monster.GetLevel();
+		const char* name = monster.GetName();
+		int type = (int)monster.GetType();
+		int exp = monster.GetExp();
+		int nextExp = monster.GetNextExp();
+		int hp = monster.GetHp();
+		int maxHp = monster.GetHpMax();
+		int mp = monster.GetMp();
+		int maxMp = monster.GetMpMax();
+		int atk = monster.GetAttack();
+		int def = monster.GetDeffence();
+		int spd = monster.GetSpeed();
+		int cost = monster.GetCost();
+
+		mFile->WriteInt(level);
+		mFile->WriteString(name);
+		mFile->WriteInt(type);
+		mFile->WriteInt(exp);
+		mFile->WriteInt(nextExp);
+		mFile->WriteInt(hp);
+		mFile->WriteInt(maxHp);
+		mFile->WriteInt(mp);
+		mFile->WriteInt(maxMp);
+		mFile->WriteInt(atk);
+		mFile->WriteInt(def);
+		mFile->WriteInt(spd);
+		mFile->WriteInt(cost);
+
+	}
+
 
 
 }

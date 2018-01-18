@@ -117,7 +117,7 @@ void WriteBynary::WriteString(const char* paramString) {
 	WriteData(&length, sizeof(size_t));
 
 	//文字列の書き込み
-	WriteData(&paramString, length + 1);
+	WriteData(paramString, length + 1);
 
 }
 

@@ -13,7 +13,8 @@
 #include "Common/Graphics/Graphics.h"
 #include "AppData/SaveData/SaveData.h"
 #include "Common/String/StringBase.h"
-
+#include "Common/FileIO/WriteBynary.h"
+#include "Common/FileIO/ReadBynary.h"
 
 const int MAP_WIDTH = 41;
 const int MAP_HEIGHT= 37;
@@ -55,7 +56,8 @@ Graphics* mGraphics;
 GraphicsMulti* mGraphicsMulti;
 SaveData* mData;
 StringBase* mString;
-
+WriteBynary* mFile;
+ReadBynary* mReadFile;
 
 int posX = 0;
 int vecX = 4;
@@ -359,6 +361,44 @@ void AITest::Initialize(){
 	mString = new StringBase();
 	mString->FontCreate("ＭＳ 明朝", 16, 1, -1);
 
+	mFile = new WriteBynary();
+	mReadFile = new ReadBynary();
+
+	//ファイル削除
+	mFile->Remove("%s.txt", "test");
+
+	//ファイル書き込み開始
+	mFile->Open("Test.txt");
+
+	mFile->WriteInt(2018);
+	mFile->WriteBool(false);
+	mFile->WriteString("これはテストなのです。");
+	mFile->WriteString("aばta毛tあブﾗ!?");
+	mFile->WriteChar('b');
+
+	//ファイル書き込み終了
+	mFile->Close();
+
+	if (mReadFile->Exist("Test.txt")) {
+
+		mReadFile->Open("Test.Txt");
+
+		int num;
+		bool flg;
+		char str[256];
+		char ch;
+
+		mReadFile->ReadInt(&num);
+		mReadFile->ReadBool(&flg);
+		mReadFile->ReadString(str);
+		mReadFile->ReadString(str);
+		mReadFile->ReadChar(&ch);
+
+		mReadFile->Close();
+	}
+	
+
+
 	Map_Initialize();
 	Enemy_Initialize();
 	
@@ -376,7 +416,9 @@ void AITest::Finalize(){
 
 	Delete(mJoyPad);
 	Delete(mTouch);
-	Delete(mString)
+	Delete(mString);
+	Delete(mFile);
+	Delete(mReadFile);
 
 
 	//mGraphics->Relese();

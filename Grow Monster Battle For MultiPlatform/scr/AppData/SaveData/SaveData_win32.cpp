@@ -16,6 +16,8 @@
 
 #include "Common/GameCommon.h"
 #include "SaveData.h"
+#include "Common/FileIO/WriteBynary.h"
+#include "Common/FileIO/ReadBynary.h"
 
 #ifdef __WINDOWS__
 
@@ -32,6 +34,7 @@ SaveData* SaveData::Load() {
 
 	const char *path = GetFilePath();
 
+#if false
 	FILE *fp;
 	fp = fopen(path, "rb");
 
@@ -56,6 +59,156 @@ SaveData* SaveData::Load() {
 		return NULL;
 	}
 
+#endif
+
+	ReadBynary* mFile = new ReadBynary();
+
+	mFile->Open("Test_%s", path);
+
+	int hash = 0;
+
+	mFile->ReadInt(&hash);
+
+	//PlayerCharctor
+	int level;
+	char name[256] = "";
+	int gender;
+	int exp;
+	int nextExp;
+	int cost;
+	Player* player = data->GetPlayer();
+
+	mFile->ReadInt(&level);
+	mFile->ReadString(name);
+	mFile->ReadInt(&gender);
+	mFile->ReadInt(&exp);
+	mFile->ReadInt(&nextExp);
+	mFile->ReadInt(&cost);
+
+	player->SetLevel(level);
+	player->SetName(name);
+	player->SetGender((Player::eGender)gender);
+	player->SetExp(exp);
+	player->SetNextExp(nextExp);
+	player->SetCost(cost);
+
+
+
+	//デッキ
+	for (int i = 0; i < 5; i++) {
+
+
+
+		int level;
+		char name[256] = "";
+		int type;
+		int exp;
+		int nextExp;
+		int hp;
+		int maxHp;
+		int mp;
+		int maxMp;
+		int atk;
+		int def;
+		int spd;
+		int cost;
+
+		mFile->ReadInt(&level);
+		mFile->ReadString(name);
+		mFile->ReadInt(&type);
+		mFile->ReadInt(&exp);
+		mFile->ReadInt(&nextExp);
+		mFile->ReadInt(&hp);
+		mFile->ReadInt(&maxHp);
+		mFile->ReadInt(&mp);
+		mFile->ReadInt(&maxMp);
+		mFile->ReadInt(&atk);
+		mFile->ReadInt(&def);
+		mFile->ReadInt(&spd);
+		mFile->ReadInt(&cost);
+
+		Monster monster;
+
+		monster.SetLevel(level);
+		monster.SetName(name);
+		monster.SetType((Monster::eType)type);
+		monster.SetExp(exp);
+		monster.SetNextExp(nextExp);
+		monster.SetHp(hp);
+		monster.SetHpMax(maxHp);
+		monster.SetMp(mp);
+		monster.SetMpMax(maxMp);
+		monster.SetAttack(atk);
+		monster.SetDeffence(def);
+		monster.SetSpeed(spd);
+		monster.SetCost(cost);
+
+		data->GetPlayer()->SetMonster(i, monster);
+	}
+
+	//モンスターボックス
+	int monsterNum = 0;
+
+	mFile->ReadInt(&monsterNum);
+
+	MonsterBox* monsterBox = data->GetMonsterBox();
+
+	for (int i = 0; i < monsterNum; i++) {
+
+		int level;
+		char name[256] = "";
+		int type;
+		int exp;
+		int nextExp;
+		int hp;
+		int maxHp;
+		int mp;
+		int maxMp;
+		int atk;
+		int def;
+		int spd;
+		int cost;
+
+		mFile->ReadInt(&level);
+		mFile->ReadString(name);
+		mFile->ReadInt(&type);
+		mFile->ReadInt(&exp);
+		mFile->ReadInt(&nextExp);
+		mFile->ReadInt(&hp);
+		mFile->ReadInt(&maxHp);
+		mFile->ReadInt(&mp);
+		mFile->ReadInt(&maxMp);
+		mFile->ReadInt(&atk);
+		mFile->ReadInt(&def);
+		mFile->ReadInt(&spd);
+		mFile->ReadInt(&cost);
+
+		Monster monster;
+
+		monster.SetLevel(level);
+		monster.SetName(name);
+		monster.SetType((Monster::eType)type);
+		monster.SetExp(exp);
+		monster.SetNextExp(nextExp);
+		monster.SetHp(hp);
+		monster.SetHpMax(maxHp);
+		monster.SetMp(mp);
+		monster.SetMpMax(maxMp);
+		monster.SetAttack(atk);
+		monster.SetDeffence(def);
+		monster.SetSpeed(spd);
+		monster.SetCost(cost);
+
+
+		monsterBox->Add(monster);
+
+	}
+
+	
+
+	mFile->Close();
+
+	Delete(mFile)
 
 	return data;
 }
@@ -64,6 +217,7 @@ void SaveData::Save(SaveData save) {
 
 	const char *path = GetFilePath();
 
+#if false
 	FILE *fp;
 	fp = fopen(path, "wb");
 
@@ -84,6 +238,106 @@ void SaveData::Save(SaveData save) {
 
 	fclose(fp);
 
+#endif
+
+	WriteBynary* mFile = new WriteBynary();
+
+	mFile->Open("Test_%s", path);
+
+	mFile->WriteInt(save.HASTH);
+	
+	
+
+	//PlayerCharctor
+	int level = save.GetPlayer()->GetLevel();
+	const char* name = save.GetPlayer()->GetName();
+	int gender = save.GetPlayer()->GetGender();
+	int exp = save.GetPlayer()->GetExp();
+	int nextExp = save.GetPlayer()->GetNextExp();
+	int cost = save.GetPlayer()->GetCost();
+
+	mFile->WriteInt(level);
+	mFile->WriteString(name);
+	mFile->WriteInt(gender);
+	mFile->WriteInt(exp);
+	mFile->WriteInt(nextExp);
+	mFile->WriteInt(cost);
+
+	//デッキ
+	for (int i = 0; i < 5; i++) {
+
+		Monster monster = *save.GetPlayer()->GetMonster(i);
+
+		int level = monster.GetLevel();
+		const char* name = monster.GetName();
+		int type = (int)monster.GetType();
+		int exp = monster.GetExp();
+		int nextExp = monster.GetNextExp();
+		int hp = monster.GetHp();
+		int maxHp = monster.GetHpMax();
+		int mp = monster.GetMp();
+		int maxMp = monster.GetMpMax();
+		int atk = monster.GetAttack();
+		int def = monster.GetDeffence();
+		int spd = monster.GetSpeed();
+		int cost = monster.GetCost();
+
+		mFile->WriteInt(level);
+		mFile->WriteString(name);
+		mFile->WriteInt(type);
+		mFile->WriteInt(exp);
+		mFile->WriteInt(nextExp);
+		mFile->WriteInt(hp);
+		mFile->WriteInt(maxHp);
+		mFile->WriteInt(mp);
+		mFile->WriteInt(maxMp);
+		mFile->WriteInt(atk);
+		mFile->WriteInt(def);
+		mFile->WriteInt(spd);
+		mFile->WriteInt(cost);
+
+	}
+
+	//モンスターボックス
+	int monsterNum = save.GetMonsterBox()->Count();
+
+	mFile->WriteInt(monsterNum);
+
+	for (int i = 0; i < monsterNum; i++) {
+
+		int level = save.GetMonsterBox()->GetMonster(i).GetLevel();
+		const char* name = save.GetMonsterBox()->GetMonster(i).GetName();
+		int type = (int)save.GetMonsterBox()->GetMonster(i).GetType();
+		int exp = save.GetMonsterBox()->GetMonster(i).GetExp();
+		int nextExp = save.GetMonsterBox()->GetMonster(i).GetNextExp();
+		int hp = save.GetMonsterBox()->GetMonster(i).GetHp();
+		int maxHp = save.GetMonsterBox()->GetMonster(i).GetHpMax();
+		int mp = save.GetMonsterBox()->GetMonster(i).GetMp();
+		int maxMp = save.GetMonsterBox()->GetMonster(i).GetMpMax();
+		int atk = save.GetMonsterBox()->GetMonster(i).GetAttack();
+		int def = save.GetMonsterBox()->GetMonster(i).GetDeffence();
+		int spd = save.GetMonsterBox()->GetMonster(i).GetSpeed();
+		int cost = save.GetMonsterBox()->GetMonster(i).GetCost();
+
+		mFile->WriteInt(level);
+		mFile->WriteString(name);
+		mFile->WriteInt(type);
+		mFile->WriteInt(exp);
+		mFile->WriteInt(nextExp);
+		mFile->WriteInt(hp);
+		mFile->WriteInt(maxHp);
+		mFile->WriteInt(mp);
+		mFile->WriteInt(maxMp);
+		mFile->WriteInt(atk);
+		mFile->WriteInt(def);
+		mFile->WriteInt(spd);
+		mFile->WriteInt(cost);
+
+	}
+
+	mFile->Close();
+
+	Delete(mFile)
 }
 
 /*

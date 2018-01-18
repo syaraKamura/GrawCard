@@ -21,7 +21,7 @@
 
 
 ReadBynary::ReadBynary() : FileIO() {
-
+	mValidSize = 0;
 }
 
 bool ReadBynary::Open(const char* fileName, ...) {
@@ -95,23 +95,23 @@ bool ReadBynary::ReadData(const void* data, int size) {
 }
 
 bool ReadBynary::ReadInt(int* paramInt) {
-	return ReadData(&paramInt, sizeof(int));
+	return ReadData(paramInt, sizeof(int));
 }
 
 bool ReadBynary::ReadFloat(float* paramFloat) {
-	return ReadData(&paramFloat, sizeof(float));
+	return ReadData(paramFloat, sizeof(float));
 }
 
 bool ReadBynary::ReadDouble(double* paramDouble) {
-	return ReadData(&paramDouble, sizeof(double));
+	return ReadData(paramDouble, sizeof(double));
 }
 
 bool ReadBynary::ReadBool(bool* paramBool) {
-	return ReadData(&paramBool, sizeof(bool));
+	return ReadData(paramBool, sizeof(bool));
 }
 
 bool ReadBynary::ReadChar(char* paramChr) {
-	return ReadData(&paramChr, sizeof(char));
+	return ReadData(paramChr, sizeof(char));
 }
 
 bool ReadBynary::ReadString(char* paramString) {
@@ -124,13 +124,13 @@ bool ReadBynary::ReadString(char* paramString) {
 	}
 
 	//文字列の読み込み
-	return ReadData(&paramString, length + 1);
+	return ReadData(paramString, length + 1);
 }
 
 bool ReadBynary::ReadUChar(unsigned char* paramUChar) {
-	return ReadData(&paramUChar, sizeof(unsigned char));
+	return ReadData(paramUChar, sizeof(unsigned char));
 }
 
 bool ReadBynary::ReadUInt(unsigned int* paramUInt) {
-	return ReadData(&paramUInt, sizeof(unsigned int));
+	return ReadData(paramUInt, sizeof(unsigned int));
 }
