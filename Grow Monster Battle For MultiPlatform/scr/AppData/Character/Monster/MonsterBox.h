@@ -48,6 +48,7 @@ private:
 
 	Monster_t mMonsterData[MONSTER_MAX];
 	int mMonsterCount;
+	int mIndex;
 
 private:
 
@@ -63,7 +64,22 @@ public :
 	void AllDelete();
 
 	int Count();
-	
+	/*
+		次のモンスターの情報を返却する
+
+	*/
+	Monster* Next();
+
+	/*
+		前のモンスターの情報を返却する
+	*/
+	Monster* Prev();
+
+	/*
+		インデックス番号を返却する
+	*/
+	int Index();
+
 	/*
 	使用状態を確認する
 	return	 0	:使用していない

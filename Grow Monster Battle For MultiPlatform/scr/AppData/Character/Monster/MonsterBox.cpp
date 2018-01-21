@@ -19,7 +19,7 @@
 MonsterBox::MonsterBox() {
 
 	mMonsterCount = 0;
-	
+	mIndex = 0;
 }
 
 MonsterBox::~MonsterBox() {
@@ -112,4 +112,32 @@ void MonsterBox::ChangeUseState(int idx, eUseState useState) {
 bool MonsterBox::Exits() {
 	if (mMonsterCount <= 0)return false;
 	else return true;
+}
+
+/*
+次のモンスターの情報を返却する
+
+*/
+Monster* MonsterBox::Next() {
+
+	if (mMonsterCount <= 0) return NULL;
+	if (mIndex < mMonsterCount) {
+		mIndex++;
+	}
+	return &mMonsterData[mIndex].monster;
+}
+
+/*
+	前のモンスターの情報を返却する
+*/
+Monster* MonsterBox::Prev() {
+	if (mMonsterCount <= 0) return NULL;
+	if (mIndex > 0) {
+		mIndex--;
+	}
+	return &mMonsterData[mIndex].monster;
+}
+
+int MonsterBox::Index() {
+	return mIndex;
 }

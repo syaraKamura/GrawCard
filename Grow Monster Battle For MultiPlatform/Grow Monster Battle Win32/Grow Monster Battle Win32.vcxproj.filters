@@ -85,6 +85,12 @@
     <Filter Include="ソース ファイル\scr\Common\FileIO">
       <UniqueIdentifier>{268826aa-b36e-4cb5-8948-6623c8e7d326}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\win32\Communication">
+      <UniqueIdentifier>{0296e68f-f793-42d9-9df3-4584d01d2792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Communication">
+      <UniqueIdentifier>{177f63b6-4dab-43cc-83c9-bbc78812425e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -200,6 +206,15 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\FileIO\ReadBynary.cpp">
       <Filter>ソース ファイル\scr\Common\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\win32\Communication\ReceiveUDP_win32.cpp">
+      <Filter>ソース ファイル\scr\win32\Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\win32\Communication\SendUDP_win32.cpp">
+      <Filter>ソース ファイル\scr\win32\Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Communication\Communication.cpp">
+      <Filter>ソース ファイル\scr\Common\Communication</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +337,15 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\FileIO\ReadBynary.h">
       <Filter>ソース ファイル\scr\Common\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Communication\Communication.h">
+      <Filter>ソース ファイル\scr\Common\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Communication\ReceiveUDP.h">
+      <Filter>ソース ファイル\scr\Common\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Communication\SendUDP.h">
+      <Filter>ソース ファイル\scr\Common\Communication</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

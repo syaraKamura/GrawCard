@@ -445,7 +445,10 @@ bool AITest::Updata() {
 		mData->Save(*mData);
 	}
 	if (Keyboard_Press(KEY_INPUT_A)) {
-		mData = mData->Load();
+		SaveData* buffer = mData->Load();
+		if (buffer != NULL) {
+			mData = buffer;
+		}
 	}
 	if (Keyboard_Press(KEY_INPUT_Q)) {
 		static int num = 0;
