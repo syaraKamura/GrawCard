@@ -22,6 +22,7 @@
 #ifdef __MY_DEBUG__
 	#include "Test/TestMenu.h"
 	#include "Test/AITest.h"
+	#include "Test/TestCommunication.h"
 #endif
 
 typedef struct {
@@ -100,6 +101,7 @@ bool SceneMgr::SceneChangeProc(){
 #ifdef __MY_DEBUG__
 		{(SceneBase*)new TestMenu(this),		"Scene_TestMenu" },
 		{(SceneBase*)new AITest(this),			"Scene_AITest" },
+		{ (SceneBase*)new TestCommunication(this),"Scene_TestCommunication" },
 #endif
 
 	};

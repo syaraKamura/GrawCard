@@ -17,8 +17,6 @@
 #ifdef __MY_DEBUG__
 
 #include "Scene/ISceneBase.h"
-#include "Common/Communication/SendUDP.h"
-#include "Common/Communication/ReceiveUDP.h"
 #include "TestCommunication.h"
 
 TestCommunication::TestCommunication(ISceneBase* changer) :SceneBase(changer) {
@@ -48,6 +46,13 @@ void TestCommunication::Finalize() {
 
 bool TestCommunication::Updata() {
 
+#ifdef __MY_DEBUG__
+#ifdef __WINDOWS__
+	if (Keyboard_Press(KEY_INPUT_X)) {
+		mNextScene->SceneChange(ISceneBase::eScene_TestMenu);
+	}
+#endif	//__WINDOWS__
+#endif//__MY_DEBUG__
 
 	return true;
 }

@@ -18,7 +18,8 @@
 #define __TEST_COMMUNICATION_H__
 
 #include "Scene/SceneBase.h"
-
+#include "Common/Communication/SendUDP.h"
+#include "Common/Communication/ReceiveUDP.h"
 
 class TestCommunication : public SceneBase {
 
@@ -31,8 +32,6 @@ private:
 		eStep_Chat,		//チャット開始
 	};
 
-	friend class SendUDP;
-	friend class ReceiveUDP;
 
 	SendUDP mSendUDP;
 	ReceiveUDP mReceiveUDP;

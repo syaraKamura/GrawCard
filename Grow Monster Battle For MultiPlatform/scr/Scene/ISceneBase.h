@@ -26,14 +26,15 @@ public :
 	enum eScene{
 		
 		eScene_None = -1,
-		eScene_Boot,		//起動
-		eScene_Opning,		//オープニング
-		eScene_Title,		//タイトル
-		eScene_MainMenu,	//メインメニュー
+		eScene_Boot,				//起動
+		eScene_Opning,				//オープニング
+		eScene_Title,				//タイトル
+		eScene_MainMenu,			//メインメニュー
 
 #ifdef __MY_DEBUG__
-		eScene_TestMenu,	//テストメニュー
-		eScene_AITest,		//AIテスト
+		eScene_TestMenu,			//テストメニュー
+		eScene_AITest,				//AIテスト
+		eScene_TestComunication,	//通信テスト
 #endif
 
 		eScene_Num,
