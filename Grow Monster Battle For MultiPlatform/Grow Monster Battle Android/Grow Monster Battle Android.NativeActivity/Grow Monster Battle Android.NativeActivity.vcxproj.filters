@@ -113,6 +113,9 @@
     <ClCompile Include="..\..\scr\Common\FileIO\ReadBynary.cpp">
       <Filter>scr\Common\FileIO</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Test\TestCommunication.cpp">
+      <Filter>scr\Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="scr">
@@ -299,6 +302,9 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\FileIO\ReadBynary.h">
       <Filter>scr\Common\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Test\TestCommunication.h">
+      <Filter>scr\Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

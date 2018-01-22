@@ -243,6 +243,7 @@
     <ClCompile Include="..\..\scr\Scene\Title\Scene_Title.cpp" />
     <ClCompile Include="..\..\scr\Test\AITest.cpp" />
     <ClCompile Include="..\..\scr\Test\Test1.cpp" />
+    <ClCompile Include="..\..\scr\Test\TestCommunication.cpp" />
     <ClCompile Include="..\..\scr\Test\TestMenu.cpp" />
     <ClCompile Include="mainAndroid.cpp" />
   </ItemGroup>
@@ -285,6 +286,7 @@
     <ClInclude Include="..\..\scr\Scene\Title\Scene_Title.h" />
     <ClInclude Include="..\..\scr\Test\AITest.h" />
     <ClInclude Include="..\..\scr\Test\Test1.h" />
+    <ClInclude Include="..\..\scr\Test\TestCommunication.h" />
     <ClInclude Include="..\..\scr\Test\TestMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

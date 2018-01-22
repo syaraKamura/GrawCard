@@ -185,6 +185,7 @@
     <ClCompile Include="..\scr\Scene\Title\Scene_Title.cpp" />
     <ClCompile Include="..\scr\Test\AITest.cpp" />
     <ClCompile Include="..\scr\Test\Test1.cpp" />
+    <ClCompile Include="..\scr\Test\TestCommunication.cpp" />
     <ClCompile Include="..\scr\Test\TestMenu.cpp" />
     <ClCompile Include="..\scr\win32\Communication\ReceiveUDP_win32.cpp" />
     <ClCompile Include="..\scr\win32\Communication\SendUDP_win32.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="..\scr\Scene\Title\Scene_Title.h" />
     <ClInclude Include="..\scr\Test\AITest.h" />
     <ClInclude Include="..\scr\Test\Test1.h" />
+    <ClInclude Include="..\scr\Test\TestCommunication.h" />
     <ClInclude Include="..\scr\Test\TestMenu.h" />
     <ClInclude Include="..\scr\win32\KeyBoard.h" />
   </ItemGroup>

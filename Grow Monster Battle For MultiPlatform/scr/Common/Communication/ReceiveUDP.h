@@ -24,21 +24,21 @@ private:
 private:
 
 	int mHandle;
-	IPDATA mIp;
 	unsigned char mBuffer[DATA_BUFFER_SIZE];
-	int mAddress;
+	unsigned int mAddress;
+	unsigned int mReceivePort;	//送信先のポート
 
 private:
 
 	/*
-	送信データを削除する
+	受信データを削除する
 	*/
 	void ClearData();
 
 	/*
 	データの読み込み
 	*/
-	void ReadData(const void* data, int size);
+	bool  ReadData(const void* data, int size);
 public :
 
 	ReceiveUDP();
@@ -49,11 +49,10 @@ public :
 	return	true	:成功
 	false	:失敗
 	*/
-	bool MakeSocket(short ip1, short ip2, short ip3, short ip4);
-	bool MakeSocket(IPDATA ip);
+	bool MakeSocket(unsigned int receivePort = 9850);
 
 	/*
-	送信を実行する
+	受信を実行する
 	*/
 	int Execute();
 
@@ -63,13 +62,14 @@ public :
 	void DeleteSocket();
 
 
-	bool ReadInt(int paramInt);
-	bool ReadFloat(float paramFloat);
-	bool ReadDouble(double paramDouble);
-	bool ReadBool(bool paramBool);
-	bool ReadChar(char paramChr);
+	bool ReadInt(int* paramInt);
+	bool ReadFloat(float* paramFloat);
+	bool ReadDouble(double* paramDouble);
+	bool ReadBool(bool* paramBool);
+	bool ReadChar(char* paramChr);
 	bool ReadString(char* paramString);
-	bool ReadUChar(unsigned char paramUChar);
+	bool ReadUChar(unsigned char* paramUChar);
+	bool ReadUInt(unsigned int* paramUInt);
 
 };
 

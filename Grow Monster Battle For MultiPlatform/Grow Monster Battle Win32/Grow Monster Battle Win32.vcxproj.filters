@@ -216,6 +216,9 @@
     <ClCompile Include="..\scr\Common\Communication\Communication.cpp">
       <Filter>ソース ファイル\scr\Common\Communication</Filter>
     </ClCompile>
+    <ClCompile Include="..\scr\Test\TestCommunication.cpp">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\scr\Common\GameMgr.h">
@@ -346,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\Communication\SendUDP.h">
       <Filter>ソース ファイル\scr\Common\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Test\TestCommunication.h">
+      <Filter>ソース ファイル\scr\Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
