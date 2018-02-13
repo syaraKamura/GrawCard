@@ -91,6 +91,9 @@
     <Filter Include="ソース ファイル\scr\Common\Communication">
       <UniqueIdentifier>{177f63b6-4dab-43cc-83c9-bbc78812425e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\CommonResource">
+      <UniqueIdentifier>{bdba7987-16b7-4973-9927-2aa21b061221}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -218,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="..\scr\Test\TestCommunication.cpp">
       <Filter>ソース ファイル\scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\CommonResource\CommonResource.cpp">
+      <Filter>ソース ファイル\scr\Common\CommonResource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -352,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Test\TestCommunication.h">
       <Filter>ソース ファイル\scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\CommonResource\CommonResource.h">
+      <Filter>ソース ファイル\scr\Common\CommonResource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

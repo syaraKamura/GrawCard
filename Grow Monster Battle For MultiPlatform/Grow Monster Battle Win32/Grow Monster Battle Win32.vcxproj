@@ -156,6 +156,7 @@
     <ClCompile Include="..\scr\AppData\Character\Monster\MonsterDeck.cpp" />
     <ClCompile Include="..\scr\AppData\Character\Player\Player.cpp" />
     <ClCompile Include="..\scr\AppData\SaveData\SaveData_win32.cpp" />
+    <ClCompile Include="..\scr\Common\CommonResource\CommonResource.cpp" />
     <ClCompile Include="..\scr\Common\Communication\Communication.cpp" />
     <ClCompile Include="..\scr\Common\Debug\Debug.cpp" />
     <ClCompile Include="..\scr\Common\Fade\Fade.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="..\scr\AppData\Character\Monster\MonsterDeck.h" />
     <ClInclude Include="..\scr\AppData\Character\Player\Player.h" />
     <ClInclude Include="..\scr\AppData\SaveData\SaveData.h" />
+    <ClInclude Include="..\scr\Common\CommonResource\CommonResource.h" />
     <ClInclude Include="..\scr\Common\Communication\Communication.h" />
     <ClInclude Include="..\scr\Common\Communication\ReceiveUDP.h" />
     <ClInclude Include="..\scr\Common\Communication\SendUDP.h" />

@@ -22,6 +22,8 @@ Scene_Boot::Scene_Boot(ISceneBase* changer):SceneBase(changer){
 }
 
 void Scene_Boot::Initialize(){
+
+	
 	TaskMgr::getInstance().Add(Fade::GetInstance(),TaskMgr::ePriorty_Fade);
 	TaskMgr::getInstance().Add(GraphicsDrawMgr::GetInstance(), TaskMgr::ePriorty_Graphics);
 }
@@ -31,6 +33,8 @@ void Scene_Boot::Finalize(){
 }
 
 bool Scene_Boot::Updata(){
+
+	if (ComRes::Instance()->Load() == false) return false;
 
 #ifdef __MY_DEBUG__ 
 #ifdef __WINDOWS__

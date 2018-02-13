@@ -53,10 +53,14 @@ private :
 	eMenu mMenu;
 	eMenu mNextMenu;
 
+	int mBackImageOrder;
+
 private:
 
 	void NexetState(eState nextState, eFadeType type = eFadeType_None, int fadeFrame = 60);
 	bool UpdataProc();
+	bool MainMenuProc();
+	void MainMenuDraw();
 
 public :
 

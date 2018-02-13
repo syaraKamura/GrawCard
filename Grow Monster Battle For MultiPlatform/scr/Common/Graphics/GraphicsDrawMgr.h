@@ -25,9 +25,17 @@ class GraphicsDraw;
 
 class GraphicsDrawMgr : public TaskBase {
 
+public :
+
+	typedef struct {
+		int order;
+		GraphicsDraw* graph;
+	}GRAPHICS_DRAW_ORDER_t;
+
 private:
-	std::list<GraphicsDraw*>* mList;
-	std::list<GraphicsDraw*>* mKillList;	//削除用リスト
+	std::list<GRAPHICS_DRAW_ORDER_t>* mList;
+	std::list<GRAPHICS_DRAW_ORDER_t>* mKillList;	//削除用リスト
+	unsigned int mOrder;
 private:
 
 	GraphicsDrawMgr();
@@ -43,7 +51,19 @@ public:
 		return inst;
 	}
 	
-	void Add(GraphicsBase* graphics,int prio);
+	int Add(GraphicsBase* graphics,int prio);
+	/*
+		指定の番号の画像データを取得する
+		return	NULL以外	:Graphicsクラスを返却する
+				NULL		:データがない
+	*/
+	Graphics* Get(int order);
+	/*
+		指定の番号の画像データの削除依頼をする
+		return	true	:成功
+				false	:失敗
+	*/
+	bool ReleseRequest(int order);
 
 	void Initialize()override;
 	void Finalize() override;

@@ -22,12 +22,16 @@ GameMgr::GameMgr(){
 	mSceneMgr = new SceneMgr();
 	mFPS = new FPS(60);
 	mDebug = new Debug();
+	ComRes::Create();
 }
 
 GameMgr::~GameMgr(){
+	ComRes::Destory();
+
 	Delete(mSceneMgr);
 	Delete(mFPS);
 	Delete(mDebug);
+
 }
 
 void GameMgr::Initialize(){

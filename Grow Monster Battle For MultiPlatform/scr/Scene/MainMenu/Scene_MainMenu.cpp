@@ -28,10 +28,14 @@ void Scene_MainMenu::Initialize() {
 	mMenu = eMenu_MainMenu;
 	mNextMenu = eMenu_None;
 
+	Graphics* add = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MainMenuBG);
+	add->SetPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+	mBackImageOrder = GraphicsDrawMgr::GetInstance()->Add(add, 0);
+	
 }
 
 void Scene_MainMenu::Finalize() {
-
+	GraphicsDrawMgr::GetInstance()->ReleseRequest(mBackImageOrder);
 }
 
 bool Scene_MainMenu::Updata() {
@@ -66,7 +70,7 @@ void Scene_MainMenu::Draw() {
 
 	switch (mMenu) {
 	case eMenu_MainMenu:
-
+		MainMenuDraw();
 		break;
 	case eMenu_Quest:
 
@@ -97,9 +101,11 @@ bool Scene_MainMenu::UpdataProc() {
 		mNextMenu = eMenu_None;
 	}
 
+	bool result = true;
+
 	switch (mMenu) {
 	case eMenu_MainMenu:
-
+		result = MainMenuProc();
 		break;
 	case eMenu_Quest:
 
@@ -134,7 +140,16 @@ bool Scene_MainMenu::UpdataProc() {
 
 #endif
 
+	return result;
+}
+
+bool Scene_MainMenu::MainMenuProc() {
+
 	return true;
+}
+
+void Scene_MainMenu::MainMenuDraw() {
+
 }
 
 void Scene_MainMenu::NexetState(eState nextState, eFadeType type, int fadeFrame) {

@@ -16,16 +16,17 @@
 #include "GraphicsDraw.h"
 
 //ソート用関数
-static bool sort_priorty(GraphicsDraw* a, GraphicsDraw* b) {
-	return a->GetPriorty() < b->GetPriorty();
+static bool sort_priorty(GraphicsDrawMgr::GRAPHICS_DRAW_ORDER_t a, GraphicsDrawMgr::GRAPHICS_DRAW_ORDER_t b) {
+	return a.graph->GetPriorty() < b.graph->GetPriorty();
 }
 
 GraphicsDrawMgr::GraphicsDrawMgr() { 
 	
-	mList = new std::list<GraphicsDraw*>();
-	mKillList = new std::list<GraphicsDraw*>();
-
+	mList = new std::list<GRAPHICS_DRAW_ORDER_t>();
+	mKillList = new std::list<GRAPHICS_DRAW_ORDER_t>();
+	mOrder = 0;
 	mIsInitalize = true;
+
 }
 
 GraphicsDrawMgr::~GraphicsDrawMgr() { 	
@@ -33,10 +34,41 @@ GraphicsDrawMgr::~GraphicsDrawMgr() {
 	Delete(mKillList);
 }
 
-void GraphicsDrawMgr::Add(GraphicsBase* graphics,int prio) {
+int GraphicsDrawMgr::Add(GraphicsBase* graphics,int prio) {
 	((GraphicsDraw*)(graphics))->SetPriorty(prio);
-	mList->push_back((GraphicsDraw*)graphics);
+	GRAPHICS_DRAW_ORDER_t add = { ++mOrder,(GraphicsDraw*)(graphics) };
+	mList->push_back(add);
 	mList->sort(sort_priorty);
+	return mOrder;
+}
+
+/*
+	指定の番号の画像データを取得する
+	return	NULL以外	:Graphicsクラスを返却する
+			NULL		:データがない
+*/
+Graphics* GraphicsDrawMgr::Get(int order) {
+	for (auto it = mList->begin(); it != mList->end();) {
+		if ((*it).order == order) {
+			return (Graphics*)(*it).graph;
+		}
+	}
+	return NULL;
+}
+
+/*
+	指定の番号の画像データの削除依頼をする
+	return	true	:成功
+			false	:失敗
+*/
+bool GraphicsDrawMgr::ReleseRequest(int order) {
+	for (auto it = mList->begin(); it != mList->end();) {
+		if ((*it).order == order) {
+			(*it).graph->ReleseRequest();
+			return true;
+		}
+	}
+	return false;
 }
 
 void GraphicsDrawMgr::Initialize() {
@@ -45,8 +77,8 @@ void GraphicsDrawMgr::Initialize() {
 void GraphicsDrawMgr::Finalize() {
 	
 	for (auto it = mList->begin(); it != mList->end(); it++) {
-		(*it)->Relese();
-		Delete((*it));
+		(*it).graph->Relese();
+		Delete((*it).graph);
 	}
 
 }
@@ -71,21 +103,21 @@ void GraphicsDrawMgr::Draw()  {
 
 	for (auto it = mList->begin(); it != mList->end();) {
 
-		int posX = (*it)->GetPositionX();
-		int posY = (*it)->GetPositionY();
-		int alpha = (*it)->GetAlpah();
-		double scale = (*it)->GetScale();
-		double angle = (*it)->GetAngleRadian();
+		int posX = (*it).graph->GetPositionX();
+		int posY = (*it).graph->GetPositionY();
+		int alpha = (*it).graph->GetAlpah();
+		double scale = (*it).graph->GetScale();
+		double angle = (*it).graph->GetAngleRadian();
 
-		if ((*it)->IsVisible() == true && (*it)->IsRelese() == false) {
-			(*it)->Draw(posX, posY, alpha,angle,scale);
+		if ((*it).graph->IsVisible() == true && (*it).graph->IsRelese() == false) {
+			(*it).graph->Draw(posX, posY, alpha,angle,scale);
 		}
-		else if ((*it)->IsRelese() == true) {
-			(*it)->Relese();
+		else if ((*it).graph->IsRelese() == true) {
+			(*it).graph->Relese();
 			
 			bool bExits = false;
 			for (auto j = mKillList->begin(); j != mKillList->end();j++) {
-				if ((*j) == (*it)) {
+				if ((*j).graph == (*it).graph) {
 					bExits = true;
 					break;
 				}
@@ -119,7 +151,7 @@ void GraphicsDrawMgr::DeleteExecute() {
 	else if (mKillList->size() <= 0) return;
 
 	for (auto it = mKillList->begin(); it != mKillList->end();) {
-		delete (*it);
+		delete (*it).graph;
 		mKillList->erase(it);
 
 		if (mKillList->size() <= 0) {

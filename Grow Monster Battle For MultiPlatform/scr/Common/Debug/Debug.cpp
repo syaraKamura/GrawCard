@@ -91,7 +91,7 @@ void Debug::LogPrintf(const char* str, ...) {
 
 #ifdef __MY_DEBUG__ 
 	va_list ap;
-	char buffer[256];
+	char buffer[1024];
 
 	va_start(ap, str);
 	vsprintfDx(buffer, str, ap);

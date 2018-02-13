@@ -56,6 +56,6 @@ void Scene_Opning::Draw(){
 
 	DrawGraph(0,0,mWork.imageHandle,TRUE);
 
-	DrawString(0,20,"-XキーでTitleへ移動-",GetColor(255,255,255));
+	//DrawString(0,20,"-XキーでTitleへ移動-",GetColor(255,255,255));
 
 }

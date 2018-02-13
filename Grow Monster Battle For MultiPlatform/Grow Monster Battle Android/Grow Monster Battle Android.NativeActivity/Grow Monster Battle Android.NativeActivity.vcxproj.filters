@@ -116,6 +116,9 @@
     <ClCompile Include="..\..\scr\Test\TestCommunication.cpp">
       <Filter>scr\Test</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Common\CommonResource\CommonResource.cpp">
+      <Filter>scr\Common\CommonResource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="scr">
@@ -183,6 +186,9 @@
     </Filter>
     <Filter Include="scr\Common\FileIO">
       <UniqueIdentifier>{724522a8-495a-410d-bd84-e809d772cfbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Common\CommonResource">
+      <UniqueIdentifier>{e73aa6d3-dca9-48bf-9c43-51c1a405d68a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -305,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Test\TestCommunication.h">
       <Filter>scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\CommonResource\CommonResource.h">
+      <Filter>scr\Common\CommonResource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
