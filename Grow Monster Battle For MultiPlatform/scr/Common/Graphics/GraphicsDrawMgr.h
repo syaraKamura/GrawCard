@@ -65,6 +65,13 @@ public:
 	*/
 	bool ReleseRequest(int order);
 
+	/*
+		指定の番号の画像データをリストから除外する
+		return	true	:成功
+				false	:失敗
+	*/
+	bool Remove(int order);
+
 	void Initialize()override;
 	void Finalize() override;
 	bool Updata() override;

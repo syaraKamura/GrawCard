@@ -15,6 +15,7 @@
 #include "Common/String/StringBase.h"
 #include "Common/FileIO/WriteBynary.h"
 #include "Common/FileIO/ReadBynary.h"
+#include "Common/XML/XmlPurser.h"
 
 const int MAP_WIDTH = 41;
 const int MAP_HEIGHT= 37;
@@ -58,6 +59,8 @@ SaveData* mData;
 StringBase* mString;
 WriteBynary* mFile;
 ReadBynary* mReadFile;
+XmlPurser* mXml;
+
 
 int posX = 0;
 int vecX = 4;
@@ -406,7 +409,42 @@ void AITest::Initialize(){
 	mData->GetMonsterBox()->Add(* new Monster());
 	mData->GetMonsterBox()->ChangeUseState(0, MonsterBox::eUseState_UnUse);
 
+	//XML‚Ì‘‚«‚İA‘‚«o‚µ
 
+	mXml = new XmlPurser("Test.xml");
+	
+
+		mXml->Set("DOUBLE", 19.0);
+		mXml->Set("STR", "Test String!");
+		mXml->Set("INT", 25);
+		mXml->SetChild("POSITION","DRAW_X",250);
+		mXml->SetChild("POSITION","DRAW_Y", 400.0);
+		mXml->SetChild("POSITION", "DRAW_Z", 450.0);
+
+		mXml->SetChild("POSITION2", "DRAW_X", 100);
+		mXml->SetChild("POSITION2", "DRAW_Y", 20.0);
+		mXml->SetChild("POSITION2", "DRAW_Z", 860.0);
+
+		if (mXml->Write()) {
+			Debug::LogPrintf("XML‚Ì‘‚«‚İ‚É¬Œ÷");
+		}
+
+	if (mXml->Read()) {
+		Debug::LogPrintf("XML‚Ì“Ç‚İ‚İ‚É¬Œ÷");
+
+		int intValue = mXml->GetInt("INT");
+		double doubleValue = mXml->GetDouble("DOUBLE");
+		std::string str = mXml->GetString("STR");
+		int intValue2 = mXml->GetInt("INT");
+		int intvalue3 = mXml->GetChildInt("POSITION","DRAW_X");
+		double doubleValue2 = mXml->GetChildDouble("POSITION", "DRAW_Z");
+		int intvalue4 = mXml->GetChildInt("POSITION2", "DRAW_X");
+		double doubleValue3 = mXml->GetChildDouble("POSITION2", "DRAW_Z");
+		Debug::LogPrintf("XML‚Ì“Ç‚İ‚İ‚É¬Œ÷ %d %lf %s",intValue,doubleValue,str.c_str());
+
+	}
+
+	delete mXml;
 }
 
 void AITest::Finalize(){

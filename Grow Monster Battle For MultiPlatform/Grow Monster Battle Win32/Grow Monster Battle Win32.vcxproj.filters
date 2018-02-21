@@ -94,6 +94,9 @@
     <Filter Include="ソース ファイル\scr\Common\CommonResource">
       <UniqueIdentifier>{bdba7987-16b7-4973-9927-2aa21b061221}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\XML">
+      <UniqueIdentifier>{3941fc28-da0d-45eb-b4af-1dc8cddbadf2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -224,6 +227,9 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\CommonResource\CommonResource.cpp">
       <Filter>ソース ファイル\scr\Common\CommonResource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\XML\XmlPurser.cpp">
+      <Filter>ソース ファイル\scr\Common\XML</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -361,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\CommonResource\CommonResource.h">
       <Filter>ソース ファイル\scr\Common\CommonResource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\XML\XmlPurser.h">
+      <Filter>ソース ファイル\scr\Common\XML</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

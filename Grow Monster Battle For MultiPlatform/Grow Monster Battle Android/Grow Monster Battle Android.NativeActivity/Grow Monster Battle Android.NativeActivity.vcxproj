@@ -236,6 +236,7 @@
     <ClCompile Include="..\..\scr\Common\String\StringBase.cpp" />
     <ClCompile Include="..\..\scr\Common\Task\TaskBase.cpp" />
     <ClCompile Include="..\..\scr\Common\Task\TaskMgr.cpp" />
+    <ClCompile Include="..\..\scr\Common\XML\XmlPurser.cpp" />
     <ClCompile Include="..\..\scr\Scene\Boot\Scene_Boot.cpp" />
     <ClCompile Include="..\..\scr\Scene\ISceneBase.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.cpp" />
@@ -279,6 +280,7 @@
     <ClInclude Include="..\..\scr\Common\Task\Task.h" />
     <ClInclude Include="..\..\scr\Common\Task\TaskBase.h" />
     <ClInclude Include="..\..\scr\Common\Task\TaskMgr.h" />
+    <ClInclude Include="..\..\scr\Common\XML\XmlPurser.h" />
     <ClInclude Include="..\..\scr\Scene\Boot\Scene_Boot.h" />
     <ClInclude Include="..\..\scr\Scene\ISceneBase.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.h" />

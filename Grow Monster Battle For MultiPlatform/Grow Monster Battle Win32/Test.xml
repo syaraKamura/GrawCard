@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <DOUBLE>19.000000</DOUBLE>
+  <STR>Test String!</STR>
+  <INT>25</INT>
+  <POSITION>
+    <DRAW_X>250</DRAW_X>
+    <DRAW_Y>400.000000</DRAW_Y>
+    <DRAW_Z>450.000000</DRAW_Z>
+  </POSITION>
+  <POSITION2>
+    <DRAW_X>100</DRAW_X>
+    <DRAW_Y>20.000000</DRAW_Y>
+    <DRAW_Z>860.000000</DRAW_Z>
+  </POSITION2>
+</root>

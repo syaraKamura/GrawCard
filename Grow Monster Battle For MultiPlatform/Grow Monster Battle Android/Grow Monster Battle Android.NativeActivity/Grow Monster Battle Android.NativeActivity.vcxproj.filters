@@ -119,6 +119,9 @@
     <ClCompile Include="..\..\scr\Common\CommonResource\CommonResource.cpp">
       <Filter>scr\Common\CommonResource</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Common\XML\XmlPurser.cpp">
+      <Filter>scr\Common\Xml</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="scr">
@@ -189,6 +192,9 @@
     </Filter>
     <Filter Include="scr\Common\CommonResource">
       <UniqueIdentifier>{e73aa6d3-dca9-48bf-9c43-51c1a405d68a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Common\Xml">
+      <UniqueIdentifier>{d82d4658-456b-4db0-8d03-6ba4aefa5461}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +320,9 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\CommonResource\CommonResource.h">
       <Filter>scr\Common\CommonResource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\XML\XmlPurser.h">
+      <Filter>scr\Common\Xml</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

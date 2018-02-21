@@ -35,7 +35,7 @@ void Scene_MainMenu::Initialize() {
 }
 
 void Scene_MainMenu::Finalize() {
-	GraphicsDrawMgr::GetInstance()->ReleseRequest(mBackImageOrder);
+	GraphicsDrawMgr::GetInstance()->Remove(mBackImageOrder);
 }
 
 bool Scene_MainMenu::Updata() {

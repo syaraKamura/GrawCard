@@ -71,6 +71,23 @@ bool GraphicsDrawMgr::ReleseRequest(int order) {
 	return false;
 }
 
+
+/*
+	指定の番号の画像データをリストから除外する
+	return	true	:成功
+			false	:失敗
+*/
+bool GraphicsDrawMgr::Remove(int order) {
+
+	for (auto it = mList->begin(); it != mList->end();) {
+		if ((*it).order == order) {
+			mList->erase(it);
+			return true;
+		}
+	}
+	return false;
+}
+
 void GraphicsDrawMgr::Initialize() {
 
 }
