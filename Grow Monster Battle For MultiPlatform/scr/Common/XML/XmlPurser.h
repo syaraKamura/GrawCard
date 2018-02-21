@@ -15,15 +15,25 @@
 #ifndef __XML_PURSER_H__
 #define __XML_PURSER_H__
 
+
 #include <iostream>
 #include <string>
+
+#if __has_include(<boost/property_tree/ptree.hpp>)	//ヘッダーファイルが存在していればインクルードする
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
+#endif	//__has_include(<boost/property_tree/ptree.hpp>)
+
+#ifdef BOOST_PROPERTY_TREE_PTREE_HPP_INCLUDED
+#define XML_PURSER_USE
+#endif
+
 
 class XmlPurser {
 
+#ifdef XML_PURSER_USE
 private:
 
 	boost::property_tree::ptree pt;
@@ -33,6 +43,7 @@ protected:
 	const std::string ROOT_PATH;
 
 	std::string mFilePath;
+#endif	//XML_PURSER_USE
 
 public :
 	
@@ -77,13 +88,17 @@ public :
 	*/
 	template<typename T>
 	void Set(const std::string& title, T value) {
+#ifdef XML_PURSER_USE
 		pt.put(ROOT_PATH + "." + title, std::to_string(value));
+#endif	//XML_PURSER_USE
 	}
 
 	template<typename T>
 	void SetChild(const std::string& title,const std::string& childTitle,T value) {
+#ifdef XML_PURSER_USE
 		boost::property_tree::ptree& child = pt.put(ROOT_PATH + "." + title,"");
 		child.put(childTitle, std::to_string(value));
+#endif	//XML_PURSER_USE
 	}
 
 	//読み込み
@@ -97,12 +112,16 @@ public :
 
 template<>
 inline void XmlPurser::Set(const std::string& title, std::string& value) {
+#ifdef XML_PURSER_USE
 	pt.put(ROOT_PATH + "." + title, value);
+#endif	//XML_PURSER_USE
 }
 
 template<>
 inline void XmlPurser::Set(const std::string& title, const char* value) {
+#ifdef XML_PURSER_USE
 	pt.put(ROOT_PATH + "." + title, value);
+#endif	//XML_PURSER_USE
 }
 
 

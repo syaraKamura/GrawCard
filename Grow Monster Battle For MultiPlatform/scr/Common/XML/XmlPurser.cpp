@@ -13,8 +13,8 @@
 
 
 #include<list>
+#include "Common/GameCommon.h"
 #include "XmlPurser.h"
-
 
 
 /*
@@ -22,7 +22,15 @@
 */
 XmlPurser::XmlPurser(const std::string& path) : ROOT_PATH("root") , mFilePath(path){
 
+	
+#ifndef XML_PURSER_USE
+	Debug::LogPrintf("boostライブラリを設定してください\n");
+#else
 	Initialize();
+#endif // !#ifndef XML_PURSER_USE
+
+
+
 
 }
 
@@ -46,6 +54,10 @@ false	:失敗
 */
 bool XmlPurser::Read() {
 
+#ifndef XML_PURSER_USE
+	return false;
+#else
+
 	if (this->IsExists(mFilePath) == false) return false;
 
 	std::ifstream file;
@@ -57,6 +69,7 @@ bool XmlPurser::Read() {
 	boost::property_tree::read_xml(strStream, pt);
 
 	return true;
+#endif//XML_PURSER_USE
 }
 
 
@@ -67,6 +80,9 @@ false	:失敗
 */
 bool XmlPurser::Write() {
 
+#ifndef XML_PURSER_USE
+	return false;
+#else
 	std::stringstream tmpStream;
 
 	using namespace boost::property_tree::xml_parser;
@@ -85,8 +101,8 @@ bool XmlPurser::Write() {
 
 	tmpOutStream << tmpSjis;
 
-
 	return true;
+#endif	//XML_PURSER_USE
 }
 
 
@@ -104,15 +120,22 @@ bool XmlPurser::IsExists(const std::string& path) {
 	文字列を返却する
 */
 std::string XmlPurser::GetString(const std::string& title) {
+#ifndef XML_PURSER_USE
+	return "";
+#else
 	if (boost::optional<std::string> id = pt.get_optional<std::string>(ROOT_PATH +"."+ title)) {
 		return id.get();
 	}
 	else {
 		return "";
 	}
+#endif//XML_PURSER_USE
 }
 
 std::string XmlPurser::GetChildString(const std::string& title,const std::string& childTitle) {
+#ifndef XML_PURSER_USE
+	return -1;
+#else
 	auto child = pt.get_child(ROOT_PATH + "." + title);
 
 	boost::optional<std::string> id = child.get_optional<std::string>(childTitle);
@@ -120,6 +143,7 @@ std::string XmlPurser::GetChildString(const std::string& title,const std::string
 	const std::string value = id.get();
 
 	return value;
+#endif//XML_PURSER_USE
 }
 
 /*
@@ -127,16 +151,22 @@ std::string XmlPurser::GetChildString(const std::string& title,const std::string
 
 */
 int XmlPurser::GetInt(const std::string& title) {
+#ifndef XML_PURSER_USE
+	return -1;
+#else
 	if (boost::optional<int> id = pt.get_optional<int>(ROOT_PATH + "." + title)) {
 		return id.get();
 	}
 	else {
 		return -1;
 	}
+#endif	//XML_PURSER_USE
 }
 
 int  XmlPurser::GetChildInt(const std::string& title,const std::string& childTitle) {
-	
+#ifndef XML_PURSER_USE
+	return -1;
+#else
 	auto child = pt.get_child(ROOT_PATH + "." + title);
 	
 	boost::optional<int> id = child.get_optional<int>(childTitle);
@@ -144,23 +174,30 @@ int  XmlPurser::GetChildInt(const std::string& title,const std::string& childTit
 	const int value = id.get();
 
 	return value;
-
+#endif
 }
 
 /*
 	double型の値を読み取る
 */
 double XmlPurser::GetDouble(const std::string& title) {
+#ifndef XML_PURSER_USE
+	return -1.0;
+#else
 	if (boost::optional<double> id = pt.get_optional<double>(ROOT_PATH + "." + title)) {
 		return id.get();
 	}
 	else {
-		return -1;
+		return -1.0;
 	}
+#endif
 }
 
 
 double  XmlPurser::GetChildDouble(const std::string& title, const std::string& childTitle) {
+#ifndef XML_PURSER_USE
+	return -1.0;
+#else
 	auto child = pt.get_child(ROOT_PATH + "." + title);
 
 	boost::optional<double> id = child.get_optional<double>(childTitle);
@@ -168,4 +205,5 @@ double  XmlPurser::GetChildDouble(const std::string& title, const std::string& c
 	const double value = id.get();
 
 	return value;
+#endif
 }
