@@ -37,13 +37,15 @@ class XmlPurser {
 private:
 
 	boost::property_tree::ptree pt;
+#endif	//XML_PURSER_USE
 
 protected:
 
 	const std::string ROOT_PATH;
 
+
 	std::string mFilePath;
-#endif	//XML_PURSER_USE
+
 
 public :
 	

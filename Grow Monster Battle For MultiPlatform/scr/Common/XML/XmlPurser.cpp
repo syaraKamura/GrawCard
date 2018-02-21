@@ -112,8 +112,12 @@ return	true	:存在している
 false	:存在していない
 */
 bool XmlPurser::IsExists(const std::string& path) {
+#ifndef XML_PURSER_USE
+	return false;
+#else
 	std::ifstream file(path.c_str());
 	return file.good();
+#endif
 }
 
 /*
@@ -134,7 +138,7 @@ std::string XmlPurser::GetString(const std::string& title) {
 
 std::string XmlPurser::GetChildString(const std::string& title,const std::string& childTitle) {
 #ifndef XML_PURSER_USE
-	return -1;
+	return "";
 #else
 	auto child = pt.get_child(ROOT_PATH + "." + title);
 
