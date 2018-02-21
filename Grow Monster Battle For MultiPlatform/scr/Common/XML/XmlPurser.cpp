@@ -112,6 +112,16 @@ std::string XmlPurser::GetString(const std::string& title) {
 	}
 }
 
+std::string XmlPurser::GetChildString(const std::string& title,const std::string& childTitle) {
+	auto child = pt.get_child(ROOT_PATH + "." + title);
+
+	boost::optional<std::string> id = child.get_optional<std::string>(childTitle);
+
+	const std::string value = id.get();
+
+	return value;
+}
+
 /*
 	int型の値を読み取る
 

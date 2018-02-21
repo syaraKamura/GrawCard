@@ -66,7 +66,7 @@ public :
 	
 	std::string GetString(const std::string& title);
 
-	std::string GetChildString(const std::string& title);
+	std::string GetChildString(const std::string& title, const std::string& childTitle);
 
 	//書き込み
 
