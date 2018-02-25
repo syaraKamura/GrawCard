@@ -19,7 +19,7 @@
 #include <iostream>
 #include <string>
 
-#ifdef WIN32
+//#ifdef WIN32
 #if __has_include(<boost/property_tree/ptree.hpp>)	//ヘッダーファイルが存在していればインクルードする
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
@@ -30,7 +30,7 @@
 #ifdef BOOST_PROPERTY_TREE_PTREE_HPP_INCLUDED
 #define XML_PURSER_USE
 #endif	//BOOST_PROPERTY_TREE_PTREE_HPP_INCLUDED
-#endif	//WIN32
+//#endif	//WIN32
 
 class XmlPurser {
 
