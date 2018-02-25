@@ -24,13 +24,10 @@ XmlPurser::XmlPurser(const std::string& path) : ROOT_PATH("root") , mFilePath(pa
 
 	
 #ifndef XML_PURSER_USE
-	Debug::LogPrintf("boostライブラリを設定してください\n");
+	Debug::ErorrMessage("boostライブラリを設定してください\n");
 #else
 	Initialize();
 #endif // !#ifndef XML_PURSER_USE
-
-
-
 
 }
 
@@ -142,12 +139,17 @@ std::string XmlPurser::GetChildString(const std::string& title,const std::string
 #else
 	auto child = pt.get_child(ROOT_PATH + "." + title);
 
-	boost::optional<std::string> id = child.get_optional<std::string>(childTitle);
-
-	const std::string value = id.get();
-
-	return value;
+	if (boost::optional<std::string> id = child.get_optional<std::string>(childTitle)) {
+		return id.get();
+	}
+	else {
+		return "";
+	}
 #endif//XML_PURSER_USE
+}
+
+std::string XmlPurser::GetAttributeString(const std::string& title, const std::string& attributeTitle) {
+	return GetChildString(title, "<xmlattr>." + attributeTitle);
 }
 
 /*
@@ -156,28 +158,29 @@ std::string XmlPurser::GetChildString(const std::string& title,const std::string
 */
 int XmlPurser::GetInt(const std::string& title) {
 #ifndef XML_PURSER_USE
-	return -1;
+	return 0;
 #else
 	if (boost::optional<int> id = pt.get_optional<int>(ROOT_PATH + "." + title)) {
 		return id.get();
 	}
 	else {
-		return -1;
+		return 0;
 	}
 #endif	//XML_PURSER_USE
 }
 
 int  XmlPurser::GetChildInt(const std::string& title,const std::string& childTitle) {
 #ifndef XML_PURSER_USE
-	return -1;
+	return 0;
 #else
 	auto child = pt.get_child(ROOT_PATH + "." + title);
 	
-	boost::optional<int> id = child.get_optional<int>(childTitle);
-	
-	const int value = id.get();
-
-	return value;
+	if (boost::optional<int> id = child.get_optional<int>(childTitle)) {
+		return id.get();
+	}
+	else {
+		return 0;
+	}
 #endif
 }
 
@@ -186,7 +189,7 @@ int  XmlPurser::GetChildInt(const std::string& title,const std::string& childTit
 */
 double XmlPurser::GetDouble(const std::string& title) {
 #ifndef XML_PURSER_USE
-	return -1.0;
+	return 0.0;
 #else
 	if (boost::optional<double> id = pt.get_optional<double>(ROOT_PATH + "." + title)) {
 		return id.get();
@@ -200,14 +203,24 @@ double XmlPurser::GetDouble(const std::string& title) {
 
 double  XmlPurser::GetChildDouble(const std::string& title, const std::string& childTitle) {
 #ifndef XML_PURSER_USE
-	return -1.0;
+	return 0.0;
 #else
 	auto child = pt.get_child(ROOT_PATH + "." + title);
 
-	boost::optional<double> id = child.get_optional<double>(childTitle);
+	if (boost::optional<double> id = child.get_optional<double>(childTitle)) {
+		return id.get();
+	}
+	else {
+		return 0.0;
+	}
 
-	const double value = id.get();
-
-	return value;
 #endif
+}
+
+int XmlPurser::GetAttributeInt(const std::string& title, const std::string& attributeTitle) {
+	return GetChildInt(title, "<xmlattr>." + attributeTitle);
+}
+
+double XmlPurser::GetAttributeDouble(const std::string& title, const std::string& attributeTitle) {
+	return GetChildDouble(title, "<xmlattr>." + attributeTitle);
 }

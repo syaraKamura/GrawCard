@@ -38,9 +38,6 @@
     <ClCompile Include="..\..\scr\Common\Fade\Fade.cpp">
       <Filter>scr\Common\Fade</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\scr\android\Touch.cpp">
-      <Filter>scr\android</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\scr\Common\FPS\FPS.cpp">
       <Filter>scr\FPS</Filter>
     </ClCompile>
@@ -122,6 +119,18 @@
     <ClCompile Include="..\..\scr\Common\XML\XmlPurser.cpp">
       <Filter>scr\Common\Xml</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\android\TouchInput.cpp">
+      <Filter>scr\android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\android\Communication\ReceiveUDP_android.cpp">
+      <Filter>scr\android\Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\android\Communication\SendUDP_android.cpp">
+      <Filter>scr\android\Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\String\FontMgr\FontMgr.cpp">
+      <Filter>scr\Common\String\FontMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="scr">
@@ -196,6 +205,12 @@
     <Filter Include="scr\Common\Xml">
       <UniqueIdentifier>{d82d4658-456b-4db0-8d03-6ba4aefa5461}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scr\android\Communication">
+      <UniqueIdentifier>{7d7a9fa7-efc7-4aaf-a7a0-30dff507aa7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scr\Common\String\FontMgr">
+      <UniqueIdentifier>{736b501c-b8fc-44f2-bd3a-1e9e442f8ffe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\scr\Common\GameMgr.h">
@@ -239,9 +254,6 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Fade\Fade.h">
       <Filter>scr\Common\Fade</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\scr\android\Touch.h">
-      <Filter>scr\android</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\FPS\FPS.h">
       <Filter>scr\FPS</Filter>
@@ -323,6 +335,12 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\XML\XmlPurser.h">
       <Filter>scr\Common\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\android\TouchInput.h">
+      <Filter>scr\android</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\String\FontMgr\FontMgr.h">
+      <Filter>scr\Common\String\FontMgr</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

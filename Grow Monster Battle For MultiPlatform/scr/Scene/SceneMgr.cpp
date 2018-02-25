@@ -41,9 +41,10 @@ SceneMgr::SceneMgr() : mNextScene(eScene_None),mPrevScene(mNextScene){
 }
 
 
-void SceneMgr::Initialize(){
-	if(mScene == NULL) return ;
+bool SceneMgr::Initialize(){
+	if(mScene == NULL) return false;
 	mScene->Initialize();
+	return true;
 }
 
 void SceneMgr::Finalize(){

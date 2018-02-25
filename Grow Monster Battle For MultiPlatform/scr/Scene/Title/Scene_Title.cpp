@@ -39,7 +39,7 @@ Scene_Title::Scene_Title(ISceneBase* changer) :SceneBase(changer){
 	}
 }
 
-void Scene_Title::Initialize(){
+bool Scene_Title::Initialize(){
 
 	//mFade->SetFadeColor(255,255,255);
 	//mFade->FadeIn(180);
@@ -106,6 +106,7 @@ void Scene_Title::Initialize(){
 	mWork.selectY = 0;
 
 	mState = eState_Initialize;
+	return true;
 }
 void Scene_Title::Finalize(){
 

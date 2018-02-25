@@ -197,6 +197,7 @@
     <ClCompile Include="..\scr\Test\TestMenu.cpp" />
     <ClCompile Include="..\scr\win32\Communication\ReceiveUDP_win32.cpp" />
     <ClCompile Include="..\scr\win32\Communication\SendUDP_win32.cpp" />
+    <ClCompile Include="..\scr\win32\FrameWork_win32.cpp" />
     <ClCompile Include="..\scr\win32\KeyBoard.cpp" />
     <ClCompile Include="mainWin32.cpp" />
   </ItemGroup>
@@ -218,6 +219,7 @@
     <ClInclude Include="..\scr\Common\FileIO\ReadBynary.h" />
     <ClInclude Include="..\scr\Common\FileIO\WriteBynary.h" />
     <ClInclude Include="..\scr\Common\FPS\FPS.h" />
+    <ClInclude Include="..\scr\Common\Framework.h" />
     <ClInclude Include="..\scr\Common\GameCommon.h" />
     <ClInclude Include="..\scr\Common\GameMgr.h" />
     <ClInclude Include="..\scr\Common\Graphics\Graphics.h" />

@@ -44,8 +44,9 @@ Test1::~Test1(){
 
 }
 
-void Test1::Initialize(){
+bool Test1::Initialize(){
 	taskId = TaskMgr::getInstance().Add(TestUpdata,TestDraw,TestDestory,0);
+	return true;
 }
 
 bool Test1::Updata(){

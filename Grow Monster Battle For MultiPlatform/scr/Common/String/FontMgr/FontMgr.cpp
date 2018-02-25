@@ -161,7 +161,7 @@ void FontMgr::Draw(int posX,int posY,unsigned int color,int alpha,const char* st
 
 	va_list ap;
 	va_start(ap,str);
-	vsprintf_s(buffer,str,ap);
+	vsprintfDx(buffer,str,ap);
 	va_end(ap);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA,alpha);

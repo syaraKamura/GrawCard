@@ -65,11 +65,11 @@ public :
 		return inst;
 	}
 
-	 void Initialize();
+	 bool Initialize();
 	 void Finalize();
 
 	//’ÊíXV
-	void Updata();
+	bool Updata();
 
 	//•`‰æ
 	void Draw();

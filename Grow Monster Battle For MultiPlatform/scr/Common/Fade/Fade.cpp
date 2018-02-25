@@ -57,10 +57,10 @@ bool Fade::IsFadeEnd(){
 }
 
 
-void Fade::Initialize(){
+bool Fade::Initialize(){
 
 	
-
+	return true;
 }
 void Fade::Finalize(){}
 

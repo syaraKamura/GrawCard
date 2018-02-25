@@ -21,7 +21,7 @@ public :
 
 	virtual ~Task(){};
 
-	virtual void Initialize(){};
+	virtual bool Initialize() { return true; };
 	virtual void Finalize(){};
 	virtual bool Updata() = 0;
 	virtual void Draw() = 0;

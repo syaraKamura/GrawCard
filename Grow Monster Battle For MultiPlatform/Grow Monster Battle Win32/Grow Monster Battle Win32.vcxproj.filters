@@ -231,6 +231,9 @@
     <ClCompile Include="..\scr\Common\XML\XmlPurser.cpp">
       <Filter>ソース ファイル\scr\Common\XML</Filter>
     </ClCompile>
+    <ClCompile Include="..\scr\win32\FrameWork_win32.cpp">
+      <Filter>ソース ファイル\scr\win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\scr\Common\GameMgr.h">
@@ -370,6 +373,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\XML\XmlPurser.h">
       <Filter>ソース ファイル\scr\Common\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Framework.h">
+      <Filter>ソース ファイル\scr\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -72,7 +72,7 @@ public:
 	*/
 	bool Remove(int order);
 
-	void Initialize()override;
+	bool Initialize()override;
 	void Finalize() override;
 	bool Updata() override;
 	void Draw() override;

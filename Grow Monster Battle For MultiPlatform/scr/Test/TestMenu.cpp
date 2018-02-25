@@ -27,9 +27,11 @@ TestMenu::TestMenu(ISceneBase* changer) : SceneBase(changer){
 
 }
 
-void TestMenu::Initialize(){
+bool TestMenu::Initialize(){
 
 	mCursorY = 0;
+
+	return true;
 
 }
 

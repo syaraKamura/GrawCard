@@ -16,10 +16,11 @@ Scene_Opning::Scene_Opning(ISceneBase* changer) : SceneBase(changer){
 	
 }
 
-void Scene_Opning::Initialize(){
+bool Scene_Opning::Initialize(){
 
 	mWork.imageHandle = LoadGraph("Resources/Graphics/BG/opning.png");
 	mWork.count = 0;
+	return true;
 }
 
 void Scene_Opning::Finalize(){

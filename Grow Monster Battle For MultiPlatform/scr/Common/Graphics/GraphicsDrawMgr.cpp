@@ -88,8 +88,8 @@ bool GraphicsDrawMgr::Remove(int order) {
 	return false;
 }
 
-void GraphicsDrawMgr::Initialize() {
-
+bool GraphicsDrawMgr::Initialize() {
+	return true;
 }
 void GraphicsDrawMgr::Finalize() {
 	

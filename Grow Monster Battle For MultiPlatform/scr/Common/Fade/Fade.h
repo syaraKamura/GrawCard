@@ -58,7 +58,7 @@ public :
 
 	bool IsFadeEnd();
 
-	void Initialize() override;
+	bool Initialize() override;
 	void Finalize() override;
 	bool Updata() override;
 	void Draw() override;

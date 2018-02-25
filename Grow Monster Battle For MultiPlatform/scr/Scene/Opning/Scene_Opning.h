@@ -8,7 +8,7 @@ class Scene_Opning : SceneBase{
 public :
 	Scene_Opning(ISceneBase* changer);
 
-	void Initialize() override;
+	bool Initialize() override;
 	void Finalize() override;
 	bool Updata() override;
 	void Draw() override;

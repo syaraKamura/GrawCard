@@ -32,10 +32,8 @@ StringBase::StringBase(){
 }
 
 StringBase::~StringBase() {
-	if (mFontMgr != NULL) {
-		delete mFontMgr;
-		mFontMgr = NULL;
-	}
+
+	Delete(mFontMgr);
 
 }
 

@@ -22,7 +22,7 @@ Scene_MainMenu::Scene_MainMenu(ISceneBase* changer) : SceneBase(changer) {
 
 }
 
-void Scene_MainMenu::Initialize() {
+bool Scene_MainMenu::Initialize() {
 
 	mState = eState_Initialize;
 	mMenu = eMenu_MainMenu;
@@ -31,7 +31,7 @@ void Scene_MainMenu::Initialize() {
 	Graphics* add = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MainMenuBG);
 	add->SetPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	mBackImageOrder = GraphicsDrawMgr::GetInstance()->Add(add, 0);
-	
+	return true;
 }
 
 void Scene_MainMenu::Finalize() {

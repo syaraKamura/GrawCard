@@ -15,7 +15,7 @@ public :
 	Test1(int posX);
 	~Test1();
 
-	void Initialize() override;
+	bool Initialize() override;
 	bool Updata() override;
 	void Draw() override ;
 	void Finalize() override;

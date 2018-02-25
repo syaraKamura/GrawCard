@@ -22,7 +22,7 @@ void TaskBase::SetFunction(pointer_func updata,pointer_func draw,pointer_func de
 	mIsInitalize = true;
 }
 
-void TaskBase::Initialize() {}
+bool TaskBase::Initialize() { return true; }
 
 void TaskBase::Finalize(){
 	if(m_pDestroy != NULL){

@@ -23,7 +23,7 @@ TestCommunication::TestCommunication(ISceneBase* changer) :SceneBase(changer) {
 
 }
 
-void TestCommunication::Initialize() {
+bool TestCommunication::Initialize() {
 
 	//送信用ソケットの作成
 	//127.0.0.1
@@ -31,7 +31,8 @@ void TestCommunication::Initialize() {
 
 	//受信用のソケットの作成
 	mReceiveUDP.MakeSocket();
-
+	
+	return true;
 }
 
 void TestCommunication::Finalize() {

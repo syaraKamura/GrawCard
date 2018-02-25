@@ -116,8 +116,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <IncludePath>$(XML_BOOST_ROOT);$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" />
@@ -207,7 +211,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\scr\android\Touch.cpp" />
+    <ClCompile Include="..\..\scr\android\Communication\ReceiveUDP_android.cpp" />
+    <ClCompile Include="..\..\scr\android\Communication\SendUDP_android.cpp" />
+    <ClCompile Include="..\..\scr\android\TouchInput.cpp" />
     <ClCompile Include="..\..\scr\AppData\AppData.cpp" />
     <ClCompile Include="..\..\scr\AppData\Character\CharacterBase.cpp" />
     <ClCompile Include="..\..\scr\AppData\Character\Monster\Monster.cpp" />
@@ -233,6 +239,7 @@
     <ClCompile Include="..\..\scr\Common\Input\Joypad.cpp" />
     <ClCompile Include="..\..\scr\Common\Input\Keybaord.cpp" />
     <ClCompile Include="..\..\scr\Common\Input\Touch.cpp" />
+    <ClCompile Include="..\..\scr\Common\String\FontMgr\FontMgr.cpp" />
     <ClCompile Include="..\..\scr\Common\String\StringBase.cpp" />
     <ClCompile Include="..\..\scr\Common\Task\TaskBase.cpp" />
     <ClCompile Include="..\..\scr\Common\Task\TaskMgr.cpp" />
@@ -250,7 +257,7 @@
     <ClCompile Include="mainAndroid.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\scr\android\Touch.h" />
+    <ClInclude Include="..\..\scr\android\TouchInput.h" />
     <ClInclude Include="..\..\scr\AppData\AppData.h" />
     <ClInclude Include="..\..\scr\AppData\Character\CharacterBase.h" />
     <ClInclude Include="..\..\scr\AppData\Character\Monster\Monster.h" />
@@ -276,6 +283,7 @@
     <ClInclude Include="..\..\scr\Common\Input\Joypad.h" />
     <ClInclude Include="..\..\scr\Common\Input\Keybaord.h" />
     <ClInclude Include="..\..\scr\Common\Input\Touch.h" />
+    <ClInclude Include="..\..\scr\Common\String\FontMgr\FontMgr.h" />
     <ClInclude Include="..\..\scr\Common\String\StringBase.h" />
     <ClInclude Include="..\..\scr\Common\Task\Task.h" />
     <ClInclude Include="..\..\scr\Common\Task\TaskBase.h" />

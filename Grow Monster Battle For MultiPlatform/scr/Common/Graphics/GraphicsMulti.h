@@ -38,7 +38,7 @@ public:
 
 	bool Load(const char* path, int scrX, int scrY);
 
-	void Relese();
+	void Relese() override;
 
 	bool Add(int handle, int scrX, int scrY);
 

@@ -13,8 +13,6 @@
 #include "Common/GameCommon.h"
 #include "Joypad.h"
 
-#ifdef __WINDOWS__
-
 #define PI (3.14159265359f)
 
 static const int REPEATE_TIME = 20;
@@ -234,5 +232,3 @@ float Joypad::GetLeftAnalogAngleRadian() {
 	if (mIsActive == false) return 0.0f;
 	return GetLeftAnalogAngleDegree() * PI / 180.0f;
 }
-
-#endif	//__WINDOWS__

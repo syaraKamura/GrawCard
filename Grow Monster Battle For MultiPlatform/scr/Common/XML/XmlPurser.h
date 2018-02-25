@@ -19,6 +19,7 @@
 #include <iostream>
 #include <string>
 
+#ifdef WIN32
 #if __has_include(<boost/property_tree/ptree.hpp>)	//ヘッダーファイルが存在していればインクルードする
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
@@ -28,8 +29,8 @@
 
 #ifdef BOOST_PROPERTY_TREE_PTREE_HPP_INCLUDED
 #define XML_PURSER_USE
-#endif
-
+#endif	//BOOST_PROPERTY_TREE_PTREE_HPP_INCLUDED
+#endif	//WIN32
 
 class XmlPurser {
 
@@ -81,6 +82,8 @@ public :
 
 	std::string GetChildString(const std::string& title, const std::string& childTitle);
 
+	std::string GetAttributeString(const std::string& title, const std::string& attributeTitle);
+
 	//書き込み
 
 	/*
@@ -103,12 +106,21 @@ public :
 #endif	//XML_PURSER_USE
 	}
 
+	template<typename T>
+	void SetAttribute(const std::string& title, const std::string& atrributeTitle, T value) {
+		SetChild(title, "<xmlattr>." + atrributeTitle, value);
+	}
+
 	//読み込み
 	int GetInt(const std::string& title);
 	double GetDouble(const std::string& title);
 
 	int  GetChildInt(const std::string& title, const std::string& childTitle);
 	double  GetChildDouble(const std::string& title, const std::string& childTitle);
+
+	int GetAttributeInt(const std::string& title, const std::string& attributeTitle);
+	double GetAttributeDouble(const std::string& title, const std::string& attributeTitle);
+
 	
 };
 
@@ -125,6 +137,23 @@ inline void XmlPurser::Set(const std::string& title, const char* value) {
 	pt.put(ROOT_PATH + "." + title, value);
 #endif	//XML_PURSER_USE
 }
+
+template<>
+inline void XmlPurser::SetChild(const std::string& title, const std::string& childTitle, std::string& value) {
+#ifdef XML_PURSER_USE
+	boost::property_tree::ptree& child = pt.put(ROOT_PATH + "." + title, "");
+	child.put(childTitle,value);
+#endif	//XML_PURSER_USE
+}
+
+template<>
+inline void XmlPurser::SetChild(const std::string& title, const std::string& childTitle, const char* value) {
+#ifdef XML_PURSER_USE
+	boost::property_tree::ptree& child = pt.put(ROOT_PATH + "." + title, "");
+	child.put(childTitle, value);
+#endif	//XML_PURSER_USE
+}
+
 
 
 #endif // __XML_PURSER_H__

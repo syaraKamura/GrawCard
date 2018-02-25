@@ -16,11 +16,12 @@
 #include "TaskBase.h"
 #include "TaskMgr.h"
 
-void TaskMgr::Initialize(){
+bool TaskMgr::Initialize(){
 	mOrder = 0;
 	mList = std::list<TaskBase*>();
 	mKillOrderList = std::list<int>();
 	DeleteAll();
+	return true;
 }
 
 /*
@@ -31,14 +32,16 @@ void TaskMgr::Finalize() {
 }
 
 //’ÊíXV
-void TaskMgr::Updata(){
+bool TaskMgr::Updata(){
+	bool result = true;
 	for(auto itr = mList.begin();itr != mList.end();itr++){
 		if((*itr)->isInitialize() == false){
 			(*itr)->Initialize();
 		}else{
-			(*itr)->Updata();
+			result = (*itr)->Updata();
 		}
 	}
+	return result;
 }
 
 //•`‰æ

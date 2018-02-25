@@ -73,12 +73,15 @@ public:
 	void Finalize();
 	bool Updata();
 	void Draw();
+	
 
 public :
 
 	//静的メソッド
 
 	static void LogPrintf(const char* str, ...);
+	static void ErorrMessage(const TCHAR* str);
+	
 };
 
 

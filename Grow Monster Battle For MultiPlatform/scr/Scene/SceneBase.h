@@ -27,7 +27,7 @@ public :
 	SceneBase(ISceneBase* nextScene){mNextScene = nextScene;};
 	virtual ~SceneBase(){};
 
-	virtual void Initialize() override{}
+	virtual bool Initialize() override { return true; }
 	virtual void Finalize() override{}
 	virtual bool Updata() override{return true;}
 	virtual void Draw() override{}

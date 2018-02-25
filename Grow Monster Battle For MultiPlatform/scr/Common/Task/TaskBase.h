@@ -59,7 +59,7 @@ public :
 	//‰Šú‰»‚ªI—¹‚µ‚Ä‚¢‚é‚©H
 	bool isInitialize(){return mIsInitalize;}
 	
-	void Initialize()override ;
+	bool Initialize()override ;
 	void Finalize()override;
 	bool Updata()override;
 	void Draw()override;

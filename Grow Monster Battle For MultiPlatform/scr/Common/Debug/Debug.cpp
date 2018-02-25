@@ -104,3 +104,17 @@ void Debug::LogPrintf(const char* str, ...) {
 
 #endif //__MY_DEBUG__
 }
+
+void Debug::ErorrMessage(const TCHAR* str) {
+
+#ifdef __MY_DEBUG__
+
+#ifdef __WINDOWS__
+	MessageBox(NULL, _T(str), _T("エラーメッセージ"), MB_OK| MB_ICONERROR);
+#elif __ANDROID__
+
+#endif
+
+#endif
+
+}

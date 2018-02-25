@@ -172,14 +172,17 @@ void Map_Initialize(){
 	}
 
 	mGraphics = new Graphics();
-	mGraphics->Load("Resources/Graphics/BG/menu_ui_re.png");
+	//mGraphics->Load("Resources/Graphics/BG/menu_ui_re.png");
+	mGraphics->Load("Resources/Data/Graph000.xml");
 	mGraphics->SetAlpha(200);
 
 	mGraphicsMulti = new GraphicsMulti();
-	mGraphicsMulti->Load("Resources/Graphics/UI/start.png", 0, 0);
-	mGraphicsMulti->Load("Resources/Graphics/UI/start.png", 0, 100);
-	mGraphicsMulti->Load("Resources/Graphics/UI/start.png", 0, 50);
-	mGraphicsMulti->Load("Resources/Graphics/UI/start.png", -200, 0);
+	//mGraphicsMulti->Load("Resources/Graphics/UI/start.png", 0, 0);
+	//mGraphicsMulti->Load("Resources/Graphics/UI/start.png", 0, 100);
+	//mGraphicsMulti->Load("Resources/Graphics/UI/start.png", 0, 50);
+	//mGraphicsMulti->Load("Resources/Graphics/UI/start.png", -200, 0);
+
+	mGraphicsMulti->Load("Resources/Data/Graph100.xml");
 
 	mData = new SaveData();
 
@@ -357,7 +360,7 @@ AITest::AITest(ISceneBase* changer) : SceneBase(changer){
 	SRand(GetNowCount());
 }
 
-void AITest::Initialize(){
+bool AITest::Initialize(){
 	
 	mJoyPad = new Joypad();
 	mTouch = new Touch();
@@ -410,20 +413,33 @@ void AITest::Initialize(){
 	mData->GetMonsterBox()->ChangeUseState(0, MonsterBox::eUseState_UnUse);
 
 	//XML‚Ì‘‚«ž‚ÝA‘‚«o‚µ
-
+#if true
 	mXml = new XmlPurser("Test.xml");
 	
 
 		mXml->Set("DOUBLE", 19.0);
 		mXml->Set("STR", "Test String!");
 		mXml->Set("INT", 25);
+		
+		
+		mXml->SetAttribute("FILE_NAME", "ID", 25);
+		mXml->SetAttribute("FILE_NAME", "TYPE", "COMMON");
+		mXml->Set("FILE_NAME", "test1");
+
 		mXml->SetChild("POSITION","DRAW_X",250);
 		mXml->SetChild("POSITION","DRAW_Y", 400.0);
 		mXml->SetChild("POSITION", "DRAW_Z", 450.0);
 
-		mXml->SetChild("POSITION2", "DRAW_X", 100);
-		mXml->SetChild("POSITION2", "DRAW_Y", 20.0);
-		mXml->SetChild("POSITION2", "DRAW_Z", 860.0);
+		
+		mXml->SetAttribute("FILE_NAME", "ID", 26);
+		mXml->SetAttribute("FILE_NAME", "TYPE", "CHARACTER");
+		mXml->Set("FILE_NAME", "test2");
+
+		mXml->SetChild("POSITION", "DRAW_X", 100);
+		mXml->SetChild("POSITION", "DRAW_Y", 20.0);
+		mXml->SetChild("POSITION", "DRAW_Z", 860.0);
+
+		
 
 		if (mXml->Write()) {
 			Debug::LogPrintf("XML‚Ì‘‚«ž‚Ý‚É¬Œ÷");
@@ -436,15 +452,27 @@ void AITest::Initialize(){
 		double doubleValue = mXml->GetDouble("DOUBLE");
 		std::string str = mXml->GetString("STR");
 		int intValue2 = mXml->GetInt("INT");
+		
+		std::string str2 = mXml->GetAttributeString("FILE_NAME", "TYPE");
+		int intvalue5 = mXml->GetAttributeInt("FILE_NAME", "ID");
+
 		int intvalue3 = mXml->GetChildInt("POSITION","DRAW_X");
 		double doubleValue2 = mXml->GetChildDouble("POSITION", "DRAW_Z");
-		int intvalue4 = mXml->GetChildInt("POSITION2", "DRAW_X");
-		double doubleValue3 = mXml->GetChildDouble("POSITION2", "DRAW_Z");
+		
+		
+		str2 = mXml->GetAttributeString("FILE_NAME", "TYPE");
+		intvalue5 = mXml->GetAttributeInt("FILE_NAME", "ID");
+
+		int intvalue4 = mXml->GetChildInt("POSITION", "DRAW_X");
+		double doubleValue3 = mXml->GetChildDouble("POSITION", "DRAW_Z");
+
 		Debug::LogPrintf("XML‚Ì“Ç‚Ýž‚Ý‚É¬Œ÷ %d %lf %s",intValue,doubleValue,str.c_str());
 
 	}
 
 	delete mXml;
+#endif
+	return true;
 }
 
 void AITest::Finalize(){
@@ -510,7 +538,7 @@ bool AITest::Updata() {
 	}
 
 	//mGraphics->Draw(20, 100, 255);
-	mGraphics->SetPosition(WINDOW_WIDTH / 2, 200);
+	//mGraphics->SetPosition(WINDOW_WIDTH / 2, 200);
 	//mGraphicsMulti->Draw(posX, 200, 255);
 	mGraphicsMulti->SetPosition(posX, 200);
 

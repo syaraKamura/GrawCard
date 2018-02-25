@@ -9,18 +9,22 @@
 #include "Common/Graphics/GraphicsMulti.h"
 #include "Common/Graphics/GraphicsDrawMgr.h"
 #include "Common/CommonResource/CommonResource.h"
+#include "Common/XML/XmlPurser.h"
 
 #include "Common/Debug/Debug.h"
 
 #include <math.h>
 #include <stdio.h>
-#include <string.h>
+#include <iostream>
+#include <sstream>
+#include <string>
 
 #ifdef __WINDOWS__
+	#include <Windows.h>
 	#include "win32/KeyBoard.h"
 #endif
 #ifdef __ANDROID__
-	#include "Android/Touch.h"
+	#include "Android/TouchInput.h"
 #endif
 
 #define WINDOW_BASE_WIDTH 1920
@@ -34,7 +38,16 @@
 typedef void(*pointer_func)(void);
 
 
+namespace my_std {
 
+	template < typename T >
+	inline std::string to_string(const T& n)
+	{
+		std::ostringstream stm;
+		stm << n;
+		return stm.str();
+	}
 
+};
 
 #endif 
