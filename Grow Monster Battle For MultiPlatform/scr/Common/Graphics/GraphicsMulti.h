@@ -24,6 +24,8 @@ private:
 		int handle;
 		int posX;		//画像内座標
 		int posY;
+		int width;
+		int height;
 	}GRAPHICS_MULTI_t;
 private:
 

@@ -33,8 +33,11 @@ bool Scene_MainMenu::Initialize() {
 	mBackImageOrder = GraphicsDrawMgr::GetInstance()->Add(add, 0);
 
 	GraphicsMulti* multiAdd = new GraphicsMulti();
-	multiAdd->Load("Resources/Graphics/UI/button/menu_adventure2.png", 40, 600);
-	multiAdd->Load("Resources/Graphics/UI/button/menu_gacha2.png", 100, 600);
+	multiAdd->Load("Resources/Graphics/UI/button/menu_adventure2.png", 160, 600);
+	multiAdd->Load("Resources/Graphics/UI/button/menu_monster2.png", 280, 600);
+	multiAdd->Load("Resources/Graphics/UI/button/menu_player2.png", 400, 600);
+	multiAdd->Load("Resources/Graphics/UI/button/menu_shop2.png", 520, 600);
+	multiAdd->Load("Resources/Graphics/UI/button/menu_gacha2.png", 640, 600);
 	mButtonImageOrder = GraphicsDrawMgr::GetInstance()->Add(multiAdd, 1);
 	
 

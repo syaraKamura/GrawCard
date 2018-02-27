@@ -119,11 +119,19 @@
     </AntPackage>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Content Include="assets\Resources\Data\Graph000.xml" />
+    <Content Include="assets\Resources\Data\Graph100.xml" />
     <Content Include="assets\Resources\Graphics\BG\menu_ui_re.png" />
     <Content Include="assets\Resources\Graphics\BG\opning.png" />
     <Content Include="assets\Resources\Graphics\BG\selectBack.png" />
     <Content Include="assets\Resources\Graphics\BG\Title.png" />
     <Content Include="assets\Resources\Graphics\BG\zukan.png" />
+    <Content Include="assets\Resources\Graphics\UI\button\menu_adventure2.png" />
+    <Content Include="assets\Resources\Graphics\UI\button\menu_gacha2.png" />
+    <Content Include="assets\Resources\Graphics\UI\button\menu_monster2.png" />
+    <Content Include="assets\Resources\Graphics\UI\button\menu_player2.png" />
+    <Content Include="assets\Resources\Graphics\UI\button\menu_save2.png" />
+    <Content Include="assets\Resources\Graphics\UI\button\menu_shop2.png" />
     <Content Include="assets\Resources\Graphics\UI\continue.png" />
     <Content Include="assets\Resources\Graphics\UI\start.png" />
     <Content Include="res\drawable\542a3afb7e4b4.ico" />
@@ -140,7 +148,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="assets\Resources\Data\" />
     <Folder Include="assets\Resources\Graphics\Common\" />
   </ItemGroup>
   <Import Project="$(AndroidTargetsPath)\Android.targets" />

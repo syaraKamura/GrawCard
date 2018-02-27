@@ -53,7 +53,7 @@ bool GraphicsMulti::Load(const char* path) {
 		int handle = LoadGraph(graphPath);
 
 		if (handle == eGraphicsResult_ERROR) {
-			Debug::LogPrintf("[ERORR: FUNC %s] Graphic Load ERROR.(%s)", __func__, path);
+			Debug::LogPrintf("[ERORR: FUNC %s] Graphic Load ERROR.(%s)\n", __func__, path);
 			delete xml;
 			return false;
 		}
@@ -74,7 +74,7 @@ bool GraphicsMulti::Load(const char* path) {
 bool GraphicsMulti::Load(const char* path, int scrX, int scrY) {
 	int handle = DxLib::LoadGraph(path);
 	if (handle == eGraphicsResult_ERROR) {
-		Debug::LogPrintf("[ERORR: FUNC %s] Graphic Load ERROR.(%s)",__func__, path);
+		Debug::LogPrintf("[ERORR: FUNC %s] Graphic Load ERROR.(%s)\n",__func__, path);
 		return false;
 	}
 	SetFileName(path);
@@ -96,7 +96,10 @@ void GraphicsMulti::Relese() {
 bool GraphicsMulti::Add(int handle, int scrX, int scrY) {
 
 	if (handle > eGraphicsResult_NONE) {
-		GRAPHICS_MULTI_t multiGraphics = { handle,scrX,scrY };
+		int width;
+		int height;
+		GetGraphSize(handle, &width, &height);
+		GRAPHICS_MULTI_t multiGraphics = { handle,scrX,scrY ,width ,height};
 		mHandleList.push_back(multiGraphics);
 		return true;
 	}

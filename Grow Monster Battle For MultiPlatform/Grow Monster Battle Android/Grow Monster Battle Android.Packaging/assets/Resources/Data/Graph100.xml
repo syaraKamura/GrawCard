@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <DATA_NUM>2</DATA_NUM>
+  <FILE_NAME0>Resources/Graphics/UI/start.png</FILE_NAME0>
+  <POSITION0>
+    <DRAW_X>300</DRAW_X>
+    <DRAW_Y>300</DRAW_Y>
+  </POSITION0>
+  <FILE_NAME1>Resources/Graphics/UI/continue.png</FILE_NAME1>
+  <POSITION1>
+    <DRAW_X>300</DRAW_X>
+    <DRAW_Y>400</DRAW_Y>
+  </POSITION1>
+</root>
