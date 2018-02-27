@@ -31,11 +31,19 @@ bool Scene_MainMenu::Initialize() {
 	Graphics* add = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MainMenuBG);
 	add->SetPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	mBackImageOrder = GraphicsDrawMgr::GetInstance()->Add(add, 0);
+
+	GraphicsMulti* multiAdd = new GraphicsMulti();
+	multiAdd->Load("Resources/Graphics/UI/button/menu_adventure2.png", 40, 600);
+	multiAdd->Load("Resources/Graphics/UI/button/menu_gacha2.png", 100, 600);
+	mButtonImageOrder = GraphicsDrawMgr::GetInstance()->Add(multiAdd, 1);
+	
+
 	return true;
 }
 
 void Scene_MainMenu::Finalize() {
 	GraphicsDrawMgr::GetInstance()->Remove(mBackImageOrder);
+	GraphicsDrawMgr::GetInstance()->ReleseRequest(mButtonImageOrder);
 }
 
 bool Scene_MainMenu::Updata() {

@@ -77,6 +77,7 @@ bool GraphicsMulti::Load(const char* path, int scrX, int scrY) {
 		Debug::LogPrintf("[ERORR: FUNC %s] Graphic Load ERROR.(%s)",__func__, path);
 		return false;
 	}
+	SetFileName(path);
 	return Add(handle, scrX, scrY);
 }
 

@@ -14,6 +14,7 @@
 #include "Common/GameCommon.h"
 #include "GraphicsDrawMgr.h"
 #include "GraphicsDraw.h"
+#include <typeinfo>
 
 //ソート用関数
 static bool sort_priorty(GraphicsDrawMgr::GRAPHICS_DRAW_ORDER_t a, GraphicsDrawMgr::GRAPHICS_DRAW_ORDER_t b) {
@@ -35,6 +36,7 @@ GraphicsDrawMgr::~GraphicsDrawMgr() {
 }
 
 int GraphicsDrawMgr::Add(GraphicsBase* graphics,int prio) {
+	
 	((GraphicsDraw*)(graphics))->SetPriorty(prio);
 	GRAPHICS_DRAW_ORDER_t add = { ++mOrder,(GraphicsDraw*)(graphics) };
 	mList->push_back(add);
@@ -47,11 +49,16 @@ int GraphicsDrawMgr::Add(GraphicsBase* graphics,int prio) {
 	return	NULL以外	:Graphicsクラスを返却する
 			NULL		:データがない
 */
-Graphics* GraphicsDrawMgr::Get(int order) {
+GraphicsBase* GraphicsDrawMgr::Get(int order) {
 	for (auto it = mList->begin(); it != mList->end();) {
 		if ((*it).order == order) {
-			return (Graphics*)(*it).graph;
+			GraphicsMulti* graph = dynamic_cast<GraphicsMulti*>((*it).graph);
+			if (graph != NULL) {
+				return graph;
+			}
+			return dynamic_cast<Graphics*>((*it).graph);
 		}
+		it++;
 	}
 	return NULL;
 }
@@ -67,6 +74,7 @@ bool GraphicsDrawMgr::ReleseRequest(int order) {
 			(*it).graph->ReleseRequest();
 			return true;
 		}
+		it++;
 	}
 	return false;
 }
@@ -84,6 +92,7 @@ bool GraphicsDrawMgr::Remove(int order) {
 			mList->erase(it);
 			return true;
 		}
+		it++;
 	}
 	return false;
 }

@@ -32,7 +32,7 @@ bool Graphics::Load(const char* path) {
 	char extensionString[4] = { *(path + (len - 3)),*(path + (len - 2)),*(path + (len - 1)) };
 
 	if (extensionString != NULL &&
-		strcmpDx(extensionString, "xml") == 0) {
+		(strcmpDx(extensionString, "xml") == 0 || strcmpDx(extensionString, "XML") == 0)) {
 
 		XmlPurser* xml = new XmlPurser(path);
 
@@ -67,6 +67,7 @@ bool Graphics::Load(const char* path) {
 		return false;
 	}
 	DxLib::GetGraphSize(mHandle, &mWidth, &mHeight);
+	SetFileName(graphPath);
 
 	
 	return true;

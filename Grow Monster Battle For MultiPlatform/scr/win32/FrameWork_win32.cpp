@@ -61,7 +61,7 @@ bool Framework::Initialize(int width, int height, const char* titleName/* = ""*/
 
 void Framework::Finalize() {
 	mGameMgr->Finalize();
-	delete mGameMgr;
+	Delete(mGameMgr);
 	DxLib_End();
 }
 

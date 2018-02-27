@@ -54,6 +54,7 @@ private :
 	eMenu mNextMenu;
 
 	int mBackImageOrder;
+	int mButtonImageOrder;
 
 private:
 
