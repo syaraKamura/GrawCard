@@ -12,6 +12,7 @@
 #include "Common/XML/XmlPurser.h"
 
 #include "Common/Debug/Debug.h"
+#include "Common/Debug/DebugList.h"
 
 #include <math.h>
 #include <stdio.h>

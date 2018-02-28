@@ -16,7 +16,7 @@
 
 class DebugList {
 
-private:
+public:
 
 	enum eDebugType {
 		eDebugType_Flag,	//ON,Offの切り替えで実行する
@@ -24,20 +24,35 @@ private:
 	};
 
 
-private:
+protected:
 
-	char mDebugName[64];		//デバッグ名
-	eDebugType mType;			//
-	bool mIsActive;				//
+	int mListSelect;
 
 public:
 
+	typedef struct {
+		int id;
+		char mDebugName[64];		//デバッグ名
+		eDebugType mType;			//
+		bool mIsActive;
+	}DEBUG_LIST_t;
 
-	bool UpdateFunc();
-	bool UpdateOnFunc();
-	bool UpdateOffFunc();
-	void DrawFunc();
+	std::list<DEBUG_LIST_t*> mList;
 
+public:
+
+	DebugList();
+	virtual ~DebugList();
+	void DrawDebugList();
+	void Update();
+	/*
+		各デバッグ項目の実行用純仮想関数
+	*/
+	virtual void Execute() = 0;
+	
+	void SetList(DEBUG_LIST_t* list, const char* debugName, eDebugType type, bool isActive);
+
+	void AddList(int id,const char* debugName, eDebugType type, bool isActive);
 
 
 };

@@ -24,6 +24,7 @@ Debug::Debug() {
 	mIsAssert = false;
 	mOldAllocSize = 0;
 	mOldAllocNum = 0;
+	mDebugList = NULL;
 }
 
 Debug::~Debug() {}
@@ -60,6 +61,10 @@ bool Debug::Updata() {
 		return false;
 	}
 
+	if (mDebugList != NULL) {
+		mDebugList->Update();
+	}
+
 	return true;
 }
 
@@ -73,6 +78,11 @@ void Debug::Draw() {
 	//一行目
 	DrawString(0, 0, "デバッグメニュー", GetColor(0, 255, 0));
 
+	//デバッグリスト描画
+	if (mDebugList != NULL) {
+		mDebugList->DrawDebugList();
+	}
+
 	//メモリのサイズと確保数
 	size_t nowAlloc = DxGetAllocSize();
 	float alloc = (nowAlloc - mOldAllocSize) / 1024.0f;
@@ -81,6 +91,10 @@ void Debug::Draw() {
 
 }
 
+
+void Debug::DeleteList() {
+	Delete(mDebugList);
+}
 
 /*
 	出力ウィンドウに出力する(書式付き)
@@ -118,3 +132,4 @@ void Debug::ErorrMessage(const TCHAR* str) {
 #endif
 
 }
+

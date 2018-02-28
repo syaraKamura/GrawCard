@@ -14,14 +14,18 @@
 #include "Common/GameCommon.h"
 #include "Common/GameMgr.h"
 #include "Scene/SceneMgr.h"
-#include "Common/Task/Task.h"
 #include "Common/FPS/FPS.h"
-#include "Common/Debug/Debug.h"
 
 GameMgr::GameMgr(){
-	mSceneMgr = new SceneMgr();
+
+	
 	mFPS = new FPS(60);
+#ifdef __MY_DEBUG__
 	mDebug = new Debug();
+	mSceneMgr = new SceneMgr(mDebug);
+#else
+	mSceneMgr = new SceneMgr();
+#endif
 	ComRes::Create();
 }
 
@@ -30,25 +34,35 @@ GameMgr::~GameMgr(){
 
 	Delete(mSceneMgr);
 	Delete(mFPS);
+#ifdef __MY_DEBUG__
 	Delete(mDebug);
+#endif
 
 }
 
 void GameMgr::Initialize(){
 	TaskMgr::getInstance().Initialize();
 	mSceneMgr->Initialize();
+
+#ifdef __MY_DEBUG__
 	mDebug->Initialize();
+#endif
 
 #ifdef __MY_WINDOWS__
 	Keyboard_Initialize();
 #endif
+
+	
 
 }
 
 void GameMgr::Finalize(){
 	TaskMgr::getInstance().Finalize();
 	mSceneMgr->Finalize();
+
+#ifdef __MY_DEBUG__
 	mDebug->Finalize();
+#endif
 
 #ifdef __MY_WINDOWS__
 	Keyboard_Finalize();

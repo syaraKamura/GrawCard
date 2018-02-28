@@ -40,6 +40,14 @@ SceneMgr::SceneMgr() : mNextScene(eScene_None),mPrevScene(mNextScene){
 
 }
 
+#ifdef __MY_DEBUG__
+
+SceneMgr::SceneMgr(Debug* debug): mNextScene(eScene_None), mPrevScene(mNextScene){
+	mScene = (SceneBase*) new Scene_Boot(this);	//ブートシーンを設定
+	mDebug = debug;
+}
+
+#endif
 
 bool SceneMgr::Initialize(){
 	if(mScene == NULL) return false;
@@ -90,7 +98,23 @@ void SceneMgr::SceneChangePreve(){
 
 bool SceneMgr::SceneChangeProc(){
 
-	
+#ifdef __MY_DEBUG__
+	//シーンリスト
+	const SCENE_LIST_t SCENE_LIST[ISceneBase::eScene_Num] = {
+		//シーンクラス							シーン名
+	{ (SceneBase*)new Scene_Boot(this),		"Scene_Boot" },
+	{ (SceneBase*)new Scene_Opning(this),	"Scene_Opning" },
+	{ (SceneBase*)new Scene_Title(this),		"Scene_Title" },
+	{ (SceneBase*)new Scene_MainMenu(this,mDebug),	"Scene_MainMenu" },
+
+#ifdef __MY_DEBUG__
+	{ (SceneBase*)new TestMenu(this),		"Scene_TestMenu" },
+	{ (SceneBase*)new AITest(this),			"Scene_AITest" },
+	{ (SceneBase*)new TestCommunication(this),"Scene_TestCommunication" },
+#endif
+
+	};
+#else
 	//シーンリスト
 	const SCENE_LIST_t SCENE_LIST[ISceneBase::eScene_Num] = {
 		//シーンクラス							シーン名
@@ -99,14 +123,8 @@ bool SceneMgr::SceneChangeProc(){
 		{(SceneBase*)new Scene_Title(this),		"Scene_Title" },
 		{(SceneBase*)new Scene_MainMenu(this),	"Scene_MainMenu"},
 
-#ifdef __MY_DEBUG__
-		{(SceneBase*)new TestMenu(this),		"Scene_TestMenu" },
-		{(SceneBase*)new AITest(this),			"Scene_AITest" },
-		{ (SceneBase*)new TestCommunication(this),"Scene_TestCommunication" },
-#endif
-
 	};
-
+#endif
 	if(mNextScene != ISceneBase::eScene_None){
 		
 		mScene->Finalize();

@@ -20,7 +20,17 @@
 
 Scene_MainMenu::Scene_MainMenu(ISceneBase* changer) : SceneBase(changer) {
 
+#ifdef __MY_DEBUG__
+	
+#endif //__MY_DEBUG__
+
 }
+
+#ifdef __MY_DEBUG__
+Scene_MainMenu::Scene_MainMenu(ISceneBase* changer, Debug* debug) : SceneBase(changer, debug) {
+
+}
+#endif
 
 bool Scene_MainMenu::Initialize() {
 
@@ -40,6 +50,11 @@ bool Scene_MainMenu::Initialize() {
 	multiAdd->Load("Resources/Graphics/UI/button/menu_gacha2.png", 640, 600);
 	mButtonImageOrder = GraphicsDrawMgr::GetInstance()->Add(multiAdd, 1);
 	
+#ifdef __MY_DEBUG__
+	if (mDebug != NULL) {
+		mDebug->SetDebugList((DebugList*)new dbgScene_MainMenu());
+	}
+#endif
 
 	return true;
 }
@@ -47,6 +62,11 @@ bool Scene_MainMenu::Initialize() {
 void Scene_MainMenu::Finalize() {
 	GraphicsDrawMgr::GetInstance()->Remove(mBackImageOrder);
 	GraphicsDrawMgr::GetInstance()->ReleseRequest(mButtonImageOrder);
+
+#ifdef __MY_DEBUG__
+	mDebug->DeleteList();
+#endif	//__MY_DEBUG__
+
 }
 
 bool Scene_MainMenu::Updata() {
@@ -176,3 +196,30 @@ void Scene_MainMenu::NexetState(eState nextState, eFadeType type, int fadeFrame)
 	}
 
 }
+
+
+#ifdef __MY_DEBUG__
+
+Scene_MainMenu::dbgScene_MainMenu::dbgScene_MainMenu() : DebugList()
+{
+	AddList(eList_,"テスト項目1", DebugList::eDebugType_Flag, false);
+}
+
+Scene_MainMenu::dbgScene_MainMenu::~dbgScene_MainMenu() {
+	
+}
+
+void Scene_MainMenu::dbgScene_MainMenu::Execute(){
+	
+	switch (mListSelect) {
+	case eList_:
+		Debug::ErorrMessage("テスト項目選択!");
+		break;
+	default:
+
+		break;
+	}
+
+}
+
+#endif

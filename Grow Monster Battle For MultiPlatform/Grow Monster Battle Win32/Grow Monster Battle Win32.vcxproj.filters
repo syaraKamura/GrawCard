@@ -234,6 +234,9 @@
     <ClCompile Include="..\scr\win32\FrameWork_win32.cpp">
       <Filter>ソース ファイル\scr\win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\scr\Common\Debug\DebugList.cpp">
+      <Filter>ソース ファイル\scr\Common\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\scr\Common\GameMgr.h">
@@ -376,6 +379,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\Framework.h">
       <Filter>ソース ファイル\scr\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Debug\DebugList.h">
+      <Filter>ソース ファイル\scr\Common\Debug</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -17,7 +17,9 @@
 
 class SceneMgr;
 class FPS;
+#ifdef __MY_DEBUG__
 class Debug;
+#endif 
 
 class GameMgr{
 
@@ -25,7 +27,10 @@ private:
 
 	SceneMgr* mSceneMgr;
 	FPS* mFPS;
+
+#ifdef __MY_DEBUG__
 	Debug* mDebug;
+#endif
 
 public :
 

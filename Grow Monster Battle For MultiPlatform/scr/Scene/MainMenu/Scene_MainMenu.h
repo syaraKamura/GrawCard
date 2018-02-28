@@ -15,6 +15,7 @@
 #define __MAIN_MENU_H__
 
 #include "../SceneBase.h"
+#include "Common/Debug/DebugList.h"
 
 class Scene_MainMenu : public SceneBase {
 
@@ -66,11 +67,43 @@ private:
 public :
 
 	Scene_MainMenu(ISceneBase* changer);
-
+#ifdef __MY_DEBUG__
+	Scene_MainMenu(ISceneBase* changer,Debug* debug);
+#endif	//__MY_DEBUG__
 	bool Initialize() override;
 	void Finalize() override;
 	bool Updata() override;
 	void Draw() override;
+
+#ifdef __MY_DEBUG__
+
+public :
+
+	class dbgScene_MainMenu : public DebugList {
+
+	private:
+
+		enum eList {
+			eList_,
+			eList_Num,
+		};
+
+	private:
+
+		DEBUG_LIST_t mList[eList_Num];
+
+	public :
+
+		dbgScene_MainMenu();
+		~dbgScene_MainMenu() override;
+
+		void Execute() override;
+		
+
+
+	};
+
+#endif
 
 };
 

@@ -18,6 +18,10 @@
 
 #include "TaskBase.h"
 
+#ifdef __MY_DEBUG__
+#include "Common/Debug/Debug.h"
+#endif
+
 #include <list>
 
 class TaskMgr {
@@ -89,7 +93,6 @@ public :
 
 	//指定のタスクを返却する
 	TaskBase* GetTask(int taskId);
-
 
 private :
 

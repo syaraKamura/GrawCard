@@ -25,6 +25,10 @@ protected:
 public :
 
 	SceneBase(ISceneBase* nextScene){mNextScene = nextScene;};
+#ifdef __MY_DEBUG__
+	Debug* mDebug;
+	SceneBase(ISceneBase* nextScene, Debug* debug) { mNextScene = nextScene; mDebug = debug; };
+#endif
 	virtual ~SceneBase(){};
 
 	virtual bool Initialize() override { return true; }

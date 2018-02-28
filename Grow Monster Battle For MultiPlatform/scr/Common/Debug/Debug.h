@@ -14,6 +14,8 @@
 #ifndef __DEBUG_H__
 #define __DEBUG_H__
 
+class DebugList;
+
 class Debug {
 	
 private:
@@ -53,6 +55,8 @@ private:
 	size_t mOldAllocSize;
 	int mOldAllocNum;
 
+	DebugList* mDebugList;
+
 private:
 
 
@@ -74,6 +78,13 @@ public:
 	bool Updata();
 	void Draw();
 	
+	void SetDebugList(DebugList* debugList) {
+		if (debugList == NULL) return;
+		mDebugList = debugList;
+	}
+
+	void DeleteList();
+
 
 public :
 

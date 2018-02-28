@@ -26,7 +26,6 @@ public :
 	virtual bool Updata() = 0;
 	virtual void Draw() = 0;
 	
-
 };
 
 #endif

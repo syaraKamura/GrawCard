@@ -17,6 +17,10 @@
 
 #include "Task.h"
 
+#ifdef __MY_DEBUG__
+#include "Common/Debug/Debug.h"
+#endif 
+
 typedef void(*pointer_func)(void);
 
 class TaskBase : public Task{

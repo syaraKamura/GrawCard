@@ -17,6 +17,8 @@
 
 #include "ISceneBase.h"
 
+class Debug;
+
 class SceneBase;
 
 class SceneMgr : public ISceneBase,Task{
@@ -40,6 +42,13 @@ public :
 
 	SceneMgr();
 	
+#ifdef __MY_DEBUG__
+
+	Debug* mDebug;
+	SceneMgr(Debug* debug);
+
+#endif
+
 	bool Initialize() override;
 	void Finalize() override;
 	bool Updata() override;
