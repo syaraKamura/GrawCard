@@ -47,6 +47,7 @@ bool ReceiveUDP::MakeSocket(unsigned int receivePort) {
 
 	//mHandle = DxLib::MakeUDPSocket(mReceivePort);
 	mHandle = -1;
+	return true;
 }
 
 /*

@@ -12,7 +12,7 @@
 !*/
 
 //	------- インクルード宣言
-#include "DxLib.h"
+#include "Common/GameCommon.h"
 
 #include "TouchInput.h"
 
@@ -52,9 +52,13 @@ static int _TouchProc() {
 		TOUCH_DATA* touch = &s_touch.touchData[i];
 		if (GetTouchInput(i, &touch->posX, &touch->posY, NULL, &touch->device) == 0) {
 			touch->id = i;
+			touch->oldPosX = touch->posX;
+			touch->oldPosY = touch->posY;
 		}
 		else {
+			
 			touch->id = -1;
+			
 		}
 	}
 
@@ -62,24 +66,25 @@ static int _TouchProc() {
 		TOUCH_DATA* touch = &s_touch.touchData[i];
 		if (touch->id == i) {
 			touch->touchCnt++;
+			touch->releseCnt = 0;
 		}
-		else {
+		else if (touch->id == -1) {
 			touch->touchCnt = 0;
+			touch->releseCnt ++;
 			touch->posX = 0;
 			touch->posY = 0;
-			touch->oldPosX = 0;
-			touch->oldPosY = 0;
-			touch->releseCnt = 0;
+
 		}
 	}
 
-#if 0
+#if 1
 #ifdef __MY_DEBUG__
+	clsDx();
 	printfDx("TouchNum:%d\n", s_touch.touchNum);
 	
 	for (int i = 0; i < TOUCH_MAX_NUM; i++) {
 		TOUCH_DATA* touch = &s_touch.touchData[i];
-		printfDx("ID:%d device:%d posX:%d posY:%d cnt:%d\n", touch->id, touch->device, touch->posX, touch->posY, touch->touchCnt);
+		printfDx("ID:%d device:%d posX:%d posY:%d cnt:%d releseCnt: %d\n", touch->id, touch->device, touch->posX, touch->posY, touch->touchCnt, touch->releseCnt);
 	}
 #endif // __MY_DEBUG__
 #endif // 0
@@ -143,12 +148,14 @@ bool Touch_Repeat(int num) {
 */
 bool Touch_Relese(int num) {
 
+#if 0
 	if (s_touch.touchData[num].touchCnt > 0) {
 		s_touch.touchData[num].releseCnt = 0;
 	}
 	else {
 		s_touch.touchData[num].releseCnt ++;
 	}
+#endif
 
 	return s_touch.touchData[num].releseCnt == 1;
 }
@@ -209,7 +216,9 @@ int Touch_FulickLeftRight(int num) {
 	return TOUCH_DATAポインタ変数
 */
 const TOUCH_DATA* Touch_GetParamData(int num){
-	const TOUCH_DATA* touch = &s_touch.touchData[num];
+	TOUCH_DATA* touch = &s_touch.touchData[num];
+	touch->posX = touch->oldPosX;
+	touch->posY = touch->oldPosY;
 	return touch;
 }
 

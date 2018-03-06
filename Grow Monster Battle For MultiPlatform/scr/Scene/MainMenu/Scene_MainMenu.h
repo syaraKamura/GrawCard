@@ -90,7 +90,7 @@ public :
 
 	private:
 
-		DEBUG_LIST_t mList[eList_Num];
+		
 
 	public :
 

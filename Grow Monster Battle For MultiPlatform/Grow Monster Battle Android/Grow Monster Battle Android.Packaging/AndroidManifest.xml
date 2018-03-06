@@ -6,8 +6,8 @@
   <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="19"/>
 
   <!-- This .apk has no Java code itself, so set hasCode to false. -->
-  <application android:label="@string/app_name" android:hasCode="false" android:theme="@android:style/Theme.NoTitleBar"
-               android:icon="@drawable/542a3afb7e4b4">
+  <application android:label="@string/app_name" android:hasCode="true" android:theme="@android:style/Theme.NoTitleBar"
+               android:icon="@drawable/icon">
     <!-- Icon Setting -->
 
     <!-- Our activity is the built-in NativeActivity framework class.

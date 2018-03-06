@@ -38,7 +38,8 @@ GraphicsDrawMgr::~GraphicsDrawMgr() {
 int GraphicsDrawMgr::Add(GraphicsBase* graphics,int prio) {
 	
 	((GraphicsDraw*)(graphics))->SetPriorty(prio);
-	GRAPHICS_DRAW_ORDER_t add = { ++mOrder,(GraphicsDraw*)(graphics) };
+	GRAPHICS_DRAW_ORDER_t add = { 0,(GraphicsDraw*)(graphics) };
+	add.order = ++mOrder;
 	mList->push_back(add);
 	mList->sort(sort_priorty);
 	return mOrder;
@@ -125,7 +126,7 @@ void GraphicsDrawMgr::Draw()  {
 	if (mList == NULL) return;
 	else if (mList->size() <= 0) return;
 
-	std::list<GraphicsDraw*>* buffer = new std::list<GraphicsDraw*>();
+	//std::list<GraphicsDraw*>* buffer = new std::list<GraphicsDraw*>();
 
 	for (auto it = mList->begin(); it != mList->end();) {
 

@@ -30,7 +30,7 @@ bool GraphicsMulti::Load(const char* path) {
 	//最後の3文字を取得する
 	char extensionString[4] = { *(path + (len - 3)),*(path + (len - 2)),*(path + (len - 1)) };
 
-	if (extensionString == NULL &&
+	if (extensionString[0] == '\0' ||
 		strcmpDx(extensionString, "xml") != 0) {
 		Debug::ErorrMessage("xmlファイルではないので読み込みを中止しました.");
 		return false;
@@ -104,7 +104,7 @@ bool GraphicsMulti::Add(int handle, int scrX, int scrY) {
 		return true;
 	}
 	else {
-		Debug::LogPrintf("[ERORR : FUNC %s] This Graphic Data is Not Exits.",__func__);
+		Debug::LogPrintf("[ERORR : FUNC %s] This Graphic Data is Not Exits.\n",__func__);
 		return false;
 	}
 }
@@ -136,4 +136,39 @@ void GraphicsMulti::Draw(int posX, int posY, int alpha, double angle, double sca
 		DxLib::DrawRotaGraph(drawPosX, drawPosY, mScale, mAngle, (*it).handle, TRUE);
 	}
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+}
+
+
+/*
+	タッチした画像番号を返却する
+	return	-1		:タッチされていない
+			0以上	:画像をタッチした
+*/
+int GraphicsMulti::TouchNumber() {
+
+	int result = -1;
+
+#ifdef __ANDROID__
+	if (mHandleList.size() <= 0) return result;
+
+	const TOUCH_DATA* data = Touch_GetParamData(0);
+	
+	if (Touch_Relese(0)) {
+
+		int number = 0;
+		for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
+			GRAPHICS_MULTI_t graph = (*it);
+
+
+			if (((graph.posX <= data->posX && graph.posX + graph.width >= data->posX) &&
+				(graph.posY <= data->posY && graph.posY + graph.height >= data->posY))) {
+				result = number;
+			}
+			number++;
+		}
+
+	}
+#endif
+
+	return result;
 }

@@ -36,7 +36,7 @@ private:
 	SendUDP mSendUDP;
 	ReceiveUDP mReceiveUDP;
 
-	int mSelect;
+	//int mSelect;
 
 private:
 

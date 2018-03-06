@@ -62,7 +62,8 @@ public:
 
 	}
 
-
+	virtual bool IsTouch() { return false; }
+	virtual int TouchNumber() { return 0; }
 
 };
 

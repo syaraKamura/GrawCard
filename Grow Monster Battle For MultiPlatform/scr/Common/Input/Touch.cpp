@@ -176,8 +176,8 @@ float Touch::GetFlickAngleDegree(int code) {
 */
 float Touch::GetFlickAngleRadian(int code) {
 
-	float x = (float)this->GetFlick(code, eFlickAxis_Horizontal);
-	float y = (float)this->GetFlick(code, eFlickAxis_Vertical);
+	//float x = (float)this->GetFlick(code, eFlickAxis_Horizontal);
+	//float y = (float)this->GetFlick(code, eFlickAxis_Vertical);
 	float angle = 0.0f;
 
 	angle = this->GetFlickAngleDegree(code) * PI / 180.0f;

@@ -11,6 +11,7 @@
 				
 !*/
 
+#include<stdio.h>
 #include "GraphicsDraw.h"
 
 GraphicsDraw::GraphicsDraw() {
@@ -118,4 +119,13 @@ bool GraphicsDraw::IsVisible() {
 
 bool GraphicsDraw::IsRelese() {
 	return mIsRelese;
+}
+
+void GraphicsDraw::GetSize(int* width, int* height) {
+	if (width != NULL) {
+		*width = mWidth;
+	}
+	if (height != NULL) {
+		*height = mHeight;
+	}
 }

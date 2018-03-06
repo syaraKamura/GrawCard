@@ -39,7 +39,7 @@ bool Scene_MainMenu::Initialize() {
 	mNextMenu = eMenu_None;
 
 	Graphics* add = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MainMenuBG);
-	add->SetPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+	add->SetPosition(0, 0);
 	mBackImageOrder = GraphicsDrawMgr::GetInstance()->Add(add, 0);
 
 	GraphicsMulti* multiAdd = new GraphicsMulti();
@@ -71,7 +71,7 @@ void Scene_MainMenu::Finalize() {
 
 bool Scene_MainMenu::Updata() {
 
-	switch (mState) {
+	switch ((int)mState) {
 	case eState_Initialize:
 		NexetState(eState_Main, eFadeType_In, 30);
 		break;
@@ -168,6 +168,12 @@ bool Scene_MainMenu::UpdataProc() {
 
 #endif
 #else
+	auto mGraph = GraphicsDrawMgr::GetInstance()->Get(this->mButtonImageOrder);
+	if (mGraph->TouchNumber() == 0) {
+		dbg_ChangeScene_TestMenu();
+	}else if (mGraph->TouchNumber() == 1) {
+		mNextScene->SceneChange(ISceneBase::eScene_AITest);
+	}
 
 #endif
 

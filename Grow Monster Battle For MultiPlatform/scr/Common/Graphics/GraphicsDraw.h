@@ -16,6 +16,9 @@
 
 class GraphicsDraw {
 
+public :
+
+
 protected:
 
 	bool mIsVisible;	//表示フラグ
@@ -32,6 +35,7 @@ protected:
 	int mHeight;
 
 	int mPrio;	//プライオリティ
+
 
 public:
 
@@ -80,6 +84,7 @@ public:
 	bool IsVisible();
 	bool IsRelese();
 
+	void GetSize(int* width, int* height);
 
 };
 

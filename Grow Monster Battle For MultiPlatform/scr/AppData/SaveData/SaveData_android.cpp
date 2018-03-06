@@ -248,7 +248,7 @@ int SaveData::GetAilmentSize(int size, size_t dataSize) {
 */
 const char* SaveData::GetFilePath() {
 	
-	char path[256] = {};
+	static char path[256] = {};
 
 	GetExternalDataPath(path, sizeof(path));
 

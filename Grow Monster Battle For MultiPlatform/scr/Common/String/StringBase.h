@@ -31,7 +31,7 @@ private:
 	unsigned int mColor;
 	char mString[1024];
 	
-	int mStringSize;
+	//int mStringSize;
 
 	int mLine;
 	int mPos;

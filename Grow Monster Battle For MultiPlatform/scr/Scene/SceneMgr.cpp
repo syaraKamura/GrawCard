@@ -31,7 +31,9 @@ typedef struct {
 }SCENE_LIST_t;
 
 
-SceneMgr::SceneMgr() : mNextScene(eScene_None),mPrevScene(mNextScene){
+SceneMgr::SceneMgr(){
+	mNextScene = ISceneBase::eScene_None;
+	mPrevScene = ISceneBase::eScene_None;
 	mScene = (SceneBase*) new Scene_Boot(this);	//ブートシーンを設定
 
 #ifdef __MY_DEBUG__
@@ -42,7 +44,9 @@ SceneMgr::SceneMgr() : mNextScene(eScene_None),mPrevScene(mNextScene){
 
 #ifdef __MY_DEBUG__
 
-SceneMgr::SceneMgr(Debug* debug): mNextScene(eScene_None), mPrevScene(mNextScene){
+SceneMgr::SceneMgr(Debug* debug){
+	mNextScene = ISceneBase::eScene_None;
+	mPrevScene = ISceneBase::eScene_None;
 	mScene = (SceneBase*) new Scene_Boot(this);	//ブートシーンを設定
 	mDebug = debug;
 }

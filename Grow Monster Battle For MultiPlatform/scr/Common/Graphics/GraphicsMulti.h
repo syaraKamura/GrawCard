@@ -49,6 +49,9 @@ public:
 	*/
 	void Draw(int posX, int posY, int alpha, double angle, double scale) override;
 
+
+	int TouchNumber() override;
+
 };
 
 #endif // __GRAPHICS_MULTI_H__

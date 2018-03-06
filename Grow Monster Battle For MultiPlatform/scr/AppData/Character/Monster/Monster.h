@@ -53,8 +53,8 @@ private:
 	int mDeffence;
 	int mSpeed;
 
-	int SkillIndex[SKILL_HAVE_NUM];
-	eHomePosition mHomePosition;	//定位置
+	//int SkillIndex[SKILL_HAVE_NUM];
+	//eHomePosition mHomePosition;	//定位置
 
 public :
 

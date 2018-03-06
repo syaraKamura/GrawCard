@@ -134,7 +134,7 @@
     <Content Include="assets\Resources\Graphics\UI\button\menu_shop2.png" />
     <Content Include="assets\Resources\Graphics\UI\continue.png" />
     <Content Include="assets\Resources\Graphics\UI\start.png" />
-    <Content Include="res\drawable\542a3afb7e4b4.ico" />
+    <Content Include="res\drawable\icon.ico" />
     <Content Include="res\values\strings.xml" />
     <AntBuildXml Include="build.xml" />
     <AndroidManifest Include="AndroidManifest.xml">
@@ -149,6 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\Resources\Graphics\Common\" />
+  </ItemGroup>
+  <ItemGroup>
+    <JavaCompile Include="src\com\Grow_Monster_Battle_Android\Packaging\GrawMonsterBattle.java" />
   </ItemGroup>
   <Import Project="$(AndroidTargetsPath)\Android.targets" />
   <ImportGroup Label="ExtensionTargets" />

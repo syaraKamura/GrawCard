@@ -31,7 +31,7 @@ bool Graphics::Load(const char* path) {
 	//最後の3文字を取得する
 	char extensionString[4] = { *(path + (len - 3)),*(path + (len - 2)),*(path + (len - 1)) };
 
-	if (extensionString != NULL &&
+	if (extensionString[0] != '\0' &&
 		(strcmpDx(extensionString, "xml") == 0 || strcmpDx(extensionString, "XML") == 0)) {
 
 		XmlPurser* xml = new XmlPurser(path);
@@ -92,11 +92,28 @@ void Graphics::Draw(int posX, int posY, int alpha, double angle, double scale){
 	SetAlpha(alpha);
 	SetAngleRadian(angle);
 	SetScale(scale);
-
+   
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
-	DxLib::DrawRotaGraph(mPosX, mPosY, mScale, mAngle, mHandle, TRUE);
+	DxLib::DrawGraph(mPosX, mPosY, mHandle, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 }
 
 
+bool Graphics::IsTouch() {
+
+	bool result = false;
+
+#ifdef __ANDROID__
+	const TOUCH_DATA* data = Touch_GetParamData(0);
+	if (Touch_Relese(0)) {
+		
+		if (((this->mPosX <= data->posX && this->mPosX + this->mWidth >= data->posX) &&
+			(this->mPosY <= data->posY && this->mPosY + this->mHeight >= data->posY))) {
+			result = true;
+		}
+	}
+#endif
+
+	return result;
+}

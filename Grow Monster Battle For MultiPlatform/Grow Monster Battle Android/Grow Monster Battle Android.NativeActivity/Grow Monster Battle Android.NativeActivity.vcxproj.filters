@@ -3,344 +3,356 @@
   <ItemGroup>
     <ClCompile Include="mainAndroid.cpp" />
     <ClCompile Include="..\..\scr\Common\GameMgr.cpp">
-      <Filter>scr\Common</Filter>
+      <Filter>src\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Task\TaskBase.cpp">
-      <Filter>scr\Common\Task</Filter>
+      <Filter>src\Common\Task</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Task\TaskMgr.cpp">
-      <Filter>scr\Common\Task</Filter>
+      <Filter>src\Common\Task</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Scene\ISceneBase.cpp">
-      <Filter>scr\Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Scene\SceneMgr.cpp">
-      <Filter>scr\Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Test\AITest.cpp">
-      <Filter>scr\Test</Filter>
+      <Filter>src\Test</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Test\Test1.cpp">
-      <Filter>scr\Test</Filter>
+      <Filter>src\Test</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Test\TestMenu.cpp">
-      <Filter>scr\Test</Filter>
+      <Filter>src\Test</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Scene\Title\Scene_Title.cpp">
-      <Filter>scr\Scene\Title</Filter>
+      <Filter>src\Scene\Title</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Scene\Opning\Scene_Opning.cpp">
-      <Filter>scr\Scene\Opning</Filter>
+      <Filter>src\Scene\Opning</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Scene\Boot\Scene_Boot.cpp">
-      <Filter>scr\Scene\Boot</Filter>
+      <Filter>src\Scene\Boot</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Fade\Fade.cpp">
-      <Filter>scr\Common\Fade</Filter>
+      <Filter>src\Common\Fade</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\FPS\FPS.cpp">
-      <Filter>scr\FPS</Filter>
+      <Filter>src\FPS</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.cpp">
-      <Filter>scr\Scene\MainMenu</Filter>
+      <Filter>src\Scene\MainMenu</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Graphics\Graphics.cpp">
-      <Filter>scr\Common\Graphics</Filter>
+      <Filter>src\Common\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Graphics\GraphicsBase.cpp">
-      <Filter>scr\Common\Graphics</Filter>
+      <Filter>src\Common\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Graphics\GraphicsDraw.cpp">
-      <Filter>scr\Common\Graphics</Filter>
+      <Filter>src\Common\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Graphics\GraphicsDrawMgr.cpp">
-      <Filter>scr\Common\Graphics</Filter>
+      <Filter>src\Common\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Graphics\GraphicsMulti.cpp">
-      <Filter>scr\Common\Graphics</Filter>
+      <Filter>src\Common\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Debug\Debug.cpp">
-      <Filter>scr\Common\Debug</Filter>
+      <Filter>src\Common\Debug</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Debug\DebugList.cpp">
-      <Filter>scr\Common\Debug</Filter>
+      <Filter>src\Common\Debug</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\AppData\Character\Monster\Monster.cpp">
-      <Filter>scr\AppData\Character\Monster</Filter>
+      <Filter>src\AppData\Character\Monster</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\AppData\Character\CharacterBase.cpp">
-      <Filter>scr\AppData\Character</Filter>
+      <Filter>src\AppData\Character</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\AppData\SaveData\SaveData_android.cpp">
-      <Filter>scr\AppData\SaveData</Filter>
+      <Filter>src\AppData\SaveData</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\AppData\Character\Player\Player.cpp">
-      <Filter>scr\AppData\Character\Player</Filter>
+      <Filter>src\AppData\Character\Player</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\AppData\AppData.cpp">
-      <Filter>scr\AppData</Filter>
+      <Filter>src\AppData</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\AppData\Character\Monster\MonsterBox.cpp">
-      <Filter>scr\AppData\Character\Monster</Filter>
+      <Filter>src\AppData\Character\Monster</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\AppData\Character\Monster\MonsterDeck.cpp">
-      <Filter>scr\AppData\Character\Monster</Filter>
+      <Filter>src\AppData\Character\Monster</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Input\InputBase.cpp">
-      <Filter>scr\Common\Input</Filter>
+      <Filter>src\Common\Input</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Input\Joypad.cpp">
-      <Filter>scr\Common\Input</Filter>
+      <Filter>src\Common\Input</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Input\Keybaord.cpp">
-      <Filter>scr\Common\Input</Filter>
+      <Filter>src\Common\Input</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\Input\Touch.cpp">
-      <Filter>scr\Common\Input</Filter>
+      <Filter>src\Common\Input</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\String\StringBase.cpp">
-      <Filter>scr\Common\String</Filter>
+      <Filter>src\Common\String</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\FileIO\FileIO.cpp">
-      <Filter>scr\Common\FileIO</Filter>
+      <Filter>src\Common\FileIO</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\FileIO\WriteBynary.cpp">
-      <Filter>scr\Common\FileIO</Filter>
+      <Filter>src\Common\FileIO</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\FileIO\ReadBynary.cpp">
-      <Filter>scr\Common\FileIO</Filter>
+      <Filter>src\Common\FileIO</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Test\TestCommunication.cpp">
-      <Filter>scr\Test</Filter>
+      <Filter>src\Test</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\CommonResource\CommonResource.cpp">
-      <Filter>scr\Common\CommonResource</Filter>
+      <Filter>src\Common\CommonResource</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\XML\XmlPurser.cpp">
-      <Filter>scr\Common\Xml</Filter>
+      <Filter>src\Common\Xml</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\android\TouchInput.cpp">
-      <Filter>scr\android</Filter>
+      <Filter>src\android</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\android\Communication\ReceiveUDP_android.cpp">
-      <Filter>scr\android\Communication</Filter>
+      <Filter>src\android\Communication</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\android\Communication\SendUDP_android.cpp">
-      <Filter>scr\android\Communication</Filter>
+      <Filter>src\android\Communication</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\String\FontMgr\FontMgr.cpp">
-      <Filter>scr\Common\String\FontMgr</Filter>
+      <Filter>src\Common\String\FontMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\android\JavaEncoder\InputString\InputString.cpp">
+      <Filter>src\android\JavaEncoder\InputString</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="scr">
+    <Filter Include="src">
       <UniqueIdentifier>{9f1fbd70-55b3-478d-b9e2-1dc099eff2fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="scr\android">
+    <Filter Include="src\android">
       <UniqueIdentifier>{f49562c5-f86c-4806-ba70-a64baeaac5e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="scr\Scene">
-      <UniqueIdentifier>{48e2036a-ca9d-498e-88b8-2b786d07168a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Common">
-      <UniqueIdentifier>{b9100c01-8789-4a26-bba2-33bccf5a0078}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Test">
-      <UniqueIdentifier>{7badff7b-3945-4fa7-bbb7-b1c8763820f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Common\Task">
-      <UniqueIdentifier>{7733511b-2bcd-40aa-a2df-324e5d818173}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Scene\Opning">
-      <UniqueIdentifier>{c4c3fccb-bc50-4a2f-bf0f-df8226da36e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Scene\Title">
-      <UniqueIdentifier>{eb3d91c2-c9db-46f5-9757-cf55992f94ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Scene\Boot">
-      <UniqueIdentifier>{99c2d3b4-3d31-45d2-b6ce-592ed91b1a17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Common\Fade">
-      <UniqueIdentifier>{375544d4-9c93-4940-89db-43ce888fc139}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\FPS">
-      <UniqueIdentifier>{ece7422c-6575-4f02-8e75-0165d753a7b4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Scene\MainMenu">
-      <UniqueIdentifier>{8294802e-98ab-4ba9-9eb5-66cdb58ad69a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Common\Graphics">
-      <UniqueIdentifier>{1fa8799d-c88d-43cd-8960-c7575b9aa140}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Common\Debug">
-      <UniqueIdentifier>{498e5bbe-a5aa-42b6-8780-382712c6d77d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\AppData">
-      <UniqueIdentifier>{e324654b-c14a-405b-ac98-9fcf38c6f0a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\AppData\Character">
-      <UniqueIdentifier>{c38e8752-d920-40dc-889f-f0576c39cd97}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\AppData\Character\Monster">
-      <UniqueIdentifier>{94ef3217-cb3b-45d2-8aad-bbe50c541159}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\AppData\SaveData">
-      <UniqueIdentifier>{e85b7c74-1133-46fb-a37e-385631758b78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\AppData\Character\Player">
-      <UniqueIdentifier>{8d5968ac-2e64-4ba7-bd5c-fff97ede928f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Common\Input">
-      <UniqueIdentifier>{7a10576a-88d3-4720-a24c-41c71de1a86b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Common\String">
-      <UniqueIdentifier>{456a03bd-039b-41d8-bf60-71332d86503c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Common\FileIO">
-      <UniqueIdentifier>{724522a8-495a-410d-bd84-e809d772cfbc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Common\CommonResource">
-      <UniqueIdentifier>{e73aa6d3-dca9-48bf-9c43-51c1a405d68a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\Common\Xml">
-      <UniqueIdentifier>{d82d4658-456b-4db0-8d03-6ba4aefa5461}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scr\android\Communication">
+    <Filter Include="src\android\Communication">
       <UniqueIdentifier>{7d7a9fa7-efc7-4aaf-a7a0-30dff507aa7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="scr\Common\String\FontMgr">
+    <Filter Include="src\android\JavaEncoder">
+      <UniqueIdentifier>{dce1bdd5-80da-4a75-a01a-2b5c8fd7242b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\android\JavaEncoder\InputString">
+      <UniqueIdentifier>{7208723b-243c-482b-9518-e51bd965dbd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene">
+      <UniqueIdentifier>{48e2036a-ca9d-498e-88b8-2b786d07168a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\Opning">
+      <UniqueIdentifier>{c4c3fccb-bc50-4a2f-bf0f-df8226da36e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\Title">
+      <UniqueIdentifier>{eb3d91c2-c9db-46f5-9757-cf55992f94ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\Boot">
+      <UniqueIdentifier>{99c2d3b4-3d31-45d2-b6ce-592ed91b1a17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu">
+      <UniqueIdentifier>{8294802e-98ab-4ba9-9eb5-66cdb58ad69a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common">
+      <UniqueIdentifier>{b9100c01-8789-4a26-bba2-33bccf5a0078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Task">
+      <UniqueIdentifier>{7733511b-2bcd-40aa-a2df-324e5d818173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Fade">
+      <UniqueIdentifier>{375544d4-9c93-4940-89db-43ce888fc139}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Graphics">
+      <UniqueIdentifier>{1fa8799d-c88d-43cd-8960-c7575b9aa140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Debug">
+      <UniqueIdentifier>{498e5bbe-a5aa-42b6-8780-382712c6d77d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Input">
+      <UniqueIdentifier>{7a10576a-88d3-4720-a24c-41c71de1a86b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\String">
+      <UniqueIdentifier>{456a03bd-039b-41d8-bf60-71332d86503c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\String\FontMgr">
       <UniqueIdentifier>{736b501c-b8fc-44f2-bd3a-1e9e442f8ffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\FileIO">
+      <UniqueIdentifier>{724522a8-495a-410d-bd84-e809d772cfbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\CommonResource">
+      <UniqueIdentifier>{e73aa6d3-dca9-48bf-9c43-51c1a405d68a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Xml">
+      <UniqueIdentifier>{d82d4658-456b-4db0-8d03-6ba4aefa5461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Test">
+      <UniqueIdentifier>{7badff7b-3945-4fa7-bbb7-b1c8763820f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\FPS">
+      <UniqueIdentifier>{ece7422c-6575-4f02-8e75-0165d753a7b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AppData">
+      <UniqueIdentifier>{e324654b-c14a-405b-ac98-9fcf38c6f0a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AppData\Character">
+      <UniqueIdentifier>{c38e8752-d920-40dc-889f-f0576c39cd97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AppData\Character\Monster">
+      <UniqueIdentifier>{94ef3217-cb3b-45d2-8aad-bbe50c541159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AppData\Character\Player">
+      <UniqueIdentifier>{8d5968ac-2e64-4ba7-bd5c-fff97ede928f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AppData\SaveData">
+      <UniqueIdentifier>{e85b7c74-1133-46fb-a37e-385631758b78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\scr\Common\GameMgr.h">
-      <Filter>scr\Common</Filter>
+      <Filter>src\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Task\Task.h">
-      <Filter>scr\Common\Task</Filter>
+      <Filter>src\Common\Task</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Task\TaskBase.h">
-      <Filter>scr\Common\Task</Filter>
+      <Filter>src\Common\Task</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Task\TaskMgr.h">
-      <Filter>scr\Common\Task</Filter>
+      <Filter>src\Common\Task</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Scene\ISceneBase.h">
-      <Filter>scr\Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Scene\SceneBase.h">
-      <Filter>scr\Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Scene\SceneMgr.h">
-      <Filter>scr\Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Test\AITest.h">
-      <Filter>scr\Test</Filter>
+      <Filter>src\Test</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Test\Test1.h">
-      <Filter>scr\Test</Filter>
+      <Filter>src\Test</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Test\TestMenu.h">
-      <Filter>scr\Test</Filter>
+      <Filter>src\Test</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Scene\Title\Scene_Title.h">
-      <Filter>scr\Scene\Title</Filter>
+      <Filter>src\Scene\Title</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Scene\Opning\Scene_Opning.h">
-      <Filter>scr\Scene\Opning</Filter>
+      <Filter>src\Scene\Opning</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Scene\Boot\Scene_Boot.h">
-      <Filter>scr\Scene\Boot</Filter>
+      <Filter>src\Scene\Boot</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Fade\Fade.h">
-      <Filter>scr\Common\Fade</Filter>
+      <Filter>src\Common\Fade</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\FPS\FPS.h">
-      <Filter>scr\FPS</Filter>
+      <Filter>src\FPS</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.h">
-      <Filter>scr\Scene\MainMenu</Filter>
+      <Filter>src\Scene\MainMenu</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Graphics\Graphics.h">
-      <Filter>scr\Common\Graphics</Filter>
+      <Filter>src\Common\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Graphics\GraphicsBase.h">
-      <Filter>scr\Common\Graphics</Filter>
+      <Filter>src\Common\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Graphics\GraphicsDraw.h">
-      <Filter>scr\Common\Graphics</Filter>
+      <Filter>src\Common\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Graphics\GraphicsDrawMgr.h">
-      <Filter>scr\Common\Graphics</Filter>
+      <Filter>src\Common\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Graphics\GraphicsMulti.h">
-      <Filter>scr\Common\Graphics</Filter>
+      <Filter>src\Common\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Debug\Debug.h">
-      <Filter>scr\Common\Debug</Filter>
+      <Filter>src\Common\Debug</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Debug\DebugList.h">
-      <Filter>scr\Common\Debug</Filter>
+      <Filter>src\Common\Debug</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\AppData\Character\Monster\Monster.h">
-      <Filter>scr\AppData\Character\Monster</Filter>
+      <Filter>src\AppData\Character\Monster</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\AppData\Character\CharacterBase.h">
-      <Filter>scr\AppData\Character</Filter>
+      <Filter>src\AppData\Character</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\AppData\SaveData\SaveData.h">
-      <Filter>scr\AppData\SaveData</Filter>
+      <Filter>src\AppData\SaveData</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\AppData\Character\Player\Player.h">
-      <Filter>scr\AppData\Character\Player</Filter>
+      <Filter>src\AppData\Character\Player</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\AppData\AppData.h">
-      <Filter>scr\AppData</Filter>
+      <Filter>src\AppData</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\AppData\Character\Monster\MonsterBox.h">
-      <Filter>scr\AppData\Character\Monster</Filter>
+      <Filter>src\AppData\Character\Monster</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\AppData\Character\Monster\MonsterDeck.h">
-      <Filter>scr\AppData\Character\Monster</Filter>
+      <Filter>src\AppData\Character\Monster</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Input\InputBase.h">
-      <Filter>scr\Common\Input</Filter>
+      <Filter>src\Common\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Input\Joypad.h">
-      <Filter>scr\Common\Input</Filter>
+      <Filter>src\Common\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Input\Keybaord.h">
-      <Filter>scr\Common\Input</Filter>
+      <Filter>src\Common\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Input\Touch.h">
-      <Filter>scr\Common\Input</Filter>
+      <Filter>src\Common\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\String\StringBase.h">
-      <Filter>scr\Common\String</Filter>
+      <Filter>src\Common\String</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\FileIO\FileIO.h">
-      <Filter>scr\Common\FileIO</Filter>
+      <Filter>src\Common\FileIO</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\FileIO\WriteBynary.h">
-      <Filter>scr\Common\FileIO</Filter>
+      <Filter>src\Common\FileIO</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\FileIO\ReadBynary.h">
-      <Filter>scr\Common\FileIO</Filter>
+      <Filter>src\Common\FileIO</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Test\TestCommunication.h">
-      <Filter>scr\Test</Filter>
+      <Filter>src\Test</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\CommonResource\CommonResource.h">
-      <Filter>scr\Common\CommonResource</Filter>
+      <Filter>src\Common\CommonResource</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\XML\XmlPurser.h">
-      <Filter>scr\Common\Xml</Filter>
+      <Filter>src\Common\Xml</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\android\TouchInput.h">
-      <Filter>scr\android</Filter>
+      <Filter>src\android</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\String\FontMgr\FontMgr.h">
-      <Filter>scr\Common\String\FontMgr</Filter>
+      <Filter>src\Common\String\FontMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\android\JavaEncoder\InputString\InputString.h">
+      <Filter>src\android\JavaEncoder\InputString</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

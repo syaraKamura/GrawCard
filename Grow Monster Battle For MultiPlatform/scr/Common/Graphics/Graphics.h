@@ -29,9 +29,12 @@ public:
 	~Graphics();
 	bool Load(const char* path) override;
 	
-	void Relese();
+	void Relese() override;
 
 	void Draw(int posX, int posY, int alpha, double angle, double scale) override;
+
+	bool IsTouch() override;
+	
 
 };
 

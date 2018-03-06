@@ -65,7 +65,7 @@ int StringBase::Update(bool isOnletter/* = false*/, int length/* = 30*/, int int
 	if (mCounter % interval != 0) return 2;
 
 	mNextLineLength = length;
-	int pos = mPos + mLine * mNextLineLength;
+	//int pos = mPos + mLine * mNextLineLength;
 
 	if (mLine >= STRING_LINE_MAX) {
 		printfDx("これ以上改行することができません");

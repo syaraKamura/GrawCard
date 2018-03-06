@@ -5,6 +5,9 @@
 #include "Common/Graphics/Graphics.h"
 #include "AppData/AppData.h"
 
+#ifdef __ANDROID__
+#include "android/JavaEncoder/InputString/InputString.h"
+#endif
 
 #define PI 3.14
 
@@ -68,12 +71,18 @@ bool Scene_Title::Initialize(){
 	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_Back], 0);
 	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_NewGame], 1);
 	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_Continue], 1);
-
+	
+	
 	mGraphic[eImg_Back]->SetVisible(false);
-	mGraphic[eImg_Back]->SetPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-	mGraphic[eImg_NewGame]->SetPosition(WINDOW_WIDTH / 2,420);
+	mGraphic[eImg_Back]->SetPosition(0, 0);
+	
+	int sizeX = 0;
+	mGraphic[eImg_NewGame]->GetSize(&sizeX, NULL);
+	mGraphic[eImg_NewGame]->SetPosition((WINDOW_WIDTH - sizeX ) / 2,420);
 	mGraphic[eImg_NewGame]->SetVisible(false);
-	mGraphic[eImg_Continue]->SetPosition(WINDOW_WIDTH / 2, 500);
+
+	mGraphic[eImg_Continue]->GetSize(&sizeX, NULL);
+	mGraphic[eImg_Continue]->SetPosition((WINDOW_WIDTH - sizeX) / 2, 500);
 	mGraphic[eImg_Continue]->SetVisible(false);
 
 	//SetUseASyncLoadFlag(FALSE);
@@ -106,6 +115,11 @@ bool Scene_Title::Initialize(){
 	mWork.selectY = 0;
 
 	mState = eState_Initialize;
+
+#ifdef __ANDROID__
+	InputString_Initialize();
+#endif
+
 	return true;
 }
 void Scene_Title::Finalize(){
@@ -123,9 +137,11 @@ void Scene_Title::Finalize(){
 
 bool Scene_Title::Updata(){
 
+#ifdef __ANDROID__
+	InputString_Update();
+#endif
 
-
-	switch (mState) {
+	switch ((int)mState) {
 	case eState_Initialize:
 		NexetState(eState_Main,eFadeType_In,180);
 		mGraphic[eImg_NewGame]->SetVisible(true);
@@ -236,7 +252,7 @@ bool Scene_Title::UpdataProc() {
 
 	//Android用操作処理
 
-	int touchNum = Touch_GetTouchNum();
+	//int touchNum = Touch_GetTouchNum();
 
 	if (Touch_Press(0)) {
 		if (mWork.selectY == 0) {
@@ -257,7 +273,7 @@ bool Scene_Title::UpdataProc() {
 	if (mWork.isLoadSaveData == true) {
 		for (int i = 0; i < 2; i++) {
 			if (mWork.selectY == i) {
-				float alpha = (1 + sin(PI / 2.0f / 20.0f * mWork.counter) / 2.0f) * 255.0f;
+				float alpha = (1.0f + sin(PI / 2.0f / 20.0f * mWork.counter) / 2.0f) * 255.0f;
 				mGraphic[i + eImg_NewGame]->SetAlpha(alpha);
 				
 			}
@@ -268,7 +284,7 @@ bool Scene_Title::UpdataProc() {
 		}
 	}
 	else {
-		float alpha = (1+sin(PI / 2.0f / 30.0f * mWork.counter)/2.0f) * 255.0f;
+		float alpha = (1.0f+sin(PI / 2.0f / 30.0f * mWork.counter)/2.0f) * 255.0f;
 		mGraphic[eImg_NewGame]->SetAlpha(alpha);
 	}
 

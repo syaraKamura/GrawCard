@@ -1,7 +1,7 @@
 ﻿#include"Common/GameCommon.h"
 #include "Common/GameMgr.h"
 
-//#ifndef __ANDROID__
+#ifdef __ANDROID__
 
 // プログラムは android_main から始まります
 int android_main(void)
@@ -31,4 +31,4 @@ int android_main(void)
 	return 0;
 }
 
-//#endif
+#endif

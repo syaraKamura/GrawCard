@@ -374,16 +374,17 @@ bool AITest::Initialize(){
 	mFile->Remove("%s.txt", "test");
 
 	//ファイル書き込み開始
-	mFile->Open("Test.txt");
+	if (mFile->Open("Test.txt") == true) {
 
-	mFile->WriteInt(2018);
-	mFile->WriteBool(false);
-	mFile->WriteString("これはテストなのです。");
-	mFile->WriteString("aばta毛tあブﾗ!?");
-	mFile->WriteChar('b');
+		mFile->WriteInt(2018);
+		mFile->WriteBool(false);
+		mFile->WriteString("これはテストなのです。");
+		mFile->WriteString("aばta毛tあブﾗ!?");
+		mFile->WriteChar('b');
 
-	//ファイル書き込み終了
-	mFile->Close();
+		//ファイル書き込み終了
+		mFile->Close();
+	}
 
 	if (mReadFile->Exist("Test.txt")) {
 
@@ -559,7 +560,7 @@ bool AITest::Updata() {
 
 	//posX += vecX;
 
-	posX += mJoyPad->GetLeftAnalogAxis(Joypad::eAnalogAxis_Horizontal) * 10.0f;
+	posX += (int)(mJoyPad->GetLeftAnalogAxis(Joypad::eAnalogAxis_Horizontal) * 10.0f);
 
 	mGraphics->SetAngleRadian(mJoyPad->GetLeftAnalogAngleRadian());
 

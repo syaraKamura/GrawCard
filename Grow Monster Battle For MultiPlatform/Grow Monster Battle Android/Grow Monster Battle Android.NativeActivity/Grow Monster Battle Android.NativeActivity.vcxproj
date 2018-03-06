@@ -78,11 +78,13 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>Clang_3_8</PlatformToolset>
+    <AndroidAPILevel>android-19</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>Clang_3_8</PlatformToolset>
+    <AndroidAPILevel>android-19</AndroidAPILevel>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -155,6 +157,9 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalIncludeDirectories>../../scr;./Dxlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+      <CLanguageStandard>c11</CLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
       <LibraryDependencies>%(LibraryDependencies);GLESv1_CM;EGL;stdc++;GLESv2;OpenSLES;m;DxLib;DxUseCLib;jpeg;png;zlib;tiff;theora_static;vorbis_static;vorbisfile_static;ogg_static;bullet;opus</LibraryDependencies>
@@ -167,6 +172,10 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalIncludeDirectories>../../scr;./Dxlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+      <CLanguageStandard>c11</CLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
       <LibraryDependencies>%(LibraryDependencies);GLESv1_CM;EGL;stdc++;GLESv2;OpenSLES;m;DxLib;DxUseCLib;jpeg;png;zlib;tiff;theora_static;vorbis_static;vorbisfile_static;ogg_static;bullet;opus</LibraryDependencies>
@@ -216,6 +225,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\scr\android\Communication\ReceiveUDP_android.cpp" />
     <ClCompile Include="..\..\scr\android\Communication\SendUDP_android.cpp" />
+    <ClCompile Include="..\..\scr\android\JavaEncoder\InputString\InputString.cpp" />
     <ClCompile Include="..\..\scr\android\TouchInput.cpp" />
     <ClCompile Include="..\..\scr\AppData\AppData.cpp" />
     <ClCompile Include="..\..\scr\AppData\Character\CharacterBase.cpp" />
@@ -260,6 +270,7 @@
     <ClCompile Include="mainAndroid.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\scr\android\JavaEncoder\InputString\InputString.h" />
     <ClInclude Include="..\..\scr\android\TouchInput.h" />
     <ClInclude Include="..\..\scr\AppData\AppData.h" />
     <ClInclude Include="..\..\scr\AppData\Character\CharacterBase.h" />
