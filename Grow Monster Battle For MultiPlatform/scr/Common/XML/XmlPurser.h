@@ -15,9 +15,9 @@
 #ifndef __XML_PURSER_H__
 #define __XML_PURSER_H__
 
-
 #include <iostream>
 #include <string>
+#include <sstream>
 
 //#ifdef WIN32
 #if __has_include(<boost/property_tree/ptree.hpp>)	//ヘッダーファイルが存在していればインクルードする
@@ -28,6 +28,7 @@
 #endif	//__has_include(<boost/property_tree/ptree.hpp>)
 
 #ifdef BOOST_PROPERTY_TREE_PTREE_HPP_INCLUDED
+
 #define XML_PURSER_USE
 #endif	//BOOST_PROPERTY_TREE_PTREE_HPP_INCLUDED
 //#endif	//WIN32
@@ -86,6 +87,14 @@ public :
 
 	//書き込み
 
+	template<typename T>
+	std::string to_string(T value) {
+		std::ostringstream oss;
+		oss.str("");
+		oss << value << std::flush;
+		return oss.str();
+	}
+
 	/*
 		値を設定する
 		const std::string& title	:題名
@@ -94,7 +103,7 @@ public :
 	template<typename T>
 	void Set(const std::string& title, T value) {
 #ifdef XML_PURSER_USE
-		pt.put(ROOT_PATH + "." + title, std::to_string(value));
+		pt.put(ROOT_PATH + "." + title, to_string(value));
 #endif	//XML_PURSER_USE
 	}
 
@@ -102,7 +111,7 @@ public :
 	void SetChild(const std::string& title,const std::string& childTitle,T value) {
 #ifdef XML_PURSER_USE
 		boost::property_tree::ptree& child = pt.put(ROOT_PATH + "." + title,"");
-		child.put(childTitle, std::to_string(value));
+		child.put(childTitle, to_string(value));
 #endif	//XML_PURSER_USE
 	}
 
@@ -113,6 +122,7 @@ public :
 
 	//読み込み
 	int GetInt(const std::string& title);
+	
 	double GetDouble(const std::string& title);
 
 	int  GetChildInt(const std::string& title, const std::string& childTitle);

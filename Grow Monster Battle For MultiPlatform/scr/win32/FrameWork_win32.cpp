@@ -18,6 +18,7 @@
 #ifdef __WINDOWS__
 
 Framework::Framework(GameMgr* game) {
+	SetWindowSizeChangeEnableFlag(true);
 	mGameMgr = game;
 }
 
@@ -70,12 +71,16 @@ void Framework::Run() {
 	// while( 裏画面を表画面に反映, メッセージ処理, 画面クリア, )
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0 && Keyboard_Off(KEY_INPUT_ESCAPE)) {
 
+		mGameMgr->PreviousUpdate();
+		mGameMgr->InputUpdate();
 
 		if (mGameMgr->Updata() == false) {
 			break;
 		}
 
 		mGameMgr->Draw();
+
+		mGameMgr->PostUpdate();
 
 	}
 }

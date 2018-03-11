@@ -51,8 +51,10 @@ public :
 
 	bool Initialize() override;
 	void Finalize() override;
-	bool Updata() override;
+	void PreviousUpdate()override;
+	bool Updata()override;
 	void Draw() override;
+	void PostUpdate() override;
 
 	void SceneChange(eScene nextScene) override;
 	

@@ -30,6 +30,14 @@ void TaskBase::Finalize(){
 	}
 }
 
+void TaskBase::PreviousUpdate() {
+
+}
+
+void TaskBase::InputUpdate() {
+
+}
+
 bool TaskBase::Updata(){
 	if(m_pUpdata != NULL){
 		m_pUpdata();
@@ -41,6 +49,10 @@ void TaskBase::Draw(){
 	if(m_pDraw != NULL){
 		m_pDraw();
 	}
+}
+
+void TaskBase::PostUpdate() {
+
 }
 
 //—Dæ‡ˆÊ‚Ìİ’è

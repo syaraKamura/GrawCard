@@ -79,7 +79,6 @@ static int _TouchProc() {
 
 #if 1
 #ifdef __MY_DEBUG__
-	clsDx();
 	printfDx("TouchNum:%d\n", s_touch.touchNum);
 	
 	for (int i = 0; i < TOUCH_MAX_NUM; i++) {

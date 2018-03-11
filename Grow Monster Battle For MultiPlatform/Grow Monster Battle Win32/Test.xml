@@ -18,13 +18,9 @@
   
   
   
-
   
   
   
-  
-  
-
   
   
   
@@ -91,13 +87,73 @@
   
   
 
-  <DOUBLE>19.000000</DOUBLE>
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  <DOUBLE>19</DOUBLE>
   <STR>Test String!</STR>
   <INT>25</INT>
   <FILE_NAME ID="26" TYPE="CHARACTER">test2</FILE_NAME>
   <POSITION>
     <DRAW_X>100</DRAW_X>
-    <DRAW_Y>20.000000</DRAW_Y>
-    <DRAW_Z>860.000000</DRAW_Z>
+    <DRAW_Y>20</DRAW_Y>
+    <DRAW_Z>860</DRAW_Z>
   </POSITION>
 </root>

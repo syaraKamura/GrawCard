@@ -119,6 +119,7 @@
     </AntPackage>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Content Include="assets\Resources\Data\Font\MS_mintyou_UTF_8.dft" />
     <Content Include="assets\Resources\Data\Graph000.xml" />
     <Content Include="assets\Resources\Data\Graph100.xml" />
     <Content Include="assets\Resources\Graphics\BG\menu_ui_re.png" />
@@ -148,10 +149,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="assets\Resources\Graphics\Common\" />
+    <JavaCompile Include="src\com\Grow_Monster_Battle_Android\Packaging\GrawMonsterBattle.java" />
   </ItemGroup>
   <ItemGroup>
-    <JavaCompile Include="src\com\Grow_Monster_Battle_Android\Packaging\GrawMonsterBattle.java" />
+    <Folder Include="assets\Resources\Graphics\Common\" />
   </ItemGroup>
   <Import Project="$(AndroidTargetsPath)\Android.targets" />
   <ImportGroup Label="ExtensionTargets" />

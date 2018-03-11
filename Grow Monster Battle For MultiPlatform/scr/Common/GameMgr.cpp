@@ -70,16 +70,26 @@ void GameMgr::Finalize(){
 
 }
 
-bool GameMgr::Updata(){
+void GameMgr::PreviousUpdate() {
+	mSceneMgr->PreviousUpdate();
+	TaskMgr::getInstance().PreviousUpdate();
+}
 
-
-	mFPS->Updata();
-
+void GameMgr::InputUpdate() {
+	
 #ifdef __MY_WINDOWS__
 	Keyboard_Updata();
 #else
 	Touch_Updata();
 #endif
+
+
+}
+
+bool GameMgr::Updata(){
+
+
+	mFPS->Updata();
 
 #ifdef __MY_DEBUG__
 	if (mDebug->Updata() == true) {
@@ -102,8 +112,14 @@ void GameMgr::Draw(){
 	mDebug->Draw();
 #endif
 
+	
+
+	
+
+}
+
+void GameMgr::PostUpdate() {
 	TaskMgr::getInstance().LateUpdata();
 
 	mFPS->Wait();
-
 }

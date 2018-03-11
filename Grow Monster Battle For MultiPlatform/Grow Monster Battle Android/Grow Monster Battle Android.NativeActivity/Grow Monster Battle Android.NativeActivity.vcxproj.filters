@@ -39,7 +39,7 @@
       <Filter>src\Common\Fade</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Common\FPS\FPS.cpp">
-      <Filter>src\FPS</Filter>
+      <Filter>src\Common\FPS</Filter>
     </ClCompile>
     <ClCompile Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.cpp">
       <Filter>src\Scene\MainMenu</Filter>
@@ -134,6 +134,9 @@
     <ClCompile Include="..\..\scr\android\JavaEncoder\InputString\InputString.cpp">
       <Filter>src\android\JavaEncoder\InputString</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Window\WindowBase.cpp">
+      <Filter>src\Common\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -202,9 +205,6 @@
     <Filter Include="src\Test">
       <UniqueIdentifier>{7badff7b-3945-4fa7-bbb7-b1c8763820f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\FPS">
-      <UniqueIdentifier>{ece7422c-6575-4f02-8e75-0165d753a7b4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\AppData">
       <UniqueIdentifier>{e324654b-c14a-405b-ac98-9fcf38c6f0a7}</UniqueIdentifier>
     </Filter>
@@ -219,6 +219,12 @@
     </Filter>
     <Filter Include="src\AppData\SaveData">
       <UniqueIdentifier>{e85b7c74-1133-46fb-a37e-385631758b78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Window">
+      <UniqueIdentifier>{8ff50912-d396-43e6-925d-3eb2e5072552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\FPS">
+      <UniqueIdentifier>{ece7422c-6575-4f02-8e75-0165d753a7b4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -265,7 +271,7 @@
       <Filter>src\Common\Fade</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\FPS\FPS.h">
-      <Filter>src\FPS</Filter>
+      <Filter>src\Common\FPS</Filter>
     </ClInclude>
     <ClInclude Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.h">
       <Filter>src\Scene\MainMenu</Filter>
@@ -353,6 +359,9 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\android\JavaEncoder\InputString\InputString.h">
       <Filter>src\android\JavaEncoder\InputString</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Window\WindowBase.h">
+      <Filter>src\Common\Window</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

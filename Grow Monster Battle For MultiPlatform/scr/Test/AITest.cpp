@@ -365,13 +365,13 @@ bool AITest::Initialize(){
 	mJoyPad = new Joypad();
 	mTouch = new Touch();
 	mString = new StringBase();
-	mString->FontCreate("ＭＳ 明朝", 16, 1, -1);
+	mString->FontCreate("Resources/Data/Font/MS_mintyou_UTF_8.dft", 1);
 
 	mFile = new WriteBynary();
 	mReadFile = new ReadBynary();
 
 	//ファイル削除
-	mFile->Remove("%s.txt", "test");
+	mFile->Remove("%s.txt", "Test");
 
 	//ファイル書き込み開始
 	if (mFile->Open("Test.txt") == true) {
@@ -388,20 +388,26 @@ bool AITest::Initialize(){
 
 	if (mReadFile->Exist("Test.txt")) {
 
-		mReadFile->Open("Test.Txt");
+		if (mReadFile->Open("Test.txt") == true) {
 
-		int num;
-		bool flg;
-		char str[256];
-		char ch;
+			int num;
+			bool flg;
+			char str[256];
+			char ch;
 
-		mReadFile->ReadInt(&num);
-		mReadFile->ReadBool(&flg);
-		mReadFile->ReadString(str);
-		mReadFile->ReadString(str);
-		mReadFile->ReadChar(&ch);
+			mReadFile->ReadInt(&num);
+			mReadFile->ReadBool(&flg);
+			mReadFile->ReadString(str);
+			Debug::LogPrintf("%s\n",str);
+			mReadFile->ReadString(str);
+			Debug::LogPrintf("%s\n",str);
+			mReadFile->ReadChar(&ch);
 
-		mReadFile->Close();
+			mReadFile->Close();
+		}
+	}
+	else {
+		Debug::LogPrintf("Test.txtは存在していませんでした");
 	}
 	
 
@@ -446,6 +452,7 @@ bool AITest::Initialize(){
 			Debug::LogPrintf("XMLの書き込みに成功");
 		}
 
+#ifdef __WINDOWS__
 	if (mXml->Read()) {
 		Debug::LogPrintf("XMLの読み込みに成功");
 
@@ -470,6 +477,7 @@ bool AITest::Initialize(){
 		Debug::LogPrintf("XMLの読み込みに成功 %d %lf %s",intValue,doubleValue,str.c_str());
 
 	}
+#endif
 
 	delete mXml;
 #endif
@@ -496,10 +504,14 @@ void AITest::Finalize(){
 
 }
 
-bool AITest::Updata() {
-
+void AITest::PreviousUpdate() {
 	mJoyPad->Update();
 	mTouch->Update();
+}
+
+bool AITest::Updata() {
+
+	
 
 #ifdef __WINDOWS__
 	//テストメニューへ戻る

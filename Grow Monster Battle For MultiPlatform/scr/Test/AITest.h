@@ -32,6 +32,7 @@ public:
 
 	bool Initialize() override;
 	void Finalize() override;
+	void PreviousUpdate() override;
 	bool Updata() override;
 	void Draw() override;
 

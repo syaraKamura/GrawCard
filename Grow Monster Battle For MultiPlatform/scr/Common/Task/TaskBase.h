@@ -65,7 +65,11 @@ public :
 	
 	bool Initialize()override ;
 	void Finalize()override;
+
+	void PreviousUpdate()override;
+	void InputUpdate() override;
 	bool Updata()override;
+	void PostUpdate() override;
 	void Draw()override;
 	
 	void SetFunction(pointer_func updata,pointer_func draw,pointer_func destroy);

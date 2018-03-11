@@ -6,10 +6,12 @@
 // プログラムは android_main から始まります
 int android_main(void)
 {
+
 	SetGraphMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32);
-	
+	SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8);
 	DxLib_Init(), SetDrawScreen(DX_SCREEN_BACK); //ウィンドウモード変更と初期化と裏画面設定
 	
+
 	GameMgr gameMgr;
 
 	gameMgr.Initialize();
@@ -18,10 +20,20 @@ int android_main(void)
 	// while( 裏画面を表画面に反映, メッセージ処理, 画面クリア, )
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
 
+#ifdef __MY_DEBUG__
+		clsDx();
+#endif
 
+		gameMgr.PreviousUpdate();
+		gameMgr.InputUpdate();
 
-		gameMgr.Updata();
+		if (gameMgr.Updata() == false) {
+			break;
+		}
+
 		gameMgr.Draw();
+
+		gameMgr.PostUpdate();
 
 	}
 

@@ -21,10 +21,27 @@ public :
 
 	virtual ~Task(){};
 
+	//初期化
 	virtual bool Initialize() { return true; };
-	virtual void Finalize(){};
+	
+	//前　更新処理
+	virtual void PreviousUpdate() = 0;
+	
+	//入力更新処理
+	virtual void InputUpdate() {};
+	
+	//更新処理
 	virtual bool Updata() = 0;
+
+	//描画
 	virtual void Draw() = 0;
+
+	//後 更新処理
+	virtual void PostUpdate() = 0;
+
+	//終了処理
+	virtual void Finalize() {};
+
 	
 };
 

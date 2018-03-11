@@ -26,7 +26,7 @@
 
 class TaskMgr {
 
-public :
+public:
 
 	/*
 		優先順位
@@ -50,7 +50,7 @@ public :
 		ePriorty_12,
 		ePriorty_13,
 		ePriorty_Graphics,
-		ePriorty_Fade,	
+		ePriorty_Fade,
 	};
 
 private:
@@ -58,19 +58,21 @@ private:
 	unsigned int mOrder;
 	std::list<TaskBase*> mList;
 	std::list<int> mKillOrderList;
-	
-	
-public :
-	~TaskMgr();
-	
 
-	 static TaskMgr& getInstance(){
-		 static TaskMgr inst;
+
+public:
+	~TaskMgr();
+
+
+	static TaskMgr& getInstance() {
+		static TaskMgr inst;
 		return inst;
 	}
 
-	 bool Initialize();
-	 void Finalize();
+	bool Initialize();
+	void Finalize();
+
+	void PreviousUpdate();
 
 	//通常更新
 	bool Updata();
@@ -85,19 +87,19 @@ public :
 	//すべてを削除する
 	void DeleteAll();
 
-	int Add(TaskBase* task,int priolty = 0);
-	int Add(pointer_func updata,pointer_func draw,pointer_func destroy,int priolty);
+	int Add(TaskBase* task, int priolty = 0);
+	int Add(pointer_func updata, pointer_func draw, pointer_func destroy, int priolty);
 
 	//削除を依頼する
-	void RequestKill(int taskId );
+	void RequestKill(int taskId);
 
 	//指定のタスクを返却する
 	TaskBase* GetTask(int taskId);
 
-private :
+private:
 
 	TaskMgr();
-	
+
 
 	//削除依頼があったタスクを消す
 	void KillTaskProc();

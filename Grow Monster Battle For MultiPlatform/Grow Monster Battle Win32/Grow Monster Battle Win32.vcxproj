@@ -185,6 +185,7 @@
     <ClCompile Include="..\scr\Common\String\StringBase.cpp" />
     <ClCompile Include="..\scr\Common\Task\TaskBase.cpp" />
     <ClCompile Include="..\scr\Common\Task\TaskMgr.cpp" />
+    <ClCompile Include="..\scr\Common\Window\WindowBase.cpp" />
     <ClCompile Include="..\scr\Common\XML\XmlPurser.cpp" />
     <ClCompile Include="..\scr\Scene\Boot\Scene_Boot.cpp" />
     <ClCompile Include="..\scr\Scene\ISceneBase.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="..\scr\Common\Task\Task.h" />
     <ClInclude Include="..\scr\Common\Task\TaskBase.h" />
     <ClInclude Include="..\scr\Common\Task\TaskMgr.h" />
+    <ClInclude Include="..\scr\Common\Window\WindowBase.h" />
     <ClInclude Include="..\scr\Common\XML\XmlPurser.h" />
     <ClInclude Include="..\scr\Scene\Boot\Scene_Boot.h" />
     <ClInclude Include="..\scr\Scene\ISceneBase.h" />

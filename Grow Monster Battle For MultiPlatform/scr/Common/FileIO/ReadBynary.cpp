@@ -27,11 +27,19 @@ ReadBynary::ReadBynary() : FileIO() {
 bool ReadBynary::Open(const char* fileName, ...) {
 
 	va_list vlist;
-	char path[256];
+	char path[2048];
 
 	va_start(vlist, fileName);
 	vsprintfDx(path,fileName,vlist);
 	va_end(vlist);
+
+#ifdef __ANDROID__
+	char file[1024];
+	DxLib::GetInternalDataPath(file, 1024);
+	strcatDx(file, "/");
+	strcatDx(file, path);
+	strcpyDx(path, file);
+#endif
 
 	mFilePointer = fopen(path,"rb");
 

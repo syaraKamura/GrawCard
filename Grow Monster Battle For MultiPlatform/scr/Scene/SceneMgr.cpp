@@ -64,11 +64,18 @@ void SceneMgr::Finalize(){
 	mScene->Finalize();
 }
 
+void SceneMgr::PreviousUpdate() {
+	if (mScene == NULL) return;
+
+	if (SceneChangeProc() == false) return;
+
+	mScene->PreviousUpdate();
+}
+
 bool SceneMgr::Updata(){
 	if(mScene == NULL) return false;
-	
-	if(SceneChangeProc() == false) return false;
-	
+	else if (mIsLoadEnd == false) return false;
+
 	return mScene->Updata();
 }
 
@@ -85,6 +92,12 @@ void SceneMgr::Draw(){
 	dbg_SceneNameDraw();
 #endif	//__MY_DEBUG__
 
+}
+
+void SceneMgr::PostUpdate() {
+	if (mScene == NULL) return;
+	
+	mScene->PostUpdate();
 
 }
 

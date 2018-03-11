@@ -39,8 +39,11 @@ public :
 
 	void Initialize();
 	void Finalize();
+	void PreviousUpdate();
+	void InputUpdate();
 	bool Updata();
 	void Draw();
+	void PostUpdate();
 
 #ifndef __MY_DEBUG__
 

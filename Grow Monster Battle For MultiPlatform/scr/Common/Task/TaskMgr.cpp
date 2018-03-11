@@ -31,13 +31,24 @@ void TaskMgr::Finalize() {
 	DeleteAll();
 }
 
+void TaskMgr::PreviousUpdate() {
+
+	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
+		if ((*itr)->isInitialize() == false) {
+			(*itr)->Initialize();
+		}
+		else {
+			(*itr)->PreviousUpdate();
+		}
+	}
+	
+}
+
 //通常更新
 bool TaskMgr::Updata(){
 	bool result = true;
 	for(auto itr = mList.begin();itr != mList.end();itr++){
-		if((*itr)->isInitialize() == false){
-			(*itr)->Initialize();
-		}else{
+		if((*itr)->isInitialize() == true){
 			result = (*itr)->Updata();
 		}
 	}
@@ -67,6 +78,13 @@ void TaskMgr::Draw(){
 
 //あと更新
 void TaskMgr::LateUpdata(){
+
+	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
+		if ((*itr)->isInitialize() == true) {
+			(*itr)->PostUpdate();
+		}
+	}
+
 	KillTaskProc();
 }
 

@@ -97,6 +97,9 @@
     <Filter Include="ソース ファイル\scr\Common\XML">
       <UniqueIdentifier>{3941fc28-da0d-45eb-b4af-1dc8cddbadf2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Window">
+      <UniqueIdentifier>{aefbda65-a733-472a-b8ad-ee59258f3370}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -236,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\Debug\DebugList.cpp">
       <Filter>ソース ファイル\scr\Common\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Window\WindowBase.cpp">
+      <Filter>ソース ファイル\scr\Common\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -382,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\Debug\DebugList.h">
       <Filter>ソース ファイル\scr\Common\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Window\WindowBase.h">
+      <Filter>ソース ファイル\scr\Common\Window</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

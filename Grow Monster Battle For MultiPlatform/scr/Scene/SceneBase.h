@@ -33,8 +33,10 @@ public :
 
 	virtual bool Initialize() override { return true; }
 	virtual void Finalize() override{}
-	virtual bool Updata() override{return true;}
-	virtual void Draw() override{}
+	void PreviousUpdate()override {}
+	bool Updata()override { return true; }
+	void Draw() override {}
+	void PostUpdate() override {}
 
 
 protected:

@@ -38,13 +38,21 @@ FileIO::~FileIO() {
 bool FileIO::Exist(const char* fileName, ...) {
 
 	va_list vlist;
-	char path[256];
+	char path[2048];
 
 	bool result = false;
 
 	va_start(vlist, fileName);
 	vsprintfDx(path, fileName, vlist);
 	va_end(vlist);
+
+#ifdef __ANDROID__
+	char file[1024];
+	DxLib::GetInternalDataPath(file, 1024);
+	strcatDx(file, "/");
+	strcatDx(file, path);
+	strcpyDx(path, file);
+#endif
 
 	struct stat statBuf;
 
@@ -63,13 +71,21 @@ bool FileIO::Exist(const char* fileName, ...) {
 bool FileIO::Remove(const char* fileName, ...) {
 
 	va_list vlist;
-	char path[256];
+	char path[2048];
 
 	bool result = false;
 
 	va_start(vlist, fileName);
 	vsprintfDx(path, fileName, vlist);
 	va_end(vlist);
+
+#ifdef __ANDROID__
+	char file[1024];
+	DxLib::GetInternalDataPath(file, 1024);
+	strcatDx(file, "/");
+	strcatDx(file, path);
+	strcpyDx(path, file);
+#endif
 
 	if (this->Exist(path) == true) {
 		if (remove(path) == 0) {
