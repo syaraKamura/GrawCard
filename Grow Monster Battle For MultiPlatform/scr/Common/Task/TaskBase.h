@@ -37,9 +37,6 @@ private:
 protected:
 	bool mIsInitalize;	//初期化フラグ
 	int mTaskId;		//タスク番号	
-	
-	
-
 public :
 
 	
@@ -49,7 +46,6 @@ public :
 		mIsInitalize = false;
 		mPriorty = 0;
 	}
-
 
 	virtual ~TaskBase(){};
 
@@ -62,6 +58,7 @@ public :
 
 	//初期化が終了しているか？
 	bool isInitialize(){return mIsInitalize;}
+	void SetInitialize(bool isInitialize) { mIsInitalize = isInitialize; }
 	
 	bool Initialize()override ;
 	void Finalize()override;

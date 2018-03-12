@@ -18,8 +18,15 @@
 
 GameMgr::GameMgr(){
 
+	int fps = 0;
+
+#ifdef __WINDOWS__
+	fps = 60;
+#elif __ANDROID__
+	fps = 60;
+#endif
 	
-	mFPS = new FPS(60);
+	mFPS = new FPS(fps,fps);
 #ifdef __MY_DEBUG__
 	mDebug = new Debug();
 	mSceneMgr = new SceneMgr(mDebug);

@@ -122,6 +122,7 @@
     <Content Include="assets\Resources\Data\Font\MS_mintyou_UTF_8.dft" />
     <Content Include="assets\Resources\Data\Graph000.xml" />
     <Content Include="assets\Resources\Data\Graph100.xml" />
+    <Content Include="assets\Resources\Graphics\BG\deckedit.png" />
     <Content Include="assets\Resources\Graphics\BG\menu_ui_re.png" />
     <Content Include="assets\Resources\Graphics\BG\opning.png" />
     <Content Include="assets\Resources\Graphics\BG\selectBack.png" />

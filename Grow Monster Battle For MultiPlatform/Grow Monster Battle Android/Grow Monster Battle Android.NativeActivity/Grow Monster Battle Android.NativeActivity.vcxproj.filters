@@ -137,6 +137,12 @@
     <ClCompile Include="..\..\scr\Common\Window\WindowBase.cpp">
       <Filter>src\Common\Window</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonBase.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMenu.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -225,6 +231,9 @@
     </Filter>
     <Filter Include="src\Common\FPS">
       <UniqueIdentifier>{ece7422c-6575-4f02-8e75-0165d753a7b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon">
+      <UniqueIdentifier>{fd8fa522-3233-4d3e-9251-a5909e7e2fa4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -362,6 +371,12 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Window\WindowBase.h">
       <Filter>src\Common\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonBase.h">
+      <Filter>src\Scene\MainMenu\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMenu.h">
+      <Filter>src\Scene\MainMenu\Dungeon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

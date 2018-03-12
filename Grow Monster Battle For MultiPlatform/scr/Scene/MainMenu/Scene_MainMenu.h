@@ -11,8 +11,8 @@
 				
 !*/
 
-#ifndef __MAIN_MENU_H__
-#define __MAIN_MENU_H__
+#ifndef __SCENE_MAIN_MENU_H__
+#define __SCENE_MAIN_MENU_H__
 
 #include "../SceneBase.h"
 #include "Common/Debug/DebugList.h"
@@ -38,6 +38,7 @@ private :
 
 	enum eMenu {
 		eMenu_MainMenu,
+		eMenu_Fade,
 		eMenu_Quest,
 		eMenu_PlayerStatus,
 		eMenu_Monster,
@@ -56,6 +57,8 @@ private :
 
 	int mBackImageOrder;
 	int mButtonImageOrder;
+
+	int mNowMenuTaskID;
 
 private:
 
@@ -107,4 +110,4 @@ public :
 
 };
 
-#endif // __MAIN_MENU_H__
+#endif // __SCENE_MAIN_MENU_H__

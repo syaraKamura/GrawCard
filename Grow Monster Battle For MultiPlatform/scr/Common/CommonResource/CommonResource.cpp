@@ -23,6 +23,7 @@ ComRes::ComRes() {
 	COMMON_RES_t COM_RES_TBL[eComResName_Num] = {
 		// リソースの種類　　	ファイルパス
 		{eComResKind_Graphic,	"Resources/Graphics/BG/menu_ui_re.png"	},
+		{ eComResKind_Graphic,	"Resources/Graphics/BG/deckedit.png"	},
 	};
 
 	for (int i = 0; i < eComResName_Num; i++) {

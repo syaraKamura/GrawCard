@@ -189,6 +189,8 @@
     <ClCompile Include="..\scr\Common\XML\XmlPurser.cpp" />
     <ClCompile Include="..\scr\Scene\Boot\Scene_Boot.cpp" />
     <ClCompile Include="..\scr\Scene\ISceneBase.cpp" />
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonMenu.cpp" />
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonBase.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Scene_MainMenu.cpp" />
     <ClCompile Include="..\scr\Scene\Opning\Scene_Opning.cpp" />
     <ClCompile Include="..\scr\Scene\SceneMgr.cpp" />
@@ -243,6 +245,8 @@
     <ClInclude Include="..\scr\Common\XML\XmlPurser.h" />
     <ClInclude Include="..\scr\Scene\Boot\Scene_Boot.h" />
     <ClInclude Include="..\scr\Scene\ISceneBase.h" />
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonMenu.h" />
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonBase.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Scene_MainMenu.h" />
     <ClInclude Include="..\scr\Scene\Opning\Scene_Opning.h" />
     <ClInclude Include="..\scr\Scene\SceneBase.h" />

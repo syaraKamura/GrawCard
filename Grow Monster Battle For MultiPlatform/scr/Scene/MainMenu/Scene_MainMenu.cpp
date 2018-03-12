@@ -15,8 +15,9 @@
 
 #include "Common/GameCommon.h"
 #include "../ISceneBase.h"
-
 #include "Scene_MainMenu.h"
+
+#include "Dungeon/DungeonMenu.h"
 
 Scene_MainMenu::Scene_MainMenu(ISceneBase* changer) : SceneBase(changer) {
 
@@ -50,6 +51,8 @@ bool Scene_MainMenu::Initialize() {
 	multiAdd->Load("Resources/Graphics/UI/button/menu_gacha2.png", 640, 600);
 	mButtonImageOrder = GraphicsDrawMgr::GetInstance()->Add(multiAdd, 1);
 	
+	mNowMenuTaskID = -1;
+
 #ifdef __MY_DEBUG__
 	if (mDebug != NULL) {
 		mDebug->SetDebugList((DebugList*)new dbgScene_MainMenu());
@@ -97,6 +100,8 @@ bool Scene_MainMenu::Updata() {
 
 void Scene_MainMenu::Draw() {
 
+	if (mNowMenuTaskID != -1) return;
+
 	if (mState < eState_Fade) return;
 
 	switch (mMenu) {
@@ -127,9 +132,20 @@ void Scene_MainMenu::Draw() {
 
 bool Scene_MainMenu::UpdataProc() {
 
+	if (mNowMenuTaskID != -1) {
+		if (TaskMgr::getInstance().GetTask(mNowMenuTaskID) == NULL) {
+			mNowMenuTaskID = -1;
+			NexetState(eState_Main, eFadeType_In, 30);
+		}
+		return true;
+	}
+
+	if (Fade::GetInstance()->IsFadeEnd()) {
+		mMenu = eMenu_MainMenu;
+	}
+
 	if (mNextMenu != eMenu_None) {
-		mMenu = mNextMenu;
-		mNextMenu = eMenu_None;
+		mMenu = eMenu_Fade;
 	}
 
 	bool result = true;
@@ -138,8 +154,13 @@ bool Scene_MainMenu::UpdataProc() {
 	case eMenu_MainMenu:
 		result = MainMenuProc();
 		break;
+	case eMenu_Fade:
+		mMenu = mNextMenu;
+		mNextMenu = eMenu_None;
+		Fade::GetInstance()->FadeOut(30);
+		break;
 	case eMenu_Quest:
-
+		mNowMenuTaskID = TaskMgr::getInstance().Add(new DungeonMenu(), TaskMgr::ePriorty_0);
 		break;
 	case eMenu_PlayerStatus:
 
@@ -159,28 +180,33 @@ bool Scene_MainMenu::UpdataProc() {
 	}
 
 
+
+	return result;
+}
+
+bool Scene_MainMenu::MainMenuProc() {
+
 #ifdef __WINDOWS__
 
 #ifdef __MY_DEBUG__
 	if (Keyboard_Press(KEY_INPUT_X)) {
 		dbg_ChangeScene_TestMenu();
 	}
-
+	if (Keyboard_Press(KEY_INPUT_Z)) {
+		mNextMenu = eMenu_Quest;
+	}
 #endif
 #else
 	auto mGraph = GraphicsDrawMgr::GetInstance()->Get(this->mButtonImageOrder);
 	if (mGraph->TouchNumber() == 0) {
-		dbg_ChangeScene_TestMenu();
-	}else if (mGraph->TouchNumber() == 1) {
-		mNextScene->SceneChange(ISceneBase::eScene_AITest);
+		//dbg_ChangeScene_TestMenu();
+		mNextMenu = eMenu_Quest;
+	}
+	else if (mGraph->TouchNumber() == 1) {
+		//mNextScene->SceneChange(ISceneBase::eScene_AITest);
 	}
 
 #endif
-
-	return result;
-}
-
-bool Scene_MainMenu::MainMenuProc() {
 
 	return true;
 }

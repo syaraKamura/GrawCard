@@ -22,6 +22,16 @@
 */
 FPS::FPS(int sampleRate,int fpsRate){
 
+	if (sampleRate <= 0) {
+		Debug::ErorrMessage("FPSのサンプリングの設定値が無効です.\n");
+		sampleRate = 60;
+	}
+
+	if (fpsRate <= 0) {
+		Debug::ErorrMessage("FPSの設定値が無効です.\n");
+		fpsRate = 60;
+	}
+
 	mSampleReate = sampleRate;
 
 	mNowTime = DxLib::GetNowCount();

@@ -22,6 +22,7 @@ class ComRes {
 public :
 	enum eComResName {
 		eComResName_MainMenuBG,			//メインメニュー背景
+		eComResName_CommonBG,			//汎用背景
 
 		eComResName_Num,
 	};

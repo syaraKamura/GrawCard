@@ -35,11 +35,14 @@ void TaskMgr::PreviousUpdate() {
 
 	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
 		if ((*itr)->isInitialize() == false) {
-			(*itr)->Initialize();
+			bool ret = (*itr)->Initialize();
+			(*itr)->SetInitialize(ret);
 		}
-		else {
+ 
+		if ((*itr)->isInitialize() == true) {
 			(*itr)->PreviousUpdate();
 		}
+
 	}
 	
 }
