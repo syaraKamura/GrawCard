@@ -6,11 +6,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 
 	Framework frame(new GameMgr());
-	bool isWindowMode = true;
-#ifndef __MY_DEBUG__
+	
 	int ret = MessageBox(NULL, _T("ウィンドウモードで実行？"), _T("ウィンドウモード"), MB_YESNO);
-	isWindowMode = (ret == IDYES) ;
-#endif
+	bool isWindowMode = (ret == IDYES) ;
+
 
 	if (frame.Initialize(WINDOW_WIDTH, WINDOW_HEIGHT, "Grow Card ver0.0.0", isWindowMode)) {
 		frame.Run();

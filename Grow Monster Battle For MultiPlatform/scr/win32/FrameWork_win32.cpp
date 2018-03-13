@@ -38,6 +38,10 @@ bool Framework::Initialize(int width, int height, const char* titleName/* = ""*/
 	if (isWindowMode == true) {
 		ChangeWindowMode(TRUE);
 	}
+	else {
+		SetMouseDispFlag(TRUE);
+		SetMousePoint(width / 2, height / 2);
+	}
 	
 	if (DxLib_Init() == -1) {
 		Debug::ErorrMessage("DxLibの初期化に失敗しました。\n終了します。");
