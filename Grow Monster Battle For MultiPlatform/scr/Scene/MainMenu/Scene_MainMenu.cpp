@@ -133,11 +133,12 @@ void Scene_MainMenu::Draw() {
 bool Scene_MainMenu::UpdataProc() {
 
 	if (mNowMenuTaskID != -1) {
+
 		if (TaskMgr::getInstance().GetTask(mNowMenuTaskID) == NULL) {
 			mNowMenuTaskID = -1;
 			NexetState(eState_Main, eFadeType_In, 30);
 		}
-		return true;
+		return true;		
 	}
 
 	if (Fade::GetInstance()->IsFadeEnd()) {
@@ -196,7 +197,7 @@ bool Scene_MainMenu::MainMenuProc() {
 		mNextMenu = eMenu_Quest;
 	}
 #endif
-#else
+#endif
 	auto mGraph = GraphicsDrawMgr::GetInstance()->Get(this->mButtonImageOrder);
 	if (mGraph->TouchNumber() == 0) {
 		//dbg_ChangeScene_TestMenu();
@@ -206,7 +207,7 @@ bool Scene_MainMenu::MainMenuProc() {
 		//mNextScene->SceneChange(ISceneBase::eScene_AITest);
 	}
 
-#endif
+
 
 	return true;
 }

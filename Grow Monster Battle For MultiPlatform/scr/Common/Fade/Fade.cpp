@@ -12,7 +12,7 @@
 				
 !*/
 
-#include "DxLib.h"
+#include "Common/GameCommon.h"
 #include "Fade.h"
 
 
@@ -105,7 +105,7 @@ void Fade::Draw(){
 	//if(mIsFadeEnd == true) return;
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA,mFadeValue);
-	DrawBox(0,0,900,800,mColor,TRUE);
+	DrawBox(0,0,WINDOW_WIDTH, WINDOW_HEIGHT,mColor,TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND,0);
 
 }

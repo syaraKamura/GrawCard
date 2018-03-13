@@ -135,6 +135,16 @@
     <Content Include="assets\Resources\Graphics\UI\button\menu_save2.png" />
     <Content Include="assets\Resources\Graphics\UI\button\menu_shop2.png" />
     <Content Include="assets\Resources\Graphics\UI\continue.png" />
+    <Content Include="assets\Resources\Graphics\UI\Number\0.png" />
+    <Content Include="assets\Resources\Graphics\UI\Number\1.png" />
+    <Content Include="assets\Resources\Graphics\UI\Number\2.png" />
+    <Content Include="assets\Resources\Graphics\UI\Number\3.png" />
+    <Content Include="assets\Resources\Graphics\UI\Number\4.png" />
+    <Content Include="assets\Resources\Graphics\UI\Number\5.png" />
+    <Content Include="assets\Resources\Graphics\UI\Number\6.png" />
+    <Content Include="assets\Resources\Graphics\UI\Number\7.png" />
+    <Content Include="assets\Resources\Graphics\UI\Number\8.png" />
+    <Content Include="assets\Resources\Graphics\UI\Number\9.png" />
     <Content Include="assets\Resources\Graphics\UI\start.png" />
     <Content Include="res\drawable\icon.ico" />
     <Content Include="res\values\strings.xml" />

@@ -47,7 +47,7 @@ void DungeonMenu::PreviousUpdate() {
 }
 
 bool DungeonMenu::Updata() {
-
+	if (Fade::GetInstance()->IsFadeEnd() == false) return true;
 	if (mState == eState_None) {
 
 #ifdef __WINDOWS__
@@ -71,7 +71,6 @@ bool DungeonMenu::Updata() {
 		if (Touch_Relese(0)) {
 			mState = eState_Fade;
 		}
-
 
 #endif
 

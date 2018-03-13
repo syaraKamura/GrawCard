@@ -104,16 +104,25 @@ bool Graphics::IsTouch() {
 
 	bool result = false;
 
+	int posX = 0;
+	int posY = 0;
+
 #ifdef __ANDROID__
 	const TOUCH_DATA* data = Touch_GetParamData(0);
-	if (Touch_Relese(0)) {
-		
-		if (((this->mPosX <= data->posX && this->mPosX + this->mWidth >= data->posX) &&
-			(this->mPosY <= data->posY && this->mPosY + this->mHeight >= data->posY))) {
+	posX = data->posX;
+	posY = data->posY;
+	if (Touch_Relese(0)) 
+#else
+	Mouse_GetPosition(&posX, &posY);
+	if(Mouse_Relese(Mouse::eInputType_Left))
+#endif		
+	{
+		if (((this->mPosX <= posX && this->mPosX + this->mWidth >= posX) &&
+			(this->mPosY <= posY && this->mPosY + this->mHeight >= posY))) {
 			result = true;
 		}
 	}
-#endif
+
 
 	return result;
 }

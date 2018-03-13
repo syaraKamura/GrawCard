@@ -143,6 +143,9 @@
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMenu.cpp">
       <Filter>src\Scene\MainMenu\Dungeon</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Input\Mouse.cpp">
+      <Filter>src\Common\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -377,6 +380,9 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMenu.h">
       <Filter>src\Scene\MainMenu\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Input\Mouse.h">
+      <Filter>src\Common\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -57,6 +57,7 @@ void GameMgr::Initialize(){
 
 #ifdef __MY_WINDOWS__
 	Keyboard_Initialize();
+	Mouse_Initialize();
 #endif
 
 	
@@ -73,6 +74,7 @@ void GameMgr::Finalize(){
 
 #ifdef __MY_WINDOWS__
 	Keyboard_Finalize();
+	Mouse_Finalize();
 #endif
 
 }
@@ -86,6 +88,7 @@ void GameMgr::InputUpdate() {
 	
 #ifdef __MY_WINDOWS__
 	Keyboard_Updata();
+	Mouse_Updata();
 #else
 	Touch_Updata();
 #endif

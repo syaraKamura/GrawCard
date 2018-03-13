@@ -133,7 +133,8 @@ void GraphicsMulti::Draw(int posX, int posY, int alpha, double angle, double sca
 		int drawPosX = (*it).posX + mPosX;
 		int drawPosY = (*it).posY + mPosY;
 
-		DxLib::DrawRotaGraph(drawPosX, drawPosY, mScale, mAngle, (*it).handle, TRUE);
+		//DxLib::DrawRotaGraph(drawPosX, drawPosY, mScale, mAngle, (*it).handle, TRUE);
+		DxLib::DrawGraph(drawPosX, drawPosY, (*it).handle, TRUE);
 	}
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
@@ -148,27 +149,35 @@ int GraphicsMulti::TouchNumber() {
 
 	int result = -1;
 
+	int posX;
+	int posY;
 #ifdef __ANDROID__
 	if (mHandleList.size() <= 0) return result;
 
 	const TOUCH_DATA* data = Touch_GetParamData(0);
-	
-	if (Touch_Relese(0)) {
-
+	posX = data->posX;
+	posY = data->posY;
+	if (Touch_Relese(0))
+#else
+	Mouse_GetPosition(&posX, &posY);
+	if (Mouse_Relese(Mouse::eInputType_Left))
+#endif
+	{
 		int number = 0;
 		for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
 			GRAPHICS_MULTI_t graph = (*it);
 
 
-			if (((graph.posX <= data->posX && graph.posX + graph.width >= data->posX) &&
-				(graph.posY <= data->posY && graph.posY + graph.height >= data->posY))) {
+			if (((graph.posX <= posX && graph.posX + graph.width >= posX) &&
+				(graph.posY <= posY && graph.posY + graph.height >= posY))) {
 				result = number;
+				break;
 			}
 			number++;
 		}
 
 	}
-#endif
+
 
 	return result;
 }

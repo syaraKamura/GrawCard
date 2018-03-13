@@ -23,6 +23,7 @@
 #ifdef __WINDOWS__
 	#include <Windows.h>
 	#include "win32/KeyBoard.h"
+	#include "win32/MouseInput.h"
 #endif
 #ifdef __ANDROID__
 	#include "Android/TouchInput.h"
@@ -30,8 +31,9 @@
 
 #define WINDOW_BASE_WIDTH 1920
 #define WINDOW_BASE_HEIGHT 1080
-#define WINDOW_WIDTH 900
-#define WINDOW_HEIGHT 750
+#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 1080
+
 
 #define Delete(x) {if(x != NULL){delete x;x = NULL;}}
 #define DeleteArry(x) {if(x!= NULL){delete[] x;x = NULL;}}

@@ -249,6 +249,12 @@
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonBase.cpp">
       <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon</Filter>
     </ClCompile>
+    <ClCompile Include="..\scr\Common\Input\Mouse.cpp">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\win32\MouseInput.cpp">
+      <Filter>ソース ファイル\scr\win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\scr\Common\GameMgr.h">
@@ -403,6 +409,12 @@
     </ClInclude>
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonBase.h">
       <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Input\Mouse.h">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\win32\MouseInput.h">
+      <Filter>ソース ファイル\scr\win32</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
