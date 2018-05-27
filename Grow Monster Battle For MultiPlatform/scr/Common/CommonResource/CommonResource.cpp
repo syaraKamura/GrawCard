@@ -18,8 +18,10 @@
 
 ComRes* ComRes::mInstance = NULL;
 
+#ifdef __MY_DEBUG__
 static int mStartTime;
 static const int TIME_OUT = 6000;	//6秒でタイムアウト
+#endif
 
 ComRes::ComRes() {
 
@@ -55,7 +57,7 @@ ComRes::ComRes() {
 		mComRes[i] = COM_RES_TBL[i];
 	}
 
-	mStartTime = GetNowCount();
+	mStartTime = 0;
 
 #ifdef __MY_DEBUG__
 	mIsError = false;
@@ -81,16 +83,21 @@ ComRes* ComRes::Instance() {
 */
 bool ComRes::Load() {
 
-	double time = GetNowCount() - mStartTime;
 
 #ifdef __MY_DEBUG__
+
+	if (mStartTime == 0) {
+		mStartTime = GetNowCount();
+	}
+
+	double time = GetNowCount() - mStartTime;
+
 	//タイムアウト時間が来たら抜ける
 	if (time >= TIME_OUT) {
 		Debug::ErorrMessage("汎用リソースの読み込みに失敗したため\n強制終了します");
 		mIsError = true;
 	}
-#endif
-
+#endif	// __MY_DEBUG__
 
 	for (int i = 0; i < eComResName_Num; i++) {
 		if (mComRes[i].kind != eComResKind_Graphic) continue;

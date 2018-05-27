@@ -94,7 +94,7 @@ void FPS::deltaTimeCalc() {
 void FPS::Draw() {
 
 #ifdef  __MY_DEBUG__
-	DrawFormatString(0, WINDOW_HEIGHT - 20, GetColor(255, 255, 255), "FPS:%0.1f delta:%f", mFps,mDeltaTime);
+	DrawFormatString(0, WINDOW_HEIGHT - 20, GetColor(0, 255, 0), "FPS:%0.1f delta:%f", mFps,mDeltaTime);
 #endif //  __MY_DEBUG__
 
 
