@@ -35,6 +35,7 @@ public :
 		eScene_TestMenu,			//テストメニュー
 		eScene_AITest,				//AIテスト
 		eScene_TestComunication,	//通信テスト
+		eScene_TestBattle,
 #endif
 
 		eScene_Num,

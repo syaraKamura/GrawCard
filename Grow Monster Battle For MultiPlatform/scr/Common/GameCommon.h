@@ -14,11 +14,15 @@
 #include "Common/Debug/Debug.h"
 #include "Common/Debug/DebugList.h"
 
+#include "AppData/Character/Monster/MonsterMgr.h"
+
 #include <math.h>
 #include <stdio.h>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <string>
+#include <map>
 
 #ifdef __WINDOWS__
 	#include <Windows.h>

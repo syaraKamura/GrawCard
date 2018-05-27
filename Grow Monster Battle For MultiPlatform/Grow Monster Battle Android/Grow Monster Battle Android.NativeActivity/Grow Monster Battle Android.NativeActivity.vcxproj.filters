@@ -146,6 +146,30 @@
     <ClCompile Include="..\..\scr\Common\Input\Mouse.cpp">
       <Filter>src\Common\Input</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Test\TestBattle.cpp">
+      <Filter>src\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\AppData\Character\MonsterStatus.cpp">
+      <Filter>src\AppData\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Animation\Animation.cpp">
+      <Filter>src\Common\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\ResourceLoader\ResourceLoader.cpp">
+      <Filter>src\Common\ResourceLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\FileLoader\File.cpp">
+      <Filter>src\Common\FileLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\FileLoader\Loader.cpp">
+      <Filter>src\Common\FileLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\AppData\Character\Monster\MonsterMgr.cpp">
+      <Filter>src\AppData\Character\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -237,6 +261,24 @@
     </Filter>
     <Filter Include="src\Scene\MainMenu\Dungeon">
       <UniqueIdentifier>{fd8fa522-3233-4d3e-9251-a5909e7e2fa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon\Battle">
+      <UniqueIdentifier>{a96a840b-162c-48cd-845d-ee87b913a8b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AppData\Character\Skill">
+      <UniqueIdentifier>{aac41119-02e5-4b3f-9668-c9557f6869f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AppData\Script">
+      <UniqueIdentifier>{66bba8ad-be86-4019-971b-dc6be9040b89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Animation">
+      <UniqueIdentifier>{6b725b16-4997-410d-b886-78e012f3bf7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\ResourceLoader">
+      <UniqueIdentifier>{9958d436-1157-4677-bb42-5e3cd89105cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\FileLoader">
+      <UniqueIdentifier>{2e75d316-6926-481e-bead-69ee1b8ad596}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +425,30 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Input\Mouse.h">
       <Filter>src\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Test\TestBattle.h">
+      <Filter>src\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\AppData\Character\MonsterStatus.h">
+      <Filter>src\AppData\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Animation\Animation.h">
+      <Filter>src\Common\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\ResourceLoader\ResourceLoader.h">
+      <Filter>src\Common\ResourceLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\FileLoader\Loader.h">
+      <Filter>src\Common\FileLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\FileLoader\File.h">
+      <Filter>src\Common\FileLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\AppData\Character\Monster\MonsterMgr.h">
+      <Filter>src\AppData\Character\Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

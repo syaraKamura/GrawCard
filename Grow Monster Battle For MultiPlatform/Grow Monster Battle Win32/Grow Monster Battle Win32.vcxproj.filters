@@ -100,6 +100,21 @@
     <Filter Include="ソース ファイル\scr\Common\Window">
       <UniqueIdentifier>{aefbda65-a733-472a-b8ad-ee59258f3370}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle">
+      <UniqueIdentifier>{f7af2f11-6951-4229-b3e4-7258f649f381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\AppData\Script">
+      <UniqueIdentifier>{15378a93-c63f-437d-a6b2-157fc58dd492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Animation">
+      <UniqueIdentifier>{3d6904d6-b12c-4b8d-9386-3667c19562c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Common\ResourceLoader">
+      <UniqueIdentifier>{c9b0d4fa-da14-41f7-8a04-4e83e68eb3a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Common\FileLoader">
+      <UniqueIdentifier>{b97ee173-8022-44b7-8862-db725ab81358}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -254,6 +269,30 @@
     </ClCompile>
     <ClCompile Include="..\scr\win32\MouseInput.cpp">
       <Filter>ソース ファイル\scr\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Test\TestBattle.cpp">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Animation\Animation.cpp">
+      <Filter>ソース ファイル\scr\Common\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Script\ScriptBase.cpp">
+      <Filter>ソース ファイル\scr\AppData\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\ResourceLoader\ResourceLoader.cpp">
+      <Filter>ソース ファイル\scr\Common\ResourceLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\FileLoader\File.cpp">
+      <Filter>ソース ファイル\scr\Common\FileLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\FileLoader\Loader.cpp">
+      <Filter>ソース ファイル\scr\Common\FileLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\Character\Monster\MonsterMgr.cpp">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -415,6 +454,30 @@
     </ClInclude>
     <ClInclude Include="..\scr\win32\MouseInput.h">
       <Filter>ソース ファイル\scr\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Test\TestBattle.h">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Animation\Animation.h">
+      <Filter>ソース ファイル\scr\Common\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Script\ScriptBase.h">
+      <Filter>ソース ファイル\scr\AppData\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\ResourceLoader\ResourceLoader.h">
+      <Filter>ソース ファイル\scr\Common\ResourceLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\FileLoader\File.h">
+      <Filter>ソース ファイル\scr\Common\FileLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\FileLoader\Loader.h">
+      <Filter>ソース ファイル\scr\Common\FileLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\AppData\Character\Monster\MonsterMgr.h">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

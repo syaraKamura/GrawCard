@@ -18,17 +18,48 @@
 
 ComRes* ComRes::mInstance = NULL;
 
+static int mStartTime;
+static const int TIME_OUT = 6000;	//6秒でタイムアウト
+
 ComRes::ComRes() {
 
 	COMMON_RES_t COM_RES_TBL[eComResName_Num] = {
 		// リソースの種類　　	ファイルパス
 		{eComResKind_Graphic,	"Resources/Graphics/BG/menu_ui_re.png"	},
 		{ eComResKind_Graphic,	"Resources/Graphics/BG/deckedit.png"	},
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00001.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00002.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00003.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00004.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00005.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00006.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00007.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00008.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00009.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00010.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00011.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00012.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00013.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00014.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00015.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00016.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00017.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00018.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00019.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00020.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00021.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00022.png" },
 	};
 
 	for (int i = 0; i < eComResName_Num; i++) {
 		mComRes[i] = COM_RES_TBL[i];
 	}
+
+	mStartTime = GetNowCount();
+
+#ifdef __MY_DEBUG__
+	mIsError = false;
+#endif
 
 }
 
@@ -49,6 +80,17 @@ ComRes* ComRes::Instance() {
 	リソース読み込み
 */
 bool ComRes::Load() {
+
+	double time = GetNowCount() - mStartTime;
+
+#ifdef __MY_DEBUG__
+	//タイムアウト時間が来たら抜ける
+	if (time >= TIME_OUT) {
+		Debug::ErorrMessage("汎用リソースの読み込みに失敗したため\n強制終了します");
+		mIsError = true;
+	}
+#endif
+
 
 	for (int i = 0; i < eComResName_Num; i++) {
 		if (mComRes[i].kind != eComResKind_Graphic) continue;
@@ -87,3 +129,8 @@ Graphics* ComRes::GetGraphicHandle(ComRes::eComResName name) {
 	return graph;
 }
 
+#ifdef __MY_DEBUG__
+bool ComRes::IsError() {
+	return mIsError;
+}
+#endif

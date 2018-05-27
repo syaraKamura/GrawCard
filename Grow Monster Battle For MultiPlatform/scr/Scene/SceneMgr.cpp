@@ -23,6 +23,7 @@
 	#include "Test/TestMenu.h"
 	#include "Test/AITest.h"
 	#include "Test/TestCommunication.h"
+	#include "Test/TestBattle.h"
 #endif
 
 typedef struct {
@@ -125,9 +126,10 @@ bool SceneMgr::SceneChangeProc(){
 	{ (SceneBase*)new Scene_MainMenu(this,mDebug),	"Scene_MainMenu" },
 
 #ifdef __MY_DEBUG__
-	{ (SceneBase*)new TestMenu(this),		"Scene_TestMenu" },
-	{ (SceneBase*)new AITest(this),			"Scene_AITest" },
-	{ (SceneBase*)new TestCommunication(this),"Scene_TestCommunication" },
+	{ (SceneBase*)new TestMenu(this),			"Scene_TestMenu" },
+	{ (SceneBase*)new AITest(this),				"Scene_AITest" },
+	{ (SceneBase*)new TestCommunication(this),	"Scene_TestCommunication" },
+	{(SceneBase*)new TestBattle(this),			"Scene_TestBattle"},
 #endif
 
 	};
@@ -159,7 +161,10 @@ bool SceneMgr::SceneChangeProc(){
 		mNextScene = ISceneBase::eScene_None;
 		
 		if(mScene != NULL){	
-			mScene->Initialize();
+			mIsLoadEnd = mScene->Initialize();
+			if (mIsLoadEnd == false) {
+				return false;
+			}
 		}
 	}
 

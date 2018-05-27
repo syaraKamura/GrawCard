@@ -126,7 +126,7 @@ void Debug::ErorrMessage(const TCHAR* str) {
 #ifdef __WINDOWS__
 	MessageBox(NULL, _T(str), _T("エラーメッセージ"), MB_OK| MB_ICONERROR);
 #elif __ANDROID__
-
+	printfDx(str);
 #endif
 
 #endif

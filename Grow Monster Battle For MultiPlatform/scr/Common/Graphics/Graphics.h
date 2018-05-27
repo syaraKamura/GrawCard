@@ -15,6 +15,7 @@
 #define __GRAPHICS_H__
 
 #include <list>
+#include<string>
 #include "Common/GameCommon.h"
 #include "GraphicsBase.h"
 
@@ -22,6 +23,11 @@
 class Graphics : public GraphicsBase{
 
 private:
+
+protected:
+
+	int LoadResource(std::string fileName) override;
+	void DestoryResource(int handle) override;
 
 public:
 

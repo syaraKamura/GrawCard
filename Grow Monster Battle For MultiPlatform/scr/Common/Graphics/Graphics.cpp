@@ -18,6 +18,14 @@ Graphics::Graphics() : GraphicsBase() {}
 
 Graphics::~Graphics() {}
 
+int Graphics::LoadResource(std::string fileName) {
+	return DxLib::LoadGraph(fileName.c_str());
+}
+
+void Graphics::DestoryResource(int handle) {
+	DxLib::DeleteGraph(handle);
+}
+
 bool Graphics::Load(const char* path) {
 
 	if (path == NULL) {
@@ -60,7 +68,11 @@ bool Graphics::Load(const char* path) {
 		strcpyDx(graphPath,path);
 	}
 	
-	mHandle = DxLib::LoadGraph(graphPath);
+	//mHandle = DxLib::LoadGraph(graphPath);
+
+	if (LoadASync(graphPath)) {
+		mHandle = Get(graphPath);
+	}
 
 	if (mHandle == eGraphicsResult_ERROR) {
 		Debug::LogPrintf("[ERORR : FUNC %s] Graphic Load ERROR.(%s)\n", __func__, path);
@@ -75,7 +87,8 @@ bool Graphics::Load(const char* path) {
 
 void Graphics::Relese() {
 	if (mHandle > eGraphicsResult_NONE) {
-		DxLib::DeleteGraph(mHandle);
+		//DxLib::DeleteGraph(mHandle);
+		Destory(this->mFileName);
 		mHandle = eGraphicsResult_NONE;
 	}
 }

@@ -44,6 +44,7 @@ private:
 
 	eType mType;
 
+	int mId;		//管理番号
 	int mHp;
 	int mHpMax;
 	int mMp;
@@ -61,6 +62,7 @@ public :
 	Monster();
 	~Monster();
 
+	void SetId(int id);
 	void SetType(eType type);
 	void SetHp(int hp);
 	void SetHpMax(int hpMax);
@@ -68,10 +70,11 @@ public :
 	void SetMpMax(int mpMax);
 
 	void SetAttack(int attack);
-	void SetDeffence(int deffence);
+	void SetDeffence(int deffence); 
 	void SetSpeed(int speed);
 
 	
+	int GetId();
 	eType GetType();
 
 	int GetHp();

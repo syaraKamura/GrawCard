@@ -34,6 +34,10 @@ Monster::~Monster() {
 
 }
 
+void Monster::SetId(int id) {
+	mId = id;
+}
+
 void Monster::SetType(eType type) {
 	mType = type;
 }
@@ -64,6 +68,10 @@ void Monster::SetDeffence(int deffence) {
 
 void Monster::SetSpeed(int speed) {
 	mSpeed = speed;
+}
+
+int Monster::GetId() {
+	return mId;
 }
 
 Monster::eType Monster::GetType() {

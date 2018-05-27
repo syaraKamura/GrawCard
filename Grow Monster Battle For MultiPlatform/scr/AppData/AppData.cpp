@@ -30,7 +30,7 @@ AppData AppData::GetInstance() {
 
 bool AppData::Exits() {
 	if (mSaveData == NULL) {
-		Debug::LogPrintf("mSaveData is Not Create Instance.");
+		Debug::ErorrMessage("mSaveData is Not Create Instance.");
 		return false;
 	}
 	return mSaveData->Exists();
@@ -56,7 +56,7 @@ void AppData::Load() {
 
 SaveData* AppData::GetSaveData() {
 	if (mSaveData == NULL) {
-		Debug::LogPrintf("mSaveData is Not Create Instance.");
+		Debug::ErorrMessage("mSaveData is Not Create Instance.");
 		return NULL;
 	}
 	return mSaveData;

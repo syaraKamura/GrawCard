@@ -45,6 +45,9 @@ void GraphicsDraw::SetAlpha(int alpha) {
 	if (alpha < 0) {
 		alpha = 0;
 	}
+	else if (alpha >= 255) {
+		alpha = 255;
+	}
 	mAlpha = alpha; 
 }
 

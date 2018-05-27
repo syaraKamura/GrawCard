@@ -105,6 +105,11 @@ bool GameMgr::Updata(){
 	if (mDebug->Updata() == true) {
 		return true;
 	}
+
+	if (ComRes::Instance()->IsError()) {
+		return false;
+	}
+
 #endif
 
 	mSceneMgr->Updata();

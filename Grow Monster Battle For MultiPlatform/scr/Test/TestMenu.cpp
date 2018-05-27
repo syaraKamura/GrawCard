@@ -18,6 +18,7 @@ static const SCENE_LIST s_cSceneListTbl[] = {
 	{ISceneBase::eScene_MainMenu,"メインメニュー"},
 	{ISceneBase::eScene_AITest,"AIテスト"},
 	{ISceneBase::eScene_TestComunication,"通信テスト"},
+	{ ISceneBase::eScene_TestBattle,"バトルテスト" },
 };
 
 //シーンリスト数

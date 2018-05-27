@@ -17,6 +17,8 @@
 #include "Common/FileIO/ReadBynary.h"
 #include "Common/XML/XmlPurser.h"
 
+#include "Common/Animation/Animation.h"
+
 const int MAP_WIDTH = 41;
 const int MAP_HEIGHT= 37;
 const int MAP_CHIP_SIZE = 20;
@@ -60,7 +62,7 @@ StringBase* mString;
 WriteBynary* mFile;
 ReadBynary* mReadFile;
 XmlPurser* mXml;
-
+Animation* mAnimation;
 
 int posX = 0;
 int vecX = 4;
@@ -172,8 +174,11 @@ void Map_Initialize(){
 	}
 
 	mGraphics = new Graphics();
-	//mGraphics->Load("Resources/Graphics/BG/menu_ui_re.png");
+#ifdef __ANDROID__
+	mGraphics->Load("Resources/Graphics/BG/menu_ui_re.png");
+#else
 	mGraphics->Load("Resources/Data/Graph000.xml");
+#endif
 	mGraphics->SetAlpha(200);
 
 	mGraphicsMulti = new GraphicsMulti();
@@ -481,6 +486,47 @@ bool AITest::Initialize(){
 
 	delete mXml;
 #endif
+
+
+	ANIMATION_DATA_t anims[] = {
+		//int keyframe float positionX 	float positionY float angle	float scale	float alpha
+	{ 0,20.0f,30.0f,1.0f,1.0f,123.0f},
+	{ 10,120.0f,80.0f,1.0f,1.0f,163.0f },
+	{ 20,20.0f,130.0f,1.0f,1.0f,200.0f },
+	{ 40,220.0f,530.0f,1.0f,1.0f,255.0f },
+	{ 50,120.0f,30.0f,1.0f,1.0f,255.0f },
+	{ 120,1200.0f,1030.0f,1.0f,1.0f,255.0f },
+	{ 180,1200.0f,1080.0f,1.0f,1.0f,255.0f },
+	};
+
+	ANIMATION_DATA_t anims2[] = {
+		//int keyframe float positionX 	float positionY float angle	float scale	float alpha
+		{ 0,20.0f,30.0f,1.0f,1.0f,123.0f },
+		{ 30,20.0f,60.0f,1.0f,1.0f,255.0f },		
+		{ 60,20.0f,30.0f,1.0f,1.0f,200.0f },
+		{ 40,20.0f,80.0f,1.0f,1.0f,255.0f },
+		{ 80,1020.0f,30.0f,1.0f,1.0f,255.0f },
+		{ 90,0.0f,30.0f,1.0f,1.0f,255.0f },
+		{ 91,100.0f,30.0f,1.0f,1.0f,255.0f },
+		{ 96,1000.0f,1000.0f,1.0f,1.0f,255.0f },
+		{ 180,20.0f,30.0f,1.0f,1.0f,255.0f },
+	};
+
+	mAnimation = new Animation();
+
+	int length = sizeof(anims2) / sizeof(anims2[0]);
+	
+	for (int i = 0; i < length; i++) {
+		mAnimation->AddAnimationData(anims2[i]);
+	}
+
+	mAnimation->SetAnimationTime(180);
+
+#ifdef __ANDROID__
+	mAnimation->Play();
+	mAnimation->Loop();
+#endif
+
 	return true;
 }
 
@@ -550,6 +596,17 @@ bool AITest::Updata() {
 		}
 	}
 
+
+	if (Keyboard_Press(KEY_INPUT_P)) {
+		mAnimation->Play();
+	}
+	if (Keyboard_Press(KEY_INPUT_S)) {
+		mAnimation->Stop();
+	}
+	if (Keyboard_Press(KEY_INPUT_L)) {
+		mAnimation->Loop();
+	}
+
 	//mGraphics->Draw(20, 100, 255);
 	//mGraphics->SetPosition(WINDOW_WIDTH / 2, 200);
 	//mGraphicsMulti->Draw(posX, 200, 255);
@@ -579,7 +636,9 @@ bool AITest::Updata() {
 	mString->SetColor(GetColor(255, 0, 0));
 	mString->SetString("Tこれはテストメッセージです。tが");
 
-
+	mAnimation->AnimationAttach(mGraphics);
+	mAnimation->Update();
+	
 	return true;
 }
 

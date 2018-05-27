@@ -14,7 +14,9 @@
 #ifndef __GRAPHICS_DRAW_H__
 #define __GRAPHICS_DRAW_H__
 
-class GraphicsDraw {
+#include "Common/ResourceLoader/ResourceLoader.h"
+
+class GraphicsDraw : public ResourceLoader {
 
 public :
 
