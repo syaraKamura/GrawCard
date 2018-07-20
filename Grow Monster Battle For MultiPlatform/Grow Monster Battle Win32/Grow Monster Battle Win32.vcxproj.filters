@@ -103,6 +103,9 @@
     <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle">
       <UniqueIdentifier>{f7af2f11-6951-4229-b3e4-7258f649f381}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\AppData\Script">
+      <UniqueIdentifier>{15378a93-c63f-437d-a6b2-157fc58dd492}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ソース ファイル\scr\Common\Animation">
       <UniqueIdentifier>{3d6904d6-b12c-4b8d-9386-3667c19562c5}</UniqueIdentifier>
     </Filter>
@@ -111,12 +114,6 @@
     </Filter>
     <Filter Include="ソース ファイル\scr\Common\FileLoader">
       <UniqueIdentifier>{b97ee173-8022-44b7-8862-db725ab81358}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\scr\Common\Script">
-      <UniqueIdentifier>{15378a93-c63f-437d-a6b2-157fc58dd492}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\scr\Common\Animation\Easing">
-      <UniqueIdentifier>{f26da272-0c6b-48c1-8d9f-719d5b9d679d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -283,7 +280,7 @@
       <Filter>ソース ファイル\scr\Common\Animation</Filter>
     </ClCompile>
     <ClCompile Include="..\scr\Common\Script\ScriptBase.cpp">
-      <Filter>ソース ファイル\scr\Common\Script</Filter>
+      <Filter>ソース ファイル\scr\AppData\Script</Filter>
     </ClCompile>
     <ClCompile Include="..\scr\Common\ResourceLoader\ResourceLoader.cpp">
       <Filter>ソース ファイル\scr\Common\ResourceLoader</Filter>
@@ -296,15 +293,6 @@
     </ClCompile>
     <ClCompile Include="..\scr\AppData\Character\Monster\MonsterMgr.cpp">
       <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.cpp">
-      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
-    </ClCompile>
-    <ClCompile Include="..\scr\Test\TestADV.cpp">
-      <Filter>ソース ファイル\scr\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="..\scr\Common\Script\ScriptAnimation.cpp">
-      <Filter>ソース ファイル\scr\Common\Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -477,7 +465,7 @@
       <Filter>ソース ファイル\scr\Common\Animation</Filter>
     </ClInclude>
     <ClInclude Include="..\scr\Common\Script\ScriptBase.h">
-      <Filter>ソース ファイル\scr\Common\Script</Filter>
+      <Filter>ソース ファイル\scr\AppData\Script</Filter>
     </ClInclude>
     <ClInclude Include="..\scr\Common\ResourceLoader\ResourceLoader.h">
       <Filter>ソース ファイル\scr\Common\ResourceLoader</Filter>
@@ -490,15 +478,6 @@
     </ClInclude>
     <ClInclude Include="..\scr\AppData\Character\Monster\MonsterMgr.h">
       <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.h">
-      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
-    </ClInclude>
-    <ClInclude Include="..\scr\Test\TestADV.h">
-      <Filter>ソース ファイル\scr\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="..\scr\Common\Script\ScriptAnimation.h">
-      <Filter>ソース ファイル\scr\Common\Script</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

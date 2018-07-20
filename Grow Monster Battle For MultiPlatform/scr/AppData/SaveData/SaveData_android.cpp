@@ -176,9 +176,7 @@ void SaveData::Save(SaveData save) {
 
 	}
 
-	for (int i = 0; i < MAX_FLAGS; i++) {
-		mFile->WriteUInt(mFlag.mFlags[i]);
-	}
+
 
 }
 
@@ -195,30 +193,6 @@ MonsterBox* SaveData::GetMonsterBox() {
 Player* SaveData::GetPlayer() {
 	return &mPlayer;
 }
-
-/*
-	指定番号のフラグを返却する
-	int i	:	フラグ番号
-	reutrn	:	0			:オフ
-				1以上		:オン
-*/
-unsigned int SaveData::GetFlag(int i) {
-
-	if (i < 0 || i >= MAX_FLAGS) {
-		Debug::ErorrMessage("フラグデータの範囲外です");
-		return 0;
-	}
-	return mFlag.mFlags[i];
-}
-
-/*
-	フラグデータを返却する
-	return	:	フラグデータ
-*/
-SaveData::FLAG_DATA_t* SaveData::GetFlagData() {
-	return &mFlag;
-}
-
 
 /*
 	セーブデータが存在するか確認する

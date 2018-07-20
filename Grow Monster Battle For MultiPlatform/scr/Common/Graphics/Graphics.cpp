@@ -19,10 +19,6 @@ Graphics::Graphics() : GraphicsBase() {}
 Graphics::~Graphics() {}
 
 int Graphics::LoadResource(std::string fileName) {
-	
-	//ファイル名取得
-	strcpyDx(this->mFileName,fileName.c_str());
-
 	return DxLib::LoadGraph(fileName.c_str());
 }
 
@@ -101,7 +97,7 @@ void Graphics::Draw(int posX, int posY, int alpha, double angle, double scale){
 
 	//画像データが存在していないならば処理を抜ける
 	if (mHandle <= eGraphicsResult_NONE) {
-		Debug::LogPrintf("[ERORR : (FUNC %s)] Graphic is Not Exist.\nFileName(%s) \n",__func__,this->mFileName);
+		Debug::LogPrintf("[ERORR : (FUNC %s)] Graphic is Not Exist.\n",__func__);
 		return;
 	}
 

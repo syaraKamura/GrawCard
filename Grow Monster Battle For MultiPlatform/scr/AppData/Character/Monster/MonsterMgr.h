@@ -32,7 +32,7 @@ public :
 	static void Create();
 	static void Destory();
 
-	static MonsterMgr* Instance();
+	MonsterMgr* Instance();
 
 	Monster getMonsterData(int number);
 

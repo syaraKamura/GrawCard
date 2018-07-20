@@ -72,7 +72,6 @@ public:
 	bool Initialize();
 	void Finalize();
 
-	void InputUpdate();
 	void PreviousUpdate();
 
 	//’ÊíXV

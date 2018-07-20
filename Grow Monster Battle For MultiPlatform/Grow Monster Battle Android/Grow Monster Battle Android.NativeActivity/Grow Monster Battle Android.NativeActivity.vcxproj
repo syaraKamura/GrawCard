@@ -119,19 +119,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <IncludePath>$(DXLIB_ANDOROID_ARM_ROOT);</IncludePath>
+    <IncludePath>
+    </IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <IncludePath>$(DXLIB_ANDOROID_ARM_ROOT);</IncludePath>
+    <IncludePath>
+    </IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <IncludePath>$(LLVMToolchainPrebuiltRoot)\lib64\clang\$(LLVMVersion)\include;$(DXLIB_ANDOROID_X86_ROOT);</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <IncludePath>$(LLVMToolchainPrebuiltRoot)\lib64\clang\$(LLVMVersion)\include;$(DXLIB_ANDOROID_X86_ROOT);</IncludePath>
-  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -239,7 +237,6 @@
     <ClCompile Include="..\..\scr\AppData\Character\Player\Player.cpp" />
     <ClCompile Include="..\..\scr\AppData\SaveData\SaveData_android.cpp" />
     <ClCompile Include="..\..\scr\Common\Animation\Animation.cpp" />
-    <ClCompile Include="..\..\scr\Common\Animation\Easing\Easing.cpp" />
     <ClCompile Include="..\..\scr\Common\CommonResource\CommonResource.cpp" />
     <ClCompile Include="..\..\scr\Common\Debug\Debug.cpp" />
     <ClCompile Include="..\..\scr\Common\Debug\DebugList.cpp" />
@@ -262,7 +259,6 @@
     <ClCompile Include="..\..\scr\Common\Input\Mouse.cpp" />
     <ClCompile Include="..\..\scr\Common\Input\Touch.cpp" />
     <ClCompile Include="..\..\scr\Common\ResourceLoader\ResourceLoader.cpp" />
-    <ClCompile Include="..\..\scr\Common\Script\ScriptBase.cpp" />
     <ClCompile Include="..\..\scr\Common\String\FontMgr\FontMgr.cpp" />
     <ClCompile Include="..\..\scr\Common\String\StringBase.cpp" />
     <ClCompile Include="..\..\scr\Common\Task\TaskBase.cpp" />
@@ -280,7 +276,6 @@
     <ClCompile Include="..\..\scr\Scene\Title\Scene_Title.cpp" />
     <ClCompile Include="..\..\scr\Test\AITest.cpp" />
     <ClCompile Include="..\..\scr\Test\Test1.cpp" />
-    <ClCompile Include="..\..\scr\Test\TestADV.cpp" />
     <ClCompile Include="..\..\scr\Test\TestBattle.cpp" />
     <ClCompile Include="..\..\scr\Test\TestCommunication.cpp" />
     <ClCompile Include="..\..\scr\Test\TestMenu.cpp" />
@@ -299,7 +294,6 @@
     <ClInclude Include="..\..\scr\AppData\Character\Player\Player.h" />
     <ClInclude Include="..\..\scr\AppData\SaveData\SaveData.h" />
     <ClInclude Include="..\..\scr\Common\Animation\Animation.h" />
-    <ClInclude Include="..\..\scr\Common\Animation\Easing\Easing.h" />
     <ClInclude Include="..\..\scr\Common\CommonResource\CommonResource.h" />
     <ClInclude Include="..\..\scr\Common\Debug\Debug.h" />
     <ClInclude Include="..\..\scr\Common\Debug\DebugList.h" />
@@ -322,7 +316,6 @@
     <ClInclude Include="..\..\scr\Common\Input\Mouse.h" />
     <ClInclude Include="..\..\scr\Common\Input\Touch.h" />
     <ClInclude Include="..\..\scr\Common\ResourceLoader\ResourceLoader.h" />
-    <ClInclude Include="..\..\scr\Common\Script\ScriptBase.h" />
     <ClInclude Include="..\..\scr\Common\String\FontMgr\FontMgr.h" />
     <ClInclude Include="..\..\scr\Common\String\StringBase.h" />
     <ClInclude Include="..\..\scr\Common\Task\Task.h" />
@@ -342,7 +335,6 @@
     <ClInclude Include="..\..\scr\Scene\Title\Scene_Title.h" />
     <ClInclude Include="..\..\scr\Test\AITest.h" />
     <ClInclude Include="..\..\scr\Test\Test1.h" />
-    <ClInclude Include="..\..\scr\Test\TestADV.h" />
     <ClInclude Include="..\..\scr\Test\TestBattle.h" />
     <ClInclude Include="..\..\scr\Test\TestCommunication.h" />
     <ClInclude Include="..\..\scr\Test\TestMenu.h" />

@@ -15,7 +15,6 @@
 #include "AppData/Character/Player/Player.h"
 
 #include "BattleBase.h"
-#include "BattleCalculator.h"
 
 
 BattleBase::BattleBase() : TaskBase() {
@@ -34,16 +33,15 @@ BattleBase::BattleBase() : TaskBase() {
 	monster->SetHp(120);
 	monster->SetHpMax(120);
 
-	
-	mPlayer->SetMonster(0, MonsterMgr::Instance()->getMonsterData(0));
+	mPlayer->SetMonster(0, *monster);
 	monster->SetName("モンスター2");
-	mPlayer->SetMonster(1, MonsterMgr::Instance()->getMonsterData(1));
+	mPlayer->SetMonster(1, *monster);
 	monster->SetName("モンスター3");
-	mPlayer->SetMonster(2, MonsterMgr::Instance()->getMonsterData(2));
+	mPlayer->SetMonster(2, *monster);
 	monster->SetName("モンスター4");
-	mPlayer->SetMonster(3, MonsterMgr::Instance()->getMonsterData(3));
+	mPlayer->SetMonster(3, *monster);
 	monster->SetName("モンスター5");
-	mPlayer->SetMonster(4, MonsterMgr::Instance()->getMonsterData(4));
+	mPlayer->SetMonster(4, *monster);
 	
 
 }
@@ -89,7 +87,7 @@ bool BattleBase::Initialize() {
 
 void BattleBase::Finalize() {
 	Delete(mGraphics);
-	//Delete(mCard);
+	Delete(mCard);
 }
 
 void BattleBase::PreviousUpdate() {
@@ -112,9 +110,6 @@ bool BattleBase::Updata() {
 		NexetStepRequest(eBattleStep_Main);
 		break;
 	case eBattleStep_Main:
-
-		//Debug::LogPrintf("ダメージ %d\n", BattleCalculator::NormalDamage(*mPlayer->GetMonster(0), *mPlayer->GetMonster(0)));
-
 		NexetStepRequest(eBattleStep_Result,BattleBase::eFadeType_In);
 		break;
 	case eBattleStep_Result:
@@ -139,9 +134,8 @@ void BattleBase::Draw() {
 	for (int i = 0; i < 5; i++) {
 		Monster* monster = mPlayer->GetMonster(i);
 		if (monster == NULL) continue;
-		Graphics* graph = ComRes::Instance()->GetGraphicHandle((ComRes::eComResName)(ComRes::eComResName_Monster_00001 + i));
-		graph->Draw(200 + i * 300, 100, 255, 0.0, 1.0);	//敵
-		graph->Draw(200 + i * 300, 750, 255, 0.0, 1.0);	//味方
+		mCard->Draw(200 + i * 300, 100, 255, 0.0, 1.0);	//敵
+		mCard->Draw(200 + i * 300, 750, 255, 0.0, 1.0);	//味方
 		DrawString(200 + i * 300, 750, monster->GetName(), GetColor(0, 255, 0));
 	}
 
