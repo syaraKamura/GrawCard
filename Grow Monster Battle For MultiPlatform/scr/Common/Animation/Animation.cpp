@@ -39,7 +39,7 @@ ANIMATION_DATA_t GetAnimationDataValue(ANIMATION_DATA_t now, ANIMATION_DATA_t ne
 	value.alpha /= value.keyframe;
 	value.scale /= value.keyframe;
 	value.angle /= value.keyframe;
-
+	 
 	return value;
 }
 
@@ -65,7 +65,7 @@ Animation::Animation() {
 }
 
 Animation::~Animation() {
-	mAnimationDataList.clear();
+	DeleteAnimationData();
 }
 
 
@@ -75,6 +75,13 @@ Animation::~Animation() {
 void Animation::AddAnimationData(ANIMATION_DATA_t animationData) {
 	mAnimationDataList.push_back(animationData);
 	mAnimationDataList.sort(SortKeyframe);
+}
+
+/*
+アニメーションデータを削除する
+*/
+void Animation::DeleteAnimationData(){
+	mAnimationDataList.clear();
 }
 
 /*
@@ -129,6 +136,87 @@ bool Animation::Update() {
 	else if (mIsPause == true) return true;
 	else if (mAnimationDataList.size() <= 0) return false;
 
+#if 1
+
+	ANIMATION_DATA_t prevKeyframe = {};
+	ANIMATION_DATA_t nextKeyframe = {};
+
+	bool isSet = false;
+
+	for (int i = 0; i < mAnimationDataList.size(); i++) {
+		ANIMATION_DATA_t  now = *std::next(mAnimationDataList.begin(), i);
+		if (mCounter < now.keyframe) {
+
+			int prev = i - 1;
+			if (prev < 0) {
+				prev = 0;
+			}
+
+			prevKeyframe = *std::next(mAnimationDataList.begin(), prev);
+			nextKeyframe = now;
+			isSet = true;
+			break;
+		}
+	}
+
+	if (isSet == true) {
+
+		float frame = nextKeyframe.keyframe - prevKeyframe.keyframe;
+
+		float posX = nextKeyframe.positionX - prevKeyframe.positionX;
+		float posY = nextKeyframe.positionY - prevKeyframe.positionY;
+		float alpha = nextKeyframe.alpha - prevKeyframe.alpha;
+		float angle = nextKeyframe.angle - prevKeyframe.angle;
+		float scale = nextKeyframe.scale - prevKeyframe.scale;
+
+		float deltaFrame = (mCounter + 1) - prevKeyframe.keyframe;
+
+		//現在の時間の割合
+ 		float rate = deltaFrame / frame;
+
+
+		float X = prevKeyframe.positionX + posX * rate;
+		float Y = prevKeyframe.positionY + posY * rate;
+		float ALPHA = prevKeyframe.alpha + alpha * rate;
+		float ANGLE = prevKeyframe.angle + angle * rate;
+		float SCALE = prevKeyframe.scale + scale * rate;
+
+		if (mCounter == nextKeyframe.keyframe) {
+			if (X != nextKeyframe.positionX) X = nextKeyframe.positionX;
+			if (Y != nextKeyframe.positionY) Y = nextKeyframe.positionY;
+			if (ALPHA != nextKeyframe.alpha) ALPHA = nextKeyframe.alpha;
+			if (ANGLE != nextKeyframe.angle) ANGLE = nextKeyframe.angle;
+			if (SCALE != nextKeyframe.scale) SCALE = nextKeyframe.scale;
+		}
+
+		mAnimationValue.positionX = X;
+		mAnimationValue.positionY = Y;
+		mAnimationValue.alpha = ALPHA;
+		mAnimationValue.angle = ANGLE;
+		mAnimationValue.scale = SCALE;
+
+		
+
+
+	}
+
+	if (mCounter >= mTimeLength) {
+
+		this->Stop();
+		if (mIsLoop == true) {
+			this->Play();
+		}
+		return true;
+	}
+
+	mCounter++;
+
+
+#else
+	if (mIsStop == true) return true;
+	else if (mIsPause == true) return true;
+	else if (mAnimationDataList.size() <= 0) return false;
+
 	if (mIsPlay) {
 
 		ANIMATION_DATA_t nowKeyframe = {};
@@ -139,10 +227,10 @@ bool Animation::Update() {
 			nowKeyframe = *std::next(mAnimationDataList.begin(), mNowFrame);
 		}
 		else {
-			memset(&mAnimationValue, 0, sizeof(ANIMATION_DATA_t));
+			//memset(&mAnimationValue, 0, sizeof(ANIMATION_DATA_t));
 		}
 
-		if (mCounter == nowKeyframe.keyframe) {
+		if (mCounter > nowKeyframe.keyframe) {
 			if (mNowFrame + 1 < mAnimationDataList.size()) {
 				nextKeyframe = *std::next(mAnimationDataList.begin(), mNowFrame + 1);
 				mAnimationValue = GetAnimationDataValue(nowKeyframe, nextKeyframe ,&mValue);
@@ -162,26 +250,40 @@ bool Animation::Update() {
 		mCounter++;
 	}
 
-
+#endif
 	return true;
 }
 
-void Animation::AnimationAttach(GraphicsDraw* graph) {
-	if (mIsPlay) {
-		CheckVeluesZero();
+void Animation::AnimationAttach(GraphicsDraw* graph, bool isNowBasePos/* = false*/) {
+	//if (mIsPlay) {
+#if 1
+	float posX = 0.0f;
+	float posY = 0.0f;
+	if (isNowBasePos) {
+		posX = graph->GetPositionX();
+		posY = graph->GetPositionY();
+	}
+	graph->SetPosition(posX + mAnimationValue.positionX, posY + mAnimationValue.positionY);
+	graph->SetAlpha(mAnimationValue.alpha);
+	graph->SetScale(mAnimationValue.scale);
+	graph->SetAngleRadian(mAnimationValue.angle);
+#else
+//		CheckVeluesZero();
 		if (mCounter == 0) {
 			graph->SetPosition(mAnimationValue.positionX, mAnimationValue.positionY);
-			graph->SetAlpha(mAnimationValue.alpha);
-			graph->SetScale(mAnimationValue.scale);
-			graph->SetAngleRadian(mAnimationValue.angle);
+			//graph->SetAlpha(mAnimationValue.alpha);
+			//graph->SetScale(mAnimationValue.scale);
+			//graph->SetAngleRadian(mAnimationValue.angle);
 		}
 		else {
-			graph->SetPosition(graph->GetPositionX() + mAnimationValue.positionX, graph->GetPositionY() + mAnimationValue.positionY);
-			graph->SetAlpha((float)graph->GetAlpah() + mAnimationValue.alpha);
-			graph->SetScale(graph->GetScale() + mAnimationValue.scale);
-			graph->SetAngleRadian(graph->GetAngleRadian() + mAnimationValue.angle);
+			graph->SetPosition(mAnimationValue.positionX, mAnimationValue.positionY);
+			//graph->SetPosition(graph->GetPositionX() + mAnimationValue.positionX, graph->GetPositionY() + mAnimationValue.positionY);
+			//graph->SetAlpha((float)graph->GetAlpah() + mAnimationValue.alpha);
+			//graph->SetScale(graph->GetScale() + mAnimationValue.scale);
+			//graph->SetAngleRadian(graph->GetAngleRadian() + mAnimationValue.angle);
 		}
-	}
+#endif
+	//}
 }
 
 void Animation::AnimationAttach(float* posX, float* posY, float*alpha, float*angle/* = NULL*/, float*scale/* = NULL*/) {
@@ -263,4 +365,32 @@ bool Animation::CheckVeluesZero() {
 	}
 
 	return (ret == 5);
+}
+
+/*
+再生中か?
+*/
+bool Animation::IsPlay() {
+
+	return mIsPlay;
+
+}
+
+/*
+	停止中か
+*/
+bool Animation::IsStop() {
+
+	//ポーズ中は停止として扱わない
+	if (mIsPause) return false;
+	return mIsStop;
+}
+
+/*
+一時中か
+*/
+bool Animation::IsPause() {
+	//停止中はポーズとして扱わない
+	if (mIsStop) return false;
+	return mIsPause;
 }

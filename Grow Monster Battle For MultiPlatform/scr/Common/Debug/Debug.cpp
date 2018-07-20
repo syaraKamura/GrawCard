@@ -119,14 +119,21 @@ void Debug::LogPrintf(const char* str, ...) {
 #endif //__MY_DEBUG__
 }
 
-void Debug::ErorrMessage(const TCHAR* str) {
+void Debug::ErorrMessage(const TCHAR* str,...) {
 
 #ifdef __MY_DEBUG__
 
 #ifdef __WINDOWS__
-	MessageBox(NULL, _T(str), _T("エラーメッセージ"), MB_OK| MB_ICONERROR);
+	va_list ap;
+	char buffer[1024 * 256];
+
+	va_start(ap, str);
+	vsprintfDx(buffer, str, ap);
+	va_end(ap);
+	MessageBox(NULL, _T(buffer), _T("エラーメッセージ"), MB_OK | MB_ICONERROR);
 #elif __ANDROID__
-	printfDx(str);
+	//printfDx(str);
+	AndroidNotification("エラーメッセージ", str);
 #endif
 
 #endif

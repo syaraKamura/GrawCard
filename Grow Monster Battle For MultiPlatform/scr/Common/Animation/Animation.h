@@ -67,7 +67,12 @@ public:
 		アニメーションの再生時間を設定する
 	*/
 	void SetAnimationTime(int timeLength);
-	
+
+	/*
+		アニメーションデータを削除する
+	*/
+	void DeleteAnimationData();
+
 	/*
 		再生
 	*/
@@ -93,9 +98,23 @@ public:
 	*/
 	bool Update();
 
-	void AnimationAttach(GraphicsDraw* graph);
+	void AnimationAttach(GraphicsDraw* graph, bool isNowBasePos = false);
 	void AnimationAttach(float* posX, float* posY, float*alpha,float*angle = NULL,float*scale = NULL);
 
+	/*
+		再生中か?
+	*/
+	bool IsPlay();
+	
+	/*
+		停止中か
+	*/
+	bool IsStop();
+
+	/*
+		一時中か
+	*/
+	bool IsPause();
 };
 
 #endif // __ANIMATION_H__

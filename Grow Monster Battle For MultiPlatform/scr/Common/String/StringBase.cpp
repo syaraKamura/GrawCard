@@ -55,21 +55,21 @@ int StringBase::Update(bool isOnletter/* = false*/, int length/* = 30*/, int int
 	mIsOnletter = isOnletter;
 
 	//一文字ずつ表示させないなら処理を抜ける
-	if (mIsOnletter == false) return 1;
+	if (mIsOnletter == false) return eDrawState_DrawEnd;
 
 	if (mString[mTotalPos] == '\0') {
-		return 1;
+		return eDrawState_DrawEnd;
 	}
 
 	mCounter++;
-	if (mCounter % interval != 0) return 2;
+	if (mCounter % interval != 0) return eDrawState_DrawInterval;
 
 	mNextLineLength = length;
 	//int pos = mPos + mLine * mNextLineLength;
 
 	if (mLine >= STRING_LINE_MAX) {
 		printfDx("これ以上改行することができません");
-		return -1;
+		return eDrawState_Error;
 	}
 
 	if (mString[mTotalPos] != '\0') {
@@ -83,7 +83,7 @@ int StringBase::Update(bool isOnletter/* = false*/, int length/* = 30*/, int int
 			if (mString[mTotalPos] == '\n') {
 				mTotalPos++;
 			}
-			return 0;
+			return eDrawState_Drawing;
 		}
 
 		int num = this->GetCharBytes(&mString[mTotalPos]);
@@ -105,9 +105,9 @@ int StringBase::Update(bool isOnletter/* = false*/, int length/* = 30*/, int int
 
 		mStrNum ++;
 
-		return 0;
+		return eDrawState_Drawing;
 	}
-	return 1;
+	return eDrawState_DrawEnd;
 }
 
 /*
@@ -197,9 +197,6 @@ int StringBase::DrawString(int posX, int posY, bool isDisp/* = true*/) {
 	//一文字ずつ出力が有効なら
 	if (mIsOnletter == true) {
 
-		
-
-		
 		for (int i = 0; i <= mLine; i++) {
 			if (mFontMgr == NULL) {
 				DxLib::DrawString(posX, posY + i * 20, mDrawString[i], mColor);

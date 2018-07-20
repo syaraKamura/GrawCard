@@ -23,9 +23,19 @@
 
 class SaveData {
 
+public :
+
+	static const int MAX_FLAGS = 1024;
+
 private:
 
 	const int HASTH = SAVE_HASH('M','A','K','E','0');
+
+public:
+
+	typedef struct FLAG_DATA_t {
+		unsigned int mFlags[MAX_FLAGS];
+	};
 
 private:
 
@@ -36,6 +46,8 @@ private:
 
 	//モンスターボックスデータ
 	MonsterBox mMonsterBox;
+
+	FLAG_DATA_t mFlag;
 
 private:
 	
@@ -67,7 +79,8 @@ public :
 	MonsterBox* GetMonsterBox();
 	Player* GetPlayer();
 
-
+	unsigned int GetFlag(int i);
+	FLAG_DATA_t* GetFlagData();
 };
 
 #endif //__SAE_DATA_H__

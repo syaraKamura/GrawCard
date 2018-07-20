@@ -23,6 +23,18 @@ class StringBase {
 
 public :
 
+		
+
+	enum eDrawState {
+
+		eDrawState_Error = -1,		//-1 : エラー
+		eDrawState_Drawing,		// 0 : 描画中
+		eDrawState_DrawEnd,		// 1 : 描画終了
+		eDrawState_DrawInterval,// 2 : 表示インターバル中
+		eDrawState_None,		// 3 : 状態なし
+
+	};
+
 	static const int STRING_LINE_MAX = 6;
 
 private:

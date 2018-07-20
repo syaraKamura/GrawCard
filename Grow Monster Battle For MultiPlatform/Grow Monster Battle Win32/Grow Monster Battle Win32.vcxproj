@@ -72,14 +72,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(XML_BOOST_ROOT);</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(XML_BOOST_ROOT);$(DXLIB_PC_ROOT);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(XML_BOOST_ROOT);</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(XML_BOOST_ROOT);$(DXLIB_PC_ROOT);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -187,6 +187,7 @@
     <ClCompile Include="..\scr\Common\Input\Mouse.cpp" />
     <ClCompile Include="..\scr\Common\Input\Touch.cpp" />
     <ClCompile Include="..\scr\Common\ResourceLoader\ResourceLoader.cpp" />
+    <ClCompile Include="..\scr\Common\Script\ScriptAnimation.cpp" />
     <ClCompile Include="..\scr\Common\Script\ScriptBase.cpp" />
     <ClCompile Include="..\scr\Common\String\FontMgr\FontMgr.cpp" />
     <ClCompile Include="..\scr\Common\String\StringBase.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="..\scr\Scene\Boot\Scene_Boot.cpp" />
     <ClCompile Include="..\scr\Scene\ISceneBase.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.cpp" />
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonMenu.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonBase.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Scene_MainMenu.cpp" />
@@ -205,6 +207,7 @@
     <ClCompile Include="..\scr\Scene\Title\Scene_Title.cpp" />
     <ClCompile Include="..\scr\Test\AITest.cpp" />
     <ClCompile Include="..\scr\Test\Test1.cpp" />
+    <ClCompile Include="..\scr\Test\TestADV.cpp" />
     <ClCompile Include="..\scr\Test\TestBattle.cpp" />
     <ClCompile Include="..\scr\Test\TestCommunication.cpp" />
     <ClCompile Include="..\scr\Test\TestMenu.cpp" />
@@ -252,6 +255,7 @@
     <ClInclude Include="..\scr\Common\Input\Mouse.h" />
     <ClInclude Include="..\scr\Common\Input\Touch.h" />
     <ClInclude Include="..\scr\Common\ResourceLoader\ResourceLoader.h" />
+    <ClInclude Include="..\scr\Common\Script\ScriptAnimation.h" />
     <ClInclude Include="..\scr\Common\Script\ScriptBase.h" />
     <ClInclude Include="..\scr\Common\String\FontMgr\FontMgr.h" />
     <ClInclude Include="..\scr\Common\String\StringBase.h" />
@@ -263,6 +267,7 @@
     <ClInclude Include="..\scr\Scene\Boot\Scene_Boot.h" />
     <ClInclude Include="..\scr\Scene\ISceneBase.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.h" />
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonMenu.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonBase.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Scene_MainMenu.h" />
@@ -272,6 +277,7 @@
     <ClInclude Include="..\scr\Scene\Title\Scene_Title.h" />
     <ClInclude Include="..\scr\Test\AITest.h" />
     <ClInclude Include="..\scr\Test\Test1.h" />
+    <ClInclude Include="..\scr\Test\TestADV.h" />
     <ClInclude Include="..\scr\Test\TestBattle.h" />
     <ClInclude Include="..\scr\Test\TestCommunication.h" />
     <ClInclude Include="..\scr\Test\TestMenu.h" />

@@ -29,14 +29,13 @@ bool Scene_Boot::Initialize(){
 	TaskMgr::getInstance().Add(Fade::GetInstance(),TaskMgr::ePriorty_Fade);
 	TaskMgr::getInstance().Add(GraphicsDrawMgr::GetInstance(), TaskMgr::ePriorty_Graphics);
 
-	MonsterMgr::Create();
 
 	return true;
 }
 
 void Scene_Boot::Finalize(){
 
-	MonsterMgr::Destory();
+	
 
 }
 

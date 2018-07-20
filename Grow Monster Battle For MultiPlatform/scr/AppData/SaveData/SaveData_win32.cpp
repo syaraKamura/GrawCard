@@ -23,6 +23,9 @@
 
 SaveData::SaveData() {
 	strcpyDx(mVersion, "1.00");
+
+	memset(mFlag.mFlags, 0, sizeof(unsigned int) * MAX_FLAGS);
+
 }
 
 SaveData::~SaveData() {
@@ -228,6 +231,13 @@ SaveData* SaveData::Load() {
 			}
 		}
 
+		for (int i = 0; i < MAX_FLAGS; i++) {
+			unsigned int flag = 0;
+			mFile->ReadUInt(&flag);
+			mFlag.mFlags[i] = flag;
+		}
+
+
 		mFile->Close();
 	}
 
@@ -367,6 +377,11 @@ void SaveData::Save(SaveData save) {
 
 	}
 
+
+	for (int i = 0; i < MAX_FLAGS;i++) {
+		mFile->WriteUInt(mFlag.mFlags[i]);
+	}
+
 	mFile->Close();
 
 	Delete(mFile)
@@ -414,6 +429,29 @@ Player* SaveData::GetPlayer() {
 */
 int SaveData::GetAilmentSize(int size) {
 	return GetAilmentSize(size, sizeof(SaveData));
+}
+
+/*
+	指定番号のフラグを返却する
+	int i	:	フラグ番号
+	reutrn	:	0			:オフ
+				1以上		:オン
+*/
+unsigned int SaveData::GetFlag(int i) {
+
+	if (i < 0 || i >= MAX_FLAGS) {
+		Debug::ErorrMessage("フラグデータの範囲外です");
+		return 0;
+	}
+	return mFlag.mFlags[i];
+}
+
+/*
+	フラグデータを返却する
+	return	:	フラグデータ
+*/
+SaveData::FLAG_DATA_t* SaveData::GetFlagData() {
+	return &mFlag;
 }
 
 /*
