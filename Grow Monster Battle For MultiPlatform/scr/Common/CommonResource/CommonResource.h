@@ -23,6 +23,7 @@ public :
 	enum eComResName {
 		eComResName_MainMenuBG,			//メインメニュー背景
 		eComResName_CommonBG,			//汎用背景
+		eComResName_MsgBox,				//メッセージボックス
 		eComResName_Monster_00001,			//モンスターカード
 		eComResName_Monster_00002,			//モンスターカード
 		eComResName_Monster_00003,			//モンスターカード

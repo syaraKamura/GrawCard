@@ -204,7 +204,8 @@ bool Scene_MainMenu::MainMenuProc() {
 		mNextMenu = eMenu_Quest;
 	}
 	else if (mGraph->TouchNumber() == 1) {
-		mNextScene->SceneChange(ISceneBase::eScene_AITest);
+		//mNextScene->SceneChange(ISceneBase::eScene_AITest);
+		mNextScene->SceneChange(ISceneBase::eScene_TestADV);
 	}
 
 

@@ -29,6 +29,7 @@ ComRes::ComRes() {
 		// リソースの種類　　	ファイルパス
 		{eComResKind_Graphic,	"Resources/Graphics/BG/menu_ui_re.png"	},
 		{ eComResKind_Graphic,	"Resources/Graphics/BG/deckedit.png"	},
+		{ eComResKind_Graphic,	"Resources/Graphics/UI/msgBox.png"		},
 		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00001.png" },
 		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00002.png" },
 		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00003.png" },
@@ -97,6 +98,7 @@ bool ComRes::Load() {
 		Debug::ErorrMessage("汎用リソースの読み込みに失敗したため\n強制終了します");
 		mIsError = true;
 	}
+	
 #endif	// __MY_DEBUG__
 
 	for (int i = 0; i < eComResName_Num; i++) {

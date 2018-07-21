@@ -24,6 +24,7 @@
 	#include "Test/AITest.h"
 	#include "Test/TestCommunication.h"
 	#include "Test/TestBattle.h"
+	#include "Test/TestADV.h"
 #endif
 
 typedef struct {
@@ -67,7 +68,6 @@ void SceneMgr::Finalize(){
 
 void SceneMgr::PreviousUpdate() {
 	if (mScene == NULL) return;
-
 	if (SceneChangeProc() == false) return;
 
 	mScene->PreviousUpdate();
@@ -96,7 +96,15 @@ void SceneMgr::Draw(){
 }
 
 void SceneMgr::PostUpdate() {
-	if (mScene == NULL) return;
+	if (mScene == NULL) {
+#ifdef __MY_DEBUG__
+		Debug::ErorrMessage("シーンデータがNULLです\nTestMenuへ戻ります.");
+		mScene = (SceneBase*)new TestMenu(this);
+		mNextScene = ISceneBase::eScene_None;
+		mPrevScene = ISceneBase::eScene_None;
+#endif
+		return;
+	}
 	
 	mScene->PostUpdate();
 
@@ -120,16 +128,17 @@ bool SceneMgr::SceneChangeProc(){
 	//シーンリスト
 	const SCENE_LIST_t SCENE_LIST[ISceneBase::eScene_Num] = {
 		//シーンクラス							シーン名
-	{ (SceneBase*)new Scene_Boot(this),		"Scene_Boot" },
-	{ (SceneBase*)new Scene_Opning(this),	"Scene_Opning" },
-	{ (SceneBase*)new Scene_Title(this),		"Scene_Title" },
-	{ (SceneBase*)new Scene_MainMenu(this,mDebug),	"Scene_MainMenu" },
+	{ (SceneBase*)new Scene_Boot(this),				"Scene_Boot"				},
+	{ (SceneBase*)new Scene_Opning(this),			"Scene_Opning"				},
+	{ (SceneBase*)new Scene_Title(this),			"Scene_Title"				},
+	{ (SceneBase*)new Scene_MainMenu(this,mDebug),	"Scene_MainMenu"			},
 
 #ifdef __MY_DEBUG__
-	{ (SceneBase*)new TestMenu(this),			"Scene_TestMenu" },
-	{ (SceneBase*)new AITest(this),				"Scene_AITest" },
-	{ (SceneBase*)new TestCommunication(this),	"Scene_TestCommunication" },
-	{(SceneBase*)new TestBattle(this),			"Scene_TestBattle"},
+	{ (SceneBase*)new TestMenu(this),				"Scene_TestMenu"			},
+	{ (SceneBase*)new AITest(this),					"Scene_AITest"				},
+	{ (SceneBase*)new TestCommunication(this),		"Scene_TestCommunication"	},
+	{ (SceneBase*)new TestBattle(this),				"Scene_TestBattle"			},
+	{ (SceneBase*)new TestADV(this),				"Scene_TestADV"				},
 #endif
 
 	};

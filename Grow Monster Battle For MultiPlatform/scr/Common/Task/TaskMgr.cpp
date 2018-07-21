@@ -31,6 +31,15 @@ void TaskMgr::Finalize() {
 	DeleteAll();
 }
 
+void TaskMgr::InputUpdate(){
+	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
+		if ((*itr)->isInitialize() == true) {
+			(*itr)->InputUpdate();
+		}
+
+	}
+}
+
 void TaskMgr::PreviousUpdate() {
 
 	for (auto itr = mList.begin(); itr != mList.end(); itr++) {

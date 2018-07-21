@@ -18,7 +18,8 @@ static const SCENE_LIST s_cSceneListTbl[] = {
 	{ISceneBase::eScene_MainMenu,"メインメニュー"},
 	{ISceneBase::eScene_AITest,"AIテスト"},
 	{ISceneBase::eScene_TestComunication,"通信テスト"},
-	{ ISceneBase::eScene_TestBattle,"バトルテスト" },
+	{ISceneBase::eScene_TestBattle,"バトルテスト" },
+	{ISceneBase::eScene_TestADV,"アドベンチャーテスト"},
 };
 
 //シーンリスト数
@@ -50,7 +51,7 @@ bool TestMenu::Updata(){
 	}
 
 
-	if(Keyboard_Press(KEY_INPUT_Z) == 1){
+	if(Keyboard_Press(KEY_INPUT_Z) == true){
 		mNextScene->SceneChange(s_cSceneListTbl[mCursorY].scene);
 	}
 #endif
@@ -64,8 +65,18 @@ void TestMenu::Draw(){
 	//選択カーソル
 	DxLib::DrawString(20,60 + mCursorY * 20,"◆",GetColor(255,255,255));
 
+	
 	for(int i = 0;i < s_cSceneListNum;i++){
-		DxLib::DrawString(40,60 + i * 20,s_cSceneListTbl[i].sceneName,GetColor(255,255,255));
+		unsigned int strColor = GetColor(255, 255, 255);
+		if (s_cSceneListTbl[i].scene == ISceneBase::eScene_None) {
+			strColor = GetColor(255, 0, 0);
+		}
+		else {
+			if (i == mCursorY) {
+				strColor = GetColor(0, 255, 0);
+			}
+		}
+		DxLib::DrawString(40,60 + i * 20,s_cSceneListTbl[i].sceneName,strColor);
 	}
 
 }

@@ -19,6 +19,7 @@ Monster::Monster() : CharacterBase() {
 	SetLevel(LEVEL_MIN);
 	SetName("None");
 	SetType(eType_None);
+	SetHomePosition(eHomePosition_Front);
 	SetHp(10);
 	SetHpMax(GetHp());
 	SetMp(10);
@@ -40,6 +41,10 @@ void Monster::SetId(int id) {
 
 void Monster::SetType(eType type) {
 	mType = type;
+}
+
+void Monster::SetHomePosition(Monster::eHomePosition homePosition) {
+	mHhomePosition = homePosition;
 }
 
 void Monster::SetHp(int hp) {
@@ -76,6 +81,10 @@ int Monster::GetId() {
 
 Monster::eType Monster::GetType() {
 	return mType;
+}
+
+Monster::eHomePosition Monster::GetHomePosition() {
+	return mHhomePosition;
 }
 
 int Monster::GetHp() {

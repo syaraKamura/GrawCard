@@ -23,13 +23,15 @@ class Monster : public CharacterBase {
 
 private:
 
+	
+public :
+
 	enum eHomePosition {
 		eHomePosition_None = -1,//設定なし
 		eHomePosition_Front,	//前衛
 		eHomePosition_Back,		//後衛
 	};
 
-public :
 
 	enum eType {
 		eType_None = -1,
@@ -43,7 +45,8 @@ public :
 private:
 
 	eType mType;
-
+	eHomePosition mHhomePosition;
+	
 	int mId;		//管理番号
 	int mHp;
 	int mHpMax;
@@ -64,6 +67,7 @@ public :
 
 	void SetId(int id);
 	void SetType(eType type);
+	void SetHomePosition(eHomePosition homePosition);
 	void SetHp(int hp);
 	void SetHpMax(int hpMax);
 	void SetMp(int mp);
@@ -76,6 +80,7 @@ public :
 	
 	int GetId();
 	eType GetType();
+	eHomePosition GetHomePosition();
 
 	int GetHp();
 	int GetHpMax();

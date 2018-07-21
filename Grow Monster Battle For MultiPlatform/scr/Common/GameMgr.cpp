@@ -16,15 +16,15 @@
 #include "Scene/SceneMgr.h"
 #include "Common/FPS/FPS.h"
 
+#ifdef __WINDOWS__
+static const int BASE_FPS = 60;	//基本フレームレート
+#elif __ANDROID__
+static const int BASE_FPS = 30;
+#endif
+
 GameMgr::GameMgr(){
 
-	int fps = 0;
-
-#ifdef __WINDOWS__
-	fps = 60;
-#elif __ANDROID__
-	fps = 60;
-#endif
+	int fps = BASE_FPS;
 	
 	mFPS = new FPS(fps,fps);
 #ifdef __MY_DEBUG__
@@ -60,7 +60,7 @@ void GameMgr::Initialize(){
 	Mouse_Initialize();
 #endif
 
-	
+	MonsterMgr::Create();
 
 }
 
@@ -77,6 +77,8 @@ void GameMgr::Finalize(){
 	Mouse_Finalize();
 #endif
 
+	MonsterMgr::Destory();
+
 }
 
 void GameMgr::PreviousUpdate() {
@@ -92,6 +94,8 @@ void GameMgr::InputUpdate() {
 #else
 	Touch_Updata();
 #endif
+
+	TaskMgr::getInstance().InputUpdate();
 
 
 }
@@ -134,6 +138,7 @@ void GameMgr::Draw(){
 }
 
 void GameMgr::PostUpdate() {
+	mSceneMgr->PostUpdate();
 	TaskMgr::getInstance().LateUpdata();
 
 	mFPS->Wait();

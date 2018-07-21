@@ -14,6 +14,7 @@
 #include "Common/Debug/Debug.h"
 #include "Common/Debug/DebugList.h"
 
+#include "AppData/AppData.h"
 #include "AppData/Character/Monster/MonsterMgr.h"
 
 #include <math.h>
@@ -41,6 +42,7 @@
 
 #define Delete(x) {if(x != NULL){delete x;x = NULL;}}
 #define DeleteArry(x) {if(x!= NULL){delete[] x;x = NULL;}}
+#define ArrySize(x) (sizeof(x)/sizeof(x[0]))
 
 typedef void(*pointer_func)(void);
 

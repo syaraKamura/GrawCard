@@ -23,8 +23,8 @@ private:
 
 public :
 
-	enum eScene{
-		
+	enum eScene {
+
 		eScene_None = -1,
 		eScene_Boot,				//起動
 		eScene_Opning,				//オープニング
@@ -35,7 +35,8 @@ public :
 		eScene_TestMenu,			//テストメニュー
 		eScene_AITest,				//AIテスト
 		eScene_TestComunication,	//通信テスト
-		eScene_TestBattle,
+		eScene_TestBattle,			//バトルテスト
+		eScene_TestADV,				//アドベンチャーテスト
 #endif
 
 		eScene_Num,

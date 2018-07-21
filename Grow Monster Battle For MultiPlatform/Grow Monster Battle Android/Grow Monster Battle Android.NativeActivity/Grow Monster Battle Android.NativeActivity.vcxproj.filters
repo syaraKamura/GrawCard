@@ -170,6 +170,15 @@
     <ClCompile Include="..\..\scr\AppData\Character\Monster\MonsterMgr.cpp">
       <Filter>src\AppData\Character\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Test\TestADV.cpp">
+      <Filter>src\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Script\ScriptBase.cpp">
+      <Filter>src\Common\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Animation\Easing\Easing.cpp">
+      <Filter>src\Common\Animation\Easing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -279,6 +288,12 @@
     </Filter>
     <Filter Include="src\Common\FileLoader">
       <UniqueIdentifier>{2e75d316-6926-481e-bead-69ee1b8ad596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Script">
+      <UniqueIdentifier>{898b00b9-76ca-4eea-b367-6aa5d2a8c515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Animation\Easing">
+      <UniqueIdentifier>{a4c85173-862d-4b9b-85be-7d9055fc10dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -449,6 +464,15 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\AppData\Character\Monster\MonsterMgr.h">
       <Filter>src\AppData\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Test\TestADV.h">
+      <Filter>src\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Script\ScriptBase.h">
+      <Filter>src\Common\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Animation\Easing\Easing.h">
+      <Filter>src\Common\Animation\Easing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
