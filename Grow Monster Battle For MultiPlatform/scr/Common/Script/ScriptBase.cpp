@@ -875,4 +875,12 @@ void ScriptBase::CreateFilePath(const char* fileName) {
 	strcatDx(mFileName, SCRIPT_DATA_PATH);
 	strcatDx(mFileName, fileName);
 
+#ifdef __WINDOWS__ 
+#ifdef  __MY_DEBUG__
+
+	RESORCES_PATH(mFileName);
+
+#endif	
+#endif
+
 }

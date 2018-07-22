@@ -44,6 +44,53 @@
 #define DeleteArry(x) {if(x!= NULL){delete[] x;x = NULL;}}
 #define ArrySize(x) (sizeof(x)/sizeof(x[0]))
 
+#ifdef __WINDOWS__
+#ifdef __MY_DEBUG__
+#define RESORUCES_ENV_NAME "GC_DATA_ROOT"		//リソース環境変数名
+
+#define RESORCES_PATH(path) {					\
+		std::string output;						\
+		char env[256];								\
+		GetDupenv(RESORUCES_ENV_NAME,&output);	\
+		strcpyDx(env, output.c_str());					\
+		strcatDx(env, "/");						\
+		strcatDx(env, path);						\
+		strcpyDx((char*)path,env);				\
+}
+
+/*
+	環境変数取得
+	return	true	:成功
+			false	:失敗
+	備考			:http://d.hatena.ne.jp/nurs/20150104/1420384422 を参考にしました
+*/
+inline bool GetDupenv(const char* env,std::string* val) {
+	
+	char* buf = 0;
+	size_t sz = 0;
+	if (_dupenv_s(&buf, &sz, env) == 0)
+	{
+		
+		if (buf == NULL)
+		{
+			//環境変数が存在していなかった
+			return false;
+		}
+		
+		*val = buf;
+		free(buf);
+	}
+	else
+	{
+		return false;
+	}
+	return true;
+}
+
+#endif
+
+#endif
+
 typedef void(*pointer_func)(void);
 
 

@@ -41,6 +41,14 @@ bool ReadBynary::Open(const char* fileName, ...) {
 	strcpyDx(path, file);
 #endif
 
+#ifdef __WINDOWS__ 
+#ifdef  __MY_DEBUG__
+
+	RESORCES_PATH(path);
+
+#endif	
+#endif
+
 	mFilePointer = fopen(path,"rb");
 
 	if (mFilePointer == NULL) {

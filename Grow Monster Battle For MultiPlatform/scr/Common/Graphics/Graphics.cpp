@@ -23,7 +23,15 @@ int Graphics::LoadResource(std::string fileName) {
 	//ファイル名取得
 	strcpyDx(this->mFileName,fileName.c_str());
 
-	return DxLib::LoadGraph(fileName.c_str());
+#ifdef __WINDOWS__ 
+#ifdef  __MY_DEBUG__
+
+	RESORCES_PATH(this->mFileName);
+
+#endif	
+#endif
+
+	return DxLib::LoadGraph(this->mFileName);
 }
 
 void Graphics::DestoryResource(int handle) {
@@ -37,7 +45,7 @@ bool Graphics::Load(const char* path) {
 		return false;
 	}
 	
-	char graphPath[1024];
+	char graphPath[2048];
 
 	int len = strlenDx(path);
 	//最後の3文字を取得する
@@ -46,7 +54,18 @@ bool Graphics::Load(const char* path) {
 	if (extensionString[0] != '\0' &&
 		(strcmpDx(extensionString, "xml") == 0 || strcmpDx(extensionString, "XML") == 0)) {
 
-		XmlPurser* xml = new XmlPurser(path);
+		char xmlPath[1024];
+		strcpyDx(xmlPath, path);
+
+#ifdef __WINDOWS__ 
+#ifdef  __MY_DEBUG__
+
+		RESORCES_PATH(xmlPath);
+
+#endif	
+#endif
+
+		XmlPurser* xml = new XmlPurser(xmlPath);
 
 		std::string filePath = xml->GetString("FILE_NAME");
 

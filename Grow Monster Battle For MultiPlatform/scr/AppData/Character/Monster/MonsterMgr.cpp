@@ -54,7 +54,16 @@ MonsterMgr* MonsterMgr::mInstance = NULL;
 
 MonsterMgr::MonsterMgr() {
 
-	std::ifstream file(MONSTER_DATA_PATH);
+	char filePath[1024] = MONSTER_DATA_PATH;
+
+#ifdef __WINDOWS__ 
+#ifdef  __MY_DEBUG__
+
+	RESORCES_PATH(filePath);
+
+#endif	
+#endif
+	std::ifstream file(filePath);
 
 	if (file.is_open() == false) {
 		Debug::ErorrMessage("モンスターデータの読み込みに失敗しました.");

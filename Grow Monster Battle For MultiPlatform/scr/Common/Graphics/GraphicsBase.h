@@ -31,7 +31,7 @@ protected:
 	int mHandle;
 
 #ifdef __MY_DEBUG__
-	char mFileName[64];
+	char mFileName[1024];
 #endif
 
 public:

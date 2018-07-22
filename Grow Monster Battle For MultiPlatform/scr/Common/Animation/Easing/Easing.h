@@ -20,9 +20,13 @@ private:
 
 public :
 
-
-
-
+	static float InQuad(float time, float totalTime, float min, float max);
+	static float OutQuad(float time, float totalTime, float min, float max);
+	static float InOutQuad(float time, float totalTime, float min, float max);
+	
+	static float InCubic(float time, float totalTime, float min, float max);
+	static float OutCubic(float time, float totalTime, float min, float max);
+	static float InOutCubic(float time, float totalTime, float min, float max);
 
 };
 
