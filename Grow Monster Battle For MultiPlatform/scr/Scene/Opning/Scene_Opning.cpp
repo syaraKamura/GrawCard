@@ -12,13 +12,29 @@ typedef struct{
 
 static Work_t mWork;
 
+namespace mylib {
+	static int LoadGraph(const char* filePath) {
+
+		char path[1024];
+		strcpyDx(path, filePath);
+#ifdef __WINDOWS__ 
+#ifdef  __MY_DEBUG__
+
+		RESORCES_PATH(path);
+
+#endif	
+#endif
+		return DxLib::LoadGraph(path);
+	}
+};
+
 Scene_Opning::Scene_Opning(ISceneBase* changer) : SceneBase(changer){
 	
 }
 
 bool Scene_Opning::Initialize(){
 
-	mWork.imageHandle = LoadGraph("Resources/Graphics/BG/opning.png");
+	mWork.imageHandle = mylib::LoadGraph("Resources/Graphics/BG/opning.png");
 	mWork.count = 0;
 	return true;
 }
