@@ -67,3 +67,4 @@ log.txt
 *.opendb
 *.db-shm
 *.db
+*.db
