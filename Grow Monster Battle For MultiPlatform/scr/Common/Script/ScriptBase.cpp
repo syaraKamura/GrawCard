@@ -63,6 +63,8 @@ bool ScriptBase::Initialize() {
 	mIsAllDrawString = false;
 	mIsEnd = false;
 	mIsWait = false;
+	mIsAutoFeed = false;
+	mAutoFeedCount = 0;
 
 	mNowLine = 0;
 	mMaxLine = 0;
@@ -130,45 +132,77 @@ void ScriptBase::PreviousUpdate() {
 }
 
 void ScriptBase::InputUpdate() {
-	
+
 	mIsAllDrawString = false;
 
 	//処理待ちなら入力を行わない
 	if (mIsWait) return;
 
-#ifdef __WINDOWS__
-	if (Keyboard_Press(KEY_INPUT_Z)) {
+	if (mIsAutoFeed == true) {
 
-		if (mStringDrawState == StringBase::eDrawState_DrawEnd) {
-			mNowLine++;
-			mIsAllDrawString = false;
-			mIsDrawNextIcon = true;
-		}
-	}
-	else if (Keyboard_On(KEY_INPUT_Z)) {
 		if (mStringDrawState == StringBase::eDrawState_Drawing ||
 			mStringDrawState == StringBase::eDrawState_DrawInterval) {
 
 			mIsAllDrawString = true;
 
 		}
+		else if (mStringDrawState == StringBase::eDrawState_DrawEnd) {
+
+			mAutoFeedCount++;
+			if (mAutoFeedCount > AUTO_FEED_INTERVAL_TIME) {
+				mNowLine++;
+				mIsAllDrawString = false;
+				mIsDrawNextIcon = true;
+				mAutoFeedCount = 0;
+			}
+		}
 	}
+
+#ifdef __WINDOWS__
+
+	if (mIsAutoFeed == false) {
+
+		if (Keyboard_Press(KEY_INPUT_Z)) {
+
+			if (mStringDrawState == StringBase::eDrawState_DrawEnd) {
+				mNowLine++;
+				mIsAllDrawString = false;
+				mIsDrawNextIcon = true;
+			}
+		}
+		else if (Keyboard_On(KEY_INPUT_Z)) {
+			if (mStringDrawState == StringBase::eDrawState_Drawing ||
+				mStringDrawState == StringBase::eDrawState_DrawInterval) {
+
+				mIsAllDrawString = true;
+
+			}
+		}
+	}
+
+	//自動会話送りをON/OFF
+	if (Keyboard_Press(KEY_INPUT_A)) {
+		mIsAutoFeed = !mIsAutoFeed;
+	}
+
 #else 
 
-	if (Touch_Press(1)) {
-		if (mStringDrawState == StringBase::eDrawState_DrawEnd) {
-			//mString->SetString("目が覚めると、木々の隙間から木漏れ日がゆらゆらとあゆみの頬を照らす。");
-			mNowLine++;
-			mIsAllDrawString = false;
-			mIsDrawNextIcon = true;
+	if (mIsAutoFeed == false) {
+		if (Touch_Press(1)) {
+			if (mStringDrawState == StringBase::eDrawState_DrawEnd) {
+				//mString->SetString("目が覚めると、木々の隙間から木漏れ日がゆらゆらとあゆみの頬を照らす。");
+				mNowLine++;
+				mIsAllDrawString = false;
+				mIsDrawNextIcon = true;
+			}
 		}
-	}
-	else if (Touch_On(1)) {
-		if (mStringDrawState == StringBase::eDrawState_Drawing ||
-			mStringDrawState == StringBase::eDrawState_DrawInterval) {
+		else if (Touch_On(1)) {
+			if (mStringDrawState == StringBase::eDrawState_Drawing ||
+				mStringDrawState == StringBase::eDrawState_DrawInterval) {
 
-			mIsAllDrawString = true;
+				mIsAllDrawString = true;
 
+			}
 		}
 	}
 
@@ -214,6 +248,15 @@ void ScriptBase::Draw() {
 		DrawBox(820, 550, 840, 570, GetColor(255, 255, 255), TRUE);
 		mIsDrawNextIcon = true;
 	}
+
+	char msg[126];
+#ifdef __WINDOWS__
+	strcpyDx(msg, "Aボタンでオート");
+#else
+	strcpyDx(msg, "2タップでオート");
+#endif
+
+	DrawString(780, 650, msg, GetColor(255, 255, 255));
 
 }
 

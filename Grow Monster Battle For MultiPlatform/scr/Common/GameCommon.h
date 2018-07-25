@@ -47,7 +47,9 @@
 #ifdef __WINDOWS__
 #ifdef __MY_DEBUG__
 #define RESORUCES_ENV_NAME "GC_DATA_ROOT"		//リソース環境変数名
+#define __USE_OUTSIDE_DIRECTORY__				//外部ファイルディレクトリのリソースを読み込む
 
+#ifdef __USE_OUTSIDE_DIRECTORY__
 #define RESORCES_PATH(path) {					\
 		std::string output;						\
 		char env[256];								\
@@ -57,6 +59,9 @@
 		strcatDx(env, path);						\
 		strcpyDx((char*)path,env);				\
 }
+#else
+#define RESORCES_PATH(path)
+#endif
 
 /*
 	環境変数取得

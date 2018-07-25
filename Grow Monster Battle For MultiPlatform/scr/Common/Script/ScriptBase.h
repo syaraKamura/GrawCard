@@ -35,6 +35,8 @@ private:
 	const char* SCRIPT_DATA_PATH = "Resources/Data/AdvScripts/";
 	const char* DELIM_STRINGS = " ";
 	
+	const int AUTO_FEED_INTERVAL_TIME = 60 * 6;		//自動会話送り待ち時間
+
 	enum eAnalysis {
 		eAnalysis_Error = -1,		//エラー
 		eAnalysis_Mes,				//メッセージ
@@ -78,6 +80,9 @@ private:
 	int mNowLine;			//現在の行
 	int mMaxLine;			//最大行
 	bool mIsEnd;			//スクリプト終了判定
+	bool mIsAutoFeed;		//自動送りが有効か
+	int mAutoFeedCount;		//自動会話送りインターバル用カウンター
+
 
 	Graphics mMsgGraphics;
 
