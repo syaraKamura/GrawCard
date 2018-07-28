@@ -72,12 +72,27 @@ bool GraphicsMulti::Load(const char* path) {
 }
 
 bool GraphicsMulti::Load(const char* path, int scrX, int scrY) {
-	int handle = DxLib::LoadGraph(path);
+
+	char filePath[1024];
+	strcpyDx(filePath, path);
+
+#ifdef __WINDOWS__ 
+#ifdef  __MY_DEBUG__
+
+	
+	RESORCES_PATH(filePath);
+
+#endif	
+
+#endif
+
+
+	int handle = DxLib::LoadGraph(filePath);
 	if (handle == eGraphicsResult_ERROR) {
-		Debug::LogPrintf("[ERORR: FUNC %s] Graphic Load ERROR.(%s)\n",__func__, path);
+		Debug::LogPrintf("[ERORR: FUNC %s] Graphic Load ERROR.(%s)\n",__func__, filePath);
 		return false;
 	}
-	SetFileName(path);
+	SetFileName(filePath);
 	return Add(handle, scrX, scrY);
 }
 
