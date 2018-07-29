@@ -178,6 +178,9 @@ void ScriptBase::InputUpdate() {
 
 			}
 		}
+		else if (Keyboard_On(KEY_INPUT_S)) {	//スキップ
+			mIsEnd = true;
+		}
 	}
 
 	//自動会話送りをON/OFF
@@ -281,7 +284,7 @@ void ScriptBase::SplitString(char* str,const char* delim,std::list<std::string>*
 void ScriptBase::Analysis() {
 	
 
-	if (mNowLine >= mMaxLine) {
+	if (mNowLine >= mMaxLine || mIsEnd == true) {
 		mIsEnd = true;
 		return;
 	}

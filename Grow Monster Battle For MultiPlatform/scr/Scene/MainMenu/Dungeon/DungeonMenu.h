@@ -23,6 +23,11 @@ private:
 
 	enum eState {
 		eState_None = -1,
+		eState_SelectMode,
+		eState_SelectStoryMap,
+		eState_SelectQuestMap,
+		eState_SelectDungeonMap,
+		eState_Adventure,
 		eState_Fade,
 		eState_Exit,
 		eState_ExitDone,
@@ -36,17 +41,51 @@ private:
 		eMenu_Num,
 	};
 
+	enum eFade {
+		eFade_None,
+		eFade_In,
+		eFade_Out,
+	};
+
 	char NAME_LIST[eMenu_Num][256] = {
 		{"ストーリー"},
 		{"クエスト"},
 		{"ダンジョン"},
 	};
 	
+#if 0
+	typedef struct {
+		int mID;
+		int mQuestType;
+		int mQuestNo;
+	};
+
+	typedef struct {
+		int mMosterTblNo;
+		int mBeforeAdvNo;
+		int mAfterAdvNo;
+	};
+#endif 
+
 private:
 	
 	int mSelect;
 	int mBackImageOrder;
+	
+	int mStroySelectNum;
+	
 	eState mState;
+	eState mNextState;
+	eState mOldState;
+
+	int mTaskId;
+	
+	/*
+		ステート切り替え
+	*/
+	void ChangeState(eState next,eFade fade,int fadeTime = 30);
+
+	
 
 public :
 

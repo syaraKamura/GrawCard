@@ -309,6 +309,9 @@
     <ClCompile Include="..\scr\Common\Animation\Easing\Easing.cpp">
       <Filter>ソース ファイル\scr\Common\Animation\Easing</Filter>
     </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonMgr.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\scr\Common\GameMgr.h">
@@ -505,6 +508,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\Animation\Easing\Easing.h">
       <Filter>ソース ファイル\scr\Common\Animation\Easing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonMgr.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

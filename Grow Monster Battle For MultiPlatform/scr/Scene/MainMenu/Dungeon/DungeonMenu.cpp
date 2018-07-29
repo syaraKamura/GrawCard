@@ -12,6 +12,10 @@
 !*/
 #include "Common/GameCommon.h"
 #include "DungeonMenu.h"
+#include "DungeonMgr.h"
+
+#include "Battle/BattleBase.h"
+#include "Common/Script/ScriptBase.h"
 
 DungeonMenu::DungeonMenu() : TaskBase() {
 	
@@ -29,10 +33,15 @@ bool DungeonMenu::Initialize() {
 	add->SetPosition(0, 0);
 	mBackImageOrder = GraphicsDrawMgr::GetInstance()->Add(add, 1);
 	
-	Fade::GetInstance()->FadeIn(30);
-	
 	mSelect = 0;
-	mState = eState_None;
+	mState = eState_SelectMode;
+	mNextState = eState_None;
+	mOldState = eState_None;
+
+	mStroySelectNum = 0;
+
+	//フェードイン
+	Fade::GetInstance()->FadeIn(30);
 
 	return true;
 }
@@ -48,7 +57,30 @@ void DungeonMenu::PreviousUpdate() {
 
 bool DungeonMenu::Updata() {
 	if (Fade::GetInstance()->IsFadeEnd() == false) return true;
-	if (mState == eState_None) {
+
+		
+	if (mTaskId != -1) {
+		ScriptBase* scriptTask = dynamic_cast<ScriptBase*>(TaskMgr::getInstance().GetTask(mTaskId));
+		
+		if (scriptTask != NULL) {
+			if (scriptTask->IsEnd()) {
+				TaskMgr::getInstance().RequestKill(mTaskId);
+			}
+		}
+
+		if (TaskMgr::getInstance().GetTask(mTaskId) == NULL) {
+			mTaskId = -1;
+		}
+
+		return true;
+	}
+	
+	eState next = eState_None;
+	eFade fade = eFade_Out;
+	int fadeTime = 30;
+
+	switch (mState) {
+	case eState_SelectMode:
 
 #ifdef __WINDOWS__
 		if (Keyboard_Press(KEY_INPUT_DOWN)) {
@@ -58,11 +90,15 @@ bool DungeonMenu::Updata() {
 			mSelect = (mSelect + (eMenu_Num - 1)) % eMenu_Num;
 		}
 		if (Keyboard_Press(KEY_INPUT_Z)) {
-
+			DungeonMgr::GetInstance()->SetDungeonType(mSelect);
+			eState next = (eState)(mSelect + eState_SelectStoryMap);
+			ChangeState(next, eFade_Out);
 		}
-		//とりあえず自身のタスクを削除する
+
 		else if (Keyboard_Press(KEY_INPUT_X)) {
-			mState = eState_Fade;
+			DungeonMgr::GetInstance()->SetDungeonType(DungeonMgr::eDungeonType_None);
+			ChangeState(eState_ExitDone, eFade_Out);
+
 		}
 
 #else
@@ -74,12 +110,53 @@ bool DungeonMenu::Updata() {
 
 #endif
 
-	}
+		break;
+	case eState_SelectStoryMap:
+		
+		if (Keyboard_Press(KEY_INPUT_Z)) {
+			//mTaskId = TaskMgr::getInstance().Add(new BattleBase(),TaskMgr::ePriorty_0);
+			ChangeState(eState_Adventure, eFade_None);
+		}
 
-	switch (mState) {
+		if (Keyboard_Press(KEY_INPUT_X)) {
+			DungeonMgr::GetInstance()->SetDungeonType(DungeonMgr::eDungeonType_None);
+			ChangeState(eState_SelectMode, eFade_Out);
+		}
+		break;
+	case eState_SelectQuestMap:
+		if (Keyboard_Press(KEY_INPUT_X)) {
+			DungeonMgr::GetInstance()->SetDungeonType(DungeonMgr::eDungeonType_None);
+			ChangeState(eState_SelectMode, eFade_Out);
+		}
+		break;
+	case eState_SelectDungeonMap:
+		if (Keyboard_Press(KEY_INPUT_X)) {
+			DungeonMgr::GetInstance()->SetDungeonType(DungeonMgr::eDungeonType_None);
+			ChangeState(eState_SelectMode, eFade_Out);
+		}
+		break;
+	case eState_Adventure:
+		mTaskId = TaskMgr::getInstance().Add(new ScriptBase("ADV_0001.txt"), TaskMgr::ePriorty_0);
+		ChangeState(eState_SelectStoryMap, eFade_None);
+		break;
 	case eState_Fade:
-		Fade::GetInstance()->FadeOut(30);
-		mState = eState_Exit;
+		if (Fade::GetInstance()->IsFadeEnd()) {
+			mState = mNextState;
+			if (mNextState >= eState_SelectMode && mNextState <= eState_SelectDungeonMap) {
+				Fade::GetInstance()->FadeIn(30);
+				GraphicsBase* graph = GraphicsDrawMgr::GetInstance()->Get(mBackImageOrder);
+				if (mNextState != eState_SelectMode) {
+					if (graph != NULL) {
+						graph->SetVisible(false);
+					}
+				}
+				else {
+					if (graph != NULL) {
+						graph->SetVisible(true);
+					}
+				}
+			}
+		}
 		break;
 	case eState_Exit:
 		if (Fade::GetInstance()->IsFadeEnd()) {
@@ -97,13 +174,47 @@ bool DungeonMenu::Updata() {
 
 void DungeonMenu::Draw() {
 	
-	DrawString(170, 100 + 60 * mSelect,"■", GetColor(255, 0, 0));
-	for (int i = 0; i < eMenu_Num; i++) {
-		DrawString(200, 100 + 60 * i, NAME_LIST[i], GetColor(255, 0, 0));
+	switch (mState) {
+	case eState_SelectMode:
+		DrawString(170, 100 + 60 * mSelect, "■", GetColor(255, 0, 0));
+		for (int i = 0; i < eMenu_Num; i++) {
+			DrawString(200, 100 + 60 * i, NAME_LIST[i], GetColor(255, 0, 0));
+		}
+		break;
+	case eState_SelectStoryMap:
+		DrawString(0, 300, "ストーリーマップ選択画面", GetColor(255, 255, 255));
+		break;
+	case eState_SelectQuestMap:
+		DrawString(0, 300, "クエストマップ選択画面", GetColor(255, 255, 255));
+		break;
+	case eState_SelectDungeonMap:
+		DrawString(0, 300, "ダンジョンマップ選択画面", GetColor(255, 255, 255));
+		break;
 	}
 
 }
 
 void DungeonMenu::PostUpdate() {
 
+}
+
+
+
+/*
+	ステート切り替え
+*/
+void DungeonMenu::ChangeState(eState next, eFade fade, int fadeTime/* = 30*/){
+	
+	if (Fade::GetInstance()->IsFadeEnd()) {
+		mOldState = mState;
+		mNextState = next;
+		if (fade == eFade_In) {
+			Fade::GetInstance()->FadeIn(fadeTime);
+		}
+		else if (fade == eFade_Out) {
+			Fade::GetInstance()->FadeOut(fadeTime);
+		}
+		mState = eState_Fade;
+	}
+	
 }

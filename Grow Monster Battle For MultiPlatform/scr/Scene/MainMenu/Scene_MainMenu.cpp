@@ -52,7 +52,7 @@ bool Scene_MainMenu::Initialize() {
 	mButtonImageOrder = GraphicsDrawMgr::GetInstance()->Add(multiAdd, 1);
 	
 	mNowMenuTaskID = -1;
-
+	mIsEnableGraph = false;
 #ifdef __MY_DEBUG__
 	if (mDebug != NULL) {
 		mDebug->SetDebugList((DebugList*)new dbgScene_MainMenu());
@@ -137,6 +137,29 @@ bool Scene_MainMenu::UpdataProc() {
 		if (TaskMgr::getInstance().GetTask(mNowMenuTaskID) == NULL) {
 			mNowMenuTaskID = -1;
 			NexetState(eState_Main, eFadeType_In, 30);
+
+			GraphicsBase* graph = GraphicsDrawMgr::GetInstance()->Get(mBackImageOrder);
+			if (graph != NULL) {
+				graph->SetVisible(true);
+			}
+			GraphicsBase* button = GraphicsDrawMgr::GetInstance()->Get(mButtonImageOrder);
+			if (button != NULL) {
+				button->SetVisible(true);
+			}
+
+		}
+		else {
+			if (Fade::GetInstance()->IsFadeEnd() && !mIsEnableGraph) {
+				GraphicsBase* graph = GraphicsDrawMgr::GetInstance()->Get(mBackImageOrder);
+				if (graph != NULL) {
+					graph->SetVisible(false);
+				}
+				GraphicsBase* button = GraphicsDrawMgr::GetInstance()->Get(mButtonImageOrder);
+				if (button != NULL) {
+					button->SetVisible(false);
+				}
+				mIsEnableGraph = true;
+			}
 		}
 		return true;		
 	}
@@ -161,7 +184,10 @@ bool Scene_MainMenu::UpdataProc() {
 		Fade::GetInstance()->FadeOut(30);
 		break;
 	case eMenu_Quest:
+	{
 		mNowMenuTaskID = TaskMgr::getInstance().Add(new DungeonMenu(), TaskMgr::ePriorty_0);
+		mIsEnableGraph = false;
+	}
 		break;
 	case eMenu_PlayerStatus:
 

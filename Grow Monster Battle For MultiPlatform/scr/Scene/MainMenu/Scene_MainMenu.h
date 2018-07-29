@@ -60,6 +60,8 @@ private :
 
 	int mNowMenuTaskID;
 
+	bool mIsEnableGraph;	//画像が非表示か？
+
 private:
 
 	void NexetState(eState nextState, eFadeType type = eFadeType_None, int fadeFrame = 60);

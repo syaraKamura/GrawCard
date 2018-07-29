@@ -16,6 +16,9 @@
 #include "Scene/SceneMgr.h"
 #include "Common/FPS/FPS.h"
 
+#include "Scene/MainMenu/Dungeon/DungeonMgr.h"
+
+
 #ifdef __WINDOWS__
 static const int BASE_FPS = 60;	//基本フレームレート
 #elif __ANDROID__
@@ -34,9 +37,12 @@ GameMgr::GameMgr(){
 	mSceneMgr = new SceneMgr();
 #endif
 	ComRes::Create();
+	DungeonMgr::Create();
 }
 
 GameMgr::~GameMgr(){
+
+	DungeonMgr::Destory();
 	ComRes::Destory();
 
 	Delete(mSceneMgr);

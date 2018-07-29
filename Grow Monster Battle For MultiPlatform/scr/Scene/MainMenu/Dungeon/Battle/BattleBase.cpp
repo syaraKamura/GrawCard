@@ -16,6 +16,8 @@
 
 #include "BattleBase.h"
 #include "BattleCalculator.h"
+#include "../DungeonMgr.h"
+#include "Common/Script/ScriptBase.h"
 
 
 BattleBase::BattleBase() : TaskBase() {
@@ -44,6 +46,7 @@ BattleBase::BattleBase() : TaskBase() {
 	mPlayer->SetMonster(3, MonsterMgr::Instance()->getMonsterData(3));
 	monster->SetName("モンスター5");
 	mPlayer->SetMonster(4, MonsterMgr::Instance()->getMonsterData(4));
+	
 	
 
 }
@@ -166,6 +169,15 @@ void BattleBase::Draw() {
 }
 
 void BattleBase::PostUpdate() {
+	
+#ifdef __MY_DEBUG__
+#ifdef __WINDOWS__
+	
+	if (Keyboard_Press(KEY_INPUT_X)) {
+		TaskMgr::getInstance().RequestKill(this->mTaskId);
+	}
+#endif
+#endif
 
 }
 
