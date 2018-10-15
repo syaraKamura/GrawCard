@@ -26,6 +26,7 @@ private:
 		int posY;
 		int width;
 		int height;
+		bool isVisible;
 	}GRAPHICS_MULTI_t;
 private:
 
@@ -40,6 +41,18 @@ public:
 
 	bool Load(const char* path, int scrX, int scrY);
 
+	/*
+		画像を分割読み込みする
+		const char* path	:	ファイルパス
+		int divNumX			:	X分割枚数
+		int divNumY			:	Y分割枚数
+		int scrX			:	X描画座標
+		int scrY			:	Y描画座標
+		return		true	:	読み込み成功
+					false	:	読み込み失敗
+	*/
+	bool LoadDiv(const char* path,int divNumX,int divNumY ,int scrX, int scrY);
+
 	void Relese() override;
 
 	bool Add(int handle, int scrX, int scrY);
@@ -51,6 +64,24 @@ public:
 
 
 	int TouchNumber() override;
+
+	/*
+		画像個々の座標を設定する
+	*/
+	void SetDivPosition(int divNum, int posX, int posY);
+	void GetDivPosition(int divNum, int* posX, int* posY);
+
+	void SetDivVisible(int divNum, bool isVisible);
+	bool IsDivVisivle(int divNum);
+
+	void SetAllDivVisible(bool isVisible);
+
+	/*
+		登録している画像の数
+		return	: 0以上
+	*/
+	int GetNum();
+
 
 };
 

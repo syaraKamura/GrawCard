@@ -179,6 +179,21 @@
     <ClCompile Include="..\..\scr\Common\Animation\Easing\Easing.cpp">
       <Filter>src\Common\Animation\Easing</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Input\ClickInput.cpp">
+      <Filter>src\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Input\MobileInput.cpp">
+      <Filter>src\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Input\PadInput.cpp">
+      <Filter>src\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMgr.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Script\ScriptAnimation.cpp">
+      <Filter>src\Common\Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -294,6 +309,9 @@
     </Filter>
     <Filter Include="src\Common\Animation\Easing">
       <UniqueIdentifier>{a4c85173-862d-4b9b-85be-7d9055fc10dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Sound">
+      <UniqueIdentifier>{9d8968da-8de3-449e-88ce-09890ac393ef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -473,6 +491,21 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Animation\Easing\Easing.h">
       <Filter>src\Common\Animation\Easing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Input\ClickInput.h">
+      <Filter>src\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Input\MobileInput.h">
+      <Filter>src\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Input\PadInput.h">
+      <Filter>src\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMgr.h">
+      <Filter>src\Scene\MainMenu\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Script\ScriptAnimation.h">
+      <Filter>src\Common\Script</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -56,7 +56,10 @@ typedef struct{
 Enemy_t enemy[ENEMY_KIND_NUM];
 
 Graphics* mGraphics;
+
 GraphicsMulti* mGraphicsMulti;
+GraphicsMulti* mGraphicsMulti2;
+
 SaveData* mData;
 StringBase* mString;
 WriteBynary* mFile;
@@ -527,6 +530,17 @@ bool AITest::Initialize(){
 	mAnimation->Loop();
 #endif
 
+	mGraphicsMulti2 = new GraphicsMulti();
+
+	mGraphicsMulti2->LoadDiv("Resources/Graphics/BG/image.png", 12, 6, 0, 0);
+
+	GraphicsDrawMgr::GetInstance()->Add(mGraphicsMulti2,0);
+
+	mGraphicsMulti2->SetDivPosition(0, 120, 0);
+	mGraphicsMulti2->SetDivPosition(12, 120, 120);
+
+	mGraphicsMulti2->SetAllDivVisible(false);
+	
 	return true;
 }
 
@@ -541,6 +555,8 @@ void AITest::Finalize(){
 	Delete(mFile);
 	Delete(mReadFile);
 
+	mGraphicsMulti2->ReleseRequest();
+
 
 	//mGraphics->Relese();
 	//mGraphicsMulti->Relese();
@@ -554,6 +570,11 @@ void AITest::PreviousUpdate() {
 	mJoyPad->Update();
 	mTouch->Update();
 }
+
+
+static int count = 0;
+static int timer = 0;
+static int mVisibleNum = 0;
 
 bool AITest::Updata() {
 
@@ -612,9 +633,14 @@ bool AITest::Updata() {
 	//mGraphicsMulti->Draw(posX, 200, 255);
 	mGraphicsMulti->SetPosition(posX, 200);
 
-	static int count = 0;
-	static int timer = 0;
 	timer++;
+
+	if (timer % (72 / 60) == 0) {
+		mGraphicsMulti2->SetDivVisible(mVisibleNum, false);
+		mVisibleNum = (mVisibleNum + 1) % 72;
+		mGraphicsMulti2->SetDivVisible(mVisibleNum, true);
+	}
+
 	if (timer % 60 == 0) {
 		mGraphics->SetPriorty(count % 2 * 10);
 		count++;
@@ -639,6 +665,10 @@ bool AITest::Updata() {
 	mAnimation->AnimationAttach(mGraphics);
 	mAnimation->Update();
 	
+	
+	
+	
+
 	return true;
 }
 

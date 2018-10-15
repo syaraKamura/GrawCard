@@ -37,6 +37,7 @@ private:
 protected:
 	bool mIsInitalize;	//初期化フラグ
 	int mTaskId;		//タスク番号	
+	
 public :
 
 	
@@ -54,7 +55,9 @@ public :
 
 	//優先順位の設定
 	void SetPriorty(int priorty);
-	int GetPriorty(){return mPriorty;}
+	const int GetPriorty(){return mPriorty;}
+
+	const char* GetTaskName() const throw();
 
 	//初期化が終了しているか？
 	bool isInitialize(){return mIsInitalize;}

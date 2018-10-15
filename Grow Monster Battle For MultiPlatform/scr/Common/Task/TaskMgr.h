@@ -95,7 +95,7 @@ public:
 	void RequestKill(int taskId);
 
 	//指定のタスクを返却する
-	TaskBase* GetTask(int taskId);
+	TaskBase* GetTask(int taskId) const;
 
 private:
 

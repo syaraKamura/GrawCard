@@ -85,12 +85,15 @@ bool BattleBase::Initialize() {
 #endif
 
 	mNowStep = eBattleStep_Fade;
+	mMainStep = eBattleMainStep_Command;
+
 	NexetStepRequest(eBattleStep_Initialize, eFadeType_In);
 
 	return true;
 }
 
 void BattleBase::Finalize() {
+	mGraphics->Relese();
 	Delete(mGraphics);
 	//Delete(mCard);
 }
@@ -115,10 +118,16 @@ bool BattleBase::Updata() {
 		NexetStepRequest(eBattleStep_Main);
 		break;
 	case eBattleStep_Main:
-
+	{
 		//Debug::LogPrintf("ダメージ %d\n", BattleCalculator::NormalDamage(*mPlayer->GetMonster(0), *mPlayer->GetMonster(0)));
 
-		NexetStepRequest(eBattleStep_Result,BattleBase::eFadeType_In);
+
+		BattleBase::eBattleStep step =  BattleMainUpdate();
+		if (step != BattleBase::eBattleStep_None) {
+			NexetStepRequest(step, BattleBase::eFadeType_In);
+		}
+	}
+	
 		break;
 	case eBattleStep_Result:
 
@@ -155,6 +164,7 @@ void BattleBase::Draw() {
 		break;
 	case eBattleStep_Main:
 		//バトルメイン処理
+		BattleMainDraw();
 		break;
 	case eBattleStep_Result:
 
@@ -164,6 +174,7 @@ void BattleBase::Draw() {
 
 #ifdef __MY_DEBUG__
 		DrawFormatString(0, 40, GetColor(255, 0, 0), "Now Step:%s", dbg_STEP_TITLE[mNowStep]);
+		DrawFormatString(20, 60, GetColor(255, 0, 0), "Now Main Step:%s", dbg_MAIN_STEP_TITLE[mMainStep]);
 #endif
 
 }
@@ -203,6 +214,58 @@ void BattleBase::NexetStepRequest(eBattleStep nextStep, eFadeType fadeType/* = e
 	}
 	else if (fadeType == eFadeType_Out) {
 		Fade::GetInstance()->FadeOut();
+	}
+
+}
+
+BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
+
+	BattleBase::eBattleStep step = BattleBase::eBattleStep_None;
+	
+	/*
+	
+		コマンド選択
+			選択した行動をスタック
+		行動フェーズ
+		経験値取得フェーズ
+
+	*/
+
+	switch (mMainStep) {
+	case BattleBase::eBattleMainStep_Command:
+#ifdef __WINDOWS__
+
+		if (Keyboard_Press(KEY_INPUT_Z)) {
+			mMainStep = eBattleMainStep_Battle;
+		}
+#endif
+		break;
+	case BattleBase::eBattleMainStep_Battle:
+		mMainStep = eBattleMainStep_Judgement;
+		break;
+	case BattleBase::eBattleMainStep_Judgement:
+		step = BattleBase::eBattleStep_Result;
+		break;
+	}
+
+
+
+
+	return step;
+}
+
+void BattleBase::BattleMainDraw() {
+
+	switch (mMainStep) {
+	case BattleBase::eBattleMainStep_Command:
+
+		break;
+	case BattleBase::eBattleMainStep_Battle:
+
+		break;
+	case BattleBase::eBattleMainStep_Judgement:
+
+		break;
 	}
 
 }

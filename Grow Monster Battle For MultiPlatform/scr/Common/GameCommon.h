@@ -28,11 +28,13 @@
 #ifdef __WINDOWS__
 	#include <Windows.h>
 	#include "win32/KeyBoard.h"
-	#include "win32/MouseInput.h"
+	//#include "win32/MouseInput.h"
 #endif
 #ifdef __ANDROID__
-	#include "Android/TouchInput.h"
+	//#include "Android/TouchInput.h"
 #endif
+
+#include "Input/ClickInput.h"
 
 #define WINDOW_BASE_WIDTH 1920
 #define WINDOW_BASE_HEIGHT 1080

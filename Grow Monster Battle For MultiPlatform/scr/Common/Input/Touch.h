@@ -16,7 +16,7 @@
 
 #include "InputBase.h"
 
-class Touch : InputBase {
+class Touch : public InputBase {
 
 public :
 

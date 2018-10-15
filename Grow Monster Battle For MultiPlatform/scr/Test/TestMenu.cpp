@@ -41,20 +41,42 @@ void TestMenu::Finalize(){
 	
 }
 
-bool TestMenu::Updata(){
+bool TestMenu::Updata() {
 
 #ifdef __WINDOWS__
-	if(Keyboard_Repeat(KEY_INPUT_UP)){
+
+	if (Keyboard_Repeat(KEY_INPUT_UP)) {
 		mCursorY = (mCursorY + (s_cSceneListNum - 1)) % s_cSceneListNum;
-	}else if(Keyboard_Repeat(KEY_INPUT_DOWN)){
-		mCursorY = (mCursorY + 1) % s_cSceneListNum ;
+	}
+	else if (Keyboard_Repeat(KEY_INPUT_DOWN)) {
+		mCursorY = (mCursorY + 1) % s_cSceneListNum;
 	}
 
 
-	if(Keyboard_Press(KEY_INPUT_Z) == true){
+	if (Keyboard_Press(KEY_INPUT_Z) == true) {
 		mNextScene->SceneChange(s_cSceneListTbl[mCursorY].scene);
 	}
 #endif
+
+	int fontSize = DxLib::GetFontSize();
+	int pointX = ClickInput::GetInstance()->GetPositionX(0);
+	int pointY = ClickInput::GetInstance()->GetPositionY(0);
+	if (ClickInput::GetInstance()->Press(0)) {
+		for (int i = 0; i < s_cSceneListNum; i++) {
+			int x = 40;
+			int y = 60 + i * 20;
+			int dx = x + fontSize * 60;
+			int dy = y + fontSize;
+
+			if ((x <= pointX && dx >= pointX) && 
+				(y <= pointY && dy >= pointY)) {
+				mNextScene->SceneChange(s_cSceneListTbl[i].scene);
+				break;
+			}
+
+		}
+	}
+
 	return true;
 }
 

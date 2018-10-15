@@ -13,6 +13,7 @@
 
 #include "Common/GameCommon.h"
 #include "Common/Script/ScriptAnimation.h"
+// #include "Common/Animation/ScriptAnim.inc"
 
 
 //右側から画面内へ
@@ -188,6 +189,20 @@ void ScriptAnimation::PostUpdate() {
 
 //終了処理
 void ScriptAnimation::Finalize() {
+
+	int length = this->mAnimData.size();
+
+	for (int i = 0; i < length; i++) {
+		//if (this->mAnimData[i].mOrderId == orderId) {
+			//auto itr = mAnimData.begin() + i;
+			auto itr = mAnimData.begin();
+			itr->mGraphics = NULL;
+			this->mAnimData.erase(itr);
+			//i--;
+			//return;
+		//}
+	}
+
 
 }
 

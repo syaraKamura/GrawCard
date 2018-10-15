@@ -13,12 +13,22 @@
 !*/
 
 #include "Common/GameCommon.h"
+#include "Common/String/StringClick.h"
 #include "ScriptAnimation.h"
 #include "ScriptBase.h"
 
 #ifdef __ANDROID__
 #include <string.h>
 #endif
+
+
+static StringClick s_mString[5] = {
+	StringClick(),
+	StringClick(),
+	StringClick(),
+	StringClick(),
+	StringClick(),
+};
 
 
 static char testScript[] = {
@@ -80,6 +90,12 @@ bool ScriptBase::Initialize() {
 	
 	mAnimOrderIdList.clear();
 
+	// ---------------------------
+	// 
+
+	s_mString[0].SetString("オート再生");
+	s_mString[0].SetColor(GetColor(0,0,0));
+
 	return Load(mFileName);
 
 }
@@ -94,8 +110,7 @@ void ScriptBase::Finalize() {
 
 	int id = mAnimation->GetTaskId();
 	TaskMgr::getInstance().RequestKill(id);
-
-	
+		
 	//画像データ削除
 	for (int i = 0; i < mGraphicsDatas.size(); i++) {
 		mGraphicsDatas[i].mGraph->Relese();
@@ -103,6 +118,8 @@ void ScriptBase::Finalize() {
 	}
 	mGraphicsDatas.clear();
 
+	mAnimOrderIdList.clear();
+	
 }
 
 void ScriptBase::PreviousUpdate() {
@@ -184,14 +201,15 @@ void ScriptBase::InputUpdate() {
 	}
 
 	//自動会話送りをON/OFF
-	if (Keyboard_Press(KEY_INPUT_A)) {
+	if (Keyboard_Press(KEY_INPUT_A) || s_mString[0].IsInSide(StringClick::eClickType_Press)) {
 		mIsAutoFeed = !mIsAutoFeed;
 	}
 
 #else 
 
 	if (mIsAutoFeed == false) {
-		if (Touch_Press(1)) {
+		//if (Touch_Press(1)) {
+		if (ClickInput::GetInstance()->Press(1)) {
 			if (mStringDrawState == StringBase::eDrawState_DrawEnd) {
 				//mString->SetString("目が覚めると、木々の隙間から木漏れ日がゆらゆらとあゆみの頬を照らす。");
 				mNowLine++;
@@ -199,7 +217,8 @@ void ScriptBase::InputUpdate() {
 				mIsDrawNextIcon = true;
 			}
 		}
-		else if (Touch_On(1)) {
+		//else if (Touch_On(1)) {
+		else if (ClickInput::GetInstance()->On(1)) {
 			if (mStringDrawState == StringBase::eDrawState_Drawing ||
 				mStringDrawState == StringBase::eDrawState_DrawInterval) {
 
@@ -239,7 +258,6 @@ void ScriptBase::Draw() {
 
 	bool ret = false;
 
-	
 	if (mOldStringDrawState == StringBase::eDrawState_Drawing ||
 		mOldStringDrawState == StringBase::eDrawState_DrawInterval || 
 		mIsDrawNextIcon) {
@@ -251,6 +269,8 @@ void ScriptBase::Draw() {
 		DrawBox(820, 550, 840, 570, GetColor(255, 255, 255), TRUE);
 		mIsDrawNextIcon = true;
 	}
+
+	s_mString[0].Draw(820, 750);
 
 	char msg[126];
 #ifdef __WINDOWS__

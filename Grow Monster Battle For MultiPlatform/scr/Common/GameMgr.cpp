@@ -38,12 +38,14 @@ GameMgr::GameMgr(){
 #endif
 	ComRes::Create();
 	DungeonMgr::Create();
+	ClickInput::Create();
 }
 
 GameMgr::~GameMgr(){
 
 	DungeonMgr::Destory();
 	ComRes::Destory();
+	ClickInput::Destroy();
 
 	Delete(mSceneMgr);
 	Delete(mFPS);
@@ -63,7 +65,7 @@ void GameMgr::Initialize(){
 
 #ifdef __MY_WINDOWS__
 	Keyboard_Initialize();
-	Mouse_Initialize();
+	//Mouse_Initialize();
 #endif
 
 	MonsterMgr::Create();
@@ -80,7 +82,7 @@ void GameMgr::Finalize(){
 
 #ifdef __MY_WINDOWS__
 	Keyboard_Finalize();
-	Mouse_Finalize();
+	//Mouse_Finalize();
 #endif
 
 	MonsterMgr::Destory();
@@ -96,10 +98,12 @@ void GameMgr::InputUpdate() {
 	
 #ifdef __MY_WINDOWS__
 	Keyboard_Updata();
-	Mouse_Updata();
+	//Mouse_Updata();
 #else
-	Touch_Updata();
+	//Touch_Updata();
 #endif
+
+	ClickInput::GetInstance()->Update();
 
 	TaskMgr::getInstance().InputUpdate();
 

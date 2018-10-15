@@ -59,3 +59,8 @@ void TaskBase::PostUpdate() {
 void TaskBase::SetPriorty(int priorty){
 	mPriorty = priorty;
 }
+
+const char* TaskBase::GetTaskName() const throw(){
+	const char* name = typeid(*this).name();
+	return name;
+}

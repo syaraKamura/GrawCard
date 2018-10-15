@@ -116,12 +116,29 @@ int TaskMgr::Add(TaskBase* task,int priorty){
 	if(priorty < 0){
 		priorty = 0;
 	}
+	
 
 	task->SetTaskId(++mOrder);
 	task->SetPriorty(priorty);
+	
 	mList.push_back(task);
 
 	mList.sort(sort_priorty);
+
+	
+#ifdef __MY_DEBUG__
+
+	Debug::LogPrintf("=====       登録Task       ===== \n");
+	Debug::LogPrintf("TaskId : %d TaskName : %s\n", task->GetTaskId(), task->GetTaskName());
+	Debug::LogPrintf("================================ \n\n\n");
+
+	Debug::LogPrintf("=====        Taskソート    ===== \n");
+	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
+		Debug::LogPrintf("TaskId : %d TaskName : %s Prio : %d\n", (*itr)->GetTaskId(), (*itr)->GetTaskName(), (*itr)->GetPriorty());
+	}
+	Debug::LogPrintf("================================ \n\n\n");
+#endif
+
 
 	return (mOrder);
 }
@@ -138,7 +155,7 @@ int TaskMgr::Add(pointer_func updata,pointer_func draw,pointer_func destroy,int 
 	return	NULL以外: 指定のタスクを返却する
 			NULL	: 存在しないタスク番号
 */
-TaskBase* TaskMgr::GetTask(int taskId){
+TaskBase* TaskMgr::GetTask(int taskId) const{
 	for(auto itr = mList.begin();itr != mList.end();itr++){
 		if((*itr)->GetTaskId() == taskId){
 			return (*itr);
@@ -189,7 +206,13 @@ void TaskMgr::KillTaskProc(){
 		bool isFind = false;	//削除依頼のタスク番号発見フラグ true:発見	false:見つけられなかった
 		for(auto itr = mList.begin();itr != mList.end();itr++){
 			if((*itr)->GetTaskId() == *reqKillOrder){
-					
+				
+#ifdef __MY_DEBUG__
+				Debug::LogPrintf("=====        削除Task      ===== \n");
+				Debug::LogPrintf("TaskId : %d TaskName : %s\n", (*itr)->GetTaskId(), (*itr)->GetTaskName());
+				Debug::LogPrintf("================================ \n\n");
+#endif
+
 				(*itr)->Finalize();						//削除
 				delete (*itr);							//メモリから削除
 				mList.erase(itr);						//リストから削除
@@ -212,4 +235,16 @@ void TaskMgr::KillTaskProc(){
 		}
 	}
 		
+
+
+#ifdef __MY_DEBUG__
+	Debug::LogPrintf("=====      削除後のTask    ===== \n");
+	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
+		Debug::LogPrintf("TaskId : %d TaskName : %s\n", (*itr)->GetTaskId(), (*itr)->GetTaskName());
+	}
+	Debug::LogPrintf("================================ \n");
+#endif
+
+
+
 }

@@ -125,7 +125,7 @@ void ComRes::Relese() {
 
 }
 
-Graphics* ComRes::GetGraphicHandle(ComRes::eComResName name) {
+Graphics* ComRes::GetGraphicHandle(ComRes::eComResName name) const {
 	
 	const COMMON_RES_t* result = &mComRes[name];
 

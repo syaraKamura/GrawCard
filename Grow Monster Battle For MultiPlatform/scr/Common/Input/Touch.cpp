@@ -51,6 +51,8 @@ bool Touch::Update() {
 			}
 
 			mInput.touch[i].id = i;
+			mInput.touch[i].oldPositionX = mInput.touch[i].positionX;
+			mInput.touch[i].oldPositionY = mInput.touch[i].positionY;
 			mInput.touch[i].positionX = posX;
 			mInput.touch[i].positionY = posY;
 			mInput.touch[i].device = device;
@@ -66,6 +68,8 @@ bool Touch::Update() {
 			if (mInput.touch[i].counter > 0) {
 				mInput.touch[i].counter = 0;
 				mInput.touch[i].releseCounter = 1;
+				mInput.touch[i].positionX = mInput.touch[i].oldPositionX;
+				mInput.touch[i].positionY = mInput.touch[i].oldPositionY;
 			}
 			else {
 				mInput.touch[i].counter--;

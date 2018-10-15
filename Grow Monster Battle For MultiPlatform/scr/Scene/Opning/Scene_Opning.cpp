@@ -53,7 +53,8 @@ bool Scene_Opning::Updata() {
 	}
 #else 
 
-	if (Touch_Press(0)) {
+	//if (Touch_Press(0)) {
+	if (ClickInput::GetInstance()->Press(0)) {
 		mNextScene->SceneChange(ISceneBase::eScene_Title);
 	}
 

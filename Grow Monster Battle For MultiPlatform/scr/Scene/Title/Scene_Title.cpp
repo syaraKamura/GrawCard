@@ -254,7 +254,8 @@ bool Scene_Title::UpdataProc() {
 
 	//int touchNum = Touch_GetTouchNum();
 
-	if (Touch_Press(0)) {
+	//if (Touch_Press(0)) {
+	if (ClickInput::GetInstance()->Press(0)) {
 		if (mWork.selectY == 0) {
 			//SoundControl(2,1);
 

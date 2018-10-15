@@ -57,7 +57,7 @@ public:
 		return	NULL以外	:Graphicsクラスを返却する
 				NULL		:データがない
 	*/
-	GraphicsBase* Get(int order);
+	GraphicsBase* Get(int order) const;
 	/*
 		指定の番号の画像データの削除依頼をする
 		return	true	:成功

@@ -118,6 +118,9 @@
     <Filter Include="ソース ファイル\scr\Common\Animation\Easing">
       <UniqueIdentifier>{f26da272-0c6b-48c1-8d9f-719d5b9d679d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Sound">
+      <UniqueIdentifier>{b99a069c-0bf0-4280-b941-fd43fa3bf95d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -311,6 +314,18 @@
     </ClCompile>
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonMgr.cpp">
       <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Input\MobileInput.cpp">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Input\ClickInput.cpp">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Input\PadInput.cpp">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\String\StringClick.cpp">
+      <Filter>ソース ファイル\scr\Common\String</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -511,6 +526,18 @@
     </ClInclude>
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonMgr.h">
       <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Input\MobileInput.h">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Input\ClickInput.h">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Input\PadInput.h">
+      <Filter>ソース ファイル\scr\Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\String\StringClick.h">
+      <Filter>ソース ファイル\scr\Common\String</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

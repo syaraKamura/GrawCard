@@ -40,8 +40,15 @@ bool Scene_MainMenu::Initialize() {
 	mNextMenu = eMenu_None;
 
 	Graphics* add = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MainMenuBG);
-	add->SetPosition(0, 0);
-	mBackImageOrder = GraphicsDrawMgr::GetInstance()->Add(add, 0);
+	if (add != NULL) {
+		add->SetPosition(0, 0);
+		mBackImageOrder = GraphicsDrawMgr::GetInstance()->Add(add, 0);
+	}
+	else {
+		//汎用リソースからグラフィックの取得失敗
+		Debug::ErorrMessage("汎用リソースからグラフィックスの取得に失敗しました\n(ComRes::eComResName_MainMenuBG)\n");
+		return false;
+	}
 
 	GraphicsMulti* multiAdd = new GraphicsMulti();
 	multiAdd->Load("Resources/Graphics/UI/button/menu_adventure2.png", 160, 600);
@@ -225,11 +232,15 @@ bool Scene_MainMenu::MainMenuProc() {
 #endif
 #endif
 	auto mGraph = GraphicsDrawMgr::GetInstance()->Get(this->mButtonImageOrder);
-	if (mGraph->TouchNumber() == 0) {
+	int selectNumber = -1;
+	if (mGraph != NULL) {
+		selectNumber = mGraph->TouchNumber();
+	}
+	if (selectNumber == 0) {
 		//dbg_ChangeScene_TestMenu();
 		mNextMenu = eMenu_Quest;
 	}
-	else if (mGraph->TouchNumber() == 1) {
+	else if (selectNumber == 1) {
 		//mNextScene->SceneChange(ISceneBase::eScene_AITest);
 		mNextScene->SceneChange(ISceneBase::eScene_TestADV);
 	}

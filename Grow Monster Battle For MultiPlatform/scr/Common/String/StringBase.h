@@ -57,15 +57,15 @@ private:
 
 	int mCounter;
 
-private:
+public:
 
 	/*
 	文字列のバイト数を返却する
 	return	0以上	:バイト数
 	-1		:エラー
 	*/
-	int GetCharBytes(const void* string);
-	int GetLength(const char* string);
+	static int GetCharBytes(const void* string);
+	static int GetLength(const char* string);
 
 public :
 

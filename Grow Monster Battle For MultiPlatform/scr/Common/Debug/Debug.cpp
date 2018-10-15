@@ -37,7 +37,8 @@ bool Debug::ChcekActive() {
 	}
 #else 
 
-	if (Touch_On(0) && Touch_Press(1)) {
+	//if (Touch_On(0) && Touch_Press(1)) {
+	if (ClickInput::GetInstance()->On(0) && ClickInput::GetInstance()->Press(1)){
 		mIsActive = ((mIsActive == true) ? false : true);
 	}
 

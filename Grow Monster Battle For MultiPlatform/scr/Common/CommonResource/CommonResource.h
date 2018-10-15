@@ -93,7 +93,7 @@ public :
 	bool IsError();
 #endif
 
-	Graphics* GetGraphicHandle(eComResName name);
+	Graphics* GetGraphicHandle(eComResName name) const;
 
 };
 

@@ -17,7 +17,43 @@
 #include "Battle/BattleBase.h"
 #include "Common/Script/ScriptBase.h"
 
+
+typedef struct {
+	int mQuestNo;
+	int mQuestType;
+	char mBeforeAdvName[1024];
+	char mAfterAdvName[1024];
+}QuestDataBase;
+
+typedef struct {
+	int mId;
+	QuestDataBase mData;
+}QuestData_t;
+
+typedef struct {
+	int mQuestType;
+	int mQuestNo;
+	int mIsBattle;
+	char mQuestname[1024];
+}QuestInfo_t;
+
+
+#define TEST_QUEST_DATA_NUM 3
+
+static QuestData_t mQuestDataTbl[TEST_QUEST_DATA_NUM] = {
+	{0,0,0,"ADV_0001.txt",""},
+	{1,0,1,"ADV_0001.txt","" },
+	{ 2,0,2,"ADV_0001.txt","" },
+};
+
+static QuestInfo_t mQuestInfoTbl[TEST_QUEST_DATA_NUM] = {
+	{0,0,0,"はじまりの森"},
+	{0,1,0,"出会い" },
+	{ 0,2,0,"リーフの家で" },
+};
+
 DungeonMenu::DungeonMenu() : TaskBase() {
+
 	
 }
 
@@ -70,14 +106,13 @@ bool DungeonMenu::Updata() {
 
 		if (TaskMgr::getInstance().GetTask(mTaskId) == NULL) {
 			mTaskId = -1;
+
+
+
 		}
 
 		return true;
 	}
-	
-	eState next = eState_None;
-	eFade fade = eFade_Out;
-	int fadeTime = 30;
 
 	switch (mState) {
 	case eState_SelectMode:
@@ -104,15 +139,16 @@ bool DungeonMenu::Updata() {
 #else
 
 		//とりあえず自身のタスクを削除する
-		if (Touch_Relese(0)) {
+		//if (Touch_Relese(0)) {
+		if (ClickInput::GetInstance()->Relese(0)) {
 			mState = eState_Fade;
 		}
 
 #endif
-
 		break;
 	case eState_SelectStoryMap:
 		
+#ifdef __WINDOWS__
 		if (Keyboard_Press(KEY_INPUT_Z)) {
 			//mTaskId = TaskMgr::getInstance().Add(new BattleBase(),TaskMgr::ePriorty_0);
 			ChangeState(eState_Adventure, eFade_None);
@@ -122,18 +158,24 @@ bool DungeonMenu::Updata() {
 			DungeonMgr::GetInstance()->SetDungeonType(DungeonMgr::eDungeonType_None);
 			ChangeState(eState_SelectMode, eFade_Out);
 		}
+#endif // __WINDOWS__
+
 		break;
 	case eState_SelectQuestMap:
+#ifdef __WINDOWS__
 		if (Keyboard_Press(KEY_INPUT_X)) {
 			DungeonMgr::GetInstance()->SetDungeonType(DungeonMgr::eDungeonType_None);
 			ChangeState(eState_SelectMode, eFade_Out);
 		}
+#endif // __WINDOWS__
 		break;
 	case eState_SelectDungeonMap:
+#ifdef __WINDOWS__
 		if (Keyboard_Press(KEY_INPUT_X)) {
 			DungeonMgr::GetInstance()->SetDungeonType(DungeonMgr::eDungeonType_None);
 			ChangeState(eState_SelectMode, eFade_Out);
 		}
+#endif // __WINDOWS__
 		break;
 	case eState_Adventure:
 		mTaskId = TaskMgr::getInstance().Add(new ScriptBase("ADV_0001.txt"), TaskMgr::ePriorty_0);

@@ -96,6 +96,61 @@ bool GraphicsMulti::Load(const char* path, int scrX, int scrY) {
 	return Add(handle, scrX, scrY);
 }
 
+bool GraphicsMulti::LoadDiv(const char* path, int divNumX, int divNumY, int scrX, int scrY) {
+
+	if (divNumX <= 0 || divNumY <= 0) return false;
+
+	char filePath[1024];
+	strcpyDx(filePath, path);
+
+#ifdef __WINDOWS__ 
+#ifdef  __MY_DEBUG__
+
+
+	RESORCES_PATH(filePath);
+
+#endif
+#endif
+
+
+	int tmpHandle = DxLib::LoadGraph(filePath);
+
+	// 一枚絵として読み込み　
+	if (tmpHandle == GraphicsMulti::eGraphicsResult_ERROR) {
+		return false;
+	}
+
+	int sizeX = 0;
+	int sizeY = 0;
+	DxLib::GetGraphSize(tmpHandle,&sizeX, &sizeY);
+
+	int allNum = divNumX * divNumY;
+	int width = sizeX / divNumX;
+	int height = sizeY / divNumY;
+	int* handle = new int[allNum];
+
+	// 元の画像を削除
+	DeleteGraph(tmpHandle);
+
+	int ret = DxLib::LoadDivGraph(filePath,allNum,divNumX,divNumY,width,height,handle);
+
+	if (ret == GraphicsMulti::eGraphicsResult_ERROR) {
+		DeleteArry(handle);
+		return false;
+	}
+
+	
+	for (int i = 0; i < allNum; i++) {
+		if (this->Add(handle[i], scrX, scrY) == false) {
+			return false;
+		}
+	}
+
+	SetFileName(filePath);
+	DeleteArry(handle);
+	return true;
+}
+
 void GraphicsMulti::Relese() {
 
 	if (mHandleList.empty() == true || mHandleList.size() <= 0) return;
@@ -114,7 +169,7 @@ bool GraphicsMulti::Add(int handle, int scrX, int scrY) {
 		int width;
 		int height;
 		GetGraphSize(handle, &width, &height);
-		GRAPHICS_MULTI_t multiGraphics = { handle,scrX,scrY ,width ,height};
+		GRAPHICS_MULTI_t multiGraphics = { handle,scrX,scrY ,width ,height,true};
 		mHandleList.push_back(multiGraphics);
 		return true;
 	}
@@ -145,6 +200,8 @@ void GraphicsMulti::Draw(int posX, int posY, int alpha, double angle, double sca
 			continue;
 		}
 
+		if ((*it).isVisible == false) continue;
+
 		int drawPosX = (*it).posX + mPosX;
 		int drawPosY = (*it).posY + mPosY;
 
@@ -152,6 +209,28 @@ void GraphicsMulti::Draw(int posX, int posY, int alpha, double angle, double sca
 		DxLib::DrawGraph(drawPosX, drawPosY, (*it).handle, TRUE);
 	}
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+#ifdef __MY_DEBUG__
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 123);
+	for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
+
+		if ((*it).handle <= eGraphicsResult_NONE) {
+
+			continue;
+		}
+
+		if ((*it).isVisible == false) continue;
+
+		int drawPosX = (*it).posX + mPosX;
+		int drawPosY = (*it).posY + mPosY;
+		int drawWidth = drawPosX + (*it).width;
+		int drawHeigth = drawPosY + (*it).height;
+
+		DxLib::DrawBox(drawPosX, drawPosY, drawWidth, drawHeigth, GetColor(255, 0, 0), TRUE);
+	}
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+#endif	// __MY_DEBUG__
+
 }
 
 
@@ -164,18 +243,24 @@ int GraphicsMulti::TouchNumber() {
 
 	int result = -1;
 
-	int posX;
-	int posY;
-#ifdef __ANDROID__
-	if (mHandleList.size() <= 0) return result;
+	int posX = 0;
+	int posY = 0;
 
-	const TOUCH_DATA* data = Touch_GetParamData(0);
-	posX = data->posX;
-	posY = data->posY;
-	if (Touch_Relese(0))
+	posX = ClickInput::GetInstance()->GetPositionX(0);
+	posY = ClickInput::GetInstance()->GetPositionY(0);
+
+	if(ClickInput::GetInstance()->Relese(0))
+
+#ifdef __ANDROID__
+	//if (mHandleList.size() <= 0) return result;
+	//
+	//const TOUCH_DATA* data = Touch_GetParamData(0);
+	//posX = data->posX;
+	//posY = data->posY;
+	//if (Touch_Relese(0))
 #else
-	Mouse_GetPosition(&posX, &posY);
-	if (Mouse_Relese(Mouse::eInputType_Left))
+	//Mouse_GetPosition(&posX, &posY);
+	//if (Mouse_Relese(Mouse::eInputType_Left))
 #endif
 	{
 		int number = 0;
@@ -195,4 +280,79 @@ int GraphicsMulti::TouchNumber() {
 
 
 	return result;
+}
+
+
+void GraphicsMulti::SetDivPosition(int divNum, int posX, int posY) {
+
+	if (divNum < 0 || divNum >= mHandleList.size()) return;
+
+	int num = 0;
+	for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
+		GRAPHICS_MULTI_t* graph = &(*it);
+
+		if (num == divNum) {
+			graph->posX = posX;
+			graph->posY = posY;
+		}
+		num++;
+	}
+
+}
+
+void GraphicsMulti::GetDivPosition(int divNum, int* posX, int* posY) {
+
+	if (divNum < 0 || divNum >= mHandleList.size()) return;
+
+	int num = 0;
+	for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
+		GRAPHICS_MULTI_t graph = (*it);
+
+		if (num == divNum) {
+			*posX = graph.posX;
+			*posY = graph.posY;
+		}
+		num++;
+	}
+
+}
+
+
+void GraphicsMulti::SetDivVisible(int divNum, bool isVisible) {
+	if (divNum < 0 || divNum >= mHandleList.size()) return;
+
+	int num = 0;
+	for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
+		GRAPHICS_MULTI_t* graph = &(*it);
+
+		if (num == divNum) {
+			graph->isVisible = isVisible;
+		}
+		num++;
+	}
+}
+
+bool GraphicsMulti::IsDivVisivle(int divNum) {
+	if (divNum < 0 || divNum >= mHandleList.size()) return false;
+
+	int num = 0;
+	for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
+		GRAPHICS_MULTI_t graph = (*it);
+
+		if (num == divNum) {
+			return graph.isVisible;
+		}
+		num++;
+	}
+}
+
+void GraphicsMulti::SetAllDivVisible(bool isVisible) {
+	for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
+		GRAPHICS_MULTI_t* graph = &(*it);
+		graph->isVisible = isVisible;
+	}
+}
+
+int GraphicsMulti::GetNum() {
+	return mHandleList.size();
 }

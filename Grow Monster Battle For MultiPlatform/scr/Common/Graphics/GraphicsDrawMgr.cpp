@@ -50,7 +50,7 @@ int GraphicsDrawMgr::Add(GraphicsBase* graphics,int prio) {
 	return	NULL以外	:Graphicsクラスを返却する
 			NULL		:データがない
 */
-GraphicsBase* GraphicsDrawMgr::Get(int order) {
+GraphicsBase* GraphicsDrawMgr::Get(int order) const {
 	for (auto it = mList->begin(); it != mList->end();) {
 		if ((*it).order == order) {
 			GraphicsMulti* graph = dynamic_cast<GraphicsMulti*>((*it).graph);

@@ -38,21 +38,21 @@ private:
 	const int AUTO_FEED_INTERVAL_TIME = 60 * 6;		//自動会話送り待ち時間
 
 	enum eAnalysis {
-		eAnalysis_Error = -1,		//エラー
-		eAnalysis_Mes,				//メッセージ
-		eAnalyis_SetFlag,			//フラグを設定
-		eAnalyis_FlagOn,			//フラグをオンにする
-		eAnalyis_FlagOff,			//フラグをオフにする
-		eAnalyis_If,				//if文	:ONになっているか確認する
-		eAnalyis_Ifn,				//ifn文	:OFFになっているか確認する
-		eAnalysis_endif,			//if文終了
-		eAnalysis_Lable,			//ラベル
-		eAnalysis_Goto,				//指定のラベル位置に移動する
-		eAnalysis_LoadScript,		//スクリプトの読み込みを行う
-		eAnalysis_LoadGraph,		//画像読み込み
-		eAnalysis_DrawGraph,		//画像表示
-		eAnalysis_HideGraph,		//画像を非表示にする
-		eAnalysis_AnimGraph,		//画像をアニメーションさせる
+		eAnalysis_Error = -1,		//エラー							
+		eAnalysis_Mes,				//メッセージ							[文字列]
+		eAnalyis_SetFlag,			//フラグを設定							[フラグ名][フラグ番号]
+		eAnalyis_FlagOn,			//フラグをオンにする					[フラグ名]
+		eAnalyis_FlagOff,			//フラグをオフにする					[フラグ名]
+		eAnalyis_If,				//if文	:ONになっているか確認する		[フラグ名]
+		eAnalyis_Ifn,				//ifn文	:OFFになっているか確認する		[フラグ名]
+		eAnalysis_endif,			//if文終了								
+		eAnalysis_Lable,			//ラベル								[ラベル名]
+		eAnalysis_Goto,				//指定のラベル位置に移動する			[ラベル名]
+		eAnalysis_LoadScript,		//スクリプトの読み込みを行う			[スクリプトファイルパス]
+		eAnalysis_LoadGraph,		//画像読み込み							[管理番号][画像ファイルパス]
+		eAnalysis_DrawGraph,		//画像表示								[管理番号][X座標][Y座標][フェードインを行うか(0 or 1)]
+		eAnalysis_HideGraph,		//画像を非表示にする					[管理番号][非表示までにかかる時間(1以上)]
+		eAnalysis_AnimGraph,		//画像をアニメーションさせる			[管理番号][アニメーション番号][ループ再生か(0 or 1)][今の座標を原点とするか(0 or 1)]
 		eAnalysis_End,				//スクリプト終了
 
 	};

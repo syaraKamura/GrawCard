@@ -40,6 +40,16 @@ public :
 		eFadeType_Out,
 	};
 
+	enum eBattleMainStep {
+		eBattleMainStep_None = -1,
+		eBattleMainStep_Command,
+		eBattleMainStep_Battle,
+
+		eBattleMainStep_Judgement,
+
+		eBattleMainStep_Num,
+	};
+
 #ifdef __MY_DEBUG__
 	const char* dbg_STEP_TITLE[eBattleStep_Num] =
 	{
@@ -49,6 +59,15 @@ public :
 		{ "バトルメイン" },
 		{ "リザルト" },
 	};
+
+	const char* dbg_MAIN_STEP_TITLE[eBattleMainStep_Num] =
+	{
+		{ "コマンド選択" },
+		{ "バトル" },
+		{ "判定" },
+		
+	};
+
 #endif
 
 protected:
@@ -61,6 +80,9 @@ protected:
 
 	eBattleStep mNowStep;	//現在のステップ
 	eBattleStep mNextStep;	//次のステップ
+
+	eBattleMainStep mMainStep;	// メインステップ
+
 
 protected:
 
@@ -83,6 +105,8 @@ public:
 	void PostUpdate() override;
 	void Draw()override;
 
+	eBattleStep BattleMainUpdate();
+	void BattleMainDraw();
 
 };
 
