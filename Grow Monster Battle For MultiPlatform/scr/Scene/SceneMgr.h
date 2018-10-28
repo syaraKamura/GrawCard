@@ -38,6 +38,9 @@ private:
 	bool SceneChangeProc();
 	void SceneChangeDraw();
 
+	SceneBase* CreateNextScene(ISceneBase::eScene next);
+
+
 public :
 
 	SceneMgr();

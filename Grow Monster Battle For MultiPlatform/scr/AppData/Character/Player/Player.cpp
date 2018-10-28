@@ -48,3 +48,10 @@ bool Player::SetMonster(int idx, Monster monster) {
 Monster* Player::GetMonster(int idx) {
 	return mMonsterDeck.GetMonster(idx);
 }
+
+/*
+デッキに設定しているモンスターの数
+*/
+int Player::GetSetMonsterNum() {
+	return mMonsterDeck.GetSetNum();
+}

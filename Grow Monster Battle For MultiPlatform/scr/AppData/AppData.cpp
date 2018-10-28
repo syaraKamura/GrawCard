@@ -13,17 +13,20 @@
 #include "Common/GameCommon.h"
 #include "AppData.h"
 
+AppData* AppData::mInst = NULL;
 
 AppData::AppData() {
 	mSaveData = new SaveData();
 }
 
 AppData::~AppData() {
-	//delete (mSaveData);
+	Delete (mSaveData);
 }
 
-AppData AppData::GetInstance() {
-	static AppData mInst = AppData();
+AppData* AppData::GetInstance() {
+	if (mInst == NULL) {
+		Create();
+	}
 	return mInst;
 }
 
@@ -54,7 +57,7 @@ void AppData::Load() {
 
 }
 
-SaveData* AppData::GetSaveData() {
+SaveData* AppData::GetSaveData() const {
 	if (mSaveData == NULL) {
 		Debug::ErorrMessage("mSaveData is Not Create Instance.");
 		return NULL;
@@ -65,4 +68,13 @@ SaveData* AppData::GetSaveData() {
 
 void AppData::SetSaveData(SaveData saveData) {
 	mSaveData = &saveData;
+}
+
+
+void AppData::Create() {
+	mInst = new AppData();
+}
+
+void AppData::Destory() {
+	Delete(mInst);
 }

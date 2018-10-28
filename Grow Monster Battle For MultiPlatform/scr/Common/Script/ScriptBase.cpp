@@ -53,16 +53,17 @@ ScriptBase::ScriptBase() : TaskBase() {
 
 	mString = new StringBase();
 	mAdvData = NULL;
-	mSaveData = AppData::GetInstance().GetSaveData();
+	mSaveData = AppData::GetInstance()->GetSaveData();
 
 
 }
 
 ScriptBase::ScriptBase(const char* scriptName) : TaskBase() {
 	mString = new StringBase();
+	mTalkName = new StringBase();
 
 	mAdvData = NULL;
-	mSaveData = AppData::GetInstance().GetSaveData();
+	mSaveData = AppData::GetInstance()->GetSaveData();
 
 	CreateFilePath(scriptName);
 	
@@ -103,6 +104,7 @@ bool ScriptBase::Initialize() {
 void ScriptBase::Finalize() {
 
 	Delete(mString);
+	Delete(mTalkName);
 	DeleteArry(mAdvData);
 
 	this->mStringDatas.clear();
@@ -142,6 +144,9 @@ void ScriptBase::PreviousUpdate() {
 	if (isWait == false) {
 		Analysis();
 	}
+
+	// すぐに表示する
+	mTalkName->Update(false, 60);
 
 	mOldStringDrawState = mStringDrawState;
 	int drawInterval = mIsAllDrawString ? 1 : 10;
@@ -254,6 +259,7 @@ void ScriptBase::Draw() {
 	}
 
 	mMsgGraphics.Draw(180, 450, 255, 0.0, 1.0);
+	mTalkName->DrawString(200, 470);
 	mString->DrawString(200, 500);
 
 	bool ret = false;
@@ -327,7 +333,8 @@ void ScriptBase::Analysis() {
 	
 	ADV_DATA_t data = mAdvData[mNowLine];
 
-	ScriptBase::eAnalysis ret =  MethodAnalysis(data.mMethod);
+	//ScriptBase::eAnalysis ret =  MethodAnalysis(data.mMethod);
+	ScriptBase::eAnalysis ret = data.mMethodId;
 
 	if (ret == ScriptBase::eAnalysis_Error) {
 		Debug::ErorrMessage("スクリプトに無効な処理が含まれています");
@@ -338,8 +345,13 @@ void ScriptBase::Analysis() {
 	bool isNext = true;
 
 	switch (ret) {
+	case ScriptBase::eAnalysis_Talk:
+		mTalkName->SetString(data.mString);
+		mString->SetString(data.mString2);
+		isNext = false;
+		break;
 	case ScriptBase::eAnalysis_Mes:
-		
+		mTalkName->SetString("");
 		mString->SetString(data.mString);
 		isNext = false;
 		break;
@@ -356,7 +368,8 @@ void ScriptBase::Analysis() {
 #endif	//__MY_DEBUG__
 		for (int i = 0; i < mMaxLine; i++) {
 			data = mAdvData[i];
-			ret = MethodAnalysis(data.mMethod);
+			//ret = MethodAnalysis(data.mMethod);
+			ret = data.mMethodId;
 			if (ret == ScriptBase::eAnalysis_Lable) {
 				if (strcmpDx(labelName, data.mString) == 0) {
 					mNowLine = i;
@@ -374,7 +387,7 @@ void ScriptBase::Analysis() {
 #endif	//__MY_DEBUG__
 	}
 		break;
-	case ScriptBase::eAnalyis_If:
+	case ScriptBase::eAnalysis_If:
 	{
 		SaveData::FLAG_DATA_t* mflagData = mSaveData->GetFlagData();
 		char* name = data.mString;
@@ -401,7 +414,8 @@ void ScriptBase::Analysis() {
 			int ifId = data.mInt[0];
 			for (int i = mNowLine; i < mMaxLine; i++) {
 				data = mAdvData[i];
-				ret = MethodAnalysis(data.mMethod);
+				//ret = MethodAnalysis(data.mMethod);
+				ret = data.mMethodId;
 				if (ret == ScriptBase::eAnalysis_endif) {
 					if (data.mInt[0] != ifId) continue;
 					mNowLine = i;
@@ -419,7 +433,7 @@ void ScriptBase::Analysis() {
 		}
 	}
 		break;
-	case ScriptBase::eAnalyis_Ifn:
+	case ScriptBase::eAnalysis_Ifn:
 	{
 		SaveData::FLAG_DATA_t* mflagData = mSaveData->GetFlagData();
 		char* name = data.mString;
@@ -446,7 +460,8 @@ void ScriptBase::Analysis() {
 			int ifId = data.mInt[0];
 			for (int i = mNowLine; i < mMaxLine; i++) {
 				data = mAdvData[i];
-				ret = MethodAnalysis(data.mMethod);
+				//ret = MethodAnalysis(data.mMethod);
+				ret = data.mMethodId;
 				if (ret == ScriptBase::eAnalysis_endif) {
 					if (data.mInt[0] != ifId) continue;
 					mNowLine = i;
@@ -467,11 +482,11 @@ void ScriptBase::Analysis() {
 	case ScriptBase::eAnalysis_endif:
 		//mNowLine++;
 		break;
-	case ScriptBase::eAnalyis_FlagOn:
+	case ScriptBase::eAnalysis_FlagOn:
 		SetFlag(data.mString, TRUE);
 		//mNowLine++;
 		break;
-	case ScriptBase::eAnalyis_FlagOff:
+	case ScriptBase::eAnalysis_FlagOff:
 		SetFlag(data.mString, FALSE);
 		//mNowLine++;
 		break;
@@ -569,6 +584,28 @@ void ScriptBase::Analysis() {
 		}
 	}
 		break;
+	case ScriptBase::eAnalysis_SetGraphAlpha:
+	{
+		Graphics* graph = NULL;
+		for (int i = 0; i < mGraphicsDatas.size(); i++) {
+			if (mGraphicsDatas[i].mGraphId == data.mInt[0]) {
+				graph = mGraphicsDatas[i].mGraph;
+				break;
+			}
+		}
+
+		if (graph != NULL) {
+			int alpha = data.mInt[1];
+			if (alpha < 0) {
+				alpha = 0;
+			}
+			else if (alpha > 255) {
+				alpha = 255;
+			}
+			graph->SetAlpha(alpha);
+		}
+	}
+		break;
 	case ScriptBase::eAnalysis_End:
 		mIsEnd = true;
 		isNext = false;
@@ -595,20 +632,22 @@ void ScriptBase::Analysis() {
 */
 ScriptBase::eAnalysis ScriptBase::MethodAnalysis(const char* str) {
 
-	if (strcmpDx(str, "$mes") == 0) return ScriptBase::eAnalysis_Mes;
+	if (strcmpDx(str, "$talk") == 0) return ScriptBase::eAnalysis_Talk;
+	else if (strcmpDx(str, "$mes") == 0) return ScriptBase::eAnalysis_Mes;
 	else if (strcmpDx(str, "$label") == 0) return ScriptBase::eAnalysis_Lable;
 	else if (strcmpDx(str, "$goto") == 0) return ScriptBase::eAnalysis_Goto;
-	else if (strcmpDx(str, "$setFlag") == 0) return ScriptBase::eAnalyis_SetFlag;
-	else if (strcmpDx(str, "$flagOn") == 0) return ScriptBase::eAnalyis_FlagOn;
-	else if (strcmpDx(str, "$flagOff") == 0) return ScriptBase::eAnalyis_FlagOff;
-	else if (strcmpDx(str, "$if") == 0) return ScriptBase::eAnalyis_If;
-	else if (strcmpDx(str, "$ifn") == 0) return ScriptBase::eAnalyis_Ifn;
+	else if (strcmpDx(str, "$setFlag") == 0) return ScriptBase::eAnalysis_SetFlag;
+	else if (strcmpDx(str, "$flagOn") == 0) return ScriptBase::eAnalysis_FlagOn;
+	else if (strcmpDx(str, "$flagOff") == 0) return ScriptBase::eAnalysis_FlagOff;
+	else if (strcmpDx(str, "$if") == 0) return ScriptBase::eAnalysis_If;
+	else if (strcmpDx(str, "$ifn") == 0) return ScriptBase::eAnalysis_Ifn;
 	else if (strcmpDx(str, "$endif") == 0) return ScriptBase::eAnalysis_endif;
 	else if (strcmpDx(str, "$loadScript") == 0) return ScriptBase::eAnalysis_LoadScript;
 	else if (strcmpDx(str, "$loadGraph") == 0) return ScriptBase::eAnalysis_LoadGraph;
 	else if (strcmpDx(str, "$drawGraph") == 0) return ScriptBase::eAnalysis_DrawGraph;
 	else if (strcmpDx(str, "$hideGraph") == 0) return ScriptBase::eAnalysis_HideGraph;
 	else if (strcmpDx(str, "$animGraph") == 0) return ScriptBase::eAnalysis_AnimGraph;
+	else if (strcmpDx(str, "$setGraphAlpha") == 0) return ScriptBase::eAnalysis_SetGraphAlpha;
 	else if (strcmpDx(str, "$end") == 0) return ScriptBase::eAnalysis_End;
 	
 	return ScriptBase::eAnalysis_Error;
@@ -726,6 +765,7 @@ bool ScriptBase::Load(const char* filename) {
 				strcpyDx(advData.mMethod, data->data());
 
 				ScriptBase::eAnalysis ret = MethodAnalysis(advData.mMethod);
+				advData.mMethodId = ret;
 
 				switch (ret) {
 				case ScriptBase::eAnalysis_endif:
@@ -737,9 +777,18 @@ bool ScriptBase::Load(const char* filename) {
 			}
 			else {
 
-				ScriptBase::eAnalysis ret = MethodAnalysis(advData.mMethod);
+				//ScriptBase::eAnalysis ret = MethodAnalysis(advData.mMethod);
+				ScriptBase::eAnalysis ret = advData.mMethodId;
 
 				switch (ret) {
+				case ScriptBase::eAnalysis_Talk:
+					if (cnt == 1) {
+						strcpyDx(advData.mString, data->data());
+					}
+					else if (cnt == 2) {
+						strcpyDx(advData.mString2, data->data());
+					}
+					break;
 				case ScriptBase::eAnalysis_Mes:
 					strcpyDx(advData.mString, data->data());
 					break;
@@ -749,8 +798,8 @@ bool ScriptBase::Load(const char* filename) {
 				case ScriptBase::eAnalysis_Goto:
 					strcpyDx(advData.mString, data->data());
 					break;
-				case ScriptBase::eAnalyis_Ifn:
-				case ScriptBase::eAnalyis_If:
+				case ScriptBase::eAnalysis_Ifn:
+				case ScriptBase::eAnalysis_If:
 					if (cnt == 1) {
 						strcpyDx(advData.mString, data->data());
 						advData.mInt[0] = ifcnt;
@@ -761,7 +810,7 @@ bool ScriptBase::Load(const char* filename) {
 						ifcnt++;
 					}
 					break;
-				case ScriptBase::eAnalyis_SetFlag:
+				case ScriptBase::eAnalysis_SetFlag:
 					if (cnt == 1) {
 						strcpyDx(flagData.mFlagName, data->data());
 						data++;
@@ -772,10 +821,10 @@ bool ScriptBase::Load(const char* filename) {
 						}
 					}
 					break;
-				case ScriptBase::eAnalyis_FlagOn:
+				case ScriptBase::eAnalysis_FlagOn:
 					strcpyDx(advData.mString, data->data());
 					break;
-				case ScriptBase::eAnalyis_FlagOff:
+				case ScriptBase::eAnalysis_FlagOff:
 					strcpyDx(advData.mString, data->data());
 					break;
 				case ScriptBase::eAnalysis_LoadScript:
@@ -890,6 +939,14 @@ bool ScriptBase::Load(const char* filename) {
 					}
 
 					break;
+				case ScriptBase::eAnalysis_SetGraphAlpha:
+					if (cnt == 1) {
+						advData.mInt[0] = atoiDx(data->data());
+					}
+					else if (cnt == 2) {
+						advData.mInt[1] = atoiDx(data->data());
+					}
+					break;
 				}
 
 			}
@@ -902,7 +959,7 @@ bool ScriptBase::Load(const char* filename) {
 
 #ifdef __MY_DEBUG__
 		if (cnt > 0) {
-			Debug::LogPrintf("%s %s %d %d %d %d %d %d %f %f %f %f %f %f\n", advData.mMethod, advData.mString,
+			Debug::LogPrintf("%s %d %s %s %d %d %d %d %d %d %f %f %f %f %f %f\n", advData.mMethod, advData.mMethodId, advData.mString, advData.mString2,
 				advData.mInt[0], advData.mInt[1], advData.mInt[2], advData.mInt[3], advData.mInt[4], advData.mInt[5],
 				advData.mFloat[0], advData.mFloat[1], advData.mFloat[2], advData.mFloat[3], advData.mFloat[4], advData.mFloat[5] );
 		}

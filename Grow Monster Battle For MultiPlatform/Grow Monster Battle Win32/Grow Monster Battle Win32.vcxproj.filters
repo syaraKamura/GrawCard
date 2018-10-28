@@ -327,6 +327,9 @@
     <ClCompile Include="..\scr\Common\String\StringClick.cpp">
       <Filter>ソース ファイル\scr\Common\String</Filter>
     </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleAnimation.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\scr\Common\GameMgr.h">
@@ -538,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\String\StringClick.h">
       <Filter>ソース ファイル\scr\Common\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleAnimation.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

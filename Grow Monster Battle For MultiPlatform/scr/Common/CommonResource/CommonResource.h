@@ -24,28 +24,28 @@ public :
 		eComResName_MainMenuBG,			//メインメニュー背景
 		eComResName_CommonBG,			//汎用背景
 		eComResName_MsgBox,				//メッセージボックス
-		eComResName_Monster_00001,			//モンスターカード
-		eComResName_Monster_00002,			//モンスターカード
-		eComResName_Monster_00003,			//モンスターカード
-		eComResName_Monster_00004,			//モンスターカード
-		eComResName_Monster_00005,			//モンスターカード
-		eComResName_Monster_00006,			//モンスターカード
-		eComResName_Monster_00007,			//モンスターカード
-		eComResName_Monster_00008,			//モンスターカード
-		eComResName_Monster_00009,			//モンスターカード
-		eComResName_Monster_00010,			//モンスターカード
-		eComResName_Monster_00011,			//モンスターカード
-		eComResName_Monster_00012,			//モンスターカード
-		eComResName_Monster_00013,			//モンスターカード
-		eComResName_Monster_00014,			//モンスターカード
-		eComResName_Monster_00015,			//モンスターカード
-		eComResName_Monster_00016,			//モンスターカード
-		eComResName_Monster_00017,			//モンスターカード
-		eComResName_Monster_00018,			//モンスターカード
-		eComResName_Monster_00019,			//モンスターカード
-		eComResName_Monster_00020,			//モンスターカード
-		eComResName_Monster_00021,			//モンスターカード
-		eComResName_Monster_00022,			//モンスターカード
+		//eComResName_Monster_00001,			//モンスターカード
+		//eComResName_Monster_00002,			//モンスターカード
+		//eComResName_Monster_00003,			//モンスターカード
+		//eComResName_Monster_00004,			//モンスターカード
+		//eComResName_Monster_00005,			//モンスターカード
+		//eComResName_Monster_00006,			//モンスターカード
+		//eComResName_Monster_00007,			//モンスターカード
+		//eComResName_Monster_00008,			//モンスターカード
+		//eComResName_Monster_00009,			//モンスターカード
+		//eComResName_Monster_00010,			//モンスターカード
+		//eComResName_Monster_00011,			//モンスターカード
+		//eComResName_Monster_00012,			//モンスターカード
+		//eComResName_Monster_00013,			//モンスターカード
+		//eComResName_Monster_00014,			//モンスターカード
+		//eComResName_Monster_00015,			//モンスターカード
+		//eComResName_Monster_00016,			//モンスターカード
+		//eComResName_Monster_00017,			//モンスターカード
+		//eComResName_Monster_00018,			//モンスターカード
+		//eComResName_Monster_00019,			//モンスターカード
+		//eComResName_Monster_00020,			//モンスターカード
+		//eComResName_Monster_00021,			//モンスターカード
+		//eComResName_Monster_00022,			//モンスターカード
 
 		eComResName_Num,
 	};

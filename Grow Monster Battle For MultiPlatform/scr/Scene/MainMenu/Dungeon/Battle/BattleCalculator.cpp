@@ -31,7 +31,7 @@ float BattleCalculator::TypeCompatibilityRate(Monster::eType owner, Monster::eTy
 	//属性設定がどちらかがなければ等倍で返却
 	if (owner == Monster::eType_None || target == Monster::eType_None) return rate;	
 
-	int ret = (owner + 1) % (Monster::eType_Grass + 1);
+	int ret = (owner + 1) % (Monster::eType_Water + 1);
 
 	if (owner == target)	rate *= 1.0f;	//同じ属性
 	else if (ret == target)	rate *= 2.0f;	//相手の属性に有利
@@ -64,7 +64,7 @@ float BattleCalculator::HomePositionCompatibilityRate(Monster::eHomePosition own
 		Debug::ErorrMessage("不正なホームポジションが設定されています");
 	}
 
-	return 1.0f;
+	return rat;
 }
 
 /*

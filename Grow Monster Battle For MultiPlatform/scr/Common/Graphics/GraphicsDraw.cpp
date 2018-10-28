@@ -15,6 +15,10 @@
 #include "GraphicsDraw.h"
 
 GraphicsDraw::GraphicsDraw() {
+
+	mBasePosX = 0;
+	mBasePosY = 0;
+
 	mPosX = 0;
 	mPosY = 0;
 	mAlpha = 255;
@@ -131,4 +135,17 @@ void GraphicsDraw::GetSize(int* width, int* height) {
 	if (height != NULL) {
 		*height = mHeight;
 	}
+}
+
+void GraphicsDraw::SetBasePosition(int basePosX, int basePosY) {
+	mBasePosX = basePosX;
+	mBasePosY = basePosY;
+}
+
+int GraphicsDraw::GetBasePositionX() {
+	return mBasePosX;
+}
+
+int GraphicsDraw::GetBasePositionY() {
+	return mBasePosY;
 }

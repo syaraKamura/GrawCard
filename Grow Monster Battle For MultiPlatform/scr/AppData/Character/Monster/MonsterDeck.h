@@ -21,6 +21,7 @@ class MonsterDeck {
 private:
 
 	static const int MONSTER_DECK_NUM = 5;
+	int mSetMonsterCount;
 
 private:
 
@@ -59,6 +60,7 @@ public :
 	void SetMonster(int idx,Monster monster);
 	Monster* GetMonster(int idx);
 
+	int GetSetNum();
 
 };
 

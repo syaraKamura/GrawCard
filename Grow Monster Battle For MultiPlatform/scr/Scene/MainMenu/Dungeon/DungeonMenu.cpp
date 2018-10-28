@@ -106,11 +106,7 @@ bool DungeonMenu::Updata() {
 
 		if (TaskMgr::getInstance().GetTask(mTaskId) == NULL) {
 			mTaskId = -1;
-
-
-
 		}
-
 		return true;
 	}
 

@@ -89,7 +89,7 @@ bool Scene_Title::Initialize(){
 
 	mWork.isLoadSaveData = false;
 
-	if (AppData::GetInstance().Exits() == true) {
+	if (AppData::GetInstance()->Exits() == true) {
 		mWork.isLoadSaveData = true;
 	}
 
@@ -107,7 +107,7 @@ bool Scene_Title::Initialize(){
 
 	//セーブデータの読み込み
 	//SaveData読み込み
-	if (AppData::GetInstance().Exits() == true) {
+	if (AppData::GetInstance()->Exits() == true) {
 		mWork.isLoadSaveData = true;
 	}
 	

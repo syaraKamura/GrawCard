@@ -290,7 +290,7 @@ void SaveData::Save(SaveData save) {
 	mFile->WriteString(this->mVersion);
 	
 
-	//PlayerCharctor
+	//PlayerCharcter
 	int level = save.GetPlayer()->GetLevel();
 	const char* name = save.GetPlayer()->GetName();
 	int gender = save.GetPlayer()->GetGender();
@@ -455,6 +455,33 @@ SaveData::FLAG_DATA_t* SaveData::GetFlagData() {
 }
 
 /*
+	フラグの状態
+	int i			: フラグ番号
+	return	true	:
+			false	:
+*/
+bool SaveData::IsFlag(int i) {
+	if (i < 0 || i >= MAX_FLAGS) {
+		Debug::ErorrMessage("フラグデータの範囲外です");
+		return 0;
+	}
+	return (mFlag.mFlags[i] == 1);
+}
+
+/*
+	フラグの状態を設定する
+	int i		: フラグ番号
+	bool isFlag	: フラグを設定
+*/
+bool SaveData::SetFlag(int i, bool isFlag) {
+	if (i < 0 || i >= MAX_FLAGS) {
+		Debug::ErorrMessage("フラグデータの範囲外です");
+		return 0;
+	}
+	return mFlag.mFlags[i] = isFlag ? 1 : 0;
+}
+
+/*
 設定した最小サイズで割り切れるようにサイズを調整して返却する
 int	size	:最小サイズ
 return アライメント後のサイズ
@@ -478,5 +505,7 @@ int SaveData::GetAilmentSize(int size,size_t dataSize) {
 const char* SaveData::GetFilePath() {
 	return SAVE_DATA_PATH;
 }
+
+
 
 #endif	//__WINDOWS__

@@ -81,6 +81,9 @@ public :
 
 	unsigned int GetFlag(int i);
 	FLAG_DATA_t* GetFlagData();
+	bool IsFlag(int i);
+	bool SetFlag(int i,bool isFlag);
+
 };
 
 #endif //__SAE_DATA_H__

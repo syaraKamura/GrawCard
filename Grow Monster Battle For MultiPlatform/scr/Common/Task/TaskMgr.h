@@ -35,8 +35,8 @@ public:
 
 	*/
 	enum ePriorty {
-		ePriorty_Graphics,
 		ePriorty_0,
+		ePriorty_Graphics,
 		ePriorty_1,
 		ePriorty_2,
 		ePriorty_3,

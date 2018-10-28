@@ -15,6 +15,12 @@
 #include "MonsterDeck.h"
 
 MonsterDeck::MonsterDeck() {
+	mSetMonsterCount = 0;
+
+	for (int i = 0; i < MONSTER_DECK_NUM; i++) {
+		mMonster[i].isAttach = false;
+	}
+	
 
 }
 
@@ -31,6 +37,7 @@ void MonsterDeck::SetMonster(int idx, Monster monster) {
 
 Monster* MonsterDeck::GetMonster(int idx) {
 	if (idx < 0 || idx >= MONSTER_DECK_NUM) return NULL;
+	if (IsSetMonster(idx) == false) return NULL;
 	return &mMonster[idx].monster;
 }
 
@@ -50,6 +57,7 @@ bool MonsterDeck::IsSetMonster(int idx) {
 void MonsterDeck::Attach(int idx) {
 	if (idx < 0 || idx >= MONSTER_DECK_NUM) return;
 	mMonster[idx].isAttach = true;
+	mSetMonsterCount++;
 }
 
 /*
@@ -58,4 +66,9 @@ void MonsterDeck::Attach(int idx) {
 void MonsterDeck::Detach(int idx) {
 	if (idx < 0 || idx >= MONSTER_DECK_NUM) return;
 	mMonster[idx].isAttach = false;
+	mSetMonsterCount--;
+}
+
+int MonsterDeck::GetSetNum() {
+	return mSetMonsterCount;
 }

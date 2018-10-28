@@ -16,6 +16,18 @@
 
 class Easing {
 
+public :
+
+	enum eEasingType {
+		eEasingType_None,
+		eEasingType_InQuad,
+		eEasingType_OutQuad,
+		eEasingType_InOutQuad,
+		eEasingType_InCubic,
+		eEasingType_OutCubic,
+		eEasingType_InOutCubic,
+	};
+
 private:
 
 public :
@@ -27,6 +39,8 @@ public :
 	static float InCubic(float time, float totalTime, float min, float max);
 	static float OutCubic(float time, float totalTime, float min, float max);
 	static float InOutCubic(float time, float totalTime, float min, float max);
+
+	static float EasingValue(eEasingType type,float time, float totalTime, float min, float max);
 
 };
 

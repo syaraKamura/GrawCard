@@ -12,7 +12,9 @@
 !*/
 
 #include "Common/GameCommon.h"
+#include "./Easing/Easing.h"
 #include "Animation.h"
+
 
 /*
 	
@@ -61,6 +63,11 @@ Animation::Animation() {
 	mIsStop = true;
 	mIsPause = false;
 	mNowFrame = 0;
+
+	mBasePositionX = 0.0f;
+	mBasePositionY = 0.0f;
+	
+
 	memset(&mAnimationValue, 0, sizeof(ANIMATION_DATA_t));
 }
 
@@ -171,31 +178,41 @@ bool Animation::Update() {
 
 		float deltaFrame = (mCounter + 1) - prevKeyframe.keyframe;
 
+#if false
 		//現在の時間の割合
  		float rate = deltaFrame / frame;
 
 
-		float X = prevKeyframe.positionX + posX * rate;
-		float Y = prevKeyframe.positionY + posY * rate;
-		float ALPHA = prevKeyframe.alpha + alpha * rate;
-		float ANGLE = prevKeyframe.angle + angle * rate;
-		float SCALE = prevKeyframe.scale + scale * rate;
+float X = prevKeyframe.positionX + posX * rate;
+float Y = prevKeyframe.positionY + posY * rate;
+float ALPHA = prevKeyframe.alpha + alpha * rate;
+float ANGLE = prevKeyframe.angle + angle * rate;
+float SCALE = prevKeyframe.scale + scale * rate;
+#endif
 
-		if (mCounter == nextKeyframe.keyframe) {
-			if (X != nextKeyframe.positionX) X = nextKeyframe.positionX;
-			if (Y != nextKeyframe.positionY) Y = nextKeyframe.positionY;
-			if (ALPHA != nextKeyframe.alpha) ALPHA = nextKeyframe.alpha;
-			if (ANGLE != nextKeyframe.angle) ANGLE = nextKeyframe.angle;
-			if (SCALE != nextKeyframe.scale) SCALE = nextKeyframe.scale;
-		}
+Easing::eEasingType type = Easing::eEasingType_InOutQuad;
 
-		mAnimationValue.positionX = X;
-		mAnimationValue.positionY = Y;
-		mAnimationValue.alpha = ALPHA;
-		mAnimationValue.angle = ANGLE;
-		mAnimationValue.scale = SCALE;
+float X = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.positionX, nextKeyframe.positionX);
+float Y = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.positionY, nextKeyframe.positionY);
+float ALPHA = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.alpha, nextKeyframe.alpha);
+float ANGLE = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.angle, nextKeyframe.angle);
+float SCALE = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.scale, nextKeyframe.scale);
 
-		
+if (mCounter == nextKeyframe.keyframe) {
+	if (X != nextKeyframe.positionX) X = nextKeyframe.positionX;
+	if (Y != nextKeyframe.positionY) Y = nextKeyframe.positionY;
+	if (ALPHA != nextKeyframe.alpha) ALPHA = nextKeyframe.alpha;
+	if (ANGLE != nextKeyframe.angle) ANGLE = nextKeyframe.angle;
+	if (SCALE != nextKeyframe.scale) SCALE = nextKeyframe.scale;
+}
+
+mAnimationValue.positionX = X;
+mAnimationValue.positionY = Y;
+mAnimationValue.alpha = ALPHA;
+mAnimationValue.angle = ANGLE;
+mAnimationValue.scale = SCALE;
+
+
 
 
 	}
@@ -213,45 +230,45 @@ bool Animation::Update() {
 
 
 #else
-	if (mIsStop == true) return true;
-	else if (mIsPause == true) return true;
-	else if (mAnimationDataList.size() <= 0) return false;
+if (mIsStop == true) return true;
+else if (mIsPause == true) return true;
+else if (mAnimationDataList.size() <= 0) return false;
 
-	if (mIsPlay) {
+if (mIsPlay) {
 
-		ANIMATION_DATA_t nowKeyframe = {};
-		ANIMATION_DATA_t nextKeyframe = {};
-		//ANIMATION_DATA_t value = {};
+	ANIMATION_DATA_t nowKeyframe = {};
+	ANIMATION_DATA_t nextKeyframe = {};
+	//ANIMATION_DATA_t value = {};
 
-		if (mNowFrame < mAnimationDataList.size()) {
-			nowKeyframe = *std::next(mAnimationDataList.begin(), mNowFrame);
-		}
-		else {
-			//memset(&mAnimationValue, 0, sizeof(ANIMATION_DATA_t));
-		}
-
-		if (mCounter > nowKeyframe.keyframe) {
-			if (mNowFrame + 1 < mAnimationDataList.size()) {
-				nextKeyframe = *std::next(mAnimationDataList.begin(), mNowFrame + 1);
-				mAnimationValue = GetAnimationDataValue(nowKeyframe, nextKeyframe ,&mValue);
-			}
-			mNowFrame++;
-		}
-		
-
-		if (mCounter >= mTimeLength) {
-
-			this->Stop();
-			if (mIsLoop == true) {	
-				this->Play();
-			}
-			return true;
-		}
-		mCounter++;
+	if (mNowFrame < mAnimationDataList.size()) {
+		nowKeyframe = *std::next(mAnimationDataList.begin(), mNowFrame);
+	}
+	else {
+		//memset(&mAnimationValue, 0, sizeof(ANIMATION_DATA_t));
 	}
 
+	if (mCounter > nowKeyframe.keyframe) {
+		if (mNowFrame + 1 < mAnimationDataList.size()) {
+			nextKeyframe = *std::next(mAnimationDataList.begin(), mNowFrame + 1);
+			mAnimationValue = GetAnimationDataValue(nowKeyframe, nextKeyframe, &mValue);
+		}
+		mNowFrame++;
+	}
+
+
+	if (mCounter >= mTimeLength) {
+
+		this->Stop();
+		if (mIsLoop == true) {
+			this->Play();
+		}
+		return true;
+	}
+	mCounter++;
+}
+
 #endif
-	return true;
+return true;
 }
 
 void Animation::AnimationAttach(GraphicsDraw* graph, bool isNowBasePos/* = false*/) {
@@ -260,8 +277,18 @@ void Animation::AnimationAttach(GraphicsDraw* graph, bool isNowBasePos/* = false
 	float posX = 0.0f;
 	float posY = 0.0f;
 	if (isNowBasePos) {
-		posX = graph->GetPositionX();
-		posY = graph->GetPositionY();
+		if (mBasePositionX == 0.0f) {
+			//mBasePositionX = graph->GetPositionX() - mAnimationValue.positionX;
+			mBasePositionX = graph->GetBasePositionX() - mAnimationValue.positionX;
+		}
+
+		if (mBasePositionY == 0.0f) {
+			//mBasePositionY =  graph->GetPositionY() - mAnimationValue.positionY;
+			mBasePositionY = graph->GetBasePositionY() -mAnimationValue.positionY;
+		}
+	
+  		posX = mBasePositionX;
+		posY = mBasePositionY;
 	}
 	graph->SetPosition(posX + mAnimationValue.positionX, posY + mAnimationValue.positionY);
 	graph->SetAlpha(mAnimationValue.alpha);

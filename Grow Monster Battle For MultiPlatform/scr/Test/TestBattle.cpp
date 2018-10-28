@@ -21,25 +21,27 @@
 
 TestBattle::TestBattle(ISceneBase* changer) : SceneBase(changer) {
 	mBattle = new BattleBase();
+	TaskMgr::getInstance().Add(mBattle);
 }
 
 TestBattle::~TestBattle() {
-	Delete(mBattle);
+	
 }
 
 bool TestBattle::Initialize() {
 
-	AppData::GetInstance().Load();
+	AppData::GetInstance()->Load();
 
-	return mBattle->Initialize();
+	return true;
 }
 
 void TestBattle::Finalize() {
-	mBattle->Finalize();
+	TaskMgr::getInstance().RequestKill(mBattle->GetTaskId());
+	mBattle = NULL;
 }
 
 void TestBattle::PreviousUpdate() {
-	mBattle->PreviousUpdate();
+	
 }
 
 bool TestBattle::Updata() {
@@ -50,15 +52,15 @@ bool TestBattle::Updata() {
 	}
 #endif
 
-	return mBattle->Updata();
+	return true;
 }
 
 void TestBattle::Draw() {
-	mBattle->Draw();
+	
 }
 
 void TestBattle::PostUpdate() {
-	mBattle->PostUpdate();
+	
 }
 
 #endif //__MY_DEBUG__

@@ -37,6 +37,7 @@ private :
 	};
 
 	enum eMenu {
+		eMenu_OpenRouge,
 		eMenu_MainMenu,
 		eMenu_Fade,
 		eMenu_Quest,
@@ -61,6 +62,8 @@ private :
 	int mNowMenuTaskID;
 
 	bool mIsEnableGraph;	//画像が非表示か？
+
+	unsigned int mIsEndOpenRouge;
 
 private:
 

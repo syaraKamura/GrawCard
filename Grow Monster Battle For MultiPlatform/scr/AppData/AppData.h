@@ -18,26 +18,38 @@
 
 class AppData {
 
+public :
+
+	enum eAPPDATA_FLAG {
+		eAPPDATA_FLAG_DipsOpenRogue = 100,
+
+		eAPPDATA_FLAG_Max = SaveData::MAX_FLAGS,
+	};
+
 private:
 
 	SaveData* mSaveData;
-	static AppData mInst;
+	static AppData* mInst;
 
 private:
 
 	AppData();
 	
+	~AppData();
 
 public:
 
-	~AppData();
+	
 
-	static AppData GetInstance();
+	static void Create();
+	static void Destory();
+
+	static AppData* GetInstance();
 
 	void Save();
 	void Load();
 
-	SaveData* GetSaveData();
+	SaveData* GetSaveData() const;
 	void SetSaveData(SaveData saveData);
 
 	bool Exits();

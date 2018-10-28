@@ -30,37 +30,35 @@ ComRes::ComRes() {
 		{eComResKind_Graphic,	"Resources/Graphics/BG/menu_ui_re.png"	},
 		{ eComResKind_Graphic,	"Resources/Graphics/BG/deckedit.png"	},
 		{ eComResKind_Graphic,	"Resources/Graphics/UI/msgBox.png"		},
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00001.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00002.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00003.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00004.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00005.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00006.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00007.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00008.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00009.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00010.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00011.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00012.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00013.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00014.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00015.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00016.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00017.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00018.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00019.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00020.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00021.png" },
-		{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00022.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00001.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00002.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00003.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00004.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00005.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00006.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00007.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00008.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00009.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00010.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00011.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00012.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00013.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00014.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00015.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00016.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00017.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00018.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00019.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00020.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00021.png" },
+		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00022.png" },
 	};
 
 	for (int i = 0; i < eComResName_Num; i++) {
 		mComRes[i] = COM_RES_TBL[i];
 	}
-
-	mStartTime = 0;
-
 #ifdef __MY_DEBUG__
+	mStartTime = 0;
 	mIsError = false;
 #endif
 

@@ -68,6 +68,8 @@ void GameMgr::Initialize(){
 	//Mouse_Initialize();
 #endif
 
+	AppData::Create();
+
 	MonsterMgr::Create();
 
 }
@@ -86,6 +88,8 @@ void GameMgr::Finalize(){
 #endif
 
 	MonsterMgr::Destory();
+
+	AppData::Destory();
 
 }
 

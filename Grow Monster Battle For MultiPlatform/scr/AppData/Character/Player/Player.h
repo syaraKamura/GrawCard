@@ -62,6 +62,10 @@ public:
 	*/
 	bool SetMonster(int idx, Monster monster);
 	Monster* GetMonster(int idx);
+	/*
+		デッキに設定しているモンスターの数
+	*/
+	int GetSetMonsterNum();
 
 };
 

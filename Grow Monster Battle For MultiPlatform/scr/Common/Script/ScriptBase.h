@@ -39,12 +39,13 @@ private:
 
 	enum eAnalysis {
 		eAnalysis_Error = -1,		//エラー							
+		eAnalysis_Talk,				//会話									[話者名][文字列]
 		eAnalysis_Mes,				//メッセージ							[文字列]
-		eAnalyis_SetFlag,			//フラグを設定							[フラグ名][フラグ番号]
-		eAnalyis_FlagOn,			//フラグをオンにする					[フラグ名]
-		eAnalyis_FlagOff,			//フラグをオフにする					[フラグ名]
-		eAnalyis_If,				//if文	:ONになっているか確認する		[フラグ名]
-		eAnalyis_Ifn,				//ifn文	:OFFになっているか確認する		[フラグ名]
+		eAnalysis_SetFlag,			//フラグを設定							[フラグ名][フラグ番号]
+		eAnalysis_FlagOn,			//フラグをオンにする					[フラグ名]
+		eAnalysis_FlagOff,			//フラグをオフにする					[フラグ名]
+		eAnalysis_If,				//if文	:ONになっているか確認する		[フラグ名]
+		eAnalysis_Ifn,				//ifn文	:OFFになっているか確認する		[フラグ名]
 		eAnalysis_endif,			//if文終了								
 		eAnalysis_Lable,			//ラベル								[ラベル名]
 		eAnalysis_Goto,				//指定のラベル位置に移動する			[ラベル名]
@@ -53,6 +54,7 @@ private:
 		eAnalysis_DrawGraph,		//画像表示								[管理番号][X座標][Y座標][フェードインを行うか(0 or 1)]
 		eAnalysis_HideGraph,		//画像を非表示にする					[管理番号][非表示までにかかる時間(1以上)]
 		eAnalysis_AnimGraph,		//画像をアニメーションさせる			[管理番号][アニメーション番号][ループ再生か(0 or 1)][今の座標を原点とするか(0 or 1)]
+		eAnalysis_SetGraphAlpha,	//画像のアルファ値を設定する			[管理番号][アルファ値(0 ~ 255)]
 		eAnalysis_End,				//スクリプト終了
 
 	};
@@ -68,8 +70,10 @@ private:
 	}FLAG_DATA_t;
 
 	typedef struct {
+		eAnalysis mMethodId;
 		char mMethod[27];
 		char mString[1024];
+		char mString2[1024];
 		int mInt[MAX_INT_VALUE];
 		float mFloat[MAX_FLOAT_VALUE];
 	}ADV_DATA_t;
@@ -86,6 +90,7 @@ private:
 
 	Graphics mMsgGraphics;
 
+	StringBase* mTalkName;	// 話している人の名前を設定
 	StringBase* mString;
 	StringBase::eDrawState mOldStringDrawState;	//文字列描画状態
 	StringBase::eDrawState mStringDrawState;	//文字列描画状態

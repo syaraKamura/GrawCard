@@ -16,7 +16,7 @@
 #include "Common/GameCommon.h"
 #include "../ISceneBase.h"
 #include "Scene_MainMenu.h"
-
+#include "Common/Script/ScriptBase.h"
 #include "Dungeon/DungeonMenu.h"
 
 Scene_MainMenu::Scene_MainMenu(ISceneBase* changer) : SceneBase(changer) {
@@ -34,10 +34,6 @@ Scene_MainMenu::Scene_MainMenu(ISceneBase* changer, Debug* debug) : SceneBase(ch
 #endif
 
 bool Scene_MainMenu::Initialize() {
-
-	mState = eState_Initialize;
-	mMenu = eMenu_MainMenu;
-	mNextMenu = eMenu_None;
 
 	Graphics* add = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MainMenuBG);
 	if (add != NULL) {
@@ -66,6 +62,27 @@ bool Scene_MainMenu::Initialize() {
 	}
 #endif
 
+
+	mState = eState_Initialize;
+
+	SaveData* saveData = AppData::GetInstance()->GetSaveData();
+
+	mIsEndOpenRouge = 0;
+
+	if (saveData != NULL) {
+		mIsEndOpenRouge = saveData->GetFlag((int)AppData::eAPPDATA_FLAG_DipsOpenRogue);
+	}
+
+	mMenu = eMenu_MainMenu;
+
+	if (mIsEndOpenRouge == 0) {
+		mMenu = eMenu_OpenRouge;
+		GraphicsDrawMgr::GetInstance()->Get(mBackImageOrder)->SetVisible(false);
+		GraphicsDrawMgr::GetInstance()->Get(mButtonImageOrder)->SetVisible(false);
+	}
+
+	mNextMenu = eMenu_None;
+
 	return true;
 }
 
@@ -74,7 +91,7 @@ void Scene_MainMenu::Finalize() {
 	GraphicsDrawMgr::GetInstance()->ReleseRequest(mButtonImageOrder);
 
 #ifdef __MY_DEBUG__
-	mDebug->DeleteList();
+	//mDebug->DeleteList();
 #endif	//__MY_DEBUG__
 
 }
@@ -141,6 +158,26 @@ bool Scene_MainMenu::UpdataProc() {
 
 	if (mNowMenuTaskID != -1) {
 
+		if (mMenu == eMenu_OpenRouge) {
+			TaskBase* task = TaskMgr::getInstance().GetTask(mNowMenuTaskID);
+			ScriptBase* script = dynamic_cast<ScriptBase*>(task);
+			if (script != NULL) {
+				if (script->IsEnd()) {
+#if true
+					mIsEndOpenRouge = 1;
+					TaskMgr::getInstance().RequestKill(mNowMenuTaskID);
+#else
+					SaveData* saveData = AppData::GetInstance().GetSaveData();
+					if (saveData != NULL) {
+						SaveData::FLAG_DATA_t* flag = saveData->GetFlagData();
+						flag->mFlags[AppData::eAPPDATA_FLAG_DipsOpenRogue] = 1;
+						AppData::GetInstance().Save();
+					}
+#endif
+				}
+			}
+		}
+
 		if (TaskMgr::getInstance().GetTask(mNowMenuTaskID) == NULL) {
 			mNowMenuTaskID = -1;
 			NexetState(eState_Main, eFadeType_In, 30);
@@ -172,7 +209,15 @@ bool Scene_MainMenu::UpdataProc() {
 	}
 
 	if (Fade::GetInstance()->IsFadeEnd()) {
-		mMenu = eMenu_MainMenu;
+		//SaveData* saveData = AppData::GetInstance().GetSaveData();
+		//if (saveData != NULL && saveData->GetFlag((int)AppData::eAPPDATA_FLAG_DipsOpenRogue) == 0) {
+		if(mIsEndOpenRouge == 0){
+			mMenu = eMenu_OpenRouge;
+		}
+		else {
+			mMenu = eMenu_MainMenu;
+		}
+		
 	}
 
 	if (mNextMenu != eMenu_None) {
@@ -182,6 +227,12 @@ bool Scene_MainMenu::UpdataProc() {
 	bool result = true;
 
 	switch (mMenu) {
+	case eMenu_OpenRouge:
+	{
+		mNowMenuTaskID = TaskMgr::getInstance().Add(new ScriptBase("ADV_0000.txt"), TaskMgr::ePriorty_0);
+		mIsEnableGraph = false;
+	}
+		break;
 	case eMenu_MainMenu:
 		result = MainMenuProc();
 		break;
@@ -241,8 +292,10 @@ bool Scene_MainMenu::MainMenuProc() {
 		mNextMenu = eMenu_Quest;
 	}
 	else if (selectNumber == 1) {
+#ifdef __MY_DEBUG__
 		//mNextScene->SceneChange(ISceneBase::eScene_AITest);
 		mNextScene->SceneChange(ISceneBase::eScene_TestADV);
+#endif // __MY_DEBUG__
 	}
 
 

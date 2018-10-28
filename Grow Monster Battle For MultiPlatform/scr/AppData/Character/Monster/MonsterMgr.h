@@ -16,13 +16,23 @@
 
 #include "Monster.h"
 
+class Graphcics;
+
 class MonsterMgr {
+
+private:
+	
+	typedef struct MonsterGraph_t{
+		int id;
+		Graphics* graph;
+	};
 
 private :
 
 	static MonsterMgr* mInstance;
 
 	std::list<Monster> mList;
+	std::list<MonsterGraph_t> mGraphList;
 
 	MonsterMgr();
 	~MonsterMgr();
@@ -35,6 +45,7 @@ public :
 	static MonsterMgr* Instance();
 
 	Monster getMonsterData(int number);
+	Graphics GetGraphics(int number);
 
 };
 

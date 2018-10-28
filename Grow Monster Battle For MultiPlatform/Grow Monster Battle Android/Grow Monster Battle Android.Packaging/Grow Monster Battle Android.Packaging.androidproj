@@ -119,62 +119,6 @@
     </AntPackage>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Content Include="assets\Resources\Data\AdvScripts\ADV_0001.txt" />
-    <Content Include="assets\Resources\Data\AdvScripts\ADV_0002.txt" />
-    <Content Include="assets\Resources\Data\Font\MS_mintyou_UTF_8.dft" />
-    <Content Include="assets\Resources\Data\Graph000.xml" />
-    <Content Include="assets\Resources\Data\Graph100.xml" />
-    <Content Include="assets\Resources\Data\Monster\MonsterData.dat" />
-    <Content Include="assets\Resources\Graphics\BG\deckedit.png" />
-    <Content Include="assets\Resources\Graphics\BG\image.png" />
-    <Content Include="assets\Resources\Graphics\BG\menu_ui_re.png" />
-    <Content Include="assets\Resources\Graphics\BG\opning.png" />
-    <Content Include="assets\Resources\Graphics\BG\selectBack.png" />
-    <Content Include="assets\Resources\Graphics\BG\Title.png" />
-    <Content Include="assets\Resources\Graphics\BG\zukan.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00001.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00002.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00003.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00004.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00005.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00006.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00007.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00008.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00009.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00010.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00011.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00012.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00013.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00014.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00015.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00016.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00017.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00018.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00019.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00020.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00021.png" />
-    <Content Include="assets\Resources\Graphics\Monster\mon_00022.png" />
-    <Content Include="assets\Resources\Graphics\Monster\Test.png" />
-    <Content Include="assets\Resources\Graphics\UI\batoru-ui.png" />
-    <Content Include="assets\Resources\Graphics\UI\button\menu_adventure2.png" />
-    <Content Include="assets\Resources\Graphics\UI\button\menu_gacha2.png" />
-    <Content Include="assets\Resources\Graphics\UI\button\menu_monster2.png" />
-    <Content Include="assets\Resources\Graphics\UI\button\menu_player2.png" />
-    <Content Include="assets\Resources\Graphics\UI\button\menu_save2.png" />
-    <Content Include="assets\Resources\Graphics\UI\button\menu_shop2.png" />
-    <Content Include="assets\Resources\Graphics\UI\continue.png" />
-    <Content Include="assets\Resources\Graphics\UI\msgBox.png" />
-    <Content Include="assets\Resources\Graphics\UI\Number\0.png" />
-    <Content Include="assets\Resources\Graphics\UI\Number\1.png" />
-    <Content Include="assets\Resources\Graphics\UI\Number\2.png" />
-    <Content Include="assets\Resources\Graphics\UI\Number\3.png" />
-    <Content Include="assets\Resources\Graphics\UI\Number\4.png" />
-    <Content Include="assets\Resources\Graphics\UI\Number\5.png" />
-    <Content Include="assets\Resources\Graphics\UI\Number\6.png" />
-    <Content Include="assets\Resources\Graphics\UI\Number\7.png" />
-    <Content Include="assets\Resources\Graphics\UI\Number\8.png" />
-    <Content Include="assets\Resources\Graphics\UI\Number\9.png" />
-    <Content Include="assets\Resources\Graphics\UI\start.png" />
     <Content Include="res\drawable\icon.ico" />
     <Content Include="res\values\strings.xml" />
     <AntBuildXml Include="build.xml" />
@@ -192,7 +136,7 @@
     <JavaCompile Include="src\com\Grow_Monster_Battle_Android\Packaging\GrawMonsterBattle.java" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="assets\Resources\Graphics\Common\" />
+    <Folder Include="assets\" />
   </ItemGroup>
   <Import Project="$(AndroidTargetsPath)\Android.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -202,6 +202,7 @@
     <ClCompile Include="..\scr\Common\XML\XmlPurser.cpp" />
     <ClCompile Include="..\scr\Scene\Boot\Scene_Boot.cpp" />
     <ClCompile Include="..\scr\Scene\ISceneBase.cpp" />
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleAnimation.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonMenu.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="..\scr\Common\XML\XmlPurser.h" />
     <ClInclude Include="..\scr\Scene\Boot\Scene_Boot.h" />
     <ClInclude Include="..\scr\Scene\ISceneBase.h" />
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleAnimation.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonMenu.h" />

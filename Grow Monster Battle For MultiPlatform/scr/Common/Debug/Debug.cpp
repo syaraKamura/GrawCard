@@ -94,7 +94,9 @@ void Debug::Draw() {
 
 
 void Debug::DeleteList() {
-	Delete(mDebugList);
+	if (mDebugList != NULL) {
+		Delete(mDebugList);
+	}
 }
 
 /*

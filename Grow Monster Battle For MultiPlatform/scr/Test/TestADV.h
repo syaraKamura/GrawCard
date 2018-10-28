@@ -23,6 +23,7 @@ class TestADV : public SceneBase {
 private:
 
 	int mTaskId;	//タスクID
+	int mSelect;
 
 public :
 

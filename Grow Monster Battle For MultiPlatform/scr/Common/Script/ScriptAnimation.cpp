@@ -160,8 +160,6 @@ bool ScriptAnimation::Updata() {
 		GraphicsDraw* graph = this->mAnimData[i].mGraphics;
 		anim->AnimationAttach(graph,this->mAnimData[i].mIsNowPosBase);
 		anim->Update();
-		clsDx();
-		printfDx("(X:Y)(%d:%d)\n", graph->GetPositionX(), graph->GetPositionY());
 	}
 	return true;
 }

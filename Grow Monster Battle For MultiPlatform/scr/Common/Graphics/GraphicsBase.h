@@ -30,17 +30,17 @@ protected:
 
 	int mHandle;
 
-#ifdef __MY_DEBUG__
+//#ifdef __MY_DEBUG__
 	char mFileName[1024];
-#endif
+//#endif
 
 public:
 
 	GraphicsBase() :GraphicsDraw() {
 		mHandle = 0;
-#ifdef __MY_DEBUG__
+//#ifdef __MY_DEBUG__
 		strcpyDx(mFileName, "");
-#endif
+//#endif
 	}
 	
 	virtual bool Load(const char* path) = 0;
@@ -58,7 +58,9 @@ public:
 			name = fileName;
 		}
 		
+//#ifdef __MY_DEBUG__
 		strcpyDx(mFileName, name);
+//#endif // __MY_DEBUG__
 
 	}
 

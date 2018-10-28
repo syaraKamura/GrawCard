@@ -18,6 +18,7 @@
 
 class AppData;
 class Player;
+class BattleAnimation;
 
 class BattleBase : public TaskBase{
 
@@ -50,6 +51,25 @@ public :
 		eBattleMainStep_Num,
 	};
 
+	enum eActiveType {
+		eActiveType_Attack,		// 攻撃
+		eActiveType_Recovery,	// 回復
+		eActiveType_Skill		// スキル
+	};
+
+	enum eDeckType {
+		eDeckType_Player,		// プレイヤー　
+		eDeckType_Enemy,		// エネミー
+	};
+
+	typedef struct MOVE_DATA_t{
+		eDeckType moveDeckType;
+		int moveId;
+		eDeckType targetDeckType;
+		int targetId;
+		eActiveType activeType;
+	};
+
 #ifdef __MY_DEBUG__
 	const char* dbg_STEP_TITLE[eBattleStep_Num] =
 	{
@@ -76,13 +96,19 @@ protected:
 	Graphics* mCard;
 
 	Player* mPlayer;
-
+	MonsterDeck* mEnemy;	// 敵モンスター
 
 	eBattleStep mNowStep;	//現在のステップ
 	eBattleStep mNextStep;	//次のステップ
 
 	eBattleMainStep mMainStep;	// メインステップ
 
+	std::list<MOVE_DATA_t> mMoveData;
+
+	Graphics mPlayerCard[5];
+	Graphics mEnemyCard[5];
+
+	BattleAnimation* mBattleAnimation;
 
 protected:
 
@@ -92,6 +118,19 @@ protected:
 		eFadeType fadeType		:フェードタイプ
 	*/
 	void NexetStepRequest(eBattleStep nextStep, eFadeType fadeType = eFadeType_None);
+
+	/*
+		生存しているモンスターを返却する
+		eDeckType type		: 探索するデッキタイプ
+	*/
+	Monster* GetLiveMonster(eDeckType type);
+
+	/*
+		手持ちのモンスターがすべて倒されているか判断する
+		return	true	:倒されている
+				false	:倒されていない
+	*/
+	bool CheckAllDead(eDeckType type);
 
 public:
 

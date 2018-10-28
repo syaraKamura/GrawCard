@@ -30,6 +30,9 @@ protected:
 	int mPosY;
 	int mAlpha;
 
+	int mBasePosX;
+	int mBasePosY;
+
 	double mScale;
 	double mAngle;
 
@@ -50,6 +53,10 @@ public:
 	int GetPositionX();
 	int GetPositionY();
 	int GetAlpah();
+
+	void SetBasePosition(int basePosX, int basePosY);
+	int GetBasePositionX();
+	int GetBasePositionY();
 
 	double GetScale();
 

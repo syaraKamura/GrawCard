@@ -44,6 +44,9 @@ private:
 
 	std::list<ANIMATION_DATA_t> mAnimationDataList;
 	
+	float mBasePositionX;
+	float mBasePositionY;
+
 private:
 
 	/*
