@@ -18,6 +18,8 @@
 
 class Joypad;
 class Touch;
+class ButtonGraph;
+class Button;
 
 class AITest :public SceneBase{
 
@@ -25,6 +27,9 @@ private:
 
 	Joypad* mJoyPad;
 	Touch* mTouch;
+
+	ButtonGraph* mButton;
+	Button* mPrevButton;
 
 public:
 
@@ -35,6 +40,8 @@ public:
 	void PreviousUpdate() override;
 	bool Updata() override;
 	void Draw() override;
+
+	void OnClick(View* view) override;
 
 
 };

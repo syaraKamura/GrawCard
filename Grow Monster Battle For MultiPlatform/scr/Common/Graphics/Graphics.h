@@ -38,6 +38,7 @@ public:
 	void Relese() override;
 
 	void Draw(int posX, int posY, int alpha, double angle, double scale) override;
+	void Draw();
 
 	bool IsTouch() override;
 	

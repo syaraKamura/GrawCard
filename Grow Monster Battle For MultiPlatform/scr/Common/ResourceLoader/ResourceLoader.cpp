@@ -69,7 +69,7 @@ int ResourceLoader::Get(std::string fileName) {
 		}
 	}
 
-	//一覧になければ読み恋を開始する
+	//一覧になければ読み込みを開始する
 	if (LoadASync(fileName)) {
 		return Get(fileName);
 	}

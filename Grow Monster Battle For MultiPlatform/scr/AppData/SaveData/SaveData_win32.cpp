@@ -153,21 +153,21 @@ SaveData* SaveData::Load() {
 				mFile->ReadInt(&spd);
 				mFile->ReadInt(&cost);
 
-				Monster monster;
+				Monster* monster = new Monster();
 
-				monster.SetLevel(level);
-				monster.SetName(name);
-				monster.SetType((Monster::eType)type);
-				monster.SetExp(exp);
-				monster.SetNextExp(nextExp);
-				monster.SetHp(hp);
-				monster.SetHpMax(maxHp);
-				monster.SetMp(mp);
-				monster.SetMpMax(maxMp);
-				monster.SetAttack(atk);
-				monster.SetDeffence(def);
-				monster.SetSpeed(spd);
-				monster.SetCost(cost);
+				monster->SetLevel(level);
+				monster->SetName(name);
+				monster->SetType((Monster::eType)type);
+				monster->SetExp(exp);
+				monster->SetNextExp(nextExp);
+				monster->SetHp(hp);
+				monster->SetHpMax(maxHp);
+				monster->SetMp(mp);
+				monster->SetMpMax(maxMp);
+				monster->SetAttack(atk);
+				monster->SetDeffence(def);
+				monster->SetSpeed(spd);
+				monster->SetCost(cost);
 
 				data->GetPlayer()->SetMonster(i, monster);
 			}
@@ -306,9 +306,14 @@ void SaveData::Save(SaveData save) {
 	mFile->WriteInt(cost);
 
 	//デッキ
+	Player player = *save.GetPlayer();
 	for (int i = 0; i < 5; i++) {
 
-		Monster monster = *save.GetPlayer()->GetMonster(i);
+		//Monster monster = *save.GetPlayer()->GetMonster(i);
+		Monster* mon = player.GetMonster(i);
+		
+		Monster monster;
+		if (mon != NULL) monster = *mon;
 
 		int level = monster.GetLevel();
 		const char* name = monster.GetName();

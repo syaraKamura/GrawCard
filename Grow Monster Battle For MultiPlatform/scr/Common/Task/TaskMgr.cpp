@@ -1,12 +1,12 @@
-/*
-				ƒtƒ@ƒCƒ‹–¼		:TaskMgr.cpp
-				ì¬ŽÒ			:
-				ì¬“úŽž		:2017/12/06
-				ƒ\[ƒXà–¾		:ƒ^ƒXƒNƒ}ƒl[ƒWƒƒ[ƒNƒ‰ƒX
+ï»¿/*
+				ãƒ•ã‚¡ã‚¤ãƒ«å		:TaskMgr.cpp
+				ä½œæˆè€…			:
+				ä½œæˆæ—¥æ™‚		:2017/12/06
+				ã‚½ãƒ¼ã‚¹èª¬æ˜Ž		:ã‚¿ã‚¹ã‚¯ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚¯ãƒ©ã‚¹
 
 				
 				
-				”õl
+				å‚™è€ƒ
 					
 				
 				
@@ -25,7 +25,7 @@ bool TaskMgr::Initialize(){
 }
 
 /*
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 */
 void TaskMgr::Finalize() {
 	DeleteAll();
@@ -56,7 +56,7 @@ void TaskMgr::PreviousUpdate() {
 	
 }
 
-//’ÊíXV
+//é€šå¸¸æ›´æ–°
 bool TaskMgr::Updata(){
 	bool result = true;
 	for(auto itr = mList.begin();itr != mList.end();itr++){
@@ -67,19 +67,19 @@ bool TaskMgr::Updata(){
 	return result;
 }
 
-//•`‰æ
+//æç”»
 void TaskMgr::Draw(){
 		
 	for(auto itr = mList.begin();itr != mList.end();itr++){
 		bool isSkip = false;
-		//íœˆË—Š‚ª—ˆ‚Ä‚¢‚È‚¢‚©Šm”F‚·‚é
+		//å‰Šé™¤ä¾é ¼ãŒæ¥ã¦ã„ãªã„ã‹ç¢ºèªã™ã‚‹
 		for(auto reqKillOrder = mKillOrderList.begin(); reqKillOrder != mKillOrderList.end();reqKillOrder++){
 			if((*itr)->GetTaskId() == *reqKillOrder){
 				isSkip = true;
 				break;
 			}
 		}
-		//‰Šú‰»‚ªI‚í‚Á‚Ä‚¢‚È‚¢‚Ü‚½‚ÍíœˆË—Š‚ª‚³‚ê‚Ä‚¢‚é‚È‚ç•`‰æ‚ð‚µ‚È‚¢
+		//åˆæœŸåŒ–ãŒçµ‚ã‚ã£ã¦ã„ãªã„ã¾ãŸã¯å‰Šé™¤ä¾é ¼ãŒã•ã‚Œã¦ã„ã‚‹ãªã‚‰æç”»ã‚’ã—ãªã„
 		if((*itr)->isInitialize() == false|| isSkip == true) continue;
 			
 		(*itr)->Draw();
@@ -88,7 +88,7 @@ void TaskMgr::Draw(){
 }
 
 
-//‚ ‚ÆXV
+//ã‚ã¨æ›´æ–°
 void TaskMgr::LateUpdata(){
 
 	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
@@ -100,13 +100,14 @@ void TaskMgr::LateUpdata(){
 	KillTaskProc();
 }
 
-//‚·‚×‚Ä‚ðíœ‚·‚é
+//ã™ã¹ã¦ã‚’å‰Šé™¤ã™ã‚‹
 void TaskMgr::DeleteAll(){
 	mList.clear();
 	mKillOrderList.clear();
+	mSarchList.clear();
 }
 
-//ƒ\[ƒg—pŠÖ”
+//ã‚½ãƒ¼ãƒˆç”¨é–¢æ•°
 static bool sort_priorty(TaskBase* a,TaskBase* b){
 	return a->GetPriorty() < b->GetPriorty();
 }
@@ -125,14 +126,17 @@ int TaskMgr::Add(TaskBase* task,int priorty){
 
 	mList.sort(sort_priorty);
 
+	// æ¤œç´¢ç”¨ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
+	mSarchList.insert(std::make_pair(mOrder, task));
+
 	
 #ifdef __MY_DEBUG__
 
-	Debug::LogPrintf("=====       “o˜^Task       ===== \n");
+	Debug::LogPrintf("=====       ç™»éŒ²Task       ===== \n");
 	Debug::LogPrintf("TaskId : %d TaskName : %s\n", task->GetTaskId(), task->GetTaskName());
 	Debug::LogPrintf("================================ \n\n\n");
 
-	Debug::LogPrintf("=====        Taskƒ\[ƒg    ===== \n");
+	Debug::LogPrintf("=====        Taskã‚½ãƒ¼ãƒˆ    ===== \n");
 	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
 		Debug::LogPrintf("TaskId : %d TaskName : %s Prio : %d\n", (*itr)->GetTaskId(), (*itr)->GetTaskName(), (*itr)->GetPriorty());
 	}
@@ -150,22 +154,37 @@ int TaskMgr::Add(pointer_func updata,pointer_func draw,pointer_func destroy,int 
 }
 
 /*
-	Žw’è‚Ìƒ^ƒXƒN‚ð•Ô‹p‚·‚é
-	int taskId	:ƒ^ƒXƒN”Ô†
-	return	NULLˆÈŠO: Žw’è‚Ìƒ^ƒXƒN‚ð•Ô‹p‚·‚é
-			NULL	: ‘¶Ý‚µ‚È‚¢ƒ^ƒXƒN”Ô†
+	æŒ‡å®šã®ã‚¿ã‚¹ã‚¯ã‚’è¿”å´ã™ã‚‹
+	int taskId	:ã‚¿ã‚¹ã‚¯ç•ªå·
+	return	NULLä»¥å¤–: æŒ‡å®šã®ã‚¿ã‚¹ã‚¯ã‚’è¿”å´ã™ã‚‹
+			NULL	: å­˜åœ¨ã—ãªã„ã‚¿ã‚¹ã‚¯ç•ªå·
 */
 TaskBase* TaskMgr::GetTask(int taskId) const{
+
+#if true
+	// C++11ä»¥é™ã§ã®ã¿ä½¿ç”¨ã§ãã‚‹æ©Ÿèƒ½.
+	try {
+		return mSarchList.at(taskId);
+	}
+	catch (std::out_of_range) {
+		return NULL;
+	}
+
+#else
+
 	for(auto itr = mList.begin();itr != mList.end();itr++){
 		if((*itr)->GetTaskId() == taskId){
 			return (*itr);
 		}
 	}
+
 	return NULL;
+#endif
+
 }
 
 
-//íœ‚ðˆË—Š‚·‚é
+//å‰Šé™¤ã‚’ä¾é ¼ã™ã‚‹
 void TaskMgr::RequestKill(int taskId ){
 
 	bool isReqest = false;
@@ -195,41 +214,43 @@ TaskMgr::TaskMgr(){
 }
 TaskMgr::~TaskMgr(){DeleteAll();}
 
-//íœˆË—Š‚ª‚ ‚Á‚½ƒ^ƒXƒN‚ðÁ‚·
+//å‰Šé™¤ä¾é ¼ãŒã‚ã£ãŸã‚¿ã‚¹ã‚¯ã‚’æ¶ˆã™
 void TaskMgr::KillTaskProc(){
 
 	if(mKillOrderList.size() == 0) return ;
 
-	//Žw’è‚ÌƒŠƒXƒg‚ðíœ‚·‚é
+	//æŒ‡å®šã®ãƒªã‚¹ãƒˆã‚’å‰Šé™¤ã™ã‚‹
 	for(auto reqKillOrder = mKillOrderList.begin(); reqKillOrder != mKillOrderList.end();reqKillOrder++){
-		bool isKill = false;	//íœƒtƒ‰ƒO true:íœ false:íœ‚Å‚«‚È‚©‚Á‚½
-		bool isFind = false;	//íœˆË—Š‚Ìƒ^ƒXƒN”Ô†”­Œ©ƒtƒ‰ƒO true:”­Œ©	false:Œ©‚Â‚¯‚ç‚ê‚È‚©‚Á‚½
+		bool isKill = false;	//å‰Šé™¤ãƒ•ãƒ©ã‚° true:å‰Šé™¤ false:å‰Šé™¤ã§ããªã‹ã£ãŸ
+		bool isFind = false;	//å‰Šé™¤ä¾é ¼ã®ã‚¿ã‚¹ã‚¯ç•ªå·ç™ºè¦‹ãƒ•ãƒ©ã‚° true:ç™ºè¦‹	false:è¦‹ã¤ã‘ã‚‰ã‚Œãªã‹ã£ãŸ
 		for(auto itr = mList.begin();itr != mList.end();itr++){
 			if((*itr)->GetTaskId() == *reqKillOrder){
 				
 #ifdef __MY_DEBUG__
-				Debug::LogPrintf("=====        íœTask      ===== \n");
+				Debug::LogPrintf("=====        å‰Šé™¤Task      ===== \n");
 				Debug::LogPrintf("TaskId : %d TaskName : %s\n", (*itr)->GetTaskId(), (*itr)->GetTaskName());
 				Debug::LogPrintf("================================ \n\n");
 #endif
 
-				(*itr)->Finalize();						//íœ
-				delete (*itr);							//ƒƒ‚ƒŠ‚©‚çíœ
-				mList.erase(itr);						//ƒŠƒXƒg‚©‚çíœ
-				mKillOrderList.erase(reqKillOrder);		//íœˆË—ŠƒŠƒXƒg‚©‚çƒ^ƒXƒN”Ô†‚ðíœ
-				isKill = true;							//íœ‚µ‚½
-				isFind = true;							//”­Œ©‚µ‚½
+				int taskId = (*itr)->GetTaskId();		//ã‚¿ã‚¹ã‚¯æ¤œç´¢ç”¨mapãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å‰Šé™¤ã™ã‚‹ã‚¿ã‚¹ã‚¯ç•ªå·ã‚’è¨­å®š
+				(*itr)->Finalize();						//å‰Šé™¤
+				delete (*itr);							//ãƒ¡ãƒ¢ãƒªã‹ã‚‰å‰Šé™¤
+				mList.erase(itr);						//ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
+				mKillOrderList.erase(reqKillOrder);		//å‰Šé™¤ä¾é ¼ãƒªã‚¹ãƒˆã‹ã‚‰ã‚¿ã‚¹ã‚¯ç•ªå·ã‚’å‰Šé™¤
+				mSarchList.erase(taskId);				//ã‚¿ã‚¹ã‚¯æ¤œç´¢ç”¨mapãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ã‚¿ã‚¹ã‚¯ç•ªå·ã‚’å‰Šé™¤
+				isKill = true;							//å‰Šé™¤ã—ãŸ
+				isFind = true;							//ç™ºè¦‹ã—ãŸ
 				break;
 			}
 		}
 
-		//íœˆË—Š‚³‚ê‚½‚ªAŒ©‚Â‚©‚ç‚È‚©‚Á‚½
+		//å‰Šé™¤ä¾é ¼ã•ã‚ŒãŸãŒã€è¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ
 		if(isFind == false){
-			//íœˆË—ŠƒŠƒXƒg‚©‚çíœ
+			//å‰Šé™¤ä¾é ¼ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
 			mKillOrderList.erase(reqKillOrder);
 		}
 
-		//íœ‚Å‚«‚½‚Ü‚½‚Í@íœˆË—ŠƒŠƒXƒg‚ÌƒTƒCƒY‚ª0‚É‚È‚Á‚½
+		//å‰Šé™¤ã§ããŸã¾ãŸã¯ã€€å‰Šé™¤ä¾é ¼ãƒªã‚¹ãƒˆã®ã‚µã‚¤ã‚ºãŒ0ã«ãªã£ãŸ
 		if(isKill == true || mKillOrderList.size() == 0){
 			break;
 		}
@@ -238,7 +259,7 @@ void TaskMgr::KillTaskProc(){
 
 
 #ifdef __MY_DEBUG__
-	Debug::LogPrintf("=====      íœŒã‚ÌTask    ===== \n");
+	Debug::LogPrintf("=====      å‰Šé™¤å¾Œã®Task    ===== \n");
 	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
 		Debug::LogPrintf("TaskId : %d TaskName : %s\n", (*itr)->GetTaskId(), (*itr)->GetTaskName());
 	}

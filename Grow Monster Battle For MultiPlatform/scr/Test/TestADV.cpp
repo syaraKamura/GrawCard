@@ -66,7 +66,7 @@ void TestADV::PreviousUpdate() {
 
 bool TestADV::Updata() {
 
-
+#ifdef __WINDOWS__
 	if (mTaskId == -1) {
 		
 		if (Keyboard_Press(KEY_INPUT_DOWN)) {
@@ -84,7 +84,7 @@ bool TestADV::Updata() {
 	}
 
 
-#ifdef __WINDOWS__
+
 	//テストメニューへ戻る
 	if (Keyboard_Press(KEY_INPUT_X)) {
 		mNextScene->SceneChange(ISceneBase::eScene_TestMenu);

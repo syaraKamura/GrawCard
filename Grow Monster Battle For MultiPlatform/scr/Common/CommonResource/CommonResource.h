@@ -24,6 +24,9 @@ public :
 		eComResName_MainMenuBG,			//メインメニュー背景
 		eComResName_CommonBG,			//汎用背景
 		eComResName_MsgBox,				//メッセージボックス
+		eComResName_BMFont,				//フォント画像
+		eComResname_CommonBGM,			// 汎用BGM
+		eComResname_CommonBGM2,			// 汎用BGM2
 		//eComResName_Monster_00001,			//モンスターカード
 		//eComResName_Monster_00002,			//モンスターカード
 		//eComResName_Monster_00003,			//モンスターカード
@@ -52,19 +55,19 @@ public :
 
 private:
 
-	
 
 	enum eComResKind {
 		eComResKind_Graphic,
+		eComResKind_SoundBgm,
 		eComResKind_Num,
 	};
 
 	typedef struct {
 		eComResKind kind;
 		char fileName[1024];
+		char buffer[1024];
 		Graphics* Graphic;
 	}COMMON_RES_t;
-
 
 	COMMON_RES_t mComRes[eComResName_Num];
 

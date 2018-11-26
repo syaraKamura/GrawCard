@@ -14,6 +14,8 @@
 #ifndef __ANIMATION_H__
 #define __ANIMATION_H__
 
+#include "Easing/Easing.h"
+
 //アニメーション作成用構造体
 typedef struct {
 	int keyframe;
@@ -22,6 +24,7 @@ typedef struct {
 	float angle;
 	float scale;
 	float alpha;
+	Easing::eEasingType easingType;
 }ANIMATION_DATA_t;
 
 class Animation {

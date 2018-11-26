@@ -230,7 +230,7 @@ int MobileInput::GetPositionY(int code) {
 #ifdef __WINDOWS__
 	input->GetPosition(&posX, &posY);
 #elif __ANDROID__
-	posY = input->GetPositionX(code);
+	posY = input->GetPositionY(code);
 #endif
 
 	return posY;

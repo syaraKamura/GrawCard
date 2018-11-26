@@ -19,6 +19,7 @@ MonsterDeck::MonsterDeck() {
 
 	for (int i = 0; i < MONSTER_DECK_NUM; i++) {
 		mMonster[i].isAttach = false;
+		mMonster[i].monster = NULL;
 	}
 	
 
@@ -28,7 +29,7 @@ MonsterDeck::~MonsterDeck() {
 
 }
 
-void MonsterDeck::SetMonster(int idx, Monster monster) {
+void MonsterDeck::SetMonster(int idx, Monster* monster) {
 	if (idx < 0 || idx >= MONSTER_DECK_NUM) return;
 	else if (IsSetMonster(idx) == true) return;
 
@@ -38,7 +39,7 @@ void MonsterDeck::SetMonster(int idx, Monster monster) {
 Monster* MonsterDeck::GetMonster(int idx) {
 	if (idx < 0 || idx >= MONSTER_DECK_NUM) return NULL;
 	if (IsSetMonster(idx) == false) return NULL;
-	return &mMonster[idx].monster;
+	return mMonster[idx].monster;
 }
 
 /*

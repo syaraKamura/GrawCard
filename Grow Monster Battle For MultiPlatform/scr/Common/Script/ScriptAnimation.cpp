@@ -28,27 +28,27 @@ static ANIMATION_DATA_t s_FadeIn_RigthToLeft_DATA[] = {
 //左側から画面内へ
 static ANIMATION_DATA_t s_FadeIn_LeftToRigth_DATA[] = {
 	//int keyframe, float positionX,float positionY,float angle,float scale,float alpha
-	{ 0,-WINDOW_WIDTH,0,1.0f,1.0f,0.0f },
+	{ 0,-WINDOW_WIDTH,0,0.0f,1.0f,0.0f },
 	//{ 40,WINDOW_WIDTH - 400,0 + 100,1.0f,1.0f,123.0f },
 	//{ 0,WINDOW_WIDTH,WINDOW_HEIGHT - 200,1.0f,1.0f,0.0f },
-	{ 60, 200,0,1.0f,1.0f,255.0f },
+	{ 60, 200,0,0.0f,1.0f,255.0f },
 };
 
 //フラッシュ
 static ANIMATION_DATA_t s_FLASH_DATA[] = {
-	{ 0,0,0,1.0f,1.0f,255.0f },
-	{ 2,0,0,1.0f,1.0f,0.0f },
-	{ 4,0,0,1.0f,1.0f,255.0f },
-	{ 6,0,0,1.0f,1.0f,0.0f },
-	{ 8,0,0,1.0f,1.0f,255.0f },
-	{ 10,0,0,1.0f,1.0f,0.0f },
-	{ 12,0,0,1.0f,1.0f,255.0f },
+	{ 0,0,0,0.0f,1.0f,255.0f },
+	{ 2,0,0,0.0f,1.0f,0.0f },
+	{ 4,0,0,0.0f,1.0f,255.0f },
+	{ 6,0,0,0.0f,1.0f,0.0f },
+	{ 8,0,0,0.0f,1.0f,255.0f },
+	{ 10,0,0,0.0f,1.0f,0.0f },
+	{ 12,0,0,0.0f,1.0f,255.0f },
 };
 
 //フェードイン
 static ANIMATION_DATA_t s_FADE_IN_DATA[] = {
-	{ 0,0,0,1.0f,1.0f,0.0f },
-	{ 30,0,0,1.0f,1.0f,255.0f },
+	{ 0,0,0,0.0f,1.0f,0.0f },
+	{ 30,0,0,0.0f,1.0f,255.0f },
 };
 
 ScriptAnimation::ScriptAnimation() : TaskBase() {

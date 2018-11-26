@@ -36,6 +36,7 @@ GameMgr::GameMgr(){
 #else
 	mSceneMgr = new SceneMgr();
 #endif
+	SoundMgr::Create();
 	ComRes::Create();
 	DungeonMgr::Create();
 	ClickInput::Create();
@@ -43,6 +44,7 @@ GameMgr::GameMgr(){
 
 GameMgr::~GameMgr(){
 
+	SoundMgr::Destroy();
 	DungeonMgr::Destory();
 	ComRes::Destory();
 	ClickInput::Destroy();
@@ -56,6 +58,7 @@ GameMgr::~GameMgr(){
 }
 
 void GameMgr::Initialize(){
+	
 	TaskMgr::getInstance().Initialize();
 	mSceneMgr->Initialize();
 
@@ -75,6 +78,7 @@ void GameMgr::Initialize(){
 }
 
 void GameMgr::Finalize(){
+	
 	TaskMgr::getInstance().Finalize();
 	mSceneMgr->Finalize();
 
@@ -132,6 +136,8 @@ bool GameMgr::Updata(){
 
 	mSceneMgr->Updata();
 	TaskMgr::getInstance().Updata();
+	SoundMgr::GetInstance()->Updata();
+
 	return true;
 }
 

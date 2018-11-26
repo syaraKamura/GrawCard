@@ -28,18 +28,16 @@ protected:
 
 protected:
 
-	int mHandle;
-
 //#ifdef __MY_DEBUG__
-	char mFileName[1024];
+//	char mFileName[1024];
 //#endif
 
 public:
 
 	GraphicsBase() :GraphicsDraw() {
-		mHandle = 0;
+		
 //#ifdef __MY_DEBUG__
-		strcpyDx(mFileName, "");
+//		strcpyDx(mFileName, "");
 //#endif
 	}
 	

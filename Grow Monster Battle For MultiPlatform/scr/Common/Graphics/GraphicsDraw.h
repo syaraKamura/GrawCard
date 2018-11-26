@@ -23,6 +23,9 @@ public :
 
 protected:
 
+	int mHandle;
+	char mFileName[1024];
+
 	bool mIsVisible;	//表示フラグ
 	bool mIsRelese;
 
@@ -48,6 +51,7 @@ public:
 	virtual ~GraphicsDraw();
 
 	virtual void Draw(int posX, int posY, int alpha,double angle,double scale) = 0;
+	virtual void Draw();
 	virtual void Relese() = 0;
 
 	int GetPositionX();

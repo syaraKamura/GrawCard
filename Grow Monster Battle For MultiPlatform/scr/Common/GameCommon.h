@@ -8,6 +8,7 @@
 #include "Common/Graphics/Graphics.h"
 #include "Common/Graphics/GraphicsMulti.h"
 #include "Common/Graphics/GraphicsDrawMgr.h"
+#include "Common/Sound/SoundMgr.h"
 #include "Common/CommonResource/CommonResource.h"
 #include "Common/XML/XmlPurser.h"
 

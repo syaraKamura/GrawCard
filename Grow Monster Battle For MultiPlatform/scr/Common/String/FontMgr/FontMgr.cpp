@@ -115,14 +115,22 @@ bool FontMgr::CreateFontHandle(const char* fileName,int edgeSize,unsigned int ed
 		return false;
 	}
 
-	m_FontHandle = LoadFontDataToHandle(fileName,edgeSize);
+	char path[2048]="";
+	DxLib::strcpyDx(path, fileName);
+#ifdef __MY_DEBUG__
+#ifdef __WINDOWS__
+	RESORCES_PATH(path);
+#endif
+#endif
+
+	m_FontHandle = LoadFontDataToHandle(path,edgeSize);
 	
 	if(m_FontHandle == -1){
 		return false;	
 	}
 	
 	m_EdgeColor = edgeColor;
-	strcpyDx(m_FileName,fileName);
+	DxLib::strcpyDx(m_FileName,fileName);
 
 	return true;
 

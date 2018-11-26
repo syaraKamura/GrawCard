@@ -175,42 +175,43 @@ bool Animation::Update() {
 		float alpha = nextKeyframe.alpha - prevKeyframe.alpha;
 		float angle = nextKeyframe.angle - prevKeyframe.angle;
 		float scale = nextKeyframe.scale - prevKeyframe.scale;
+		Easing::eEasingType type = nextKeyframe.easingType;
 
 		float deltaFrame = (mCounter + 1) - prevKeyframe.keyframe;
 
 #if false
 		//現在の時間の割合
- 		float rate = deltaFrame / frame;
+		float rate = deltaFrame / frame;
 
 
-float X = prevKeyframe.positionX + posX * rate;
-float Y = prevKeyframe.positionY + posY * rate;
-float ALPHA = prevKeyframe.alpha + alpha * rate;
-float ANGLE = prevKeyframe.angle + angle * rate;
-float SCALE = prevKeyframe.scale + scale * rate;
+		float X = prevKeyframe.positionX + posX * rate;
+		float Y = prevKeyframe.positionY + posY * rate;
+		float ALPHA = prevKeyframe.alpha + alpha * rate;
+		float ANGLE = prevKeyframe.angle + angle * rate;
+		float SCALE = prevKeyframe.scale + scale * rate;
 #endif
 
-Easing::eEasingType type = Easing::eEasingType_InOutQuad;
+		//Easing::eEasingType type = Easing::eEasingType_None;
 
-float X = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.positionX, nextKeyframe.positionX);
-float Y = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.positionY, nextKeyframe.positionY);
-float ALPHA = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.alpha, nextKeyframe.alpha);
-float ANGLE = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.angle, nextKeyframe.angle);
-float SCALE = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.scale, nextKeyframe.scale);
+		float X = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.positionX, nextKeyframe.positionX);
+		float Y = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.positionY, nextKeyframe.positionY);
+		float ALPHA = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.alpha, nextKeyframe.alpha);
+		float ANGLE = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.angle, nextKeyframe.angle);
+		float SCALE = Easing::EasingValue(type, deltaFrame, frame, prevKeyframe.scale, nextKeyframe.scale);
 
-if (mCounter == nextKeyframe.keyframe) {
-	if (X != nextKeyframe.positionX) X = nextKeyframe.positionX;
-	if (Y != nextKeyframe.positionY) Y = nextKeyframe.positionY;
-	if (ALPHA != nextKeyframe.alpha) ALPHA = nextKeyframe.alpha;
-	if (ANGLE != nextKeyframe.angle) ANGLE = nextKeyframe.angle;
-	if (SCALE != nextKeyframe.scale) SCALE = nextKeyframe.scale;
-}
+		if (mCounter == nextKeyframe.keyframe) {
+			if (X != nextKeyframe.positionX) X = nextKeyframe.positionX;
+			if (Y != nextKeyframe.positionY) Y = nextKeyframe.positionY;
+			if (ALPHA != nextKeyframe.alpha) ALPHA = nextKeyframe.alpha;
+			if (ANGLE != nextKeyframe.angle) ANGLE = nextKeyframe.angle;
+			if (SCALE != nextKeyframe.scale) SCALE = nextKeyframe.scale;
+		}
 
-mAnimationValue.positionX = X;
-mAnimationValue.positionY = Y;
-mAnimationValue.alpha = ALPHA;
-mAnimationValue.angle = ANGLE;
-mAnimationValue.scale = SCALE;
+		mAnimationValue.positionX = X;
+		mAnimationValue.positionY = Y;
+		mAnimationValue.alpha = ALPHA;
+		mAnimationValue.angle = ANGLE;
+		mAnimationValue.scale = SCALE;
 
 
 
@@ -230,45 +231,45 @@ mAnimationValue.scale = SCALE;
 
 
 #else
-if (mIsStop == true) return true;
-else if (mIsPause == true) return true;
-else if (mAnimationDataList.size() <= 0) return false;
+	if (mIsStop == true) return true;
+	else if (mIsPause == true) return true;
+	else if (mAnimationDataList.size() <= 0) return false;
 
-if (mIsPlay) {
+	if (mIsPlay) {
 
-	ANIMATION_DATA_t nowKeyframe = {};
-	ANIMATION_DATA_t nextKeyframe = {};
-	//ANIMATION_DATA_t value = {};
+		ANIMATION_DATA_t nowKeyframe = {};
+		ANIMATION_DATA_t nextKeyframe = {};
+		//ANIMATION_DATA_t value = {};
 
-	if (mNowFrame < mAnimationDataList.size()) {
-		nowKeyframe = *std::next(mAnimationDataList.begin(), mNowFrame);
-	}
-	else {
-		//memset(&mAnimationValue, 0, sizeof(ANIMATION_DATA_t));
-	}
-
-	if (mCounter > nowKeyframe.keyframe) {
-		if (mNowFrame + 1 < mAnimationDataList.size()) {
-			nextKeyframe = *std::next(mAnimationDataList.begin(), mNowFrame + 1);
-			mAnimationValue = GetAnimationDataValue(nowKeyframe, nextKeyframe, &mValue);
+		if (mNowFrame < mAnimationDataList.size()) {
+			nowKeyframe = *std::next(mAnimationDataList.begin(), mNowFrame);
 		}
-		mNowFrame++;
-	}
-
-
-	if (mCounter >= mTimeLength) {
-
-		this->Stop();
-		if (mIsLoop == true) {
-			this->Play();
+		else {
+			//memset(&mAnimationValue, 0, sizeof(ANIMATION_DATA_t));
 		}
-		return true;
+
+		if (mCounter > nowKeyframe.keyframe) {
+			if (mNowFrame + 1 < mAnimationDataList.size()) {
+				nextKeyframe = *std::next(mAnimationDataList.begin(), mNowFrame + 1);
+				mAnimationValue = GetAnimationDataValue(nowKeyframe, nextKeyframe, &mValue);
+			}
+			mNowFrame++;
+		}
+
+
+		if (mCounter >= mTimeLength) {
+
+			this->Stop();
+			if (mIsLoop == true) {
+				this->Play();
+			}
+			return true;
+		}
+		mCounter++;
 	}
-	mCounter++;
-}
 
 #endif
-return true;
+	return true;
 }
 
 void Animation::AnimationAttach(GraphicsDraw* graph, bool isNowBasePos/* = false*/) {
@@ -284,7 +285,7 @@ void Animation::AnimationAttach(GraphicsDraw* graph, bool isNowBasePos/* = false
 
 		if (mBasePositionY == 0.0f) {
 			//mBasePositionY =  graph->GetPositionY() - mAnimationValue.positionY;
-			mBasePositionY = graph->GetBasePositionY() -mAnimationValue.positionY;
+			mBasePositionY = graph->GetBasePositionY() - mAnimationValue.positionY;
 		}
 	
   		posX = mBasePositionX;

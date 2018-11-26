@@ -25,6 +25,7 @@
 #include <vector>
 
 class ScriptAnimation;
+class BMFont;
 
 class ScriptBase : public TaskBase {
 
@@ -55,6 +56,9 @@ private:
 		eAnalysis_HideGraph,		//画像を非表示にする					[管理番号][非表示までにかかる時間(1以上)]
 		eAnalysis_AnimGraph,		//画像をアニメーションさせる			[管理番号][アニメーション番号][ループ再生か(0 or 1)][今の座標を原点とするか(0 or 1)]
 		eAnalysis_SetGraphAlpha,	//画像のアルファ値を設定する			[管理番号][アルファ値(0 ~ 255)]
+		eAnalysis_LoadSound,		//サウンドの読み込み					[管理番号][ファイルパス]
+		eAnalysis_PlaySound,		//サウンドの再生						[管理番号]
+		eAnalysis_StopSound,		//サウンドの停止						[管理番号]
 		eAnalysis_End,				//スクリプト終了
 
 	};
@@ -63,6 +67,11 @@ private:
 		int mGraphId;
 		Graphics* mGraph;
 	}GRAPHICS_DATA_t;
+
+	typedef struct {
+		int mSoundId;
+		std::string mSoundStrId;
+	}SOUND_DATA_t;
 
 	typedef struct {
 		int mFlagID;
@@ -92,6 +101,9 @@ private:
 
 	StringBase* mTalkName;	// 話している人の名前を設定
 	StringBase* mString;
+
+	BMFont* mBMFont;
+
 	StringBase::eDrawState mOldStringDrawState;	//文字列描画状態
 	StringBase::eDrawState mStringDrawState;	//文字列描画状態
 	bool mIsAllDrawString;						//文字をすべて描画するか
@@ -105,6 +117,7 @@ private:
 
 	std::vector<FLAG_DATA_t> mFlagDatas;
 	std::vector<GRAPHICS_DATA_t> mGraphicsDatas;
+	std::vector<SOUND_DATA_t> mSoundDatas;
 
 	std::vector<unsigned int> mAnimOrderIdList;
 

@@ -16,6 +16,7 @@
 #define __STRING_BASE_H__
 
 class FontMgr;
+class BMFont;
 
 #include <list>
 
@@ -40,6 +41,7 @@ public :
 private:
 
 	FontMgr * mFontMgr;
+	BMFont* mBMFont;
 	unsigned int mColor;
 	char mString[1024];
 	
@@ -86,6 +88,12 @@ public :
 	int Update(bool isOnletter = false,int length = 30, int interval = 20);
 
 	/*
+		更新処理
+		int length			:一行に表示させる文字数
+	*/
+	void Update(int length);
+
+	/*
 		フォント名からフォントデータの作成
 
 		const char* fontName					:フォント名
@@ -120,6 +128,8 @@ public :
 
 	*/
 	bool FontCreate(const char* fileName, int edgeSize, unsigned int edgeColor = GetColor(255, 255, 255));
+
+	void SetBitMapFont(BMFont* bmfont);
 
 	void SetString(const char* string);
 	void SetString(const char* string,size_t size);

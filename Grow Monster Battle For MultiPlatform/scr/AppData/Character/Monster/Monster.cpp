@@ -75,42 +75,42 @@ void Monster::SetSpeed(int speed) {
 	mSpeed = speed;
 }
 
-int Monster::GetId() {
+int Monster::GetId() const {
 	return mId;
 }
 
-Monster::eType Monster::GetType() {
+Monster::eType Monster::GetType() const {
 	return mType;
 }
 
-Monster::eHomePosition Monster::GetHomePosition() {
+Monster::eHomePosition Monster::GetHomePosition() const {
 	return mHhomePosition;
 }
 
-int Monster::GetHp() {
+int Monster::GetHp() const {
 	return mHp;
 }
 
-int Monster::GetHpMax() {
+int Monster::GetHpMax() const {
 	return mHpMax;
 }
 
-int Monster::GetMp() {
+int Monster::GetMp() const {
 	return mMp;
 }
 
-int Monster::GetMpMax() {
+int Monster::GetMpMax() const {
 	return mMpMax;
 }
 
-int Monster::GetAttack() {
+int Monster::GetAttack() const {
 	return mAttack;
 }
 
-int Monster::GetDeffence() {
+int Monster::GetDeffence() const {
 	return mDeffence;
 }
 
-int Monster::GetSpeed() {
+int Monster::GetSpeed() const {
 	return mSpeed;
 }

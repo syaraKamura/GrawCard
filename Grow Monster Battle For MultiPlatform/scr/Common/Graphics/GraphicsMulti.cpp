@@ -82,10 +82,8 @@ bool GraphicsMulti::Load(const char* path, int scrX, int scrY) {
 	
 	RESORCES_PATH(filePath);
 
-#endif	
-
-#endif
-
+#endif	// __MY_DEBUG__
+#endif	// __WINDOWS__ 
 
 	int handle = DxLib::LoadGraph(filePath);
 	if (handle == eGraphicsResult_ERROR) {
@@ -231,6 +229,29 @@ void GraphicsMulti::Draw(int posX, int posY, int alpha, double angle, double sca
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 #endif	// __MY_DEBUG__
 
+}
+
+void GraphicsMulti::Draw() {
+
+	if (mHandleList.empty() == true || mHandleList.size() <= 0) return;
+	
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
+	for (auto it = mHandleList.begin(); it != mHandleList.end(); it++) {
+
+		if ((*it).handle <= eGraphicsResult_NONE) {
+
+			continue;
+		}
+
+		if ((*it).isVisible == false) continue;
+
+		int drawPosX = (*it).posX + mPosX;
+		int drawPosY = (*it).posY + mPosY;
+
+		//DxLib::DrawRotaGraph(drawPosX, drawPosY, mScale, mAngle, (*it).handle, TRUE);
+		DxLib::DrawGraph(drawPosX, drawPosY, (*it).handle, TRUE);
+	}
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 

@@ -11,10 +11,13 @@
 				
 !*/
 
-#include<stdio.h>
+#include "Common/GameCommon.h"
 #include "GraphicsDraw.h"
 
 GraphicsDraw::GraphicsDraw() {
+
+	mHandle = 0;
+	strcpyDx(mFileName, "");
 
 	mBasePosX = 0;
 	mBasePosY = 0;
@@ -129,6 +132,11 @@ bool GraphicsDraw::IsRelese() {
 }
 
 void GraphicsDraw::GetSize(int* width, int* height) {
+
+	if (mWidth == 0 || mHeight == 0) {
+		GetGraphSize(mHandle, &mWidth, &mHeight);
+	}
+
 	if (width != NULL) {
 		*width = mWidth;
 	}
@@ -148,4 +156,19 @@ int GraphicsDraw::GetBasePositionX() {
 
 int GraphicsDraw::GetBasePositionY() {
 	return mBasePosY;
+}
+
+void GraphicsDraw::Draw() {
+
+	//画像データが存在していないならば処理を抜ける
+	if (mHandle <= 0) {
+		Debug::LogPrintf("[ERORR : (FUNC %s)] Graphic is Not Exist.\nFileName(%s) \n", __func__, this->mFileName);
+		return;
+	}
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
+	DxLib::DrawGraph(mPosX, mPosY, mHandle, TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+
 }

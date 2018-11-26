@@ -23,6 +23,7 @@
 #endif
 
 #include <list>
+#include <map>
 
 class TaskMgr {
 
@@ -35,8 +36,8 @@ public:
 
 	*/
 	enum ePriorty {
-		ePriorty_0,
 		ePriorty_Graphics,
+		ePriorty_0,
 		ePriorty_1,
 		ePriorty_2,
 		ePriorty_3,
@@ -59,6 +60,7 @@ private:
 	std::list<TaskBase*> mList;
 	std::list<int> mKillOrderList;
 
+	std::map<int,TaskBase*> mSarchList;
 
 public:
 	~TaskMgr();

@@ -17,6 +17,7 @@
 #include "Boot/Scene_Boot.h"
 #include "Opning/Scene_Opning.h"
 #include "Title/Scene_Title.h"
+#include "Prologue/Scene_Prologue.h"
 #include "MainMenu/Scene_MainMenu.h"
 
 #ifdef __MY_DEBUG__
@@ -245,6 +246,10 @@ SceneBase* SceneMgr::CreateNextScene(ISceneBase::eScene next) {
 			case ISceneBase::eScene_Title:
 				scene = (SceneBase*)new Scene_Title(this);
 				strcpyDx(sceneName, "Scene_Title");
+				break;
+			case ISceneBase::eScene_Prologue:
+				scene = (SceneBase*)new Scene_Prologue(this);
+				strcpyDx(sceneName, "Scene_Prologue");
 				break;
 			case ISceneBase::eScene_MainMenu:
 				scene = (SceneBase*)new Scene_MainMenu(this);

@@ -71,8 +71,8 @@ void StringClick::Draw(int posX, int posY) {
 		mIsClick = true;
 	}
 
-	int oldFontSize = DxLib::GetFontSize();
-	DxLib::SetFontSize(mFontSize);
+	//int oldFontSize = DxLib::GetFontSize();
+	//DxLib::SetFontSize(mFontSize);
 	DxLib::DrawString(posX, posY, mString, mColor);
-	DxLib::SetFontSize(oldFontSize);
+	//DxLib::SetFontSize(oldFontSize);
 }

@@ -14,6 +14,7 @@
 #include "Common/GameCommon.h"
 #include "GraphicsDrawMgr.h"
 #include "GraphicsDraw.h"
+#include "Button/ButtonGraph.h"
 #include <typeinfo>
 
 //ソート用関数
@@ -57,7 +58,13 @@ GraphicsBase* GraphicsDrawMgr::Get(int order) const {
 			if (graph != NULL) {
 				return graph;
 			}
-			return dynamic_cast<Graphics*>((*it).graph);
+			else {
+				ButtonGraph* btn = dynamic_cast<ButtonGraph*>((*it).graph);
+				if (btn != NULL) {
+					return btn;
+				}
+				return dynamic_cast<Graphics*>((*it).graph);
+			}
 		}
 		it++;
 	}
@@ -130,14 +137,15 @@ void GraphicsDrawMgr::Draw()  {
 
 	for (auto it = mList->begin(); it != mList->end();) {
 
-		int posX = (*it).graph->GetPositionX();
-		int posY = (*it).graph->GetPositionY();
-		int alpha = (*it).graph->GetAlpah();
-		double scale = (*it).graph->GetScale();
-		double angle = (*it).graph->GetAngleRadian();
+		//int posX = (*it).graph->GetPositionX();
+		//int posY = (*it).graph->GetPositionY();
+		//int alpha = (*it).graph->GetAlpah();
+		//double scale = (*it).graph->GetScale();
+		//double angle = (*it).graph->GetAngleRadian();
 
 		if ((*it).graph->IsVisible() == true && (*it).graph->IsRelese() == false) {
-			(*it).graph->Draw(posX, posY, alpha,angle,scale);
+			//(*it).graph->Draw(posX, posY, alpha,angle,scale);
+			(*it).graph->Draw();
 		}
 		else if ((*it).graph->IsRelese() == true) {
 			(*it).graph->Relese();

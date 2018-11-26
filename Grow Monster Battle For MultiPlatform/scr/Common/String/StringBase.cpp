@@ -14,6 +14,7 @@
 
 #include "Common/GameCommon.h"
 #include "StringBase.h"
+#include "FontMgr/BMFont.h"
 #include "FontMgr/FontMgr.h"
 
 #define STRING_LINE_MAX (6)
@@ -61,6 +62,7 @@ int StringBase::Update(bool isOnletter/* = false*/, int length/* = 30*/, int int
 		return eDrawState_DrawEnd;
 	}
 
+
 	mCounter++;
 	if (mCounter % interval != 0) return eDrawState_DrawInterval;
 
@@ -68,7 +70,7 @@ int StringBase::Update(bool isOnletter/* = false*/, int length/* = 30*/, int int
 	//int pos = mPos + mLine * mNextLineLength;
 
 	if (mLine >= STRING_LINE_MAX) {
-		printfDx("これ以上改行することができません");
+		Debug::ErorrMessage("これ以上改行することができません");
 		return eDrawState_Error;
 	}
 
@@ -108,6 +110,60 @@ int StringBase::Update(bool isOnletter/* = false*/, int length/* = 30*/, int int
 		return eDrawState_Drawing;
 	}
 	return eDrawState_DrawEnd;
+}
+
+/*
+	更新処理
+	int length			:一行に表示させる文字数
+*/
+void StringBase::Update(int length) {
+	
+	mIsOnletter = true;
+
+	if (mString[mTotalPos] == '\0') {
+		return;
+	}
+
+	mNextLineLength = length;
+	
+	if (mLine >= STRING_LINE_MAX) {
+		Debug::ErorrMessage("これ以上改行することができません");
+		return ;
+	}
+
+	while(mString[mTotalPos] != '\0') {
+
+		if (mStrNum >= mNextLineLength || mString[mTotalPos] == '\n') {
+			mDrawString[mLine][mInputPos] = '\0';
+			mPos = 0;
+			mInputPos = 0;
+			mStrNum = 0;
+			mLine++;
+			if (mString[mTotalPos] == '\n') {
+				mTotalPos++;
+			}
+		}
+
+		int num = this->GetCharBytes(&mString[mTotalPos]);
+
+		if (num == 1) {
+			mDrawString[mLine][mInputPos] = mString[mTotalPos];
+			mInputPos++;
+			mPos++;
+			mTotalPos++;
+		}
+		else {
+			for (int i = 0; i < num; i++) {
+				mDrawString[mLine][mInputPos] = mString[mTotalPos];
+				mInputPos++;
+				mPos++;
+				mTotalPos++;
+			}
+		}
+
+		mStrNum++;
+	}
+
 }
 
 /*
@@ -156,6 +212,10 @@ bool StringBase::FontCreate(const char* fileName, int edgeSize, unsigned int edg
 	return mFontMgr->CreateFontHandle(fileName, edgeSize, edgeColor);
 }
 
+void StringBase::SetBitMapFont(BMFont* bmfont) {
+	mBMFont = bmfont;
+}
+
 
 void StringBase::SetString(const char* string) {
 	int size = strlenDx(string) + 1;
@@ -198,8 +258,12 @@ int StringBase::DrawString(int posX, int posY, bool isDisp/* = true*/) {
 	if (mIsOnletter == true) {
 
 		for (int i = 0; i <= mLine; i++) {
-			if (mFontMgr == NULL) {
+			if (mFontMgr == NULL && mBMFont == NULL) {
 				DxLib::DrawString(posX, posY + i * 20, mDrawString[i], mColor);
+			}
+			else if (mBMFont != NULL) {
+				mBMFont->SetString(mDrawString[i]);
+				mBMFont->Draw(posX, posY + i * 48, true);
 			}
 			else {
 				mFontMgr->Draw(posX, posY + i * 20, mDrawString[i], mColor);
@@ -209,8 +273,12 @@ int StringBase::DrawString(int posX, int posY, bool isDisp/* = true*/) {
 	}
 	else {
 
-		if (mFontMgr == NULL) {
+		if (mFontMgr == NULL && mBMFont == NULL) {
 			DxLib::DrawString(posX, posY, mString, mColor);
+		}
+		else if (mBMFont != NULL) {
+			mBMFont->SetString(mString);
+			mBMFont->Draw(posX, posY, true);
 		}
 		else {
 			mFontMgr->Draw(posX, posY, mString, mColor);

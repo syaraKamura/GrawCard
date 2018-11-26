@@ -9,8 +9,11 @@
 #include "Common/Input/Joypad.h"
 #include "Common/Input/Touch.h"
 
+#include "Common/Graphics/Window/WindowGraph.h"
 #include "Common/Graphics/GraphicsMulti.h"
 #include "Common/Graphics/Graphics.h"
+#include "Common/Graphics/Button/ButtonGraph.h"
+#include "Common/Graphics/Button/Button.h"
 #include "AppData/SaveData/SaveData.h"
 #include "Common/String/StringBase.h"
 #include "Common/FileIO/WriteBynary.h"
@@ -18,6 +21,10 @@
 #include "Common/XML/XmlPurser.h"
 
 #include "Common/Animation/Animation.h"
+
+#include "Common/String/FontMgr/BMFont.h"
+
+#include "Common/Sound/Sound.h"
 
 const int MAP_WIDTH = 41;
 const int MAP_HEIGHT= 37;
@@ -53,22 +60,28 @@ typedef struct{
 	int moveStartTime;	//移動開始時間
 }Enemy_t;
 
-Enemy_t enemy[ENEMY_KIND_NUM];
+static Enemy_t enemy[ENEMY_KIND_NUM];
 
-Graphics* mGraphics;
+static Graphics* mGraphics;
 
-GraphicsMulti* mGraphicsMulti;
-GraphicsMulti* mGraphicsMulti2;
+static GraphicsMulti* mGraphicsMulti;
+static GraphicsMulti* mGraphicsMulti2;
 
-SaveData* mData;
-StringBase* mString;
-WriteBynary* mFile;
-ReadBynary* mReadFile;
-XmlPurser* mXml;
-Animation* mAnimation;
+static SaveData* mData;
+static StringBase* mString;
+static WriteBynary* mFile;
+static ReadBynary* mReadFile;
+static XmlPurser* mXml;
+static Animation* mAnimation;
 
-int posX = 0;
-int vecX = 4;
+static WindowGraph* mWindowGraph;
+
+static int posX = 0;
+static int vecX = 4;
+
+static BMFont* mBMFont;
+
+static Sound* mSound;
 
 void Map_Initialize(){
 
@@ -532,15 +545,39 @@ bool AITest::Initialize(){
 
 	mGraphicsMulti2 = new GraphicsMulti();
 
-	mGraphicsMulti2->LoadDiv("Resources/Graphics/BG/image.png", 12, 6, 0, 0);
-
+	//mGraphicsMulti2->LoadDiv("Resources/Graphics/BG/image.png", 12, 6, 0, 0);
+	//
 	GraphicsDrawMgr::GetInstance()->Add(mGraphicsMulti2,0);
 
 	mGraphicsMulti2->SetDivPosition(0, 120, 0);
 	mGraphicsMulti2->SetDivPosition(12, 120, 120);
 
 	mGraphicsMulti2->SetAllDivVisible(false);
-	
+
+	mWindowGraph = new WindowGraph();
+	mWindowGraph->SetString("これはテストのウィンドウメッセージです。あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ");
+	mWindowGraph->SetPosition(300, 700);
+	GraphicsDrawMgr::GetInstance()->Add(mWindowGraph, 0);
+
+	mButton = new ButtonGraph();
+	mPrevButton = new Button(500, 200, 240, 60, "テストメニューへ戻る");
+	mPrevButton->SetOnListener(this);
+
+	Button* btn = new Button("Resources/Graphics/UI/batoru-ui.png", 500, 400, "テストなんですよ");
+	btn->SetOnListener(this);
+
+	mButton->AddButton(mPrevButton);
+	mButton->AddButton(btn);
+	GraphicsDrawMgr::GetInstance()->Add(mButton, 0);
+
+	mBMFont = new BMFont();
+	mBMFont->SetString("ABCDEFGHIJKLMNOPQRSTUVWXWZ abcdefghijklmnopqrstuvwxyz こんにちは　コンニチハ　日本語");
+
+	mSound = new Sound();
+	mSound->Load("Resources/Sound/BGM/BGM_0001.mp3");
+
+	mSound->Play(Sound::ePlayType_Loop);
+
 	return true;
 }
 
@@ -548,12 +585,18 @@ void AITest::Finalize(){
 
 	mGraphics->ReleseRequest();
 	mGraphicsMulti->ReleseRequest();
+	mWindowGraph->ReleseRequest();
+	mButton->ReleseRequest();
+
+	mSound->Release();
 
 	Delete(mJoyPad);
 	Delete(mTouch);
 	Delete(mString);
 	Delete(mFile);
 	Delete(mReadFile);
+	Delete(mBMFont);
+	Delete(mSound);
 
 	mGraphicsMulti2->ReleseRequest();
 
@@ -612,7 +655,7 @@ bool AITest::Updata() {
 			Monster mon = monBox->GetMonster(0);
 			
 			Player* player = mData->GetPlayer();
-			player->SetMonster(0, mon);
+			player->SetMonster(0, &mon);
 
 		}
 	}
@@ -689,7 +732,17 @@ void AITest::Draw(){
 
 	DrawFormatString(600, 220, GetColor(0, 255, 0), "文字数は%dです", mString->DrawString(600, 200));
 	
+	mBMFont->Draw(20,1040,true);
 
 }
+
+void AITest::OnClick(View* view) {
+	
+	if (mPrevButton == view) {
+		mNextScene->SceneChange(ISceneBase::eScene_TestMenu);
+	}
+
+}
+
 
 #endif

@@ -256,3 +256,8 @@ void DungeonMenu::ChangeState(eState next, eFade fade, int fadeTime/* = 30*/){
 	}
 	
 }
+
+void DungeonMenu::OnClick(View * view)
+{
+	
+}

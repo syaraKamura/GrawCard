@@ -58,9 +58,10 @@ public:
 	bool Add(int handle, int scrX, int scrY);
 
 	/*
-	描画
+		描画
 	*/
 	void Draw(int posX, int posY, int alpha, double angle, double scale) override;
+	void Draw() override;
 
 
 	int TouchNumber() override;

@@ -19,15 +19,21 @@ static const int DEBUG_WINDOW_TOP = 0;
 static const int DEBUG_WINDOW_RIGHT = (600.0f * WINDOW_WIDTH / WINDOW_BASE_WIDTH);
 static const int DEBUG_WINDOW_BOTTOM = (WINDOW_HEIGHT * WINDOW_HEIGHT / WINDOW_BASE_HEIGHT);
 
+Debug::DEBUG_LOG_t Debug::mDebugStrings[DEBUG_LOG_NUM] = {};
+int Debug::mDebugLogCnt = 0;
+
 Debug::Debug() {
 	mIsActive = false;
 	mIsAssert = false;
 	mOldAllocSize = 0;
 	mOldAllocNum = 0;
 	mDebugList = NULL;
+	
 }
 
-Debug::~Debug() {}
+Debug::~Debug() {
+
+}
 
 bool Debug::ChcekActive() {
 
@@ -73,6 +79,29 @@ void Debug::Draw() {
 
 	if (mIsActive == false) return;
 
+#ifdef __ANDROID__
+	// デバッグログを描画する(Andoroidのみ)
+
+	unsigned int dbgStrColor = GetColor(255, 255, 255);
+	for (int i = 0; i < DEBUG_LOG_NUM; i++) {
+	
+		DEBUG_LOG_t dbgLog = mDebugStrings[i];
+
+		if (dbgLog.logType == 0) {
+			dbgStrColor = GetColor(255, 255, 255);
+		}
+		else if (dbgLog.logType == 1) {
+			dbgStrColor = GetColor(255,0, 0);
+		}
+
+		int posY = WINDOW_HEIGHT - 20;
+		posY -= i * 20;
+
+		DxLib::DrawString(1000, posY, dbgLog.str.c_str(), dbgStrColor);
+	}
+
+#endif
+
 	//下地
 	DrawBox(DEBUG_WINDOW_LEFT, DEBUG_WINDOW_TOP, DEBUG_WINDOW_RIGHT, DEBUG_WINDOW_BOTTOM, GetColor(123, 123, 123), TRUE);
 	
@@ -116,7 +145,14 @@ void Debug::LogPrintf(const char* str, ...) {
 #ifdef __WINDOWS__
 	OutputDebugString(buffer);
 #elif __ANDROID__
-	printfDx(buffer);
+	//printfDx(buffer);
+
+	DEBUG_LOG_t add;
+	add.logType = 0;
+	add.str += buffer;
+	mDebugStrings[mDebugLogCnt] = add;
+	mDebugLogCnt = (mDebugLogCnt + 1) % DEBUG_LOG_NUM;
+
 #endif	// __WINDOWS__
 
 #endif //__MY_DEBUG__
@@ -126,17 +162,24 @@ void Debug::ErorrMessage(const TCHAR* str,...) {
 
 #ifdef __MY_DEBUG__
 
-#ifdef __WINDOWS__
+
 	va_list ap;
 	char buffer[1024 * 256];
 
 	va_start(ap, str);
 	vsprintfDx(buffer, str, ap);
 	va_end(ap);
+#ifdef __WINDOWS__
 	MessageBox(NULL, _T(buffer), _T("エラーメッセージ"), MB_OK | MB_ICONERROR);
 #elif __ANDROID__
 	//printfDx(str);
-	AndroidNotification("エラーメッセージ", str);
+	//AndroidNotification("エラーメッセージ", str);
+	DEBUG_LOG_t add;
+	add.logType = 1;
+	add.str += buffer;
+	mDebugStrings[mDebugLogCnt] = add;
+	mDebugLogCnt = (mDebugLogCnt + 1) % DEBUG_LOG_NUM;
+
 #endif
 
 #endif

@@ -17,6 +17,8 @@
 #include "../SceneBase.h"
 #include "Common/Debug/DebugList.h"
 
+class Button;
+
 class Scene_MainMenu : public SceneBase {
 
 private :
@@ -50,11 +52,22 @@ private :
 
 	};
 
+	enum eButton {
+		eButton_Dungeon,
+		eButton_MonsterBox,
+		eButton_Player,
+		eButton_Shop,
+		eButton_Gatya,
+		eButton_Num,
+	};
+
 	eState mState;
 	eState mNextState;
 
 	eMenu mMenu;
 	eMenu mNextMenu;
+
+	Button* mButtons[eButton_Num];
 
 	int mBackImageOrder;
 	int mButtonImageOrder;
@@ -82,6 +95,8 @@ public :
 	void Finalize() override;
 	bool Updata() override;
 	void Draw() override;
+
+	void OnClick(View* viewe) override;
 
 #ifdef __MY_DEBUG__
 

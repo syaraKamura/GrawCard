@@ -29,6 +29,7 @@ public :
 		eScene_Boot,				//起動
 		eScene_Opning,				//オープニング
 		eScene_Title,				//タイトル
+		eScene_Prologue,			//プロローグ
 		eScene_MainMenu,			//メインメニュー
 
 #ifdef __MY_DEBUG__

@@ -23,7 +23,37 @@ class BattleBase;
 class TestBattle: public SceneBase {
 
 private:
+
+	enum eState {
+		eState_SelectMenu,
+		eState_DeckEdit,
+		eState_MonsterList,
+		eState_BattleStart,
+		eState_BattleEnd,
+	};
+
+	enum eDeckEditState {
+		eDeckEditState_DeckSelect,
+		eDeckEditState_MonsterSelect,
+	};
+
+	typedef struct {
+		char menuName[1024];
+		eState state;
+	}SELECT_DATA_s;
+
+	static const SELECT_DATA_s SELECT_DATA_TBL[eState_BattleStart];
+
+	eState mState;
+	eDeckEditState mDeckEditState;
+
+	int mSelectMenu;
+	int mSelectMonster;
+	int mSelectDeckNum;
+
 	BattleBase* mBattle;
+	Player* mPlayer;
+	SaveData* mSaveData;
 public :
 
 	TestBattle(ISceneBase* changer);

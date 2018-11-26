@@ -27,9 +27,12 @@ ComRes::ComRes() {
 
 	COMMON_RES_t COM_RES_TBL[eComResName_Num] = {
 		// リソースの種類　　	ファイルパス
-		{eComResKind_Graphic,	"Resources/Graphics/BG/menu_ui_re.png"	},
+		{ eComResKind_Graphic,	"Resources/Graphics/BG/menu_ui_re.png"	},
 		{ eComResKind_Graphic,	"Resources/Graphics/BG/deckedit.png"	},
 		{ eComResKind_Graphic,	"Resources/Graphics/UI/msgBox.png"		},
+		{ eComResKind_Graphic,  "Resources/Data/Font/MS_Gothic_0.png"   },
+		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0001.mp3","Title"	},
+		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0002.mp3","Battle_1"	},
 		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00001.png" },
 		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00002.png" },
 		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00003.png" },
@@ -108,6 +111,13 @@ bool ComRes::Load() {
 		}
 	}
 
+	for (int i = 0; i < eComResName_Num; i++) {
+		if (mComRes[i].kind != eComResKind_SoundBgm) continue;
+		
+		SoundMgr::GetInstance()->Add(mComRes[i].buffer, mComRes[i].fileName);
+
+	}
+
 	return true;
 }
 
@@ -118,6 +128,7 @@ void ComRes::Relese() {
 
 	for (int i = 0; i < eComResName_Num; i++) {
 		if (mComRes[i].kind != eComResKind_Graphic) continue;
+		mComRes[i].Graphic->Relese();
 		Delete(mComRes[i].Graphic);
 	}
 

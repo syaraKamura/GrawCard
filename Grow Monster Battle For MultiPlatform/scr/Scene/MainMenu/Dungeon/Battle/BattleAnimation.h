@@ -29,6 +29,8 @@ public:
 		eAnimationNo_None = -1,
 		eAnimationNo_InSide_00,
 		eAnimationNo_InSide_01,
+		eAnimationNo_InSide_02,
+		eAnimationNo_Transrate_Scale,
 		eAnimationNo_Num,
 	};
 
@@ -59,10 +61,10 @@ public :
 	/*
 		int idx				:アニメーション番号
 		GraphicsDraw* graph	:グラフィックス
-		return	true	: リクエスト成功
-				false	: リスエスト失敗
+		return	NULL以外	: リクエスト成功
+				NULL		: リスエスト失敗
 	*/
-	bool RequestAnim(int animNo,GraphicsDraw* graph,bool isNowPositionBase = false);
+	Animation* RequestAnim(int animNo,GraphicsDraw* graph,bool isNowPositionBase = false);
 
 	//初期化
 	bool Initialize() override;

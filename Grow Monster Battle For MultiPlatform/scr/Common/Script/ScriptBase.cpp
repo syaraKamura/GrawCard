@@ -14,6 +14,7 @@
 
 #include "Common/GameCommon.h"
 #include "Common/String/StringClick.h"
+#include "Common/String/FontMgr/BMFont.h"
 #include "ScriptAnimation.h"
 #include "ScriptBase.h"
 
@@ -59,8 +60,16 @@ ScriptBase::ScriptBase() : TaskBase() {
 }
 
 ScriptBase::ScriptBase(const char* scriptName) : TaskBase() {
+
+	mBMFont = new BMFont();
+
 	mString = new StringBase();
+	mString->SetBitMapFont(mBMFont);
+	//char fontData[1024] = "Resources/Data/Font/MS_mintyou_UTF_8.dft";
+	//
+	//mString->FontCreate(fontData, 0);
 	mTalkName = new StringBase();
+	mTalkName->SetBitMapFont(mBMFont);
 
 	mAdvData = NULL;
 	mSaveData = AppData::GetInstance()->GetSaveData();
@@ -106,6 +115,7 @@ void ScriptBase::Finalize() {
 	Delete(mString);
 	Delete(mTalkName);
 	DeleteArry(mAdvData);
+	Delete(mBMFont);
 
 	this->mStringDatas.clear();
 	this->mFlagDatas.clear();
@@ -119,6 +129,12 @@ void ScriptBase::Finalize() {
 		Delete(mGraphicsDatas[i].mGraph);
 	}
 	mGraphicsDatas.clear();
+
+	// サウンドデータ削除
+	for (int i = 0; i < mSoundDatas.size(); i++) {
+		SoundMgr::GetInstance()->Remove(mSoundDatas[i].mSoundStrId);
+	}
+	mSoundDatas.clear();
 
 	mAnimOrderIdList.clear();
 	
@@ -140,17 +156,24 @@ void ScriptBase::PreviousUpdate() {
 			isWait = true;
 		}
 	}
+	
+	// 入力待ちをするか設定
+	mIsWait = isWait;
 
 	if (isWait == false) {
 		Analysis();
 	}
 
 	// すぐに表示する
-	mTalkName->Update(false, 60);
+	mTalkName->Update(false, 28);
 
 	mOldStringDrawState = mStringDrawState;
+#ifdef __WINDOWS__
 	int drawInterval = mIsAllDrawString ? 1 : 10;
-	mStringDrawState = (StringBase::eDrawState)mString->Update(true, 60, drawInterval);
+#else
+	int drawInterval = mIsAllDrawString ? 1 : 2;
+#endif
+	mStringDrawState = (StringBase::eDrawState)mString->Update(true, 28, drawInterval);
 }
 
 void ScriptBase::InputUpdate() {
@@ -214,7 +237,7 @@ void ScriptBase::InputUpdate() {
 
 	if (mIsAutoFeed == false) {
 		//if (Touch_Press(1)) {
-		if (ClickInput::GetInstance()->Press(1)) {
+		if (ClickInput::GetInstance()->Press(0)) {
 			if (mStringDrawState == StringBase::eDrawState_DrawEnd) {
 				//mString->SetString("目が覚めると、木々の隙間から木漏れ日がゆらゆらとあゆみの頬を照らす。");
 				mNowLine++;
@@ -250,17 +273,19 @@ void ScriptBase::PostUpdate() {
 void ScriptBase::Draw() {
 
 	for (int i = 0; i < mGraphicsDatas.size(); i++) {
-		if (mGraphicsDatas[i].mGraph->IsVisible()) {
-			int posX = mGraphicsDatas[i].mGraph->GetPositionX();
-			int posY = mGraphicsDatas[i].mGraph->GetPositionY();
-			int alpha = mGraphicsDatas[i].mGraph->GetAlpah();
-			mGraphicsDatas[i].mGraph->Draw(posX, posY, alpha, 0.0, 1.0);
+		Graphics* graph = mGraphicsDatas[i].mGraph;
+		if (graph->IsVisible()) {
+			//int posX =  graph->GetPositionX();
+			//int posY =  graph->GetPositionY();
+			//int alpha = graph->GetAlpah();
+			//graph->Draw(posX, posY, alpha, 0.0, 1.0);
+			graph->Draw();
 		}
 	}
 
-	mMsgGraphics.Draw(180, 450, 255, 0.0, 1.0);
-	mTalkName->DrawString(200, 470);
-	mString->DrawString(200, 500);
+	mMsgGraphics.Draw(240, 650, 255, 0.0, 1.0);
+	mTalkName->DrawString(260, 670);
+	mString->DrawString(260, 720);
 
 	bool ret = false;
 
@@ -272,7 +297,7 @@ void ScriptBase::Draw() {
 
 	//次のメッセージの表示が可能
 	if (ret && mStringDrawState == StringBase::eDrawState_DrawEnd) {
-		DrawBox(820, 550, 840, 570, GetColor(255, 255, 255), TRUE);
+		DrawBox(1520, 750, 1540, 770, GetColor(255, 255, 255), TRUE);
 		mIsDrawNextIcon = true;
 	}
 
@@ -511,8 +536,8 @@ void ScriptBase::Analysis() {
 		}
 
 		if (graph != NULL) {
-			int posX = graph->GetPositionX();
-			int posY = graph->GetPositionY();
+			int posX = 0;//graph->GetPositionX();
+			int posY = 0;//graph->GetPositionY();
 			
 			if (data.mInt[1] > -1) {
 				posX = data.mInt[1];
@@ -520,7 +545,9 @@ void ScriptBase::Analysis() {
 			if (data.mInt[2] > -1) {
 				posY = data.mInt[2];
 			}
+
 			graph->SetPosition(posX, posY);
+			graph->SetBasePosition(posX, posY);
 			graph->SetVisible(true);
 
 			if (data.mInt[3] > -1) {
@@ -606,6 +633,24 @@ void ScriptBase::Analysis() {
 		}
 	}
 		break;
+	case ScriptBase::eAnalysis_LoadSound:
+		break;
+	case ScriptBase::eAnalysis_PlaySound:
+		for (int i = 0;i < mSoundDatas.size(); i++) {
+			if (mSoundDatas[i].mSoundId == data.mInt[0]) {
+				SoundMgr::GetInstance()->Play(mSoundDatas[i].mSoundStrId);
+				break;
+			}
+		}
+		break;
+	case ScriptBase::eAnalysis_StopSound:
+		for (int i = 0; i < mSoundDatas.size(); i++) {
+			if (mSoundDatas[i].mSoundId == data.mInt[0]) {
+				SoundMgr::GetInstance()->Stop(mSoundDatas[i].mSoundStrId);
+				break;
+			}
+		}
+		break;
 	case ScriptBase::eAnalysis_End:
 		mIsEnd = true;
 		isNext = false;
@@ -648,6 +693,9 @@ ScriptBase::eAnalysis ScriptBase::MethodAnalysis(const char* str) {
 	else if (strcmpDx(str, "$hideGraph") == 0) return ScriptBase::eAnalysis_HideGraph;
 	else if (strcmpDx(str, "$animGraph") == 0) return ScriptBase::eAnalysis_AnimGraph;
 	else if (strcmpDx(str, "$setGraphAlpha") == 0) return ScriptBase::eAnalysis_SetGraphAlpha;
+	else if (strcmpDx(str, "$loadSound") == 0) return ScriptBase::eAnalysis_LoadSound;
+	else if (strcmpDx(str, "$playSound") == 0) return ScriptBase::eAnalysis_PlaySound;
+	else if (strcmpDx(str, "$stopSound") == 0) return ScriptBase::eAnalysis_StopSound;
 	else if (strcmpDx(str, "$end") == 0) return ScriptBase::eAnalysis_End;
 	
 	return ScriptBase::eAnalysis_Error;
@@ -691,10 +739,55 @@ bool ScriptBase::SetFlag(const char* flagName, unsigned int flag) {
 */
 bool ScriptBase::Load(const char* filename) {
 
+
+#if true
+
+	int handle = DxLib::FileRead_open(filename);
+
+	// 戻り値が0だとエラー扱い
+	if (handle == 0) {
+		TaskMgr::getInstance().RequestKill(this->mTaskId);
+		this->mIsEnd = true;
+		return false;
+	}
+
+	char data[1024] = "";
+	int pos = 0;
+	int readCnt = 0;
+
+	while (1) {
+		if (DxLib::FileRead_eof(handle)) break;
+
+		char ch = DxLib::FileRead_getc(handle);
+
+		//if (ch == '\0') break;
+		if (readCnt == 0 && ch == '\t') continue;
+		else if (ch == '\n' || ch == '\0' || ch == '\r') {
+			if (strcmpDx(data, "") != 0) {
+				mStringDatas.push_back(std::string(data));
+			}
+			memset(data, 0, sizeof(char) * 1024);
+			readCnt = 0;
+			pos++;
+			continue;
+		}
+
+		data[readCnt] = ch;
+
+		readCnt++;
+		pos++;
+
+	}
+
+
+	DxLib::FileRead_close(handle);
+
+#else
 	std::ifstream file(filename);
 
 	if (file.is_open() == false) {
 		TaskMgr::getInstance().RequestKill(this->mTaskId);
+		this->mIsEnd = true;
 		return false;
 	}
 
@@ -730,7 +823,8 @@ bool ScriptBase::Load(const char* filename) {
 	}
 
 	file.close();
-	
+#endif
+
 	std::vector<ADV_DATA_t> advDataList;
 
 	char* str = NULL;
@@ -754,6 +848,7 @@ bool ScriptBase::Load(const char* filename) {
 
 		FLAG_DATA_t flagData = { -1,"" };
 		GRAPHICS_DATA_t graphicsData = { -1,NULL };
+		SOUND_DATA_t soundData = { -1,"" };
 
 		for (auto data = list.begin(); data != list.end(); data++) {
 
@@ -945,6 +1040,58 @@ bool ScriptBase::Load(const char* filename) {
 					}
 					else if (cnt == 2) {
 						advData.mInt[1] = atoiDx(data->data());
+					}
+					break;
+				case ScriptBase::eAnalysis_LoadSound:
+					if (cnt == 1) {
+						soundData.mSoundId = atoiDx(data->data());
+						data++;
+
+						char str[1024];
+
+						strcpyDx(str, data->data());
+
+						int length = strlenDx(str);
+						
+						int start = 0;
+						int end = 0;
+						
+						// ファイル名にあたる文字列の範囲を調べる
+						for (int i = length - 1; i > 0; i--) {
+							if (str[i] == '.') {
+								end = i;
+							}
+							else if (str[i] == '/' || str[i] == '\\') {
+								start = i + 1;
+								break;
+							}
+						}
+
+						// サウンド識別Idを設定
+						char soundId[248] = {};
+						int cnt = 0;
+						for (int i = start; i < end; i++) {
+							soundId[cnt] = str[i];
+							cnt++;
+						}
+						soundId[cnt] = '\0';
+
+						soundData.mSoundStrId = soundId;
+						SoundMgr::GetInstance()->Add(soundId,str);
+
+						mSoundDatas.push_back(soundData);
+
+
+					}
+					break;
+				case ScriptBase::eAnalysis_PlaySound:
+					if (cnt == 1) {
+						advData.mInt[0] = atoiDx(data->data());
+					}
+					break;
+				case ScriptBase::eAnalysis_StopSound:
+					if (cnt == 1) {
+						advData.mInt[0] = atoiDx(data->data());
 					}
 					break;
 				}

@@ -15,10 +15,13 @@
 #define __BATTLE_BASE_H__
 
 #include "Common/Task/TaskBase.h"
+#include <vector>
 
 class AppData;
 class Player;
 class BattleAnimation;
+class Animation;
+class Button;
 
 class BattleBase : public TaskBase{
 
@@ -43,8 +46,10 @@ public :
 
 	enum eBattleMainStep {
 		eBattleMainStep_None = -1,
-		eBattleMainStep_Command,
+		eBattleMainStep_MoveOrder,		// 行動順番設定
+		eBattleMainStep_Command,		// コマンド入力
 		eBattleMainStep_Battle,
+		eBattleMainStep_BattleAnim,		// バトルアニメーション
 
 		eBattleMainStep_Judgement,
 
@@ -62,13 +67,48 @@ public :
 		eDeckType_Enemy,		// エネミー
 	};
 
-	typedef struct MOVE_DATA_t{
-		eDeckType moveDeckType;
-		int moveId;
-		eDeckType targetDeckType;
-		int targetId;
-		eActiveType activeType;
+	enum eMoveType {
+		eMoveType_Manual,		// 入力行動
+		eMoveType_Auto,			// 自動行動 
+		
 	};
+
+	enum eCommand {
+		eCommand_CehcekActionType,		// 行動の種類を判断する
+		eCommand_Select,		// 選択
+		eCommand_SelectTarget,	// 対象選択
+		eCommand_Decision,		// 確定
+	};
+
+	enum eButtonType {
+		eButtonType_Auto,
+		eButtonType_Attack,
+		eButtonType_Skill,
+		eButtonType_Item,
+		eButtonType_Num,
+	};
+
+	typedef struct {
+		eDeckType moveDeckType;
+		Monster* moveMonster;
+		eDeckType targetDeckType;
+		Monster* targetMonster;
+		eActiveType activeType;
+	}MOVE_DATA_t;
+
+	typedef struct {
+		Monster* monster;
+		eDeckType type;
+		Graphics graph;
+		int moveOreder;
+		bool isDead;
+		eMoveType moveType;		// 行動方法
+	}MONSTER_DATA_t;
+
+	typedef struct {
+		int damage;
+		Monster* monster;
+	}DAMAGE_MONSTER_t;
 
 #ifdef __MY_DEBUG__
 	const char* dbg_STEP_TITLE[eBattleStep_Num] =
@@ -105,10 +145,34 @@ protected:
 
 	std::list<MOVE_DATA_t> mMoveData;
 
+	std::vector<MONSTER_DATA_t> mMonsterData;
+	std::vector<DAMAGE_MONSTER_t> mTargetList;
+
+	MONSTER_DATA_t mNowOrderMonsterData;
+	MOVE_DATA_t mOrderMoveData;		// 行動データ
+
 	Graphics mPlayerCard[5];
 	Graphics mEnemyCard[5];
 
 	BattleAnimation* mBattleAnimation;
+	Animation* mAnim;
+
+	eCommand mActionCommand;
+
+	Button* mButtons[eButtonType_Num];
+
+	int mStartAnimCount;
+	int mAnimPlayMonsterNum;
+
+	int mBattleTimeCounter;
+	int mBattleTimeBase;
+
+	int mMoveOrderMonsterNum;
+
+	int mDamage;
+
+	bool mIsAutoAction;		// 自動操作
+
 
 protected:
 
@@ -135,7 +199,8 @@ protected:
 public:
 
 	BattleBase();
-
+	BattleBase(Player* player);
+	
 	bool Initialize()override;
 	void Finalize()override;
 
@@ -146,6 +211,8 @@ public:
 
 	eBattleStep BattleMainUpdate();
 	void BattleMainDraw();
+
+	void OnClick(View* view) override;
 
 };
 

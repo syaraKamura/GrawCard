@@ -16,7 +16,7 @@
 
 #include "../CharacterBase.h"
 
-static const int SKILL_HAVE_NUM = 2;	//スキル所持数
+static const int SKILL_HAVE_NUM = 1;	//スキル所持数
 
 
 class Monster : public CharacterBase {
@@ -57,8 +57,7 @@ private:
 	int mDeffence;
 	int mSpeed;
 
-	//int SkillIndex[SKILL_HAVE_NUM];
-	//eHomePosition mHomePosition;	//定位置
+	int SkillIndex[SKILL_HAVE_NUM];
 
 public :
 
@@ -78,18 +77,18 @@ public :
 	void SetSpeed(int speed);
 
 	
-	int GetId();
-	eType GetType();
-	eHomePosition GetHomePosition();
+	int GetId() const;
+	eType GetType()const;
+	eHomePosition GetHomePosition()const;
 
-	int GetHp();
-	int GetHpMax();
-	int GetMp();
-	int GetMpMax();
+	int GetHp()const;
+	int GetHpMax()const;
+	int GetMp()const;
+	int GetMpMax()const;
 
-	int GetAttack();
-	int GetDeffence();
-	int GetSpeed();
+	int GetAttack()const;
+	int GetDeffence()const;
+	int GetSpeed()const;
 
 };
 

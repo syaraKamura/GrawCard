@@ -194,6 +194,39 @@
     <ClCompile Include="..\..\scr\Common\Script\ScriptAnimation.cpp">
       <Filter>src\Common\Script</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\PlayerInfomation\PlayerInfomation.cpp">
+      <Filter>src\Scene\MainMenu\PlayerInfomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Graphics\Button\Button.cpp">
+      <Filter>src\Common\Graphics\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Graphics\Button\ButtonGraph.cpp">
+      <Filter>src\Common\Graphics\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Graphics\Window\WindowGraph.cpp">
+      <Filter>src\Common\Graphics\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\String\StringClick.cpp">
+      <Filter>src\Common\String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleAnimation.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\String\FontMgr\BMFont.cpp">
+      <Filter>src\Common\String\FontMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Sound\Sound.cpp">
+      <Filter>src\Common\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Sound\SoundMgr.cpp">
+      <Filter>src\Common\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\Prologue\Scene_Prologue.cpp">
+      <Filter>src\Scene\Prologue</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -312,6 +345,30 @@
     </Filter>
     <Filter Include="src\Common\Sound">
       <UniqueIdentifier>{9d8968da-8de3-449e-88ce-09890ac393ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\PlayerInfomation">
+      <UniqueIdentifier>{ba392ec7-6da2-4e0d-994c-7a919d330589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Shop">
+      <UniqueIdentifier>{a203b10d-80d4-4ad9-a158-7817e5c93853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\MonsterBox">
+      <UniqueIdentifier>{1ee57cf8-c042-482a-9f42-1a159421c760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Gatya">
+      <UniqueIdentifier>{96e8d96c-89b5-4957-bf08-068b5c83c419}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Graphics\Window">
+      <UniqueIdentifier>{03ada130-9bb0-4598-99c9-1ce1cfa257c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Graphics\Button">
+      <UniqueIdentifier>{7ff54210-3410-4879-922e-3a82f99499f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\System">
+      <UniqueIdentifier>{b27e389a-9010-481c-96ac-1960a56abe37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\Prologue">
+      <UniqueIdentifier>{4ce0f5da-2622-4e3e-9f63-37217a18bc7a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -506,6 +563,45 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Script\ScriptAnimation.h">
       <Filter>src\Common\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\PlayerInfomation\PlayerInfomation.h">
+      <Filter>src\Scene\MainMenu\PlayerInfomation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Graphics\Button\Button.h">
+      <Filter>src\Common\Graphics\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Graphics\Button\ButtonGraph.h">
+      <Filter>src\Common\Graphics\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Graphics\Button\View.h">
+      <Filter>src\Common\Graphics\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Graphics\Window\WindowGraph.h">
+      <Filter>src\Common\Graphics\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\System\OnListener.h">
+      <Filter>src\Common\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\String\StringClick.h">
+      <Filter>src\Common\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleAnimation.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\String\FontMgr\BMFont.h">
+      <Filter>src\Common\String\FontMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Sound\SoundMgr.h">
+      <Filter>src\Common\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Sound\Sound.h">
+      <Filter>src\Common\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\Prologue\Scene_Prologue.h">
+      <Filter>src\Scene\Prologue</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@ typedef struct{
 static const SCENE_LIST s_cSceneListTbl[] = {
 	{ISceneBase::eScene_Opning,"オープニング"},
 	{ISceneBase::eScene_Title,"タイトル"},
+	{ ISceneBase::eScene_Prologue,"プロローグ" },
 	{ISceneBase::eScene_MainMenu,"メインメニュー"},
 	{ISceneBase::eScene_AITest,"AIテスト"},
 	{ISceneBase::eScene_TestComunication,"通信テスト"},

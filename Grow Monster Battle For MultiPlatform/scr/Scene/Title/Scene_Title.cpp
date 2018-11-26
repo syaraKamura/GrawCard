@@ -68,10 +68,9 @@ bool Scene_Title::Initialize(){
 	mGraphic[eImg_NewGame]->Load("Resources/Graphics/UI/start.png");
 	mGraphic[eImg_Continue]->Load("Resources/Graphics/UI/continue.png");
 
-	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_Back], 0);
-	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_NewGame], 1);
-	GraphicsDrawMgr::GetInstance()->Add((GraphicsBase*)mGraphic[eImg_Continue], 1);
-	
+	this->GetGraphicsDrawMgr()->Add((GraphicsBase*)mGraphic[eImg_Back], 0);
+	this->GetGraphicsDrawMgr()->Add((GraphicsBase*)mGraphic[eImg_NewGame], 1);
+	this->GetGraphicsDrawMgr()->Add((GraphicsBase*)mGraphic[eImg_Continue], 1);
 	
 	mGraphic[eImg_Back]->SetVisible(false);
 	mGraphic[eImg_Back]->SetPosition(0, 0);
@@ -120,6 +119,8 @@ bool Scene_Title::Initialize(){
 	InputString_Initialize();
 #endif
 
+	SoundMgr::GetInstance()->Play("Title", SoundMgr::ePlayType_Loop);
+
 	return true;
 }
 void Scene_Title::Finalize(){
@@ -132,6 +133,8 @@ void Scene_Title::Finalize(){
 	mGraphic[eImg_NewGame]->ReleseRequest();
 	mGraphic[eImg_Continue]->ReleseRequest();
 	
+	SoundMgr::GetInstance()->Stop();
+
 	//deleteSound(0);
 }
 
@@ -162,7 +165,12 @@ bool Scene_Title::Updata(){
 		UpdataProc();
 		break;
 	case eState_Exit:
-		mNextScene->SceneChange(ISceneBase::eScene_MainMenu);
+		if (AppData::GetInstance()->GetSaveData()->IsFlag(AppData::eAPPDATA_FLAG_DipsOpenRogue)) {
+			mNextScene->SceneChange(ISceneBase::eScene_MainMenu);
+		}
+		else {
+			mNextScene->SceneChange(ISceneBase::eScene_Prologue);
+		}
 		break;
 	case eState_ExitDone:
 		break;

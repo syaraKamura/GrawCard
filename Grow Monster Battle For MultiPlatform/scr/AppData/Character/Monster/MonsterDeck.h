@@ -26,7 +26,7 @@ private:
 private:
 
 	typedef struct {
-		Monster monster;	//モンスターデータ
+		Monster* monster;	//モンスターデータ
 		bool isAttach;			//モンスターが設定されているか？
 	}MonsterDeck_t;
 
@@ -57,7 +57,7 @@ public :
 	*/
 	void Detach(int idx);
 
-	void SetMonster(int idx,Monster monster);
+	void SetMonster(int idx,Monster* monster);
 	Monster* GetMonster(int idx);
 
 	int GetSetNum();

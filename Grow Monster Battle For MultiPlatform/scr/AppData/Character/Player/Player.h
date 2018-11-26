@@ -60,8 +60,14 @@ public:
 		return	true	:設定に成功
 				false	:設定に失敗
 	*/
-	bool SetMonster(int idx, Monster monster);
+	bool SetMonster(int idx, Monster* monster);
 	Monster* GetMonster(int idx);
+
+	/*
+		モンスターをデッキから除外する
+	*/
+	void RemoveMonster(int idx);
+
 	/*
 		デッキに設定しているモンスターの数
 	*/

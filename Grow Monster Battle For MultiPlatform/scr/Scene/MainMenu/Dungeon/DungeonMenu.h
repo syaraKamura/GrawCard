@@ -100,6 +100,7 @@ public :
 	void Draw()override;
 	void PostUpdate() override;
 	
+	void OnClick(View* view) override;
 
 };
 

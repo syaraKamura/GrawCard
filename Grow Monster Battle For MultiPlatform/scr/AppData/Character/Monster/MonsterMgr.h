@@ -44,7 +44,8 @@ public :
 
 	static MonsterMgr* Instance();
 
-	Monster getMonsterData(int number);
+	int GetMonsterNum();
+	Monster* GetMonsterData(int number) const;
 	Graphics GetGraphics(int number);
 
 };

@@ -38,6 +38,15 @@ public :
 	void Draw() override {}
 	void PostUpdate() override {}
 
+	/*
+		タスクマネージャーのインスタンスを返却する
+	*/
+	TaskMgr& GetTask() { return TaskMgr::getInstance(); };
+
+	/*
+		画像描画マネージャーのインスタンスを返却する
+	*/
+	GraphicsDrawMgr* GetGraphicsDrawMgr() { return GraphicsDrawMgr::GetInstance(); }
 
 protected:
 #ifdef __MY_DEBUG__

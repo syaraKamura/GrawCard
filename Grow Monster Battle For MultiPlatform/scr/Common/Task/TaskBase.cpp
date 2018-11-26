@@ -61,6 +61,10 @@ void TaskBase::SetPriorty(int priorty){
 }
 
 const char* TaskBase::GetTaskName() const throw(){
+#ifdef __WINDOWS__
 	const char* name = typeid(*this).name();
 	return name;
+#else
+	return "";
+#endif
 }

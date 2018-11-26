@@ -14,10 +14,24 @@
 #ifndef __DEBUG_H__
 #define __DEBUG_H__
 
+#include <vector>
+#include <string>
+
 class DebugList;
 
 class Debug {
-	
+
+private :
+
+	static const int DEBUG_LOG_NUM = 50;
+
+public:
+
+	typedef struct {
+		int logType;
+		std::string str;
+	}DEBUG_LOG_t;
+
 private:
 
 	//基本データ
@@ -48,6 +62,10 @@ private:
 			デバッグ描画
 
 	*/
+
+	
+	static int mDebugLogCnt;
+	static DEBUG_LOG_t mDebugStrings[DEBUG_LOG_NUM];
 
 	bool mIsActive;	//デバッグ機能起動フラグ
 	bool mIsAssert;	//アサートがおきたかフラグ

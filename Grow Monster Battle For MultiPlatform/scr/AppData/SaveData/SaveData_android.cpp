@@ -212,6 +212,20 @@ unsigned int SaveData::GetFlag(int i) {
 }
 
 /*
+フラグの状態
+int i			: フラグ番号
+return	true	:
+false	:
+*/
+bool SaveData::IsFlag(int i) {
+	if (i < 0 || i >= MAX_FLAGS) {
+		Debug::ErorrMessage("フラグデータの範囲外です");
+		return 0;
+	}
+	return (mFlag.mFlags[i] == 1);
+}
+
+/*
 	フラグデータを返却する
 	return	:	フラグデータ
 */

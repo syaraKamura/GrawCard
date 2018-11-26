@@ -15,7 +15,9 @@
 #ifndef __TASK_H__
 #define __TASK_H__
 
-class Task{
+#include "Common/System/OnListener.h"
+
+class Task: public OnListener {
 
 public :
 

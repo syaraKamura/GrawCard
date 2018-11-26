@@ -16,8 +16,11 @@
 #include "Common/GameCommon.h"
 #include "../ISceneBase.h"
 #include "Scene_MainMenu.h"
+#include "Common/Graphics/Button/Button.h"
+#include "Common/Graphics/Button/ButtonGraph.h"
 #include "Common/Script/ScriptBase.h"
 #include "Dungeon/DungeonMenu.h"
+#include "PlayerInfomation/PlayerInfomation.h"
 
 Scene_MainMenu::Scene_MainMenu(ISceneBase* changer) : SceneBase(changer) {
 
@@ -46,6 +49,29 @@ bool Scene_MainMenu::Initialize() {
 		return false;
 	}
 
+#if true
+	int x = 160;
+	int y = 900;
+	mButtons[Scene_MainMenu::eButton_Dungeon] = new Button("Resources/Graphics/UI/button/menu_adventure2.png", x, y, "");		
+	x += 190;
+	mButtons[Scene_MainMenu::eButton_MonsterBox] = new Button("Resources/Graphics/UI/button/menu_monster2.png", x, y, "");
+	x += 190;
+	mButtons[Scene_MainMenu::eButton_Player] = new Button("Resources/Graphics/UI/button/menu_player2.png", x, y, "");
+	x += 190;
+	mButtons[Scene_MainMenu::eButton_Shop] = new Button("Resources/Graphics/UI/button/menu_shop2.png", x, y, "");
+	x += 190;
+	mButtons[Scene_MainMenu::eButton_Gatya] = new Button("Resources/Graphics/UI/button/menu_gacha2.png", x, y, "");
+
+	ButtonGraph* buttonGraph = new ButtonGraph();
+
+	for (int i = 0; i < 5; i++) {
+		mButtons[i]->SetOnListener(this);
+		buttonGraph->AddButton(mButtons[i]);
+	}
+
+	mButtonImageOrder = GraphicsDrawMgr::GetInstance()->Add(buttonGraph, 1);
+
+#else
 	GraphicsMulti* multiAdd = new GraphicsMulti();
 	multiAdd->Load("Resources/Graphics/UI/button/menu_adventure2.png", 160, 600);
 	multiAdd->Load("Resources/Graphics/UI/button/menu_monster2.png", 280, 600);
@@ -53,12 +79,13 @@ bool Scene_MainMenu::Initialize() {
 	multiAdd->Load("Resources/Graphics/UI/button/menu_shop2.png", 520, 600);
 	multiAdd->Load("Resources/Graphics/UI/button/menu_gacha2.png", 640, 600);
 	mButtonImageOrder = GraphicsDrawMgr::GetInstance()->Add(multiAdd, 1);
-	
+#endif
+
 	mNowMenuTaskID = -1;
 	mIsEnableGraph = false;
 #ifdef __MY_DEBUG__
 	if (mDebug != NULL) {
-		mDebug->SetDebugList((DebugList*)new dbgScene_MainMenu());
+		//mDebug->SetDebugList((DebugList*)new dbgScene_MainMenu());
 	}
 #endif
 
@@ -70,7 +97,8 @@ bool Scene_MainMenu::Initialize() {
 	mIsEndOpenRouge = 0;
 
 	if (saveData != NULL) {
-		mIsEndOpenRouge = saveData->GetFlag((int)AppData::eAPPDATA_FLAG_DipsOpenRogue);
+		//mIsEndOpenRouge = saveData->GetFlag((int)AppData::eAPPDATA_FLAG_DipsOpenRogue);
+		mIsEndOpenRouge = 1;//saveData->GetFlag((int)AppData::eAPPDATA_FLAG_DipsOpenRogue);
 	}
 
 	mMenu = eMenu_MainMenu;
@@ -128,7 +156,7 @@ void Scene_MainMenu::Draw() {
 
 	if (mState < eState_Fade) return;
 
-	switch (mMenu) {
+	switch ((int)mState) {
 	case eMenu_MainMenu:
 		MainMenuDraw();
 		break;
@@ -148,7 +176,7 @@ void Scene_MainMenu::Draw() {
 
 		break;
 	default:
-		Debug::LogPrintf("不正な値です。(%d)", (int)mMenu);
+		Debug::LogPrintf("mState は 不正な値です。(%d)", (int)mMenu);
 		break;
 	}
 
@@ -177,7 +205,7 @@ bool Scene_MainMenu::UpdataProc() {
 				}
 			}
 		}
-
+		
 		if (TaskMgr::getInstance().GetTask(mNowMenuTaskID) == NULL) {
 			mNowMenuTaskID = -1;
 			NexetState(eState_Main, eFadeType_In, 30);
@@ -248,7 +276,10 @@ bool Scene_MainMenu::UpdataProc() {
 	}
 		break;
 	case eMenu_PlayerStatus:
-
+	{
+		mNowMenuTaskID = TaskMgr::getInstance().Add(new PlayerInfomation(), TaskMgr::ePriorty_0);
+		mIsEnableGraph = false;
+	}
 		break;
 	case eMenu_Monster:
 
@@ -282,6 +313,8 @@ bool Scene_MainMenu::MainMenuProc() {
 	}
 #endif
 #endif
+
+#if false
 	auto mGraph = GraphicsDrawMgr::GetInstance()->Get(this->mButtonImageOrder);
 	int selectNumber = -1;
 	if (mGraph != NULL) {
@@ -297,7 +330,10 @@ bool Scene_MainMenu::MainMenuProc() {
 		mNextScene->SceneChange(ISceneBase::eScene_TestADV);
 #endif // __MY_DEBUG__
 	}
-
+	else if (selectNumber == 2) {
+		mNextMenu = eMenu_PlayerStatus;
+	}
+#endif
 
 
 	return true;
@@ -317,6 +353,26 @@ void Scene_MainMenu::NexetState(eState nextState, eFadeType type, int fadeFrame)
 	}
 	else if (type == eFadeType_Out) {
 		Fade::GetInstance()->FadeOut(fadeFrame);
+	}
+
+}
+
+void Scene_MainMenu::OnClick(View* viewe) {
+
+	if (viewe == mButtons[Scene_MainMenu::eButton_Dungeon]) {
+		mNextMenu = eMenu_Quest;
+	}
+	else if (viewe == mButtons[Scene_MainMenu::eButton_MonsterBox]) {
+		mNextScene->SceneChange(ISceneBase::eScene_TestADV);
+	}
+	else if (viewe == mButtons[Scene_MainMenu::eButton_Player]) {
+		mNextMenu = eMenu_PlayerStatus;
+	}
+	else if (viewe == mButtons[Scene_MainMenu::eButton_Shop]) {
+
+	}
+	else if (viewe == mButtons[Scene_MainMenu::eButton_Gatya]) {
+
 	}
 
 }

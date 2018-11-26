@@ -208,20 +208,20 @@ MonsterMgr* MonsterMgr::Instance() {
 	int	number		:モンスターID
 	return			:モンスターデータ
 */
-Monster MonsterMgr::getMonsterData(int number) {
+Monster* MonsterMgr::GetMonsterData(int number) const {
 
-	if (this->mList.size() == 0) return Monster();
+	if (this->mList.size() == 0) return NULL;
 	
 	Monster ret;
 
 	for (auto itr = this->mList.begin(); itr != this->mList.end(); itr++) {
-
+		
 		if (itr->GetId() == number) {
 			ret = *itr;
 			break;
 		}
 	}
-	return ret;
+	return new Monster(ret);
 }
 
 Graphics MonsterMgr::GetGraphics(int number) {
@@ -239,4 +239,8 @@ Graphics MonsterMgr::GetGraphics(int number) {
 	}
 
 	return graph;
+}
+
+int MonsterMgr::GetMonsterNum() {
+	return mList.size();
 }

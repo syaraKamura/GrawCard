@@ -37,12 +37,22 @@ int Player::GetGender() {
 	return	true	:設定に成功
 			false	:設定に失敗
 */
-bool Player::SetMonster(int idx, Monster monster) {
+bool Player::SetMonster(int idx, Monster* monster) {
 
 	if (mMonsterDeck.IsSetMonster(idx) == true) return false;
 	mMonsterDeck.SetMonster(idx, monster);
 	mMonsterDeck.Attach(idx);
 	return true;
+}
+
+
+/*
+	モンスターをデッキから除外する
+*/
+void Player::RemoveMonster(int idx) {
+	if (mMonsterDeck.IsSetMonster(idx) == false) return ;
+	mMonsterDeck.SetMonster(idx, NULL);
+	mMonsterDeck.Detach(idx);
 }
 
 Monster* Player::GetMonster(int idx) {

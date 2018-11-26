@@ -16,26 +16,45 @@
 #include "BattleAnimation.h"
 
 
-// 下からカードを画面内へ移動させる
+// 下からカードを画面内へ移動させる(前衛設定)
 static ANIMATION_DATA_t BTL_ANIM_CARD_INSIDE_00[] =
 {
-	// keyframe	positionX	positionY				angle	scale	alpha
-	{ 0 ,		0,			WINDOW_HEIGHT,			0.0f,	1.0f,	0.0f	},
-	{ 20,		0,			WINDOW_HEIGHT - 350,	0.0f,	1.0f,	255.0f	},
+	// keyframe	positionX	positionY				angle	scale	alpha	easing
+	{ 0 ,		0,			WINDOW_HEIGHT,			0.0f,	1.0f,	0.0f									},
+	{ 20,		0,			WINDOW_HEIGHT - 350,	0.0f,	1.0f,	255.0f	,Easing::eEasingType_InCubic	},
 };
+
+// 下からカードを画面内へ移動させる(後衛設定)
+static ANIMATION_DATA_t BTL_ANIM_CARD_INSIDE_02[] =
+{
+	// keyframe	positionX	positionY				angle	scale	alpha	easing
+	{ 0 ,		0,			WINDOW_HEIGHT,			0.0f,	1.0f,	0.0f },
+	{ 20,		0,			WINDOW_HEIGHT - 250,	0.0f,	1.0f,	255.0f	,Easing::eEasingType_InCubic },
+};
+
 
 // 上からカードを画面内へ移動させる
 static ANIMATION_DATA_t BTL_ANIM_CARD_INSIDE_01[] =
 {
-	// keyframe	positionX	positionY	angle	scale	alpha
-	{ 0 ,		0,			0,			0.0f,	1.0f,	0.0f	},
-	{ 20,		0,			350,		0.0f,	1.0f,	255.0f	},
+	// keyframe	positionX	positionY	angle	scale	alpha	easing
+	{ 0 ,		0,			0,			0.0f,	1.0f,	0.0f			},
+	{ 20,		0,			350,		0.0f,	1.0f,	255.0f			},
+};
+
+// 拡縮を行う
+static ANIMATION_DATA_t BTL_ANIM_CARD_TRANSRATE_SCALE[]{
+	// keyframe	positionX	positionY	angle	scale	alpha	easing
+	{ 0 ,		0,			0,			0.0f,	1.0f,	255.0f ,Easing::eEasingType_InCubic },
+	{ 30 ,		0,			0,			0.0f,	1.5f,	255.0f ,Easing::eEasingType_InCubic	},
+	{ 35 ,		0,			0,			0.0f,	1.0f,	255.0f								},
 };
 
 BattleAnimation::ANIMATION_LIST_t BattleAnimation::ANIMATION_LIST_TBL[BattleAnimation::eAnimationNo_Num] =
 {
-	{ "下から画面内へ移動する" ,ArrySize(BTL_ANIM_CARD_INSIDE_00),BTL_ANIM_CARD_INSIDE_00},
+	{ "下から画面内へ移動する（前衛）" ,ArrySize(BTL_ANIM_CARD_INSIDE_00),BTL_ANIM_CARD_INSIDE_00},
 	{ "上から画面内へ移動する" ,ArrySize(BTL_ANIM_CARD_INSIDE_01),BTL_ANIM_CARD_INSIDE_01 },
+	{ "下から画面内へ移動する（後衛）" ,ArrySize(BTL_ANIM_CARD_INSIDE_01),BTL_ANIM_CARD_INSIDE_02 },
+	{"拡大縮小を行う",ArrySize(BTL_ANIM_CARD_TRANSRATE_SCALE),BTL_ANIM_CARD_TRANSRATE_SCALE },
 };
 
 BattleAnimation::BattleAnimation() : TaskBase(){
@@ -43,22 +62,22 @@ BattleAnimation::BattleAnimation() : TaskBase(){
 }
 
 /*
-int idx				:アニメーション番号
-GraphicsDraw* graph	:グラフィックス
-return	true	: リクエスト成功
-false	: リスエスト失敗
+	int idx				:アニメーション番号
+	GraphicsDraw* graph	:グラフィックス
+	return	NULL以外	: リクエスト成功
+			NULL		: リスエスト失敗
 */
-bool BattleAnimation::RequestAnim(int animNo, GraphicsDraw* graph, bool isNowPositionBase /*= false*/) {
+Animation* BattleAnimation::RequestAnim(int animNo, GraphicsDraw* graph, bool isNowPositionBase /*= false*/) {
 
 	
 	if (animNo < 0 || animNo >= BattleAnimation::eAnimationNo_Num) {
 		Debug::ErorrMessage("指定されたバトルアニメーションは無効です\n");
-		return false;
+		return NULL;
 	}
 
 	if (graph == NULL) {
 		Debug::ErorrMessage("GraphicsDrawがNULLです\n");
-		return false;
+		return NULL;
 	}
 
 	BATTLE_ANIMATION_DATA_t add;
@@ -83,7 +102,7 @@ bool BattleAnimation::RequestAnim(int animNo, GraphicsDraw* graph, bool isNowPos
 	add.mAnim->Play();
 	
 
-	return true;
+	return add.mAnim;
 }
 
 //初期化

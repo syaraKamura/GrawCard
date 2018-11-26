@@ -135,6 +135,21 @@ void Graphics::Draw(int posX, int posY, int alpha, double angle, double scale){
 
 }
 
+void Graphics::Draw() {
+
+	//画像データが存在していないならば処理を抜ける
+	if (mHandle <= eGraphicsResult_NONE) {
+		Debug::LogPrintf("[ERORR : (FUNC %s)] Graphic is Not Exist.\nFileName(%s) \n", __func__, this->mFileName);
+		return;
+	}
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
+	//DxLib::DrawGraph(mPosX, mPosY, mHandle, TRUE);
+	int drawX = mPosX + mWidth / 2;
+	int drawY = mPosY + mHeight / 2;
+	DxLib::DrawRotaGraph2(drawX, drawY, mWidth / 2, mHeight / 2, mScale, mAngle, mHandle, TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+}
 
 bool Graphics::IsTouch() {
 
@@ -143,8 +158,8 @@ bool Graphics::IsTouch() {
 	int posX = 0;
 	int posY = 0;
 
-	posX =ClickInput::GetInstance()->GetPositionX(0);
-	posY =ClickInput::GetInstance()->GetPositionY(0);
+	posX = ClickInput::GetInstance()->GetPositionX(0);
+	posY = ClickInput::GetInstance()->GetPositionY(0);
 	if(ClickInput::GetInstance()->Relese(0))
 #ifdef __ANDROID__
 	//const TOUCH_DATA* data = Touch_GetParamData(0);
