@@ -75,6 +75,10 @@ void Monster::SetSpeed(int speed) {
 	mSpeed = speed;
 }
 
+void Monster::SetSkillNumber(int skill) {
+	SkillIndex[0] = skill;
+}
+
 int Monster::GetId() const {
 	return mId;
 }
@@ -113,4 +117,8 @@ int Monster::GetDeffence() const {
 
 int Monster::GetSpeed() const {
 	return mSpeed;
+}
+
+int Monster::GetSkillNumber() const {
+	return SkillIndex[0];
 }

@@ -148,6 +148,9 @@
     <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Map">
       <UniqueIdentifier>{991fa6da-bd52-4e91-ae06-da414dae7746}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\AppData\Character\Monster\Skill">
+      <UniqueIdentifier>{b68c593b-d8bf-4985-a679-44263e53b86a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">

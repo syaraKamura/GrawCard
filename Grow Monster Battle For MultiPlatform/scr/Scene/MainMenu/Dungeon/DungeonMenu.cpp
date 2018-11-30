@@ -76,6 +76,8 @@ bool DungeonMenu::Initialize() {
 
 	mStroySelectNum = 0;
 
+	mTaskId = -1;
+
 	//フェードイン
 	Fade::GetInstance()->FadeIn(30);
 
@@ -137,7 +139,9 @@ bool DungeonMenu::Updata() {
 		//とりあえず自身のタスクを削除する
 		//if (Touch_Relese(0)) {
 		if (ClickInput::GetInstance()->Relese(0)) {
-			mState = eState_Fade;
+			//mState = eState_Fade;
+			//ChangeState(eState_ExitDone, eFade_Out);
+			mTaskId = TaskMgr::getInstance().Add(new BattleBase());
 		}
 
 #endif
@@ -159,6 +163,10 @@ bool DungeonMenu::Updata() {
 		break;
 	case eState_SelectQuestMap:
 #ifdef __WINDOWS__
+		if (Keyboard_Press(KEY_INPUT_Z)) {
+			mTaskId = TaskMgr::getInstance().Add(new BattleBase());
+		}
+
 		if (Keyboard_Press(KEY_INPUT_X)) {
 			DungeonMgr::GetInstance()->SetDungeonType(DungeonMgr::eDungeonType_None);
 			ChangeState(eState_SelectMode, eFade_Out);

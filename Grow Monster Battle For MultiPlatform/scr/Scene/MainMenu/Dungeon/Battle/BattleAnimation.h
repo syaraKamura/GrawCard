@@ -31,6 +31,10 @@ public:
 		eAnimationNo_InSide_01,
 		eAnimationNo_InSide_02,
 		eAnimationNo_Transrate_Scale,
+		eAnimationNo_Attack_00,
+		eAnimationNo_Attack_01,
+		eAnimationNo_Transrate_Scale_01,
+		eAnimationNo_Transrate_Scale_02,
 		eAnimationNo_Num,
 	};
 
@@ -65,6 +69,8 @@ public :
 				NULL		: リスエスト失敗
 	*/
 	Animation* RequestAnim(int animNo,GraphicsDraw* graph,bool isNowPositionBase = false);
+
+	Animation* RequestAnim(ANIMATION_DATA_t* animData, int animDataSize, GraphicsDraw* graph, bool isNowPositionBase = false);
 
 	//初期化
 	bool Initialize() override;

@@ -117,9 +117,9 @@ BattleBase::BattleBase() : TaskBase() {
 		add.moveType = BattleBase::eMoveType_Auto;
 		add.graph = MonsterMgr::Instance()->GetGraphics(monster->GetId());
 		add.graph.SetVisible(true);
-		int y = 1100;
+		int y = 200;
 		if (monster->GetHomePosition() == Monster::eHomePosition_Back) {
-			y = 1200;
+			y = 100;
 		}
 		add.graph.SetPosition(200 + i * 300, y);
 		add.graph.SetBasePosition(200 + i * 300, y);
@@ -323,65 +323,16 @@ bool BattleBase::Updata() {
 		NexetStepRequest(eBattleStep_BattleStart);
 		break;
 	case eBattleStep_BattleStart:
-
-#if true
-	{
-		mStartAnimCount++;
-
-		if (mStartAnimCount % 20 != 0) break;
-
-		if (mAnimPlayMonsterNum >= 5) {
-			NexetStepRequest(eBattleStep_Main);
-			mAnimPlayMonsterNum = 0;
-			mStartAnimCount = 0;
-			break;
-		}
-
-		Monster* monster = mPlayer->GetMonster(mAnimPlayMonsterNum);
-
-		if (monster == NULL) {
-			mAnimPlayMonsterNum++;
-			mStartAnimCount--;
-			break;
-
-		}
-
-		int monsterNum = 0;
-		for (int i = 0; i < mMonsterData.size(); i++) {
-			if (mMonsterData[i].monster == monster) {
-				monsterNum = i;
-			}
-		}
-
-		BattleAnimation::eAnimationNo animNo = BattleAnimation::eAnimationNo_InSide_00;
-		if (monster->GetHomePosition() == Monster::eHomePosition_Back) {
-			animNo = BattleAnimation::eAnimationNo_InSide_02;
-		}
-
-		//mBattleAnimation->RequestAnim(animNo, &mPlayerCard[mAnimPlayMonsterNum], true);
-		mBattleAnimation->RequestAnim(animNo, &mMonsterData[monsterNum].graph, true);
-		mAnimPlayMonsterNum++;
-	}
-#else
-		for (int i = 0; i < 5; i++) {
-			if(mPlayer->GetMonster(i) == NULL) continue;
-			mBattleAnimation->RequestAnim(BattleAnimation::eAnimationNo_InSide_00, &mPlayerCard[i], true);
-		}
-		
-		NexetStepRequest(eBattleStep_Main);
-#endif
+		BattleStartAnimation();
 		break;
 	case eBattleStep_Main:
 	{
-		//Debug::LogPrintf("ダメージ %d\n", BattleCalculator::NormalDamage(*mPlayer->GetMonster(0), *mPlayer->GetMonster(4)));
-
 
 		BattleBase::eBattleStep step =  BattleMainUpdate();
 		if (step != BattleBase::eBattleStep_None) {
 			NexetStepRequest(step, BattleBase::eFadeType_In);
 		}
-	}
-	
+	}	
 		break;
 	case eBattleStep_Result:
 
@@ -410,8 +361,17 @@ void BattleBase::Draw() {
 		if (monster == NULL) continue;
 		int x = data.graph.GetPositionX();
 		int y = data.graph.GetPositionY();
+
+		if(monster->GetHp() < 0){
+			if (data.type == BattleBase::eDeckType_Enemy) {
+				data.graph.SetVisible(false);
+				continue;
+			}
+			data.graph.SetAlpha(100);
+		}
+
 		data.graph.Draw();	//味方
-		if (monster->GetHp() > 0 || data.isDead) {
+		if (monster->GetHp() > 0) {
 			int drawY = y - 35;
 			DrawBox(x, drawY, x + 100 * ((float)monster->GetHp() / (float)monster->GetHpMax()), drawY + 20, GetColor(0, 255, 255), TRUE);
 		}
@@ -580,23 +540,6 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 	*/
 
 	mButtons[BattleBase::eButtonType_Auto]->Update();
-#if false
-	for (int i = 0; i < 5; i++) {
-		Monster* monster = mPlayer->GetMonster(i);
-		if (monster == NULL) continue;
-		if (monster->GetHp() <= 0) continue;
-		if (mPlayerCard[i].IsTouch()) {
-			//該当のモンスターの行動タイプをスキルに設定する
-			for (auto itr = mMoveData.begin(); itr != mMoveData.end(); itr++) {
-				if (itr->moveId == monster->GetId()) {
-					itr->activeType = BattleBase::eActiveType_Skill;
-					Debug::LogPrintf("スキル発動 %s\n",monster->GetName());
-				}
-			}
-		}
-	}
-#endif
-
 
 	switch (mMainStep) {
 	case BattleBase::eBattleMainStep_MoveOrder:
@@ -625,196 +568,13 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 		break;
 	case BattleBase::eBattleMainStep_Command:
 
-	{
-		MONSTER_DATA_t data = mMonsterData[mMoveOrderMonsterNum];
-
-		if (data.isDead == true || data.monster->GetHp() <= 0) {
-			mMoveOrderMonsterNum++;
-			break;
-		}
-
-		switch (mActionCommand) {
-		case BattleBase::eCommand_CehcekActionType:
-
-			if (data.type == BattleBase::eDeckType_Player) {
-
-				if (data.moveType == BattleBase::eMoveType_Manual) {
-					mActionCommand = BattleBase::eCommand_Select;
-				}
-				else if (data.moveType == BattleBase::eMoveType_Auto) {
-					// 自動攻撃(通常攻撃)
-					// 攻撃対象は体力が最も少ないモンスターへ行う
-					mOrderMoveData.moveMonster = data.monster;
-					mOrderMoveData.activeType = BattleBase::eActiveType_Attack;
-
-					for (int i = 0; i < mMonsterData.size(); i++) {
-						if (mMonsterData[i].type == BattleBase::eDeckType_Enemy) {
-							if (mMonsterData[i].isDead == true) continue;
-							mOrderMoveData.targetDeckType = BattleBase::eDeckType_Enemy;
-							mOrderMoveData.targetMonster = mMonsterData[i].monster;
-							mMoveData.push_back(mOrderMoveData);
-							break;
-						}
-					}
-
-					mMainStep = BattleBase::eBattleMainStep_Battle;
-				}
-			}
-			else { // エネミーの行動
-				// 自動攻撃
-				// 攻撃対象はとりあえずランダム
-				mOrderMoveData.moveMonster = data.monster;
-				mOrderMoveData.activeType = BattleBase::eActiveType_Attack;
-				for (int i = 0; i < mMonsterData.size(); i++) {
-					if (mMonsterData[i].type == BattleBase::eDeckType_Player) {
-						if (mMonsterData[i].isDead == true) continue;
-						mOrderMoveData.targetDeckType = BattleBase::eDeckType_Player;
-						mOrderMoveData.targetMonster = mMonsterData[i].monster;
-						mMoveData.push_back(mOrderMoveData);
-						break;
-					}
-				}
-
-				mMainStep = BattleBase::eBattleMainStep_Battle;
-			}
-
-			break;
-		case BattleBase::eCommand_Select:
-
-		{
-			int x = data.graph.GetPositionX() - 120;
-			int y = data.graph.GetPositionY() - 100;
-			for (int i = BattleBase::eButtonType_Attack; i < BattleBase::eButtonType_Num; i++) {
-				mButtons[i]->SetVisible(true);
-			
-				mButtons[i]->SetPosition(x, y);
-				mButtons[i]->Update();
-				x += 110;
-			}
-
-		}
-
-		break;
-		case BattleBase::eCommand_SelectTarget:
-
-			// スキル選択
-			// 　回復系
-			//   補助系
-			//   復活系
-			//アイテム選択
-			// 　回復系
-			// 　復活系
-			// プレイヤーデッキの選択もする
-
-			for (int i = 0; i < mMonsterData.size(); i++) {
-				MONSTER_DATA_t  data = mMonsterData[i];
-				if (data.type == BattleBase::eDeckType_Enemy) {
-					if (data.graph.IsTouch()) {
-						mOrderMoveData.targetDeckType = data.type;
-						mOrderMoveData.targetMonster = data.monster;
-						mActionCommand = BattleBase::eCommand_Decision;
-						break;
-					}
-				}
-			}
-
-			break;
-		case BattleBase::eCommand_Decision:
-			// 行動データに設定
-			mOrderMoveData.moveMonster = data.monster;
-			mMoveData.push_back(mOrderMoveData);
-			mActionCommand = BattleBase::eCommand_CehcekActionType;
-			mMainStep = BattleBase::eBattleMainStep_Battle;
-
-			for (int i = BattleBase::eButtonType_Attack; i < BattleBase::eButtonType_Num; i++) {
-				mButtons[i]->SetVisible(false);
-			}
-
-			break;
-		}
-
-
-	}
-
-
-#if false
-#ifdef __WINDOWS__
-
-	if (Keyboard_Press(KEY_INPUT_Z)) {
-		mMainStep = eBattleMainStep_Battle;
-
-		for (int i = 0; i < 5; i++) {
-
-			Monster* moveMonster = mPlayer->GetMonster(mMoveChrIdx);
-			Monster* targetMonster = mEnemy->GetMonster(mTargetIdx);
-
-			if (moveMonster == NULL) continue;
-
-			if (moveMonster->GetHp() <= 0) {
-				continue;
-			}
-
-			while (targetMonster == NULL || targetMonster->GetHp() <= 0) {
-				mTargetIdx = (mTargetIdx + 1) % 5;
-				targetMonster = mEnemy->GetMonster(mTargetIdx);
-			}
-
-			BattleBase::MOVE_DATA_t add = {
-				BattleBase::eDeckType_Player,
-				mMoveChrIdx,
-				BattleBase::eDeckType_Enemy,
-				mTargetIdx,
-				BattleBase::eActiveType_Attack,
-			};
-			mMoveData.push_back(add);
-			mMoveChrIdx = (mMoveChrIdx + 1) % 5;
-			mTargetIdx = (mTargetIdx + 1) % 5;
-		}
-
-		for (int i = 0; i < 5; i++) {
-
-			Monster* moveMonster = mEnemy->GetMonster(mMoveChrIdx);
-			Monster* targetMonster = mPlayer->GetMonster(mTargetIdx);
-
-			if (moveMonster == NULL || moveMonster->GetHp() <= 0) {
-				continue;
-			}
-
-			while (targetMonster == NULL || targetMonster->GetHp() <= 0) {
-				mTargetIdx = (mTargetIdx + 1) % 5;
-				targetMonster = mPlayer->GetMonster(mTargetIdx);
-			}
-
-			BattleBase::MOVE_DATA_t add = {
-				BattleBase::eDeckType_Enemy,
-				mMoveChrIdx,
-				BattleBase::eDeckType_Player,
-				mTargetIdx,
-				BattleBase::eActiveType_Attack,
-			};
-			mMoveData.push_back(add);
-			mMoveChrIdx = (mMoveChrIdx + 1) % 5;
-			mTargetIdx = (mTargetIdx + 1) % 5;
-		}
-
-	}
-#endif
-#endif
-	/*
-		誰が
-		誰を対象に
-		どのような行動をするのか　行動タイプ
-
-
-	*/
-
+		SelectCommandUpdate();
+		
 	break;
 	case BattleBase::eBattleMainStep_Battle:
 
 #if true
 
-
-		//if (Keyboard_Press(KEY_INPUT_Z)) 
 	{
 
 		/*
@@ -839,37 +599,19 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 
 			Monster* moveMonster = move.moveMonster;
 			Monster* targetMonster = move.targetMonster;
-			
-			
+					
 			BattleBase::eActiveType type = move.activeType;
-			if (move.moveDeckType == BattleBase::eDeckType_Player) {
-				Graphics* graph = &mMonsterData[mMoveOrderMonsterNum].graph;
-				//moveMonster = mPlayer->GetMonster(moveId);
-				//mPlayerCard[moveId].SetBasePosition(mPlayerCard[moveId].GetPositionX(), mPlayerCard[moveId].GetPositionY());
-				graph->SetBasePosition(graph->GetPositionX(), graph->GetPositionY());
-				mAnim = mBattleAnimation->RequestAnim(BattleAnimation::eAnimationNo_Transrate_Scale, graph, true);
 
-			}
-			else {
-				Graphics* graph = &mMonsterData[mMoveOrderMonsterNum].graph;
-				//moveMonster = mPlayer->GetMonster(moveId);
-				//mPlayerCard[moveId].SetBasePosition(mPlayerCard[moveId].GetPositionX(), mPlayerCard[moveId].GetPositionY());
-				graph->SetBasePosition(graph->GetPositionX(), graph->GetPositionY());
-				mAnim = mBattleAnimation->RequestAnim(BattleAnimation::eAnimationNo_Transrate_Scale, graph, true);
+			BattleAnimation::eAnimationNo orderAnim = BattleAnimation::eAnimationNo_Attack_00;
+
+			Graphics* graph = &mMonsterData[mMoveOrderMonsterNum].graph;
+			graph->SetBasePosition(graph->GetPositionX(), graph->GetPositionY());
+			if (move.moveDeckType == BattleBase::eDeckType_Enemy) {
+				orderAnim = BattleAnimation::eAnimationNo_Attack_01;
 			}
 
 			// 行動するモンスターの体力が0より大きいか判断する
 			if (moveMonster->GetHp() > 0) {
-
-
-#if false
-				if (move.targetDeckType == BattleBase::eDeckType_Player) {
-					targetMonster = mPlayer->GetMonster(targetId);
-				}
-				else {
-					targetMonster = mEnemy->GetMonster(targetId);
-				}
-#endif
 
 				if (targetMonster->GetHp() <= 0) {
 					targetMonster = BattleBase::GetLiveMonster(move.targetDeckType);
@@ -892,15 +634,8 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 					}
 
 					dmgMonster.monster = targetMonster;
-					//int damage = targetMonster->GetHp() - damageResult;
 					dmgMonster.damage = targetMonster->GetHp() - damageResult;
-
-					/*
-						ここから攻撃アニメ―ション開始
-					*/
-
-					//targetMonster->SetHp(damage);
-
+					
 					mTargetList.push_back(dmgMonster);
 
 					Debug::LogPrintf("Atk:%s => Def:%s Dmg:%d\n",
@@ -908,6 +643,9 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 						targetMonster->GetName(),
 						damageResult);
 				}
+
+				mAnim = mBattleAnimation->RequestAnim(orderAnim, graph, true);
+
 			}
 
 
@@ -920,18 +658,7 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 			}
 		}
 #endif	// false
-#if false
-		int ret = BattleCalculator::NormalDamage(*mPlayer->GetMonster(mMoveChrIdx), *mEnemy->GetMonster(mTargetIdx));
-		mEnemy->GetMonster(mTargetIdx)->SetHp(mEnemy->GetMonster(mTargetIdx)->GetHp() - ret);
 
-		Debug::LogPrintf("Atk:%s => Def:%s Dmg:%d\n",
-			mPlayer->GetMonster(mMoveChrIdx)->GetName(),
-			mEnemy->GetMonster(mTargetIdx)->GetName(),
-			ret);
-
-		ret = BattleCalculator::NormalDamage(*mEnemy->GetMonster(0), *mPlayer->GetMonster(1));
-		mPlayer->GetMonster(1)->SetHp(mPlayer->GetMonster(1)->GetHp() - ret);
-#endif
 		mMoveOrderMonsterNum++;
 		mMainStep = eBattleMainStep_BattleAnim;
 	}
@@ -960,6 +687,15 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 		isDead = CheckAllDead(BattleBase::eDeckType_Player);
 		if (isDead) {
 			step = BattleBase::eBattleStep_Result;
+		}
+
+		for (int i = 0; i < mMonsterData.size(); i++) {
+			if (mMonsterData[i].monster->GetHp() < 0) {
+				mMonsterData[i].isDead = true;
+			}
+			else {
+				mMonsterData[i].isDead = false;
+			}
 		}
 
 		//if (Keyboard_Press(KEY_INPUT_Z)) 
@@ -991,40 +727,9 @@ void BattleBase::BattleMainDraw() {
 
 	switch (mMainStep) {
 	case BattleBase::eBattleMainStep_Command:
-	{
-		MONSTER_DATA_t data = mMonsterData[mMoveOrderMonsterNum];
-		switch (mActionCommand) {
-		case BattleBase::eCommand_CehcekActionType:
-
-			break;
-		case BattleBase::eCommand_Select:
-		{
-			// 行動選択を表示
-
-			int x = data.graph.GetPositionX();
-			int y = data.graph.GetPositionY() - 100;
-
-			for (int i = BattleBase::eButtonType_Attack; i < BattleBase::eButtonType_Num; i++) {
-				mButtons[i]->Draw();
-			}
-
-
-			DrawString(200, 620, "攻撃方法選択", GetColor(255, 0, 0));
-		}
-			break;
-		case BattleBase::eCommand_SelectTarget:
-			// 対象を設定を表示
-			DrawString(200, 620, "アクション対象を選択", GetColor(255, 0, 0));
-			break;
-		case BattleBase::eCommand_Decision:
-			// 行動データに設定
-			DrawString(200, 620, "行動決定", GetColor(255, 0, 0));
-			break;
-		}
-
-
-		strcpyDx(str, "Zキー: バトルへ");
-	}
+	
+		SelectCommandDraw();
+	
 		break;
 	case BattleBase::eBattleMainStep_Battle:
 		strcpyDx(str, "Zキー: 判定へ");
@@ -1126,6 +831,198 @@ bool BattleBase::CheckAllDead(eDeckType type) {
 
 	}
 	return ret;
+
+}
+
+void BattleBase::BattleStartAnimation() {
+	mStartAnimCount++;
+
+	if (mStartAnimCount % 20 != 0) return ;
+
+	if (mAnimPlayMonsterNum >= 5) {
+		NexetStepRequest(eBattleStep_Main);
+		mAnimPlayMonsterNum = 0;
+		mStartAnimCount = 0;
+		return ;
+	}
+
+	Monster* monster = mPlayer->GetMonster(mAnimPlayMonsterNum);
+
+	if (monster == NULL) {
+		mAnimPlayMonsterNum++;
+		mStartAnimCount--;
+		return;
+
+	}
+
+	int monsterNum = 0;
+	for (int i = 0; i < mMonsterData.size(); i++) {
+		if (mMonsterData[i].monster == monster) {
+			monsterNum = i;
+		}
+	}
+
+	BattleAnimation::eAnimationNo animNo = BattleAnimation::eAnimationNo_InSide_00;
+	if (monster->GetHomePosition() == Monster::eHomePosition_Back) {
+		animNo = BattleAnimation::eAnimationNo_InSide_02;
+	}
+
+	//mBattleAnimation->RequestAnim(animNo, &mPlayerCard[mAnimPlayMonsterNum], true);
+	mBattleAnimation->RequestAnim(animNo, &mMonsterData[monsterNum].graph, true);
+	mAnimPlayMonsterNum++;
+}
+
+void BattleBase::SelectCommandUpdate() {
+
+	MONSTER_DATA_t data = mMonsterData[mMoveOrderMonsterNum];
+
+	if (data.isDead == true || data.monster->GetHp() <= 0) {
+		mMoveOrderMonsterNum++;
+		return;
+	}
+
+	switch (mActionCommand) {
+	case BattleBase::eCommand_CehcekActionType:
+
+		if (data.type == BattleBase::eDeckType_Player) {
+
+			if (data.moveType == BattleBase::eMoveType_Manual) {
+				mActionCommand = BattleBase::eCommand_Select;
+			}
+			else if (data.moveType == BattleBase::eMoveType_Auto) {
+				// 自動攻撃(通常攻撃)
+				// 攻撃対象は体力が最も少ないモンスターへ行う
+				mOrderMoveData.moveDeckType = data.type;
+				mOrderMoveData.moveMonster = data.monster;
+				mOrderMoveData.activeType = BattleBase::eActiveType_Attack;
+
+				for (int i = 0; i < mMonsterData.size(); i++) {
+					if (mMonsterData[i].type == BattleBase::eDeckType_Enemy) {
+						if (mMonsterData[i].isDead == true) continue;
+						mOrderMoveData.targetDeckType = BattleBase::eDeckType_Enemy;
+						mOrderMoveData.targetMonster = mMonsterData[i].monster;
+						mMoveData.push_back(mOrderMoveData);
+						break;
+					}
+				}
+
+				mMainStep = BattleBase::eBattleMainStep_Battle;
+			}
+		}
+		else { // エネミーの行動
+			   // 自動攻撃
+			   // 攻撃対象はとりあえずランダム
+			mOrderMoveData.moveDeckType = data.type;
+			mOrderMoveData.moveMonster = data.monster;
+			mOrderMoveData.activeType = BattleBase::eActiveType_Attack;
+			for (int i = 0; i < mMonsterData.size(); i++) {
+				if (mMonsterData[i].type == BattleBase::eDeckType_Player) {
+					if (mMonsterData[i].isDead == true) continue;
+					mOrderMoveData.targetDeckType = BattleBase::eDeckType_Player;
+					mOrderMoveData.targetMonster = mMonsterData[i].monster;
+					mMoveData.push_back(mOrderMoveData);
+					break;
+				}
+			}
+
+			mMainStep = BattleBase::eBattleMainStep_Battle;
+		}
+
+		mOrderMoveData.moveDeckType = data.type;
+
+		break;
+	case BattleBase::eCommand_Select:
+
+	{
+		int x = data.graph.GetPositionX() - 120;
+		int y = data.graph.GetPositionY() - 100;
+		for (int i = BattleBase::eButtonType_Attack; i < BattleBase::eButtonType_Num; i++) {
+			mButtons[i]->SetVisible(true);
+			mButtons[i]->SetPosition(x, y);
+			mButtons[i]->Update();
+			x += 110;
+		}
+
+	}
+
+	break;
+	case BattleBase::eCommand_SelectTarget:
+
+		// スキル選択
+		// 　回復系
+		//   補助系
+		//   復活系
+		//アイテム選択
+		// 　回復系
+		// 　復活系
+		// プレイヤーデッキの選択もする
+
+		for (int i = 0; i < mMonsterData.size(); i++) {
+			MONSTER_DATA_t  data = mMonsterData[i];
+			if (data.type == BattleBase::eDeckType_Enemy) {
+				if (data.isDead) continue;
+				if (data.graph.IsTouch()) {
+					mOrderMoveData.targetDeckType = data.type;
+					mOrderMoveData.targetMonster = data.monster;
+					mActionCommand = BattleBase::eCommand_Decision;
+					break;
+				}
+			}
+		}
+
+		break;
+	case BattleBase::eCommand_Decision:
+		// 行動データに設定
+		mOrderMoveData.moveMonster = data.monster;
+		mMoveData.push_back(mOrderMoveData);
+		mActionCommand = BattleBase::eCommand_CehcekActionType;
+		mMainStep = BattleBase::eBattleMainStep_Battle;
+
+		for (int i = BattleBase::eButtonType_Attack; i < BattleBase::eButtonType_Num; i++) {
+			mButtons[i]->SetVisible(false);
+		}
+
+		break;
+	}
+
+
+}
+
+void BattleBase::SelectCommandDraw() {
+
+	MONSTER_DATA_t data = mMonsterData[mMoveOrderMonsterNum];
+	switch (mActionCommand) {
+	case BattleBase::eCommand_CehcekActionType:
+
+		break;
+	case BattleBase::eCommand_Select:
+	{
+		// 行動選択を表示
+
+		int x = data.graph.GetPositionX();
+		int y = data.graph.GetPositionY() - 100;
+
+		for (int i = BattleBase::eButtonType_Attack; i < BattleBase::eButtonType_Num; i++) {
+			mButtons[i]->Draw();
+		}
+
+
+		DrawString(200, 620, "攻撃方法選択", GetColor(255, 0, 0));
+	}
+	break;
+	case BattleBase::eCommand_SelectTarget:
+		// 対象を設定を表示
+		DrawString(200, 620, "アクション対象を選択", GetColor(255, 0, 0));
+		break;
+	case BattleBase::eCommand_Decision:
+		// 行動データに設定
+		DrawString(200, 620, "行動決定", GetColor(255, 0, 0));
+		break;
+	}
+
+#ifdef __MY_DEBUG__
+	DrawString(200, 600, "Zキー: バトルへ", GetColor(255, 0, 0));
+#endif // __MY_DEBUG__
 
 }
 

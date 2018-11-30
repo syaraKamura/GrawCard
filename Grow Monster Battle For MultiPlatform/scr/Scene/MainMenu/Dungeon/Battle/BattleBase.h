@@ -196,6 +196,11 @@ protected:
 	*/
 	bool CheckAllDead(eDeckType type);
 
+	void BattleStartAnimation();
+
+	void SelectCommandUpdate();
+	void SelectCommandDraw();
+
 public:
 
 	BattleBase();

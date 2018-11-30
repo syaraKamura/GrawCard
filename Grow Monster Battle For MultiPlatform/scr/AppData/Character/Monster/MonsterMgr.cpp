@@ -36,6 +36,8 @@ typedef struct MonsterData_t{
 	int mDeffence;
 	int mSpeed;
 	
+	int mSkill;
+
 };
 
 typedef struct MonsterGraphData_t {
@@ -139,6 +141,7 @@ MonsterMgr::MonsterMgr() {
 		monster.SetDeffence(MONSTER_DATA_TBL[i].mDeffence);
 		monster.SetSpeed(MONSTER_DATA_TBL[i].mSpeed);
 
+		monster.SetSkillNumber(MONSTER_DATA_TBL[i].mSkill);
 
 		mList.push_back(monster);
 

@@ -76,6 +76,7 @@ public :
 	void SetDeffence(int deffence); 
 	void SetSpeed(int speed);
 
+	void SetSkillNumber(int skill);
 	
 	int GetId() const;
 	eType GetType()const;
@@ -89,6 +90,8 @@ public :
 	int GetAttack()const;
 	int GetDeffence()const;
 	int GetSpeed()const;
+
+	int GetSkillNumber()const;
 
 };
 
