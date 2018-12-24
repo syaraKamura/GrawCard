@@ -1059,3 +1059,69 @@ void BattleBase::OnClick(View* view) {
 
 
 }
+
+
+
+
+BattleBase::ButtonAnim::ButtonAnim(Button* button) : TaskBase() , mButton(NULL){
+
+	mButton = button;
+
+}
+
+BattleBase::ButtonAnim::~ButtonAnim() {
+
+}
+
+bool BattleBase::ButtonAnim::Initialize() {
+	return true;
+}
+
+void BattleBase::ButtonAnim::Finalize() {
+
+}
+
+void BattleBase::ButtonAnim::PreviousUpdate() {
+
+	if (mButton == NULL) return;
+
+}
+
+void BattleBase::ButtonAnim::InputUpdate() {
+
+}
+
+bool BattleBase::ButtonAnim::Updata() {
+
+	if (mButton == NULL) return true;
+
+	switch (mAnim) {
+	case BattleBase::ButtonAnim::eAnim_InSide:
+
+		break;
+	case BattleBase::ButtonAnim::eAnim_OutSide:
+
+		break;
+	}
+
+	return true;
+}
+
+void BattleBase::ButtonAnim::PostUpdate() {
+
+	if (mButton == NULL) return;
+
+}
+
+void BattleBase::ButtonAnim::Draw() {
+
+}
+
+
+bool BattleBase::ButtonAnim::IsPlayAnim() {
+	return mAnim != eAnim_None;
+}
+
+void BattleBase::ButtonAnim::PlayAnim(eAnim anim) {
+	this->mAnim = anim;
+}

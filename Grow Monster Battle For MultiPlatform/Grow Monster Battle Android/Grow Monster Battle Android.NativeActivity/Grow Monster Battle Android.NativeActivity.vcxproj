@@ -78,7 +78,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>Clang_3_8</PlatformToolset>
-    <AndroidAPILevel>android-19</AndroidAPILevel>
+    <AndroidAPILevel>android-23</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -228,6 +228,7 @@
     <ClCompile Include="..\..\scr\android\Communication\ReceiveUDP_android.cpp" />
     <ClCompile Include="..\..\scr\android\Communication\SendUDP_android.cpp" />
     <ClCompile Include="..\..\scr\android\JavaEncoder\InputString\InputString.cpp" />
+    <ClCompile Include="..\..\scr\android\Networking\Networking.cpp" />
     <ClCompile Include="..\..\scr\android\TouchInput.cpp" />
     <ClCompile Include="..\..\scr\AppData\AppData.cpp" />
     <ClCompile Include="..\..\scr\AppData\Character\CharacterBase.cpp" />
@@ -304,6 +305,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\scr\android\JavaEncoder\InputString\InputString.h" />
+    <ClInclude Include="..\..\scr\android\Networking\Networking.h" />
     <ClInclude Include="..\..\scr\android\TouchInput.h" />
     <ClInclude Include="..\..\scr\AppData\AppData.h" />
     <ClInclude Include="..\..\scr\AppData\Character\CharacterBase.h" />

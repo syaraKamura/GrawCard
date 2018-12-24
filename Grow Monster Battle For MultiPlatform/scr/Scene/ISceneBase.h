@@ -38,6 +38,7 @@ public :
 		eScene_TestComunication,	//通信テスト
 		eScene_TestBattle,			//バトルテスト
 		eScene_TestADV,				//アドベンチャーテスト
+		eScene_TestMapField,		//マップフィールドテスト
 #endif
 
 		eScene_Num,

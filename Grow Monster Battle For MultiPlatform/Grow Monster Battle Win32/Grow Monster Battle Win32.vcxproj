@@ -215,6 +215,7 @@
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonBase.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonMgr.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Map\Map.cpp" />
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Map\MapField.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\PlayerInfomation\PlayerInfomation.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Scene_MainMenu.cpp" />
     <ClCompile Include="..\scr\Scene\Opning\Scene_Opning.cpp" />
@@ -226,6 +227,7 @@
     <ClCompile Include="..\scr\Test\TestADV.cpp" />
     <ClCompile Include="..\scr\Test\TestBattle.cpp" />
     <ClCompile Include="..\scr\Test\TestCommunication.cpp" />
+    <ClCompile Include="..\scr\Test\TestMapField.cpp" />
     <ClCompile Include="..\scr\Test\TestMenu.cpp" />
     <ClCompile Include="..\scr\win32\Communication\ReceiveUDP_win32.cpp" />
     <ClCompile Include="..\scr\win32\Communication\SendUDP_win32.cpp" />
@@ -302,6 +304,7 @@
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonBase.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonMgr.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Map\Map.h" />
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Map\MapField.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\PlayerInfomation\PlayerInfomation.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Scene_MainMenu.h" />
     <ClInclude Include="..\scr\Scene\Opning\Scene_Opning.h" />
@@ -314,6 +317,7 @@
     <ClInclude Include="..\scr\Test\TestADV.h" />
     <ClInclude Include="..\scr\Test\TestBattle.h" />
     <ClInclude Include="..\scr\Test\TestCommunication.h" />
+    <ClInclude Include="..\scr\Test\TestMapField.h" />
     <ClInclude Include="..\scr\Test\TestMenu.h" />
     <ClInclude Include="..\scr\win32\KeyBoard.h" />
     <ClInclude Include="..\scr\win32\MouseInput.h" />

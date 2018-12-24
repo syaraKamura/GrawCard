@@ -227,6 +227,9 @@
     <ClCompile Include="..\..\scr\Scene\Prologue\Scene_Prologue.cpp">
       <Filter>src\Scene\Prologue</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\android\Networking\Networking.cpp">
+      <Filter>src\android\Networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -369,6 +372,9 @@
     </Filter>
     <Filter Include="src\Scene\Prologue">
       <UniqueIdentifier>{4ce0f5da-2622-4e3e-9f63-37217a18bc7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\android\Networking">
+      <UniqueIdentifier>{2f2f78df-6b01-4013-ac6c-a57919f5abfb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -602,6 +608,9 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Scene\Prologue\Scene_Prologue.h">
       <Filter>src\Scene\Prologue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\android\Networking\Networking.h">
+      <Filter>src\android\Networking</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

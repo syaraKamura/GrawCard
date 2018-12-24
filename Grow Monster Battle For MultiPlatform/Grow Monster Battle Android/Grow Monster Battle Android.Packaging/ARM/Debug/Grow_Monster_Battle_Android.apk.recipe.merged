@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project>
-  <SOLibPaths>E:\デスクトップ\Project\PrjGrowCard\Grow Monster Battle For MultiPlatform\ARM\Debug\libGrow_Monster_Battle_Android.so;C:\ProgramData\Microsoft\AndroidNDK64\android-ndk-r13b\prebuilt\android-arm\gdbserver\gdbserver;C:\ProgramData\Microsoft\AndroidNDK64\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\libgnustl_static.a</SOLibPaths>
+  <SOLibPaths>E:\デスクトップ\Project\PrjGrowCard\Grow Monster Battle For MultiPlatform\ARM\Debug\libGrow_Monster_Battle_Android.so;C:\Microsoft\AndroidNDK64\android-ndk-r15c\prebuilt\android-arm\gdbserver\gdbserver;C:\Microsoft\AndroidNDK64\android-ndk-r15c\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\libgnustl_static.a</SOLibPaths>
   <AndroidLibPaths></AndroidLibPaths>
   <OObjPaths>E:\デスクトップ\Project\PrjGrowCard\Grow Monster Battle For MultiPlatform\Grow Monster Battle Android\Grow Monster Battle Android.NativeActivity\ARM\Debug</OObjPaths>
   <Configuration>Debug</Configuration>

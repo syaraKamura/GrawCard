@@ -26,6 +26,12 @@
 
 #include "Common/Sound/Sound.h"
 
+#include "Scene/MainMenu/Dungeon/Map/Map.h"
+
+#ifdef __ANDROID__
+#include "android/Networking/Networking.h"
+#endif	//__ANDROID__
+
 const int MAP_WIDTH = 41;
 const int MAP_HEIGHT= 37;
 const int MAP_CHIP_SIZE = 20;
@@ -82,6 +88,8 @@ static int vecX = 4;
 static BMFont* mBMFont;
 
 static Sound* mSound;
+
+static Map* mMap;
 
 void Map_Initialize(){
 
@@ -578,6 +586,13 @@ bool AITest::Initialize(){
 
 	mSound->Play(Sound::ePlayType_Loop);
 
+#if __ANDROID__
+	Networking net;
+	net.BeginNetwork();
+#endif // __ANDROID__
+
+	mMap = new Map(255, 1000);
+
 	return true;
 }
 
@@ -597,6 +612,7 @@ void AITest::Finalize(){
 	Delete(mReadFile);
 	Delete(mBMFont);
 	Delete(mSound);
+	Delete(mMap);
 
 	mGraphicsMulti2->ReleseRequest();
 
@@ -709,8 +725,12 @@ bool AITest::Updata() {
 	mAnimation->Update();
 	
 	
+	mMap->Updata();
 	
-	
+	int mapSelectListNum = mMap->GetIndex();
+	if (mapSelectListNum != -1) {
+		Debug::LogPrintf("ƒeƒXƒg€–Ú %d", mapSelectListNum);
+	}
 
 	return true;
 }
@@ -720,6 +740,8 @@ void AITest::Draw(){
 	
 	Map_Draw();
 	Enemy_Draw();
+
+	mMap->Draw();
 
 	if (mJoyPad->Repeate(Joypad::eJoypadXInput_A) || mTouch->On(Touch::eTouchInput_1)) {
 		DrawString(0, 100, "“ü—Í‚³‚ê‚Ä‚¢‚é", GetColor(255, 0, 0));

@@ -31,6 +31,8 @@ private:
 	Graphics* mGraph;
 	OnListener* mLinstener;
 
+	float mAlpha;
+
 	bool mIsVisible;
 
 public :
@@ -44,7 +46,7 @@ public :
 	*/
 	Button(int posX,int posY,int width,int height,const char* str);
 	Button(const char* fileName,int posX, int posY, const char* str);
-
+	
 	~Button() override;
 	void Draw() override;
 	bool Update() override;
@@ -54,6 +56,12 @@ public :
 
 	void SetPosition(int posX, int posY);
 	void SetOnListener(OnListener* listener);
+
+	int GetPositionX();
+	int GetPositionY();
+
+	float GetAlpha();
+	void SetAlpha(float alpha);
 
 };
 

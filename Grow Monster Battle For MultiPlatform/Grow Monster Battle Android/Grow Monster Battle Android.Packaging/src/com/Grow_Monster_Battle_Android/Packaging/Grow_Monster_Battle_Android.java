@@ -1,5 +1,5 @@
 
-package com.Grow_1Monster_Battle_Android;
+package com.Grow_Monster_Battle_Android.Packaging;
 
 import android.app.NativeActivity;
 import android.os.Bundle;

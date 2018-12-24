@@ -173,6 +173,7 @@ protected:
 
 	bool mIsAutoAction;		// 自動操作
 
+	class ButtonAnim;
 
 protected:
 
@@ -218,6 +219,53 @@ public:
 	void BattleMainDraw();
 
 	void OnClick(View* view) override;
+
+};
+
+class BattleBase::ButtonAnim : public TaskBase {
+
+public :
+
+	enum eAnim{
+		eAnim_None,
+		eAnim_InSide,
+		eAnim_OutSide,
+	};
+
+private:
+
+
+	Button* mButton;
+	eAnim mAnim;
+
+	int mBasePosX;
+	int mBasePosY;
+
+public:
+
+	ButtonAnim(Button* button);
+	~ButtonAnim();
+
+	bool Initialize()override;
+	void Finalize()override;
+
+	void PreviousUpdate()override;
+	void InputUpdate() override;
+	bool Updata()override;
+	void PostUpdate() override;
+	void Draw()override;
+
+	/*
+		ボタンのアニメーションが再生中か
+		return	true	: 再生中
+				false	: 再生中ではない
+	*/
+	bool IsPlayAnim();
+
+	/*
+		アニメーションの再生
+	*/
+	void PlayAnim(eAnim anim);
 
 };
 

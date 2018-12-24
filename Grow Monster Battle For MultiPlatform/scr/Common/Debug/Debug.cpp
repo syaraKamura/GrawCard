@@ -14,6 +14,15 @@
 #include"Common/GameCommon.h"
 #include "Debug.h"
 
+#if __ANDROID__
+
+#include <android/log.h>
+#define  LOG_TAG	"GrawCard"
+#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
+#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
+
+#endif // __ANDROID__
+
 static const int DEBUG_WINDOW_LEFT = 0;
 static const int DEBUG_WINDOW_TOP = 0;
 static const int DEBUG_WINDOW_RIGHT = (600.0f * WINDOW_WIDTH / WINDOW_BASE_WIDTH);
@@ -153,6 +162,8 @@ void Debug::LogPrintf(const char* str, ...) {
 	mDebugStrings[mDebugLogCnt] = add;
 	mDebugLogCnt = (mDebugLogCnt + 1) % DEBUG_LOG_NUM;
 
+	LOGI(buffer);
+
 #endif	// __WINDOWS__
 
 #endif //__MY_DEBUG__
@@ -179,6 +190,9 @@ void Debug::ErorrMessage(const TCHAR* str,...) {
 	add.str += buffer;
 	mDebugStrings[mDebugLogCnt] = add;
 	mDebugLogCnt = (mDebugLogCnt + 1) % DEBUG_LOG_NUM;
+
+	LOGE(buffer);
+	
 
 #endif
 

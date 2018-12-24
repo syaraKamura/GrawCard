@@ -31,6 +31,7 @@ ComRes::ComRes() {
 		{ eComResKind_Graphic,	"Resources/Graphics/BG/deckedit.png"	},
 		{ eComResKind_Graphic,	"Resources/Graphics/UI/msgBox.png"		},
 		{ eComResKind_Graphic,  "Resources/Data/Font/MS_Gothic_0.png"   },
+		{ eComResKind_Graphic,	"Resources/Graphics/Map/MapIcon.png"	},
 		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0001.mp3","Title"	},
 		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0002.mp3","Battle_1"	},
 		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00001.png" },

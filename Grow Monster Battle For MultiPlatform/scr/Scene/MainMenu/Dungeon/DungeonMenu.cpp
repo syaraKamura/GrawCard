@@ -182,7 +182,7 @@ bool DungeonMenu::Updata() {
 #endif // __WINDOWS__
 		break;
 	case eState_Adventure:
-		mTaskId = TaskMgr::getInstance().Add(new ScriptBase("ADV_0001.txt"), TaskMgr::ePriorty_0);
+		mTaskId = TaskMgr::getInstance().Add(new ScriptBase("ADV_0003.txt"), TaskMgr::ePriorty_0);
 		ChangeState(eState_SelectStoryMap, eFade_None);
 		break;
 	case eState_Fade:

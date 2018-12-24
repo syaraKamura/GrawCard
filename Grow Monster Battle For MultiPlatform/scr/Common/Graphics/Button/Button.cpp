@@ -32,6 +32,8 @@ Button::Button(int posX, int posY, int width, int height, const char* str) : mLi
 	mIsPressed = false;
 	mIsVisible = true;
 
+	mAlpha = 255.0f;
+
 }
 
 Button::Button(const char* fileName, int posX, int posY, const char* str) : mLinstener(NULL) {
@@ -52,6 +54,8 @@ Button::Button(const char* fileName, int posX, int posY, const char* str) : mLin
 
 	mIsPressed = false;
 	mIsVisible = true;
+
+	mAlpha = 255.0f;
 
 }
 
@@ -98,14 +102,13 @@ void Button::Draw() {
 
 	if (mIsVisible == false) return;
 
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
 	if (mGraph != NULL) {
 
-		int alpha = 255;
-
 		if (mIsPressed) {
-			alpha = 123;
+			mAlpha = 123;
 		}
-		mGraph->SetAlpha(alpha);
+		mGraph->SetAlpha(mAlpha);
 		mGraph->Draw();
 
 
@@ -125,6 +128,7 @@ void Button::Draw() {
 		// ボタン用ボックス描画
 		DrawBox(posX, posY, width, height, GetColor(100, 255, 255), TRUE);
 		DrawBox(posX, posY, width, height, GetColor(255, 255, 255), FALSE);
+		
 	}
 	
 	int strWidth = GetDrawStringWidth(mStr, strlen(mStr));
@@ -133,6 +137,7 @@ void Button::Draw() {
 
 	// 文字列描画
 	DrawString(strX, strY, mStr, GetColor(0, 0, 0));
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 void Button::SetPosition(int posX, int posY) {
@@ -155,4 +160,20 @@ void Button::SetVisible(bool visible) {
 
 bool Button::IsVisible() {
 	return mIsVisible;
+}
+
+int Button::GetPositionX() {
+	return mPosX;
+}
+
+int Button::GetPositionY() {
+	return mPosY;
+}
+
+float Button::GetAlpha() {
+	return mAlpha;
+}
+
+void Button::SetAlpha(float alpha) {
+	mAlpha = alpha;
 }

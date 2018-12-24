@@ -48,7 +48,8 @@ bool Scene_Boot::Updata(){
 	mNextScene->SceneChange(ISceneBase::eScene_TestMenu);
 #else
 	//オープニングシーンへ移行
-	mNextScene->SceneChange(ISceneBase::eScene_Opning);
+	//mNextScene->SceneChange(ISceneBase::eScene_Opning);
+	mNextScene->SceneChange(ISceneBase::eScene_AITest);
 #endif	//__WINDOWS__
 #else
 	//オープニングシーンへ移行
