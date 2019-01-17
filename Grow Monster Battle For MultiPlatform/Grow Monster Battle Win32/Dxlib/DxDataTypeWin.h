@@ -2,7 +2,7 @@
 // 
 // 		ＤＸライブラリ		Windows用データタイプ定義ヘッダファイル
 // 
-// 				Ver 3.19 
+// 				Ver 3.19f
 // 
 // -------------------------------------------------------------------------------
 
@@ -74,63 +74,123 @@ struct IUnknown;
 						#endif // _WIN64
 					#else	// _MSC_VER <  1700
 						#if _MSC_VER >= 1900
-							#ifdef _WIN64
-								#ifdef _DEBUG
-									#pragma comment( lib, "DxDrawFunc_vs2015_x64_d.lib"						)		//  描画部分の抜き出し
-									#ifdef UNICODE
-										#pragma comment( lib, "DxLibW_vs2015_x64_d.lib"						)		//  ＤＸライブラリ使用指定
-										#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
-											#pragma comment( lib, "DxUseCLibW_vs2015_x64_ItrDbgLv0_d.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+							#ifdef _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "DxDrawFunc_vs2015_x64_MDd.lib"						)		//  描画部分の抜き出し
+										#ifdef UNICODE
+											#pragma comment( lib, "DxLibW_vs2015_x64_MDd.lib"						)		//  ＤＸライブラリ使用指定
+											#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+												#pragma comment( lib, "DxUseCLibW_vs2015_x64_ItrDbgLv0_MDd.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#else
+												#pragma comment( lib, "DxUseCLibW_vs2015_x64_MDd.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
 										#else
-											#pragma comment( lib, "DxUseCLibW_vs2015_x64_d.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
-										#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
-									#else
-										#pragma comment( lib, "DxLib_vs2015_x64_d.lib"						)		//  ＤＸライブラリ使用指定
-										#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
-											#pragma comment( lib, "DxUseCLib_vs2015_x64_ItrDbgLv0_d.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#pragma comment( lib, "DxLib_vs2015_x64_MDd.lib"						)		//  ＤＸライブラリ使用指定
+											#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+												#pragma comment( lib, "DxUseCLib_vs2015_x64_ItrDbgLv0_MDd.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#else
+												#pragma comment( lib, "DxUseCLib_vs2015_x64_MDd.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+										#endif
+									#else // _DEBUG
+										#pragma comment( lib, "DxDrawFunc_vs2015_x64_MD.lib"						)		//  描画部分の抜き出し
+										#ifdef UNICODE
+											#pragma comment( lib, "DxLibW_vs2015_x64_MD.lib"						)		//  ＤＸライブラリ使用指定
+											#pragma comment( lib, "DxUseCLibW_vs2015_x64_MD.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
 										#else
-											#pragma comment( lib, "DxUseCLib_vs2015_x64_d.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
-										#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
-									#endif
-								#else // _DEBUG
-									#pragma comment( lib, "DxDrawFunc_vs2015_x64.lib"						)		//  描画部分の抜き出し
-									#ifdef UNICODE
-										#pragma comment( lib, "DxLibW_vs2015_x64.lib"						)		//  ＤＸライブラリ使用指定
-										#pragma comment( lib, "DxUseCLibW_vs2015_x64.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
-									#else
-										#pragma comment( lib, "DxLib_vs2015_x64.lib"						)		//  ＤＸライブラリ使用指定
-										#pragma comment( lib, "DxUseCLib_vs2015_x64.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
-									#endif
-								#endif // _DEBUG
-							#else // _WIN64
-								#ifdef _DEBUG
-									#pragma comment( lib, "DxDrawFunc_vs2015_x86_d.lib"						)		//  描画部分の抜き出し
-									#ifdef UNICODE
-										#pragma comment( lib, "DxLibW_vs2015_x86_d.lib"						)		//  ＤＸライブラリ使用指定
-										#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
-											#pragma comment( lib, "DxUseCLibW_vs2015_x86_ItrDbgLv0_d.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#pragma comment( lib, "DxLib_vs2015_x64_MD.lib"						)		//  ＤＸライブラリ使用指定
+											#pragma comment( lib, "DxUseCLib_vs2015_x64_MD.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+										#endif
+									#endif // _DEBUG
+								#else // _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "DxDrawFunc_vs2015_x86_MDd.lib"						)		//  描画部分の抜き出し
+										#ifdef UNICODE
+											#pragma comment( lib, "DxLibW_vs2015_x86_MDd.lib"						)		//  ＤＸライブラリ使用指定
+											#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+												#pragma comment( lib, "DxUseCLibW_vs2015_x86_ItrDbgLv0_MDd.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#else
+												#pragma comment( lib, "DxUseCLibW_vs2015_x86_MDd.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
 										#else
-											#pragma comment( lib, "DxUseCLibW_vs2015_x86_d.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
-										#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
-									#else
-										#pragma comment( lib, "DxLib_vs2015_x86_d.lib"						)		//  ＤＸライブラリ使用指定
-										#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
-											#pragma comment( lib, "DxUseCLib_vs2015_x86_ItrDbgLv0_d.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#pragma comment( lib, "DxLib_vs2015_x86_MDd.lib"						)		//  ＤＸライブラリ使用指定
+											#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+												#pragma comment( lib, "DxUseCLib_vs2015_x86_ItrDbgLv0_MDd.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#else
+												#pragma comment( lib, "DxUseCLib_vs2015_x86_MDd.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+										#endif
+									#else // _DEBUG
+										#pragma comment( lib, "DxDrawFunc_vs2015_x86_MD.lib"						)		//  描画部分の抜き出し
+										#ifdef UNICODE
+											#pragma comment( lib, "DxLibW_vs2015_x86_MD.lib"						)		//  ＤＸライブラリ使用指定
+											#pragma comment( lib, "DxUseCLibW_vs2015_x86_MD.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
 										#else
-											#pragma comment( lib, "DxUseCLib_vs2015_x86_d.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
-										#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
-									#endif
-								#else // _DEBUG
-									#pragma comment( lib, "DxDrawFunc_vs2015_x86.lib"						)		//  描画部分の抜き出し
-									#ifdef UNICODE
-										#pragma comment( lib, "DxLibW_vs2015_x86.lib"						)		//  ＤＸライブラリ使用指定
-										#pragma comment( lib, "DxUseCLibW_vs2015_x86.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
-									#else
-										#pragma comment( lib, "DxLib_vs2015_x86.lib"						)		//  ＤＸライブラリ使用指定
-										#pragma comment( lib, "DxUseCLib_vs2015_x86.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
-									#endif
-								#endif // _DEBUG
-							#endif // _WIN64
+											#pragma comment( lib, "DxLib_vs2015_x86_MD.lib"						)		//  ＤＸライブラリ使用指定
+											#pragma comment( lib, "DxUseCLib_vs2015_x86_MD.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+										#endif
+									#endif // _DEBUG
+								#endif // _WIN64
+							#else // _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "DxDrawFunc_vs2015_x64_MTd.lib"						)		//  描画部分の抜き出し
+										#ifdef UNICODE
+											#pragma comment( lib, "DxLibW_vs2015_x64_MTd.lib"						)		//  ＤＸライブラリ使用指定
+											#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+												#pragma comment( lib, "DxUseCLibW_vs2015_x64_ItrDbgLv0_MTd.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#else
+												#pragma comment( lib, "DxUseCLibW_vs2015_x64_MTd.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+										#else
+											#pragma comment( lib, "DxLib_vs2015_x64_MTd.lib"						)		//  ＤＸライブラリ使用指定
+											#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+												#pragma comment( lib, "DxUseCLib_vs2015_x64_ItrDbgLv0_MTd.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#else
+												#pragma comment( lib, "DxUseCLib_vs2015_x64_MTd.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+										#endif
+									#else // _DEBUG
+										#pragma comment( lib, "DxDrawFunc_vs2015_x64_MT.lib"						)		//  描画部分の抜き出し
+										#ifdef UNICODE
+											#pragma comment( lib, "DxLibW_vs2015_x64_MT.lib"						)		//  ＤＸライブラリ使用指定
+											#pragma comment( lib, "DxUseCLibW_vs2015_x64_MT.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+										#else
+											#pragma comment( lib, "DxLib_vs2015_x64_MT.lib"						)		//  ＤＸライブラリ使用指定
+											#pragma comment( lib, "DxUseCLib_vs2015_x64_MT.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+										#endif
+									#endif // _DEBUG
+								#else // _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "DxDrawFunc_vs2015_x86_MTd.lib"						)		//  描画部分の抜き出し
+										#ifdef UNICODE
+											#pragma comment( lib, "DxLibW_vs2015_x86_MTd.lib"						)		//  ＤＸライブラリ使用指定
+											#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+												#pragma comment( lib, "DxUseCLibW_vs2015_x86_ItrDbgLv0_MTd.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#else
+												#pragma comment( lib, "DxUseCLibW_vs2015_x86_MTd.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+										#else
+											#pragma comment( lib, "DxLib_vs2015_x86_MTd.lib"						)		//  ＤＸライブラリ使用指定
+											#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+												#pragma comment( lib, "DxUseCLib_vs2015_x86_ItrDbgLv0_MTd.lib"	)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#else
+												#pragma comment( lib, "DxUseCLib_vs2015_x86_MTd.lib"				)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+											#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+										#endif
+									#else // _DEBUG
+										#pragma comment( lib, "DxDrawFunc_vs2015_x86_MT.lib"						)		//  描画部分の抜き出し
+										#ifdef UNICODE
+											#pragma comment( lib, "DxLibW_vs2015_x86_MT.lib"						)		//  ＤＸライブラリ使用指定
+											#pragma comment( lib, "DxUseCLibW_vs2015_x86_MT.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+										#else
+											#pragma comment( lib, "DxLib_vs2015_x86_MT.lib"						)		//  ＤＸライブラリ使用指定
+											#pragma comment( lib, "DxUseCLib_vs2015_x86_MT.lib"					)		//  標準Ｃライブラリを使用する部分の lib ファイルの使用指定
+										#endif
+									#endif // _DEBUG
+								#endif // _WIN64
+							#endif // _DLL
 						#elif _MSC_VER >= 1800
 							#ifdef _WIN64
 								#ifdef _DEBUG
@@ -345,39 +405,75 @@ struct IUnknown;
 						#endif // DX_USE_VC8_BULLET_PHYSICS_LIB
 					#else // _MSC_VER <  1700
 						#if _MSC_VER >= 1900
-							#ifdef _WIN64
-								#ifdef _DEBUG
-									#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
-										#pragma comment( lib, "libbulletcollision_vs2015_x64_ItrDbgLv0_d.lib" )
-										#pragma comment( lib, "libbulletdynamics_vs2015_x64_ItrDbgLv0_d.lib" )
-										#pragma comment( lib, "libbulletmath_vs2015_x64_ItrDbgLv0_d.lib" )
+							#ifdef _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+											#pragma comment( lib, "libbulletcollision_vs2015_x64_ItrDbgLv0_MDd.lib" )
+											#pragma comment( lib, "libbulletdynamics_vs2015_x64_ItrDbgLv0_MDd.lib" )
+											#pragma comment( lib, "libbulletmath_vs2015_x64_ItrDbgLv0_MDd.lib" )
+										#else
+											#pragma comment( lib, "libbulletcollision_vs2015_x64_MDd.lib" )
+											#pragma comment( lib, "libbulletdynamics_vs2015_x64_MDd.lib" )
+											#pragma comment( lib, "libbulletmath_vs2015_x64_MDd.lib" )
+										#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
 									#else
-										#pragma comment( lib, "libbulletcollision_vs2015_x64_d.lib" )
-										#pragma comment( lib, "libbulletdynamics_vs2015_x64_d.lib" )
-										#pragma comment( lib, "libbulletmath_vs2015_x64_d.lib" )
-									#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+										#pragma comment( lib, "libbulletcollision_vs2015_x64_MD.lib" )
+										#pragma comment( lib, "libbulletdynamics_vs2015_x64_MD.lib" )
+										#pragma comment( lib, "libbulletmath_vs2015_x64_MD.lib" )
+									#endif
 								#else
-									#pragma comment( lib, "libbulletcollision_vs2015_x64.lib" )
-									#pragma comment( lib, "libbulletdynamics_vs2015_x64.lib" )
-									#pragma comment( lib, "libbulletmath_vs2015_x64.lib" )
-								#endif
-							#else
-								#ifdef _DEBUG
-									#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
-										#pragma comment( lib, "libbulletcollision_vs2015_x86_ItrDbgLv0_d.lib" )
-										#pragma comment( lib, "libbulletdynamics_vs2015_x86_ItrDbgLv0_d.lib" )
-										#pragma comment( lib, "libbulletmath_vs2015_x86_ItrDbgLv0_d.lib" )
+									#ifdef _DEBUG
+										#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+											#pragma comment( lib, "libbulletcollision_vs2015_x86_ItrDbgLv0_MDd.lib" )
+											#pragma comment( lib, "libbulletdynamics_vs2015_x86_ItrDbgLv0_MDd.lib" )
+											#pragma comment( lib, "libbulletmath_vs2015_x86_ItrDbgLv0_MDd.lib" )
+										#else
+											#pragma comment( lib, "libbulletcollision_vs2015_x86_MDd.lib" )
+											#pragma comment( lib, "libbulletdynamics_vs2015_x86_MDd.lib" )
+											#pragma comment( lib, "libbulletmath_vs2015_x86_MDd.lib" )
+										#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
 									#else
-										#pragma comment( lib, "libbulletcollision_vs2015_x86_d.lib" )
-										#pragma comment( lib, "libbulletdynamics_vs2015_x86_d.lib" )
-										#pragma comment( lib, "libbulletmath_vs2015_x86_d.lib" )
-									#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
-								#else
-									#pragma comment( lib, "libbulletcollision_vs2015_x86.lib" )
-									#pragma comment( lib, "libbulletdynamics_vs2015_x86.lib" )
-									#pragma comment( lib, "libbulletmath_vs2015_x86.lib" )
+										#pragma comment( lib, "libbulletcollision_vs2015_x86_MD.lib" )
+										#pragma comment( lib, "libbulletdynamics_vs2015_x86_MD.lib" )
+										#pragma comment( lib, "libbulletmath_vs2015_x86_MD.lib" )
+									#endif
 								#endif
-							#endif
+							#else // _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+											#pragma comment( lib, "libbulletcollision_vs2015_x64_ItrDbgLv0_MTd.lib" )
+											#pragma comment( lib, "libbulletdynamics_vs2015_x64_ItrDbgLv0_MTd.lib" )
+											#pragma comment( lib, "libbulletmath_vs2015_x64_ItrDbgLv0_MTd.lib" )
+										#else
+											#pragma comment( lib, "libbulletcollision_vs2015_x64_MTd.lib" )
+											#pragma comment( lib, "libbulletdynamics_vs2015_x64_MTd.lib" )
+											#pragma comment( lib, "libbulletmath_vs2015_x64_MTd.lib" )
+										#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+									#else
+										#pragma comment( lib, "libbulletcollision_vs2015_x64_MT.lib" )
+										#pragma comment( lib, "libbulletdynamics_vs2015_x64_MT.lib" )
+										#pragma comment( lib, "libbulletmath_vs2015_x64_MT.lib" )
+									#endif
+								#else
+									#ifdef _DEBUG
+										#if defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+											#pragma comment( lib, "libbulletcollision_vs2015_x86_ItrDbgLv0_MTd.lib" )
+											#pragma comment( lib, "libbulletdynamics_vs2015_x86_ItrDbgLv0_MTd.lib" )
+											#pragma comment( lib, "libbulletmath_vs2015_x86_ItrDbgLv0_MTd.lib" )
+										#else
+											#pragma comment( lib, "libbulletcollision_vs2015_x86_MTd.lib" )
+											#pragma comment( lib, "libbulletdynamics_vs2015_x86_MTd.lib" )
+											#pragma comment( lib, "libbulletmath_vs2015_x86_MTd.lib" )
+										#endif // defined(_ITERATOR_DEBUG_LEVEL) && _ITERATOR_DEBUG_LEVEL == 0
+									#else
+										#pragma comment( lib, "libbulletcollision_vs2015_x86_MT.lib" )
+										#pragma comment( lib, "libbulletdynamics_vs2015_x86_MT.lib" )
+										#pragma comment( lib, "libbulletmath_vs2015_x86_MT.lib" )
+									#endif
+								#endif
+							#endif // _DLL
 						#elif _MSC_VER >= 1800
 							#ifdef _WIN64
 								#ifdef _DEBUG
@@ -472,19 +568,35 @@ struct IUnknown;
 						#endif
 					#else // _MSC_VER <  1700
 						#if _MSC_VER >= 1900
-							#ifdef _WIN64
-								#ifdef _DEBUG
-									#pragma comment( lib, "libtiff_vs2015_x64_d.lib" )	// ＴＩＦＦライブラリ
+							#ifdef _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "libtiff_vs2015_x64_MDd.lib" )	// ＴＩＦＦライブラリ
+									#else
+										#pragma comment( lib, "libtiff_vs2015_x64_MD.lib" )	// ＴＩＦＦライブラリ
+									#endif
 								#else
-									#pragma comment( lib, "libtiff_vs2015_x64.lib" )	// ＴＩＦＦライブラリ
+									#ifdef _DEBUG
+										#pragma comment( lib, "libtiff_vs2015_x86_MDd.lib" )		// ＴＩＦＦライブラリ
+									#else
+										#pragma comment( lib, "libtiff_vs2015_x86_MD.lib" )		// ＴＩＦＦライブラリ
+									#endif
 								#endif
-							#else
-								#ifdef _DEBUG
-									#pragma comment( lib, "libtiff_vs2015_x86_d.lib" )		// ＴＩＦＦライブラリ
+							#else // _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "libtiff_vs2015_x64_MTd.lib" )	// ＴＩＦＦライブラリ
+									#else
+										#pragma comment( lib, "libtiff_vs2015_x64_MT.lib" )	// ＴＩＦＦライブラリ
+									#endif
 								#else
-									#pragma comment( lib, "libtiff_vs2015_x86.lib" )		// ＴＩＦＦライブラリ
+									#ifdef _DEBUG
+										#pragma comment( lib, "libtiff_vs2015_x86_MTd.lib" )		// ＴＩＦＦライブラリ
+									#else
+										#pragma comment( lib, "libtiff_vs2015_x86_MT.lib" )		// ＴＩＦＦライブラリ
+									#endif
 								#endif
-							#endif
+							#endif // _DLL
 						#elif _MSC_VER >= 1800
 							#ifdef _WIN64
 								#ifdef _DEBUG
@@ -541,23 +653,43 @@ struct IUnknown;
 						#endif
 					#else // MSC_VER <  1700
 						#if _MSC_VER >= 1900
-							#ifdef _WIN64
-								#ifdef _DEBUG
-									#pragma comment( lib, "libpng_vs2015_x64_d.lib" )	// ＰＮＧライブラリ
-									#pragma comment( lib, "zlib_vs2015_x64_d.lib" )
+							#ifdef _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "libpng_vs2015_x64_MDd.lib" )	// ＰＮＧライブラリ
+										#pragma comment( lib, "zlib_vs2015_x64_MDd.lib" )
+									#else
+										#pragma comment( lib, "libpng_vs2015_x64_MD.lib" )		// ＰＮＧライブラリ
+										#pragma comment( lib, "zlib_vs2015_x64_MD.lib" )
+									#endif
 								#else
-									#pragma comment( lib, "libpng_vs2015_x64.lib" )		// ＰＮＧライブラリ
-									#pragma comment( lib, "zlib_vs2015_x64.lib" )
+									#ifdef _DEBUG
+										#pragma comment( lib, "libpng_vs2015_x86_MDd.lib" )	// ＰＮＧライブラリ
+										#pragma comment( lib, "zlib_vs2015_x86_MDd.lib" )
+									#else
+										#pragma comment( lib, "libpng_vs2015_x86_MD.lib" )		// ＰＮＧライブラリ
+										#pragma comment( lib, "zlib_vs2015_x86_MD.lib" )
+									#endif
 								#endif
-							#else
-								#ifdef _DEBUG
-									#pragma comment( lib, "libpng_vs2015_x86_d.lib" )	// ＰＮＧライブラリ
-									#pragma comment( lib, "zlib_vs2015_x86_d.lib" )
+							#else // _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "libpng_vs2015_x64_MTd.lib" )	// ＰＮＧライブラリ
+										#pragma comment( lib, "zlib_vs2015_x64_MTd.lib" )
+									#else
+										#pragma comment( lib, "libpng_vs2015_x64_MT.lib" )		// ＰＮＧライブラリ
+										#pragma comment( lib, "zlib_vs2015_x64_MT.lib" )
+									#endif
 								#else
-									#pragma comment( lib, "libpng_vs2015_x86.lib" )		// ＰＮＧライブラリ
-									#pragma comment( lib, "zlib_vs2015_x86.lib" )
+									#ifdef _DEBUG
+										#pragma comment( lib, "libpng_vs2015_x86_MTd.lib" )	// ＰＮＧライブラリ
+										#pragma comment( lib, "zlib_vs2015_x86_MTd.lib" )
+									#else
+										#pragma comment( lib, "libpng_vs2015_x86_MT.lib" )		// ＰＮＧライブラリ
+										#pragma comment( lib, "zlib_vs2015_x86_MT.lib" )
+									#endif
 								#endif
-							#endif
+							#endif // _DLL
 						#elif _MSC_VER >= 1800
 							#ifdef _WIN64
 								#ifdef _DEBUG
@@ -619,19 +751,35 @@ struct IUnknown;
 						#endif
 					#else // _MSC_VER <  1700
 						#if _MSC_VER >= 1900
-							#ifdef _WIN64
-								#ifdef _DEBUG
-									#pragma comment( lib, "libjpeg_vs2015_x64_d.lib" )		// ＪＰＥＧライブラリ
+							#ifdef _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "libjpeg_vs2015_x64_MDd.lib" )		// ＪＰＥＧライブラリ
+									#else
+										#pragma comment( lib, "libjpeg_vs2015_x64_MD.lib" )		// ＪＰＥＧライブラリ
+									#endif
 								#else
-									#pragma comment( lib, "libjpeg_vs2015_x64.lib" )		// ＪＰＥＧライブラリ
+									#ifdef _DEBUG
+										#pragma comment( lib, "libjpeg_vs2015_x86_MDd.lib" )		// ＪＰＥＧライブラリ
+									#else
+										#pragma comment( lib, "libjpeg_vs2015_x86_MD.lib" )		// ＪＰＥＧライブラリ
+									#endif
 								#endif
-							#else
-								#ifdef _DEBUG
-									#pragma comment( lib, "libjpeg_vs2015_x86_d.lib" )		// ＪＰＥＧライブラリ
+							#else // _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "libjpeg_vs2015_x64_MTd.lib" )		// ＪＰＥＧライブラリ
+									#else
+										#pragma comment( lib, "libjpeg_vs2015_x64_MT.lib" )		// ＪＰＥＧライブラリ
+									#endif
 								#else
-									#pragma comment( lib, "libjpeg_vs2015_x86.lib" )		// ＪＰＥＧライブラリ
+									#ifdef _DEBUG
+										#pragma comment( lib, "libjpeg_vs2015_x86_MTd.lib" )		// ＪＰＥＧライブラリ
+									#else
+										#pragma comment( lib, "libjpeg_vs2015_x86_MT.lib" )		// ＪＰＥＧライブラリ
+									#endif
 								#endif
-							#endif
+							#endif // _DLL
 						#elif _MSC_VER >= 1800
 							#ifdef _WIN64
 								#ifdef _DEBUG
@@ -692,27 +840,51 @@ struct IUnknown;
 						#endif
 					#else // _MSC_VER <  1700
 						#if _MSC_VER >= 1900
-							#ifdef _WIN64
-								#ifdef _DEBUG
-									#pragma comment( lib, "ogg_static_vs2015_x64_d.lib" )
-									#pragma comment( lib, "vorbis_static_vs2015_x64_d.lib" )
-									#pragma comment( lib, "vorbisfile_static_vs2015_x64_d.lib" )
+							#ifdef _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "ogg_static_vs2015_x64_MDd.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x64_MDd.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x64_MDd.lib" )
+									#else
+										#pragma comment( lib, "ogg_static_vs2015_x64_MD.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x64_MD.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x64_MD.lib" )
+									#endif
 								#else
-									#pragma comment( lib, "ogg_static_vs2015_x64.lib" )
-									#pragma comment( lib, "vorbis_static_vs2015_x64.lib" )
-									#pragma comment( lib, "vorbisfile_static_vs2015_x64.lib" )
+									#ifdef _DEBUG
+										#pragma comment( lib, "ogg_static_vs2015_x86_MDd.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x86_MDd.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x86_MDd.lib" )
+									#else
+										#pragma comment( lib, "ogg_static_vs2015_x86_MD.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x86_MD.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x86_MD.lib" )
+									#endif
 								#endif
-							#else
-								#ifdef _DEBUG
-									#pragma comment( lib, "ogg_static_vs2015_x86_d.lib" )
-									#pragma comment( lib, "vorbis_static_vs2015_x86_d.lib" )
-									#pragma comment( lib, "vorbisfile_static_vs2015_x86_d.lib" )
+							#else // _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "ogg_static_vs2015_x64_MTd.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x64_MTd.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x64_MTd.lib" )
+									#else
+										#pragma comment( lib, "ogg_static_vs2015_x64_MT.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x64_MT.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x64_MT.lib" )
+									#endif
 								#else
-									#pragma comment( lib, "ogg_static_vs2015_x86.lib" )
-									#pragma comment( lib, "vorbis_static_vs2015_x86.lib" )
-									#pragma comment( lib, "vorbisfile_static_vs2015_x86.lib" )
+									#ifdef _DEBUG
+										#pragma comment( lib, "ogg_static_vs2015_x86_MTd.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x86_MTd.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x86_MTd.lib" )
+									#else
+										#pragma comment( lib, "ogg_static_vs2015_x86_MT.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x86_MT.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x86_MT.lib" )
+									#endif
 								#endif
-							#endif
+							#endif // _DLL
 						#elif _MSC_VER >= 1800
 							#ifdef _WIN64
 								#ifdef _DEBUG
@@ -799,35 +971,67 @@ struct IUnknown;
 						#endif
 					#else // _MSC_VER <  1700
 						#if _MSC_VER >= 1900
-							#ifdef _WIN64
-								#ifdef _DEBUG
-									#pragma comment( lib, "ogg_static_vs2015_x64_d.lib" )
-									#pragma comment( lib, "vorbis_static_vs2015_x64_d.lib" )
-									#pragma comment( lib, "vorbisfile_static_vs2015_x64_d.lib" )
+							#ifdef _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "ogg_static_vs2015_x64_MDd.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x64_MDd.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x64_MDd.lib" )
 
-									#pragma comment( lib, "libtheora_static_vs2015_x64_d.lib" )
+										#pragma comment( lib, "libtheora_static_vs2015_x64_MDd.lib" )
+									#else
+										#pragma comment( lib, "ogg_static_vs2015_x64_MD.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x64_MD.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x64_MD.lib" )
+
+										#pragma comment( lib, "libtheora_static_vs2015_x64_MD.lib" )
+									#endif
 								#else
-									#pragma comment( lib, "ogg_static_vs2015_x64.lib" )
-									#pragma comment( lib, "vorbis_static_vs2015_x64.lib" )
-									#pragma comment( lib, "vorbisfile_static_vs2015_x64.lib" )
+									#ifdef _DEBUG
+										#pragma comment( lib, "ogg_static_vs2015_x86_MDd.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x86_MDd.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x86_MDd.lib" )
 
-									#pragma comment( lib, "libtheora_static_vs2015_x64.lib" )
+										#pragma comment( lib, "libtheora_static_vs2015_x86_MDd.lib" )
+									#else
+										#pragma comment( lib, "ogg_static_vs2015_x86_MD.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x86_MD.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x86_MD.lib" )
+
+										#pragma comment( lib, "libtheora_static_vs2015_x86_MD.lib" )
+									#endif
 								#endif
-							#else
-								#ifdef _DEBUG
-									#pragma comment( lib, "ogg_static_vs2015_x86_d.lib" )
-									#pragma comment( lib, "vorbis_static_vs2015_x86_d.lib" )
-									#pragma comment( lib, "vorbisfile_static_vs2015_x86_d.lib" )
+							#else // _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "ogg_static_vs2015_x64_MTd.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x64_MTd.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x64_MTd.lib" )
 
-									#pragma comment( lib, "libtheora_static_vs2015_x86_d.lib" )
+										#pragma comment( lib, "libtheora_static_vs2015_x64_MTd.lib" )
+									#else
+										#pragma comment( lib, "ogg_static_vs2015_x64_MT.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x64_MT.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x64_MT.lib" )
+
+										#pragma comment( lib, "libtheora_static_vs2015_x64_MT.lib" )
+									#endif
 								#else
-									#pragma comment( lib, "ogg_static_vs2015_x86.lib" )
-									#pragma comment( lib, "vorbis_static_vs2015_x86.lib" )
-									#pragma comment( lib, "vorbisfile_static_vs2015_x86.lib" )
+									#ifdef _DEBUG
+										#pragma comment( lib, "ogg_static_vs2015_x86_MTd.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x86_MTd.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x86_MTd.lib" )
 
-									#pragma comment( lib, "libtheora_static_vs2015_x86.lib" )
+										#pragma comment( lib, "libtheora_static_vs2015_x86_MTd.lib" )
+									#else
+										#pragma comment( lib, "ogg_static_vs2015_x86_MT.lib" )
+										#pragma comment( lib, "vorbis_static_vs2015_x86_MT.lib" )
+										#pragma comment( lib, "vorbisfile_static_vs2015_x86_MT.lib" )
+
+										#pragma comment( lib, "libtheora_static_vs2015_x86_MT.lib" )
+									#endif
 								#endif
-							#endif
+							#endif // _DLL
 						#elif _MSC_VER >= 1800
 							#ifdef _WIN64
 								#ifdef _DEBUG
@@ -928,31 +1132,59 @@ struct IUnknown;
 						#endif
 					#else // _MSC_VER <  1700
 						#if _MSC_VER >= 1900
-							#ifdef _WIN64
-								#ifdef _DEBUG
-									#pragma comment( lib, "opus_vs2015_x64_d.lib" )
-									#pragma comment( lib, "opusfile_vs2015_x64_d.lib" )
-									#pragma comment( lib, "silk_common_vs2015_x64_d.lib" )
-									#pragma comment( lib, "celt_vs2015_x64_d.lib" )
+							#ifdef _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "opus_vs2015_x64_MDd.lib" )
+										#pragma comment( lib, "opusfile_vs2015_x64_MDd.lib" )
+										#pragma comment( lib, "silk_common_vs2015_x64_MDd.lib" )
+										#pragma comment( lib, "celt_vs2015_x64_MDd.lib" )
+									#else
+										#pragma comment( lib, "opus_vs2015_x64_MD.lib" )
+										#pragma comment( lib, "opusfile_vs2015_x64_MD.lib" )
+										#pragma comment( lib, "silk_common_vs2015_x64_MD.lib" )
+										#pragma comment( lib, "celt_vs2015_x64_MD.lib" )
+									#endif
 								#else
-									#pragma comment( lib, "opus_vs2015_x64.lib" )
-									#pragma comment( lib, "opusfile_vs2015_x64.lib" )
-									#pragma comment( lib, "silk_common_vs2015_x64.lib" )
-									#pragma comment( lib, "celt_vs2015_x64.lib" )
+									#ifdef _DEBUG
+										#pragma comment( lib, "opus_vs2015_x86_MDd.lib" )
+										#pragma comment( lib, "opusfile_vs2015_x86_MDd.lib" )
+										#pragma comment( lib, "silk_common_vs2015_x86_MDd.lib" )
+										#pragma comment( lib, "celt_vs2015_x86_MDd.lib" )
+									#else
+										#pragma comment( lib, "opus_vs2015_x86_MD.lib" )
+										#pragma comment( lib, "opusfile_vs2015_x86_MD.lib" )
+										#pragma comment( lib, "silk_common_vs2015_x86_MD.lib" )
+										#pragma comment( lib, "celt_vs2015_x86_MD.lib" )
+									#endif
 								#endif
-							#else
-								#ifdef _DEBUG
-									#pragma comment( lib, "opus_vs2015_x86_d.lib" )
-									#pragma comment( lib, "opusfile_vs2015_x86_d.lib" )
-									#pragma comment( lib, "silk_common_vs2015_x86_d.lib" )
-									#pragma comment( lib, "celt_vs2015_x86_d.lib" )
+							#else // _DLL
+								#ifdef _WIN64
+									#ifdef _DEBUG
+										#pragma comment( lib, "opus_vs2015_x64_MTd.lib" )
+										#pragma comment( lib, "opusfile_vs2015_x64_MTd.lib" )
+										#pragma comment( lib, "silk_common_vs2015_x64_MTd.lib" )
+										#pragma comment( lib, "celt_vs2015_x64_MTd.lib" )
+									#else
+										#pragma comment( lib, "opus_vs2015_x64_MT.lib" )
+										#pragma comment( lib, "opusfile_vs2015_x64_MT.lib" )
+										#pragma comment( lib, "silk_common_vs2015_x64_MT.lib" )
+										#pragma comment( lib, "celt_vs2015_x64_MT.lib" )
+									#endif
 								#else
-									#pragma comment( lib, "opus_vs2015_x86.lib" )
-									#pragma comment( lib, "opusfile_vs2015_x86.lib" )
-									#pragma comment( lib, "silk_common_vs2015_x86.lib" )
-									#pragma comment( lib, "celt_vs2015_x86.lib" )
+									#ifdef _DEBUG
+										#pragma comment( lib, "opus_vs2015_x86_MTd.lib" )
+										#pragma comment( lib, "opusfile_vs2015_x86_MTd.lib" )
+										#pragma comment( lib, "silk_common_vs2015_x86_MTd.lib" )
+										#pragma comment( lib, "celt_vs2015_x86_MTd.lib" )
+									#else
+										#pragma comment( lib, "opus_vs2015_x86_MT.lib" )
+										#pragma comment( lib, "opusfile_vs2015_x86_MT.lib" )
+										#pragma comment( lib, "silk_common_vs2015_x86_MT.lib" )
+										#pragma comment( lib, "celt_vs2015_x86_MT.lib" )
+									#endif
 								#endif
-							#endif
+							#endif // _DLL
 						#elif _MSC_VER >= 1800
 							#ifdef _WIN64
 								#ifdef _DEBUG

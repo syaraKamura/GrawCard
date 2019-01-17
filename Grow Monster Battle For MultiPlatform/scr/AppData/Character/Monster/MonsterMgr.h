@@ -25,7 +25,7 @@ private:
 	typedef struct MonsterGraph_t{
 		int id;
 		Graphics* graph;
-	};
+	}MonsterGraph_t;
 
 private :
 

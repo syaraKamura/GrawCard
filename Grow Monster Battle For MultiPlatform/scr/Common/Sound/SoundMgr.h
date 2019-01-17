@@ -15,7 +15,7 @@
 #define __SOUND_MGR_H__
 
 #include <map>
-#include  "Sound.h";
+#include  "Sound.h"
 
 class SoundMgr{
 

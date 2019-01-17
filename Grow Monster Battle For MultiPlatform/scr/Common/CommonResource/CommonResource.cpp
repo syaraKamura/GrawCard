@@ -119,6 +119,9 @@ bool ComRes::Load() {
 
 	}
 
+	EffekseerEffect::EffectLoader::Instance()->Load((int)eEffect::TestEffect1, "Resources/Effect/sword.efk");
+	EffekseerEffect::EffectLoader::Instance()->Load((int)eEffect::TestEffect2, "Resources/Effect/aura.efk");
+
 	return true;
 }
 

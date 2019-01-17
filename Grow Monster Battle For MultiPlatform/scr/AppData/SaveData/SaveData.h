@@ -35,7 +35,7 @@ public:
 
 	typedef struct FLAG_DATA_t {
 		unsigned int mFlags[MAX_FLAGS];
-	};
+	}FLAG_DATA_t;
 
 private:
 

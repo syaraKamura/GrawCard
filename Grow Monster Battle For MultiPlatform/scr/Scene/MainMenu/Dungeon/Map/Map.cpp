@@ -57,7 +57,7 @@ Map::Map() : TaskBase() {
 
 }
 
-Map::Map(int posX,int posY) : TaskBase() {
+Map::Map(int posX,int posY,const char* mapTitle) : TaskBase() {
 	
 	mMapIcon = new Graphics(*ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MapIcon));
 	mMapIcon->SetPosition(posX, posY);
@@ -92,6 +92,8 @@ Map::Map(int posX,int posY) : TaskBase() {
 	mIsOpenSelectButton = false;
 
 	mFontString = new BMFont();
+
+	strcpyDx(mMapTitleText, mapTitle);
 
 }
 
@@ -191,7 +193,8 @@ bool Map::Updata() {
 		if (mButtonGraph->IsVisible() == false && mMapIcon->IsTouch()) {
 			mButtonGraph->SetVisible(true);
 			mAnimState = Map::eAnimState_In;
-			mFontString->SetString("テストああああ");
+			//mFontString->SetString("テストああああ");
+			mFontString->SetString(mMapTitleText);
 		}
 	}
 	

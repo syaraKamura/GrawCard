@@ -3,6 +3,13 @@
 
 #ifndef NDEBUG
 	#define __MY_DEBUG__
+
+#ifdef _WINDOWS
+	#define _CRTDBG_MAP_ALLOC
+	#include <crtdbg.h>
+	#define new new(_NORMAL_BLOCK,__FILE__,__LINE__)
+#endif // _WINDOWS
+
 #endif
 
 #ifdef _WINDOWS

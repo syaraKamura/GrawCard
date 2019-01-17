@@ -151,6 +151,9 @@
     <Filter Include="ソース ファイル\scr\AppData\Character\Monster\Skill">
       <UniqueIdentifier>{b68c593b-d8bf-4985-a679-44263e53b86a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Effect">
+      <UniqueIdentifier>{d2245f5a-e428-49ea-96d5-4df8bceac8fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -392,6 +395,9 @@
     </ClCompile>
     <ClCompile Include="..\scr\Test\TestMapField.cpp">
       <Filter>ソース ファイル\scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Effect\Effect.cpp">
+      <Filter>ソース ファイル\scr\Common\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -646,6 +652,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Test\TestMapField.h">
       <Filter>ソース ファイル\scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Effect\Effect.h">
+      <Filter>ソース ファイル\scr\Common\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

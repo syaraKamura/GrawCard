@@ -355,7 +355,7 @@ void BattleBase::Draw() {
 
 #if true
 
-	for (int i = 0; i < mMonsterData.size(); i++) {
+	for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 		MONSTER_DATA_t data = mMonsterData[i];
 		Monster* monster = data.monster;
 		if (monster == NULL) continue;
@@ -376,18 +376,18 @@ void BattleBase::Draw() {
 			DrawBox(x, drawY, x + 100 * ((float)monster->GetHp() / (float)monster->GetHpMax()), drawY + 20, GetColor(0, 255, 255), TRUE);
 		}
 #ifdef __MY_DEBUG__
-		DrawString(x, y += 20, monster->GetName(), GetColor(0, 255, 0));
-		DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Lvele   :%d", monster->GetLevel());
-		DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Type    :%d", monster->GetType());
-		DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Cost    :%d", monster->GetCost());
-		DrawFormatString(x, y += 20, GetColor(0, 255, 0), "HP      :%d/%d", monster->GetHp(), monster->GetHpMax());
-		DrawFormatString(x, y += 20, GetColor(0, 255, 0), "MP      :%d/%d", monster->GetMp(), monster->GetMpMax());
-		DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Attack  :%d", monster->GetAttack());
-		DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Deffence:%d", monster->GetDeffence());
-		DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Speed   :%d", monster->GetSpeed());
-		DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Exp     :%d", monster->GetExp());
-		DrawFormatString(x, y += 20, GetColor(0, 255, 0), "HomePos :%d", monster->GetHomePosition());
-		DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Pos X :%d Y :%d", mPlayerCard[i].GetPositionX(), mPlayerCard[i].GetPositionY());
+		DxLib::DrawString(x, y += 20, monster->GetName(), GetColor(0, 255, 0));
+		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Lvele   :%d", monster->GetLevel());
+		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Type    :%d", monster->GetType());
+		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Cost    :%d", monster->GetCost());
+		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "HP      :%d/%d", monster->GetHp(), monster->GetHpMax());
+		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "MP      :%d/%d", monster->GetMp(), monster->GetMpMax());
+		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Attack  :%d", monster->GetAttack());
+		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Deffence:%d", monster->GetDeffence());
+		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Speed   :%d", monster->GetSpeed());
+		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Exp     :%d", monster->GetExp());
+		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "HomePos :%d", monster->GetHomePosition());
+		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Pos X :%d Y :%d", mPlayerCard[i].GetPositionX(), mPlayerCard[i].GetPositionY());
 #endif // __MY_DEBUG__
 
 	}
@@ -397,7 +397,7 @@ void BattleBase::Draw() {
 
 #ifdef __MY_DEBUG__
 	// 行動順番
-	for (int i = 0; i < mMonsterData.size(); i++) {
+	for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 		MONSTER_DATA_t data = mMonsterData[i];
 		Monster* monster = data.monster;
 		if (monster == NULL) continue;
@@ -405,7 +405,7 @@ void BattleBase::Draw() {
 		int x = 1600;
 		int y = 60 + i * 20;
 		static const char* moveType[2] = { "プレイヤー","エネミー" };
-		DrawFormatString(x, y, GetColor(0, 255, 0), "Oreder:%d %s %s ", data.moveOreder, monster->GetName(), moveType[data.type]);
+		DxLib::DrawFormatString(x, y, GetColor(0, 255, 0), "Oreder:%d %s %s ", data.moveOreder, monster->GetName(), moveType[data.type]);
 	}
 #endif // __MY_DEBUG__
 
@@ -478,8 +478,8 @@ void BattleBase::Draw() {
 
 
 #ifdef __MY_DEBUG__
-		DrawFormatString(0, 40, GetColor(255, 0, 0), "Now Step:%s", dbg_STEP_TITLE[mNowStep]);
-		DrawFormatString(20, 60, GetColor(255, 0, 0), "Now Main Step:%s", dbg_MAIN_STEP_TITLE[mMainStep]);
+		DxLib::DrawFormatString(0, 40, GetColor(255, 0, 0), "Now Step:%s", dbg_STEP_TITLE[mNowStep]);
+		DxLib::DrawFormatString(20, 60, GetColor(255, 0, 0), "Now Main Step:%s", dbg_MAIN_STEP_TITLE[mMainStep]);
 #endif
 
 }
@@ -545,8 +545,8 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 	case BattleBase::eBattleMainStep_MoveOrder:
 
 		// 行動順番を設定
-		for (int i = 0; i < mMonsterData.size(); i++) {
-			for (int j = 0; j < mMonsterData.size(); j++) {
+		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
+			for (unsigned int j = 0; j < mMonsterData.size(); j++) {
 				Monster* mon1 = mMonsterData[i].monster;
 				Monster* mon2 = mMonsterData[j].monster;
 				if (mon1->GetSpeed() > mon2->GetSpeed()) {
@@ -558,7 +558,7 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 			}
 		}
 
-		for (int i = 0; i < mMonsterData.size(); i++) {
+		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 			mMonsterData[i].moveOreder = i;
 		}
 
@@ -668,7 +668,7 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 		if (mAnim == NULL || mAnim->IsPlay() == false) {
 			mMainStep = eBattleMainStep_Judgement;
 
-			for (int i = 0; i < mTargetList.size(); i++) {
+			for (unsigned int i = 0; i < mTargetList.size(); i++) {
 				mTargetList[i].monster->SetHp(mTargetList[i].damage);
 			}
 
@@ -689,7 +689,7 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 			step = BattleBase::eBattleStep_Result;
 		}
 
-		for (int i = 0; i < mMonsterData.size(); i++) {
+		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 			if (mMonsterData[i].monster->GetHp() < 0) {
 				mMonsterData[i].isDead = true;
 			}
@@ -700,7 +700,7 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 
 		//if (Keyboard_Press(KEY_INPUT_Z)) 
 		{
-			if (mMoveOrderMonsterNum >= mMonsterData.size()) {
+			if ((unsigned int)mMoveOrderMonsterNum >= mMonsterData.size()) {
 				mMainStep = eBattleMainStep_MoveOrder;
 			}
 			else {
@@ -791,7 +791,7 @@ bool BattleBase::CheckAllDead(eDeckType type) {
 
 #if true
 
-		for (int i = 0; i < mMonsterData.size(); i++) {
+		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 			MONSTER_DATA_t data = mMonsterData[i];
 			if (data.type == type) {
 				if (data.monster->GetHp() <= 0) {
@@ -856,7 +856,7 @@ void BattleBase::BattleStartAnimation() {
 	}
 
 	int monsterNum = 0;
-	for (int i = 0; i < mMonsterData.size(); i++) {
+	for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 		if (mMonsterData[i].monster == monster) {
 			monsterNum = i;
 		}
@@ -896,7 +896,7 @@ void BattleBase::SelectCommandUpdate() {
 				mOrderMoveData.moveMonster = data.monster;
 				mOrderMoveData.activeType = BattleBase::eActiveType_Attack;
 
-				for (int i = 0; i < mMonsterData.size(); i++) {
+				for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 					if (mMonsterData[i].type == BattleBase::eDeckType_Enemy) {
 						if (mMonsterData[i].isDead == true) continue;
 						mOrderMoveData.targetDeckType = BattleBase::eDeckType_Enemy;
@@ -915,7 +915,7 @@ void BattleBase::SelectCommandUpdate() {
 			mOrderMoveData.moveDeckType = data.type;
 			mOrderMoveData.moveMonster = data.monster;
 			mOrderMoveData.activeType = BattleBase::eActiveType_Attack;
-			for (int i = 0; i < mMonsterData.size(); i++) {
+			for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 				if (mMonsterData[i].type == BattleBase::eDeckType_Player) {
 					if (mMonsterData[i].isDead == true) continue;
 					mOrderMoveData.targetDeckType = BattleBase::eDeckType_Player;
@@ -957,7 +957,7 @@ void BattleBase::SelectCommandUpdate() {
 		// 　復活系
 		// プレイヤーデッキの選択もする
 
-		for (int i = 0; i < mMonsterData.size(); i++) {
+		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 			MONSTER_DATA_t  data = mMonsterData[i];
 			if (data.type == BattleBase::eDeckType_Enemy) {
 				if (data.isDead) continue;
@@ -1037,7 +1037,7 @@ void BattleBase::OnClick(View* view) {
 			type = BattleBase::eMoveType_Auto;
 		}
 
-		for (int i = 0; i < mMonsterData.size(); i++) {
+		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 			if (mMonsterData[i].type == BattleBase::eDeckType_Player) {
 				mMonsterData[i].moveType = type;
 			}

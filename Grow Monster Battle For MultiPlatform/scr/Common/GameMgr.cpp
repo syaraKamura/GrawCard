@@ -36,6 +36,11 @@ GameMgr::GameMgr(){
 #else
 	mSceneMgr = new SceneMgr();
 #endif
+
+#ifdef __MY_WINDOWS__
+	EffekseerEffect::EffectLoader::Create();
+#endif
+
 	SoundMgr::Create();
 	ComRes::Create();
 	DungeonMgr::Create();
@@ -43,6 +48,10 @@ GameMgr::GameMgr(){
 }
 
 GameMgr::~GameMgr(){
+
+#ifdef __MY_WINDOWS__
+	EffekseerEffect::EffectLoader::Destroy();
+#endif
 
 	SoundMgr::Destroy();
 	DungeonMgr::Destory();
@@ -79,6 +88,10 @@ void GameMgr::Initialize(){
 
 void GameMgr::Finalize(){
 	
+#ifdef __MY_WINDOWS__
+	EffekseerEffect::Effect::Destroy();
+#endif
+
 	TaskMgr::getInstance().Finalize();
 	mSceneMgr->Finalize();
 

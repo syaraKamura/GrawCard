@@ -1,4 +1,4 @@
-/*
+﻿/*
 				ファイル名		:StringBase.cpp
 				作成者			:
 				作成日時		:2018/01/15
@@ -21,6 +21,7 @@
 
 StringBase::StringBase(){
 	mFontMgr = NULL;
+	mBMFont = NULL;
 	mColor = GetColor(255, 255, 255);
 	memset(mString, 0, sizeof(char) * 1024);
 	memset(mDrawString, 0, sizeof(char) * 1024 * 6);

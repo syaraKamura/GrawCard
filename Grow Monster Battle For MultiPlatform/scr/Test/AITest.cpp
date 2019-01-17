@@ -91,6 +91,9 @@ static Sound* mSound;
 
 static Map* mMap;
 
+static EffekseerEffect::EffectPlayData mEftData;
+static EffekseerEffect::EffectManual* mEftManual;
+
 void Map_Initialize(){
 
 	//マップの下地を作成
@@ -576,6 +579,7 @@ bool AITest::Initialize(){
 
 	mButton->AddButton(mPrevButton);
 	mButton->AddButton(btn);
+
 	GraphicsDrawMgr::GetInstance()->Add(mButton, 0);
 
 	mBMFont = new BMFont();
@@ -591,7 +595,18 @@ bool AITest::Initialize(){
 	net.BeginNetwork();
 #endif // __ANDROID__
 
-	mMap = new Map(255, 1000);
+	mMap = new Map(255, 1000,"テストああああ");
+
+	
+	EffekseerEffect::Effect::Instance()->Play(&mEftData, EffekseerEffect::EffectLoader::Instance()->Get((int)eEffect::TestEffect1));
+	EffekseerEffect::Effect::Instance()->SetPosition(mEftData, 200.0f, 300.0f, 0.0f);
+	EffekseerEffect::Effect::Instance()->SetScale(mEftData, 10.0f, 10.0f, 10.0f);
+
+	mEftManual = EffekseerEffect::Effect::Instance()->Manual_Play(EffekseerEffect::EffectLoader::Instance()->Get((int)eEffect::TestEffect2));
+	EffekseerEffect::Effect::Instance()->SetPosition(mEftManual->GetEffectPlayData(), 300.0f, 400.0f, 0.0f);
+	EffekseerEffect::Effect::Instance()->SetScale(mEftManual->GetEffectPlayData(), 10.0f, 10.0f, 10.0f);
+
+	GraphicsDrawMgr::GetInstance()->Add(mEftManual, 1);
 
 	return true;
 }
@@ -602,6 +617,8 @@ void AITest::Finalize(){
 	mGraphicsMulti->ReleseRequest();
 	mWindowGraph->ReleseRequest();
 	mButton->ReleseRequest();
+
+	mEftManual->ReleseRequest();
 
 	mSound->Release();
 
@@ -615,6 +632,10 @@ void AITest::Finalize(){
 	Delete(mMap);
 
 	mGraphicsMulti2->ReleseRequest();
+
+	if (EffekseerEffect::Effect::Instance() != NULL) {
+		EffekseerEffect::Effect::Instance()->StopAll();
+	}
 
 
 	//mGraphics->Relese();
@@ -699,12 +720,17 @@ bool AITest::Updata() {
 		mVisibleNum = (mVisibleNum + 1) % 72;
 		mGraphicsMulti2->SetDivVisible(mVisibleNum, true);
 	}
-
+	static int x = 200.0f;
 	if (timer % 60 == 0) {
 		mGraphics->SetPriorty(count % 2 * 10);
+		x = 200.0f;
+		EffekseerEffect::Effect::Instance()->Play(&mEftData, EffekseerEffect::EffectLoader::Instance()->Get(0), EffekseerEffect::ePlayMode::Play3D);
+		EffekseerEffect::Effect::Instance()->SetPosition(mEftData, 200.0f, 300.0f, 1.0f);
+		EffekseerEffect::Effect::Instance()->SetScale(mEftData, 10.0f, 10.0f, 10.0f);
 		count++;
 	}
-
+	EffekseerEffect::Effect::Instance()->SetPosition(mEftData, x, 300.0f, 0.0f);
+	x += 10.0f;
 #endif
 	Enemy_Updata();
 
@@ -747,12 +773,12 @@ void AITest::Draw(){
 		DrawString(0, 100, "入力されている", GetColor(255, 0, 0));
 	}
 
-	DrawFormatString(0, 600, GetColor(0, 255, 0), "度数  : %f", mJoyPad->GetLeftAnalogAngleDegree());
-	DrawFormatString(0, 620, GetColor(0, 255, 0), "弧度法: %f", mJoyPad->GetLeftAnalogAngleRadian());
-	DrawFormatString(0, 640, GetColor(0, 255, 0), "フリック度数  : %f", mTouch->GetFlickAngleDegree(Touch::eTouchInput_1));
-	DrawFormatString(0, 660, GetColor(0, 255, 0), "フリック弧度法: %f", mTouch->GetFlickAngleRadian(Touch::eTouchInput_1));
+	DxLib::DrawFormatString(0, 600, GetColor(0, 255, 0), "度数  : %f", mJoyPad->GetLeftAnalogAngleDegree());
+	DxLib::DrawFormatString(0, 620, GetColor(0, 255, 0), "弧度法: %f", mJoyPad->GetLeftAnalogAngleRadian());
+	DxLib::DrawFormatString(0, 640, GetColor(0, 255, 0), "フリック度数  : %f", mTouch->GetFlickAngleDegree(Touch::eTouchInput_1));
+	DxLib::DrawFormatString(0, 660, GetColor(0, 255, 0), "フリック弧度法: %f", mTouch->GetFlickAngleRadian(Touch::eTouchInput_1));
 
-	DrawFormatString(600, 220, GetColor(0, 255, 0), "文字数は%dです", mString->DrawString(600, 200));
+	DxLib::DrawFormatString(600, 220, GetColor(0, 255, 0), "文字数は%dです", mString->DrawString(600, 200));
 	
 	mBMFont->Draw(20,1040,true);
 

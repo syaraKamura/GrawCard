@@ -1,4 +1,4 @@
-/*
+﻿/*
 				ファイル名		:StringBase.h
 				作成者			:
 				作成日時		:2018/01/15
@@ -15,10 +15,10 @@
 #ifndef __STRING_BASE_H__
 #define __STRING_BASE_H__
 
+#include <list>
+
 class FontMgr;
 class BMFont;
-
-#include <list>
 
 class StringBase {
 

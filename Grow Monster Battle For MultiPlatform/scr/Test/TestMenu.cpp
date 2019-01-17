@@ -27,13 +27,11 @@ static const SCENE_LIST s_cSceneListTbl[] = {
 //シーンリスト数
 static const int s_cSceneListNum = sizeof(s_cSceneListTbl)/sizeof(s_cSceneListTbl[0]);
 
-TestMenu::TestMenu(ISceneBase* changer) : SceneBase(changer){
-
+TestMenu::TestMenu(ISceneBase* changer) : SceneBase(changer) , mCursorY(0){
+	
 }
 
 bool TestMenu::Initialize(){
-
-	mCursorY = 0;
 
 	return true;
 

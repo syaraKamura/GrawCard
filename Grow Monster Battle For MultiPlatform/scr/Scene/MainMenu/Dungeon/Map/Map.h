@@ -68,12 +68,14 @@ private:
 	bool mIsTouchEnable;	// マップアイコンのクリックを有効にするか？
 	bool mIsOpenSelectButton;	// 選択ボタンが開いているか？
 
+	char mMapTitleText[1024];
+
 	void OnClick(View* view) override;
 
 public:
 
 	Map();
-	Map(int posX, int posY);
+	Map(int posX, int posY, const char* mapTitle);
 	~Map();
 
 	void Draw() override;

@@ -152,7 +152,7 @@ void BMFont::Draw(int posX, int posY, bool isVisible) {
 
 	int strPosX = 0;
 	int oldFontSize = 0;
-	for (int i = 0; i < mStrId.size(); i++) {
+	for (unsigned int i = 0; i < mStrId.size(); i++) {
 		int id = mStrId[i];
 		int fontSize = 48;		
 		//int strPosX = i * fontSize;

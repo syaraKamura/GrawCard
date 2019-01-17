@@ -23,8 +23,8 @@ MapField::MapField() : TaskBase(){
 	this->mMapImageHandle->Load("Resources/Graphics/Map/forest.png");
 
 
-	this->mMapIcons.push_back(new Map(200.0f, 300.0f));
-	this->mMapIcons.push_back(new Map(380.0f,380.0f));
+	this->mMapIcons.push_back(new Map(200.0f, 300.0f,"テスト１"));
+	this->mMapIcons.push_back(new Map(380.0f,380.0f,"テスト２"));
 
 }
 

@@ -124,14 +124,14 @@ void ScriptBase::Finalize() {
 	TaskMgr::getInstance().RequestKill(id);
 		
 	//画像データ削除
-	for (int i = 0; i < mGraphicsDatas.size(); i++) {
+	for (unsigned int i = 0; i < mGraphicsDatas.size(); i++) {
 		mGraphicsDatas[i].mGraph->Relese();
 		Delete(mGraphicsDatas[i].mGraph);
 	}
 	mGraphicsDatas.clear();
 
 	// サウンドデータ削除
-	for (int i = 0; i < mSoundDatas.size(); i++) {
+	for (unsigned int i = 0; i < mSoundDatas.size(); i++) {
 		SoundMgr::GetInstance()->Remove(mSoundDatas[i].mSoundStrId);
 	}
 	mSoundDatas.clear();
@@ -144,7 +144,7 @@ void ScriptBase::PreviousUpdate() {
 
 	bool isWait = false;
 
-	for (int i = 0; i < mAnimOrderIdList.size(); i++) {
+	for (unsigned int i = 0; i < mAnimOrderIdList.size(); i++) {
 		unsigned int id = mAnimOrderIdList[i];
 		if (!mAnimation->IsPlay(id)) {
 			auto itr = mAnimOrderIdList.begin() + i;
@@ -272,7 +272,7 @@ void ScriptBase::PostUpdate() {
 
 void ScriptBase::Draw() {
 
-	for (int i = 0; i < mGraphicsDatas.size(); i++) {
+	for (unsigned int i = 0; i < mGraphicsDatas.size(); i++) {
 		Graphics* graph = mGraphicsDatas[i].mGraph;
 		if (graph->IsVisible()) {
 			//int posX =  graph->GetPositionX();
@@ -418,7 +418,7 @@ void ScriptBase::Analysis() {
 		char* name = data.mString;
 		int id = -1;
 
-		for (int i = 0; i < mFlagDatas.size(); i++) {
+		for (unsigned int i = 0; i < mFlagDatas.size(); i++) {
 			char* flagName = mFlagDatas[i].mFlagName;
 			if (strcmpDx(flagName, name) == 0) {
 				id = mFlagDatas[i].mFlagID;
@@ -464,7 +464,7 @@ void ScriptBase::Analysis() {
 		char* name = data.mString;
 		int id = -1;
 
-		for (int i = 0; i < mFlagDatas.size(); i++) {
+		for (unsigned int i = 0; i < mFlagDatas.size(); i++) {
 			char* flagName = mFlagDatas[i].mFlagName;
 			if (strcmpDx(flagName, name) == 0) {
 				id = mFlagDatas[i].mFlagID;
@@ -528,7 +528,7 @@ void ScriptBase::Analysis() {
 	case ScriptBase::eAnalysis_DrawGraph:
 	{
 		Graphics* graph = NULL;
-		for (int i = 0; i < mGraphicsDatas.size(); i++) {
+		for (unsigned int i = 0; i < mGraphicsDatas.size(); i++) {
 			if (mGraphicsDatas[i].mGraphId == data.mInt[0]) {
 				graph = mGraphicsDatas[i].mGraph;
 				break;
@@ -569,7 +569,7 @@ void ScriptBase::Analysis() {
 	case ScriptBase::eAnalysis_HideGraph:
 	{
 		Graphics* graph = NULL;
-		for (int i = 0; i < mGraphicsDatas.size(); i++) {
+		for (unsigned int i = 0; i < mGraphicsDatas.size(); i++) {
 			if (mGraphicsDatas[i].mGraphId == data.mInt[0]) {
 				graph = mGraphicsDatas[i].mGraph;
 				break;
@@ -596,7 +596,7 @@ void ScriptBase::Analysis() {
 	case ScriptBase::eAnalysis_AnimGraph:
 	{
 		Graphics * graph = NULL;
-		for (int i = 0; i < mGraphicsDatas.size(); i++) {
+		for (unsigned int i = 0; i < mGraphicsDatas.size(); i++) {
 			if (mGraphicsDatas[i].mGraphId == data.mInt[0]) {
 				graph = mGraphicsDatas[i].mGraph;
 				break;
@@ -614,7 +614,7 @@ void ScriptBase::Analysis() {
 	case ScriptBase::eAnalysis_SetGraphAlpha:
 	{
 		Graphics* graph = NULL;
-		for (int i = 0; i < mGraphicsDatas.size(); i++) {
+		for (unsigned int i = 0; i < mGraphicsDatas.size(); i++) {
 			if (mGraphicsDatas[i].mGraphId == data.mInt[0]) {
 				graph = mGraphicsDatas[i].mGraph;
 				break;
@@ -636,7 +636,7 @@ void ScriptBase::Analysis() {
 	case ScriptBase::eAnalysis_LoadSound:
 		break;
 	case ScriptBase::eAnalysis_PlaySound:
-		for (int i = 0;i < mSoundDatas.size(); i++) {
+		for (unsigned int i = 0;i < mSoundDatas.size(); i++) {
 			if (mSoundDatas[i].mSoundId == data.mInt[0]) {
 				SoundMgr::GetInstance()->Play(mSoundDatas[i].mSoundStrId);
 				break;
@@ -644,7 +644,7 @@ void ScriptBase::Analysis() {
 		}
 		break;
 	case ScriptBase::eAnalysis_StopSound:
-		for (int i = 0; i < mSoundDatas.size(); i++) {
+		for (unsigned int i = 0; i < mSoundDatas.size(); i++) {
 			if (mSoundDatas[i].mSoundId == data.mInt[0]) {
 				SoundMgr::GetInstance()->Stop(mSoundDatas[i].mSoundStrId);
 				break;
@@ -718,7 +718,7 @@ bool ScriptBase::SetFlag(const char* flagName, unsigned int flag) {
 	
 	int id = -1;
 
-	for (int i = 0; i < mFlagDatas.size(); i++) {
+	for (unsigned int i = 0; i < mFlagDatas.size(); i++) {
 		char* name = mFlagDatas[i].mFlagName;
 		if (strcmpDx(flagName, name) == 0) {
 			id = mFlagDatas[i].mFlagID;

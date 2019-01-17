@@ -41,6 +41,7 @@ SceneMgr::SceneMgr(){
 
 #ifdef __MY_DEBUG__
 	dbg_SetSceneName("");
+	memset(m_DbgNowSceneName, 0, sizeof(char) * 126);
 #endif	//__MY_DEBUG__
 
 }
@@ -52,7 +53,8 @@ SceneMgr::SceneMgr(Debug* debug){
 	mPrevScene = ISceneBase::eScene_None;
 	mScene = (SceneBase*) new Scene_Boot(this);	//ブートシーンを設定
 	mDebug = debug;
-}
+	memset(m_DbgNowSceneName, 0, sizeof(char) * 126);
+}	
 
 #endif
 

@@ -29,6 +29,8 @@
 #ifdef __WINDOWS__
 	#include <Windows.h>
 	#include "win32/KeyBoard.h"
+	#include "Common/Effect/Effect.h"
+
 	//#include "win32/MouseInput.h"
 #endif
 #ifdef __ANDROID__

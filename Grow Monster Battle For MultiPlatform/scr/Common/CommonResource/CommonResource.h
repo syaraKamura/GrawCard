@@ -17,6 +17,17 @@
 
 class Graphics;
 
+enum class eEffect : int{
+	
+	TestEffect1,
+	TestEffect2,
+
+	BATTLE_EFFECT_START = 1000,
+
+	BATTLE_EFFECT_END,
+
+};
+
 class ComRes {
 
 public :
