@@ -54,7 +54,7 @@ void TestADV::Finalize() {
 void TestADV::PreviousUpdate() {
 
 	if (mTaskId != -1) {
-		ScriptBase* task = dynamic_cast<ScriptBase*>(TaskMgr::getInstance().GetTask(mTaskId));
+		AdvScript::ScriptBase* task = dynamic_cast<AdvScript::ScriptBase*>(TaskMgr::getInstance().GetTask(mTaskId));
 		if (task == NULL) return;
 		if (task->IsEnd() == true) {
 			TaskMgr::getInstance().RequestKill(mTaskId);
@@ -77,7 +77,7 @@ bool TestADV::Updata() {
 		}
 
 		if (Keyboard_Press(KEY_INPUT_Z)) {
-			ScriptBase* add = new ScriptBase(ADV_TBL_DATA[mSelect].mFileName);
+			AdvScript::ScriptBase* add = new AdvScript::ScriptBase(ADV_TBL_DATA[mSelect].mFileName);
 			mTaskId = TaskMgr::getInstance().Add(add, 1);
 		}
 

@@ -197,6 +197,7 @@
     <ClCompile Include="..\scr\Common\ResourceLoader\ResourceLoader.cpp" />
     <ClCompile Include="..\scr\Common\Script\ScriptAnimation.cpp" />
     <ClCompile Include="..\scr\Common\Script\ScriptBase.cpp" />
+    <ClCompile Include="..\scr\Common\Script\ScriptFunc.cpp" />
     <ClCompile Include="..\scr\Common\Sound\Sound.cpp" />
     <ClCompile Include="..\scr\Common\Sound\SoundMgr.cpp" />
     <ClCompile Include="..\scr\Common\String\FontMgr\BMFont.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="..\scr\Common\ResourceLoader\ResourceLoader.h" />
     <ClInclude Include="..\scr\Common\Script\ScriptAnimation.h" />
     <ClInclude Include="..\scr\Common\Script\ScriptBase.h" />
+    <ClInclude Include="..\scr\Common\Script\ScriptFunc.h" />
     <ClInclude Include="..\scr\Common\Sound\Sound.h" />
     <ClInclude Include="..\scr\Common\Sound\SoundMgr.h" />
     <ClInclude Include="..\scr\Common\String\FontMgr\BMFont.h" />

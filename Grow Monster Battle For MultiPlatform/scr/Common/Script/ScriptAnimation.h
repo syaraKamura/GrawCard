@@ -16,7 +16,7 @@
 
 #include <vector>
 
-#include "Common/Task/Task.h"
+#include "Common/Task/TaskBase.h"
 #include "Common/Graphics/GraphicsDraw.h"
 #include "Common/Animation/Animation.h"
 

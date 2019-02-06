@@ -134,7 +134,6 @@ namespace EffekseerEffect {
 		EffectManual() : GraphicsBase(){};
 		
 
-
 	public :
 		
 		~EffectManual() {};

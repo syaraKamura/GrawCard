@@ -14,6 +14,7 @@
 #ifndef __ANIMATION_H__
 #define __ANIMATION_H__
 
+#include <list>
 #include "Easing/Easing.h"
 
 //アニメーション作成用構造体

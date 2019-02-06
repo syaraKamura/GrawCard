@@ -69,3 +69,5 @@ log.txt
 *.db
 *.db
 Grow Monster Battle For MultiPlatform/Grow Monster Battle Win32/Log.txt
+
+*.enc

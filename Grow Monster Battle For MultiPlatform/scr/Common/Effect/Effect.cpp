@@ -149,7 +149,7 @@ namespace EffekseerEffect {
 		if (Effkseer_Init(8000) == -1) {
 			Debug::ErorrMessage("Effekseerの初期化に失敗しました");
 		}
-		
+
 		// フルスクリーンウインドウの切り替えでリソースが消えるのを防ぐ。
 		// Effekseerを使用する場合は必ず設定する。
 		SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
@@ -323,16 +323,22 @@ namespace EffekseerEffect {
 
 	}
 
+	//============================================
+	// EffectManualクラス
+	//============================================
 	
 	void EffectManual::Draw() {
 
-		DrawEffekseer2D_Begin();
-		DrawEffekseer2D_Draw(mSrc.playHandle);
-		DrawEffekseer2D_End();
-
-		DrawEffekseer3D_Begin();
-		DrawEffekseer3D_Draw(mSrc.playHandle);
-		DrawEffekseer3D_End();
+		if (mSrc.playMode == ePlayMode::Play2D) {
+			DrawEffekseer2D_Begin();
+			DrawEffekseer2D_Draw(mSrc.playHandle);
+			DrawEffekseer2D_End();
+		}
+		else {
+			DrawEffekseer3D_Begin();
+			DrawEffekseer3D_Draw(mSrc.playHandle);
+			DrawEffekseer3D_End();
+		}
 
 	}
 

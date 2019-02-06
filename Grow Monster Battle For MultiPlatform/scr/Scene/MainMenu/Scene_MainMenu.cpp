@@ -188,7 +188,7 @@ bool Scene_MainMenu::UpdataProc() {
 
 		if (mMenu == eMenu_OpenRouge) {
 			TaskBase* task = TaskMgr::getInstance().GetTask(mNowMenuTaskID);
-			ScriptBase* script = dynamic_cast<ScriptBase*>(task);
+			AdvScript::ScriptBase* script = dynamic_cast<AdvScript::ScriptBase*>(task);
 			if (script != NULL) {
 				if (script->IsEnd()) {
 #if true
@@ -257,7 +257,7 @@ bool Scene_MainMenu::UpdataProc() {
 	switch (mMenu) {
 	case eMenu_OpenRouge:
 	{
-		mNowMenuTaskID = TaskMgr::getInstance().Add(new ScriptBase("ADV_0000.txt"), TaskMgr::ePriorty_0);
+		mNowMenuTaskID = TaskMgr::getInstance().Add(new AdvScript::ScriptBase("ADV_0000.txt"), TaskMgr::ePriorty_0);
 		mIsEnableGraph = false;
 	}
 		break;

@@ -16,6 +16,7 @@
 #include "Common/String/StringClick.h"
 #include "Common/String/FontMgr/BMFont.h"
 #include "ScriptAnimation.h"
+#include "ScriptFunc.h"
 #include "ScriptBase.h"
 
 #ifdef __ANDROID__
@@ -30,7 +31,6 @@ static StringClick s_mString[5] = {
 	StringClick(),
 	StringClick(),
 };
-
 
 static char testScript[] = {
 	"$mes 目が覚めると、木々の隙間から木漏れ日がゆらゆらとあゆみの頬を照らす。\n"
@@ -49,6 +49,7 @@ static char testScript[] = {
 	"$end\n"
 
 };
+namespace AdvScript {
 
 ScriptBase::ScriptBase() : TaskBase() {
 
@@ -106,6 +107,8 @@ bool ScriptBase::Initialize() {
 	s_mString[0].SetString("オート再生");
 	s_mString[0].SetColor(GetColor(0,0,0));
 
+	ScriptFunc_Initialize(*this);
+
 	return Load(mFileName);
 
 }
@@ -138,6 +141,8 @@ void ScriptBase::Finalize() {
 
 	mAnimOrderIdList.clear();
 	
+	ScriptFunc_Finalize();
+
 }
 
 void ScriptBase::PreviousUpdate() {
@@ -355,6 +360,42 @@ void ScriptBase::Analysis() {
 
 	*/
 
+#if 1
+
+	bool isNext = false;
+
+	eActType result = (eActType)ScriptFunc_FunctionUpdate();
+
+	if (result == ScriptBase::eActType_Error) {
+		Debug::ErorrMessage("スクリプトに無効な処理が含まれています");
+		mIsEnd = true;
+		return;
+	}
+
+	switch (result) {
+	case ScriptBase::eActType_InputWait:
+		
+		break;
+	case ScriptBase::eActType_Wait:
+		mIsWait = true;					// 処理終了待ちをする
+		break;
+	case ScriptBase::eActType_None:
+	case ScriptBase::eActType_Next:
+		isNext = true;
+		break;
+	case ScriptBase::eActType_End:
+		mIsEnd = true;
+		break;
+	}
+
+	//isNext = (result == eActType_Next) ? true : false;
+
+	if (isNext) {
+		mIsWait = false;	//処理待ち解除
+		mNowLine++;
+	}
+
+#else
 	
 	ADV_DATA_t data = mAdvData[mNowLine];
 
@@ -664,7 +705,7 @@ void ScriptBase::Analysis() {
 		mIsWait = false;	//処理待ち解除
 		mNowLine++;
 	}
-
+#endif
 
 
 }
@@ -824,6 +865,8 @@ bool ScriptBase::Load(const char* filename) {
 
 	file.close();
 #endif
+
+	// 読み込んだスクリプトファイルを解析する
 
 	std::vector<ADV_DATA_t> advDataList;
 
@@ -1152,5 +1195,40 @@ void ScriptBase::CreateFilePath(const char* fileName) {
 
 #endif	
 #endif
+
+}
+
+/*
+	現在実行するスクリプト関数
+	return	実行する関数ID
+*/
+ScriptBase::eAnalysis ScriptBase::GetNowActFunction() {
+	return mAdvData[mNowLine].mMethodId;
+}
+
+/*
+	現在実行実行するスクリプトデータ
+	return 実行するデータ
+*/
+ScriptBase::ADV_DATA_t& ScriptBase::GetNowActAdvData() {
+	return mAdvData[mNowLine];
+}
+
+//
+
+ScriptBase::eActType ScriptBase::MessageFunc(ADV_DATA_t& data) {
+	
+	mTalkName->SetString("");			// 話者はいないので文字列をない状態に設定
+	mString->SetString(data.mString);
+	return eActType_InputWait;
+}
+
+ScriptBase::eActType ScriptBase::TalkFunc(ADV_DATA_t& data) {
+
+	mString->SetString(data.mString2);
+	mTalkName->SetString(data.mString);
+
+	return eActType_InputWait;
+}
 
 }

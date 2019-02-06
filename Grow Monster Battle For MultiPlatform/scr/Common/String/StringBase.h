@@ -20,6 +20,8 @@
 class FontMgr;
 class BMFont;
 
+
+
 class StringBase {
 
 public :
@@ -115,7 +117,7 @@ public :
 				false	:失敗
 
 	*/
-	bool FontCreate(const char* fontName, int size, int thick, int fontType, unsigned int edgeColor = GetColor(255, 255, 255));
+	bool FontCreate(const char* fontName, int size, int thick, int fontType, unsigned int edgeColor = 0xffffff);
 
 	/*
 		フォントファイルを読み込みフォントデータの作成(DxLibのTool(CreateDXFontData.exe)を使用しないと使えない)
@@ -127,7 +129,7 @@ public :
 				false	:失敗
 
 	*/
-	bool FontCreate(const char* fileName, int edgeSize, unsigned int edgeColor = GetColor(255, 255, 255));
+	bool FontCreate(const char* fileName, int edgeSize, unsigned int edgeColor = 0xffffff);
 
 	void SetBitMapFont(BMFont* bmfont);
 

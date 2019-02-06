@@ -16,12 +16,14 @@
 
 #include "../SceneBase.h"
 
+namespace AdvScript{
 class ScriptBase;
+}
 
 class Scene_Prologue : public SceneBase{
 
 private:
-	ScriptBase* mPrologue;
+	AdvScript::ScriptBase* mPrologue;
 public:
 
 	Scene_Prologue(ISceneBase* changer);

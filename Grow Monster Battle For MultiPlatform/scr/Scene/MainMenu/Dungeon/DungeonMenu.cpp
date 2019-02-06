@@ -98,7 +98,7 @@ bool DungeonMenu::Updata() {
 
 		
 	if (mTaskId != -1) {
-		ScriptBase* scriptTask = dynamic_cast<ScriptBase*>(TaskMgr::getInstance().GetTask(mTaskId));
+		AdvScript::ScriptBase* scriptTask = dynamic_cast<AdvScript::ScriptBase*>(TaskMgr::getInstance().GetTask(mTaskId));
 		
 		if (scriptTask != NULL) {
 			if (scriptTask->IsEnd()) {
@@ -182,7 +182,7 @@ bool DungeonMenu::Updata() {
 #endif // __WINDOWS__
 		break;
 	case eState_Adventure:
-		mTaskId = TaskMgr::getInstance().Add(new ScriptBase("ADV_0003.txt"), TaskMgr::ePriorty_0);
+		mTaskId = TaskMgr::getInstance().Add(new AdvScript::ScriptBase("ADV_0003.txt"), TaskMgr::ePriorty_0);
 		ChangeState(eState_SelectStoryMap, eFade_None);
 		break;
 	case eState_Fade:

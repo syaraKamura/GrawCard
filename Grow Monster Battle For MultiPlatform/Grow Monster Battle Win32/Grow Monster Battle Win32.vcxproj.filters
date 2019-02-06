@@ -399,6 +399,9 @@
     <ClCompile Include="..\scr\Common\Effect\Effect.cpp">
       <Filter>ソース ファイル\scr\Common\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="..\scr\Common\Script\ScriptFunc.cpp">
+      <Filter>ソース ファイル\scr\Common\Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\scr\Common\GameMgr.h">
@@ -655,6 +658,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\Effect\Effect.h">
       <Filter>ソース ファイル\scr\Common\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Script\ScriptFunc.h">
+      <Filter>ソース ファイル\scr\Common\Script</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
