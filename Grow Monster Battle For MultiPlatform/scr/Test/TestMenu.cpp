@@ -22,6 +22,7 @@ static const SCENE_LIST s_cSceneListTbl[] = {
 	{ISceneBase::eScene_TestBattle,"バトルテスト" },
 	{ISceneBase::eScene_TestADV,"アドベンチャーテスト"},
 	{ISceneBase::eScene_TestMapField,"マップフィールドテスト"},
+	{ISceneBase::eScene_TestLoader,"データ読み込みテスト"},
 };
 
 //シーンリスト数

@@ -39,6 +39,7 @@ public :
 		eScene_TestBattle,			//バトルテスト
 		eScene_TestADV,				//アドベンチャーテスト
 		eScene_TestMapField,		//マップフィールドテスト
+		eScene_TestLoader,			//データロードテスト
 #endif
 
 		eScene_Num,

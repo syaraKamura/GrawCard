@@ -27,6 +27,7 @@
 	#include "Test/TestBattle.h"
 	#include "Test/TestADV.h"
 	#include "Test/TestMapField.h"
+	#include "Test/TestLoader.h"
 #endif
 
 typedef struct {
@@ -283,6 +284,10 @@ SceneBase* SceneMgr::CreateNextScene(ISceneBase::eScene next) {
 			case ISceneBase::eScene_TestMapField:
 				scene = (SceneBase*)new TestMapField(this);
 				strcpyDx(sceneName, "Scene_TestMapField");
+				break;
+			case ISceneBase::eScene_TestLoader:
+				scene = (SceneBase*)new TestLoader(this);
+				strcpyDx(sceneName, "Scene_TestLader");
 				break;
 #endif // __MY_DEBUG__
 	}

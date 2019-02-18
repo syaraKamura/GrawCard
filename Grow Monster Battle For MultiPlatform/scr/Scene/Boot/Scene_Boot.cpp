@@ -13,6 +13,7 @@
 
 #include"Common/GameCommon.h"
 #include "Scene/ISceneBase.h"
+#include "Common/FileLoader/TblLoader/TblLoaderMgr.h"
 #include "Scene_Boot.h"
 
 
@@ -28,6 +29,8 @@ bool Scene_Boot::Initialize(){
 	
 	TaskMgr::getInstance().Add(Fade::GetInstance(),TaskMgr::ePriorty_Fade);
 	TaskMgr::getInstance().Add(GraphicsDrawMgr::GetInstance(), TaskMgr::ePriorty_Graphics);
+
+	loader::TblLoaderMgr::Create();
 
 #ifdef __MY_WINDOWS__
 	EffekseerEffect::Effect::Create();

@@ -154,6 +154,18 @@
     <Filter Include="ソース ファイル\scr\Common\Effect">
       <UniqueIdentifier>{d2245f5a-e428-49ea-96d5-4df8bceac8fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\AppData\Character\Monster\Skill\Attak">
+      <UniqueIdentifier>{3a8991a8-688c-41db-b089-a9fca43c1249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\AppData\Character\Monster\Skill\Heal">
+      <UniqueIdentifier>{16b10abd-9419-43ef-878e-e95d3db411d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\AppData\Character\Monster\Skill\Assistance">
+      <UniqueIdentifier>{9dff683c-b7ca-4e65-a555-eceea815b38d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Common\FileLoader\TblLoader">
+      <UniqueIdentifier>{45e450c5-5ca9-40b7-a5d8-7a04b9865b63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -401,6 +413,18 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\Script\ScriptFunc.cpp">
       <Filter>ソース ファイル\scr\Common\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\Character\Skill\SkillBase.cpp">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Test\TestLoader.cpp">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\FileLoader\TblLoader\TblLoader.cpp">
+      <Filter>ソース ファイル\scr\Common\FileLoader\TblLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\FileLoader\TblLoader\TblLoaderMgr.cpp">
+      <Filter>ソース ファイル\scr\Common\FileLoader\TblLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -661,6 +685,18 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\Script\ScriptFunc.h">
       <Filter>ソース ファイル\scr\Common\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\AppData\Character\Skill\SkillBase.h">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Test\TestLoader.h">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\FileLoader\TblLoader\TblLoader.h">
+      <Filter>ソース ファイル\scr\Common\FileLoader\TblLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\FileLoader\TblLoader\TblLoaderMgr.h">
+      <Filter>ソース ファイル\scr\Common\FileLoader\TblLoader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -162,6 +162,7 @@
     <ClCompile Include="..\scr\AppData\Character\Monster\MonsterDeck.cpp" />
     <ClCompile Include="..\scr\AppData\Character\Monster\MonsterMgr.cpp" />
     <ClCompile Include="..\scr\AppData\Character\Player\Player.cpp" />
+    <ClCompile Include="..\scr\AppData\Character\Skill\SkillBase.cpp" />
     <ClCompile Include="..\scr\AppData\SaveData\SaveData_win32.cpp" />
     <ClCompile Include="..\scr\Common\Animation\Animation.cpp" />
     <ClCompile Include="..\scr\Common\Animation\Easing\Easing.cpp" />
@@ -176,6 +177,8 @@
     <ClCompile Include="..\scr\Common\FileIO\WriteBynary.cpp" />
     <ClCompile Include="..\scr\Common\FileLoader\File.cpp" />
     <ClCompile Include="..\scr\Common\FileLoader\Loader.cpp" />
+    <ClCompile Include="..\scr\Common\FileLoader\TblLoader\TblLoader.cpp" />
+    <ClCompile Include="..\scr\Common\FileLoader\TblLoader\TblLoaderMgr.cpp" />
     <ClCompile Include="..\scr\Common\FPS\FPS.cpp" />
     <ClCompile Include="..\scr\Common\GameMgr.cpp" />
     <ClCompile Include="..\scr\Common\Graphics\Button\Button.cpp" />
@@ -229,6 +232,7 @@
     <ClCompile Include="..\scr\Test\TestADV.cpp" />
     <ClCompile Include="..\scr\Test\TestBattle.cpp" />
     <ClCompile Include="..\scr\Test\TestCommunication.cpp" />
+    <ClCompile Include="..\scr\Test\TestLoader.cpp" />
     <ClCompile Include="..\scr\Test\TestMapField.cpp" />
     <ClCompile Include="..\scr\Test\TestMenu.cpp" />
     <ClCompile Include="..\scr\win32\Communication\ReceiveUDP_win32.cpp" />
@@ -246,6 +250,7 @@
     <ClInclude Include="..\scr\AppData\Character\Monster\MonsterDeck.h" />
     <ClInclude Include="..\scr\AppData\Character\Monster\MonsterMgr.h" />
     <ClInclude Include="..\scr\AppData\Character\Player\Player.h" />
+    <ClInclude Include="..\scr\AppData\Character\Skill\SkillBase.h" />
     <ClInclude Include="..\scr\AppData\SaveData\SaveData.h" />
     <ClInclude Include="..\scr\Common\Animation\Animation.h" />
     <ClInclude Include="..\scr\Common\Animation\Easing\Easing.h" />
@@ -262,6 +267,8 @@
     <ClInclude Include="..\scr\Common\FileIO\WriteBynary.h" />
     <ClInclude Include="..\scr\Common\FileLoader\File.h" />
     <ClInclude Include="..\scr\Common\FileLoader\Loader.h" />
+    <ClInclude Include="..\scr\Common\FileLoader\TblLoader\TblLoader.h" />
+    <ClInclude Include="..\scr\Common\FileLoader\TblLoader\TblLoaderMgr.h" />
     <ClInclude Include="..\scr\Common\FPS\FPS.h" />
     <ClInclude Include="..\scr\Common\Framework.h" />
     <ClInclude Include="..\scr\Common\GameCommon.h" />
@@ -321,6 +328,7 @@
     <ClInclude Include="..\scr\Test\TestADV.h" />
     <ClInclude Include="..\scr\Test\TestBattle.h" />
     <ClInclude Include="..\scr\Test\TestCommunication.h" />
+    <ClInclude Include="..\scr\Test\TestLoader.h" />
     <ClInclude Include="..\scr\Test\TestMapField.h" />
     <ClInclude Include="..\scr\Test\TestMenu.h" />
     <ClInclude Include="..\scr\win32\KeyBoard.h" />
