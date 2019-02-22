@@ -50,6 +50,30 @@ namespace loader {
 			Header header;
 			FileData* fileData;
 			Data* data;
+
+			void GetData(int idx,void* buffer) {
+				int dataSize = data[idx].dataSize;
+				memcpy(buffer, data[idx].buffer, dataSize);
+			}
+
+			int GetDataSize(int idx) {
+				return data[idx].dataSize;
+			}
+
+			/*
+				int idx		: データナンバー
+				int size	: 型のサイズ(sizeof(型名))
+				return		: 型のサイズで割った数
+			*/
+			int GetDataNum(int idx, int size) {
+				int dataSize = data[idx].dataSize;
+				return dataSize / size;
+			}
+
+			int GetDataNum() {
+				return header.dataNum;
+			}
+
 		};
 
 

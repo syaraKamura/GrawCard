@@ -45,15 +45,17 @@ bool TestBattle::Initialize() {
 
 	mPlayer = new Player();
 
+	mBattle = nullptr;
+
 	AppData::GetInstance()->Load();
 	SoundMgr::GetInstance()->Play("Title");
 	return true;
 }
 
 void TestBattle::Finalize() {
-	if (mBattle != NULL) {
+	if (mBattle != nullptr) {
 		TaskMgr::getInstance().RequestKill(mBattle->GetTaskId());
-		mBattle = NULL;
+		mBattle = nullptr;
 	}
 	SoundMgr::GetInstance()->Stop();
 }

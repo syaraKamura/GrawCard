@@ -147,10 +147,12 @@ bool GameMgr::Updata(){
 
 #endif
 
+	MonsterMgr::Instance()->Updata();
+
 	mSceneMgr->Updata();
 	TaskMgr::getInstance().Updata();
 	SoundMgr::GetInstance()->Updata();
-
+	
 	return true;
 }
 

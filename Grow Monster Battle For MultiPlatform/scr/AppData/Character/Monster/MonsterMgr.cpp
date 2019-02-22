@@ -12,9 +12,12 @@
 !*/
 
 #include "Common/GameCommon.h"
+#include "Common/FileLoader/TblLoader/TblLoader.h"
+#include "Common/FileLoader/TblLoader/TblLoaderMgr.h"
 #include "MonsterMgr.h"
 
-#define MONSTER_DATA_PATH "Resources/Data/Monster/MonsterData.dat"
+//#define MONSTER_DATA_PATH "Resources/Data/Monster/MonsterData.dat"
+#define MONSTER_DATA_PATH "Resources/Data/Table/MonsterData/MonsterData.dtl"
 
 #ifdef __MY_DEBUG__
 
@@ -105,6 +108,11 @@ MonsterMgr* MonsterMgr::mInstance = NULL;
 
 MonsterMgr::MonsterMgr() {
 
+
+	mLoad = loader::TblLoaderMgr::GetInstance()->LoadRequest(MONSTER_DATA_PATH);
+	mStateCount = 0;
+
+#if 0
 	char filePath[1024] = MONSTER_DATA_PATH;
 
 #ifdef __WINDOWS__ 
@@ -169,7 +177,8 @@ MonsterMgr::MonsterMgr() {
 #endif
 	
 	file.close();
-	
+#endif
+
 }
 
 MonsterMgr::~MonsterMgr() {
@@ -246,4 +255,86 @@ Graphics MonsterMgr::GetGraphics(int number) {
 
 int MonsterMgr::GetMonsterNum() {
 	return mList.size();
+}
+
+void MonsterMgr::Updata() {
+
+	switch (mStateCount) {
+	case 0:
+		if (mLoad->IsLoadEnd()) {
+			mStateCount++;
+		}
+		break;
+	case 1:
+	{
+		loader::TblLoader::TblData data = mLoad->GetTableData();
+
+		struct baseData {
+
+			int mId;		//管理番号
+			char mName[64];
+			int type;
+			int mHp;
+			int mMp;
+
+			int mAttack;
+			int mDeffence;
+			int mSpeed;
+
+			int mSkill[2];
+
+		};
+		
+		struct Name {
+			int id;
+			char name[64];
+		};
+
+		int dataNum = data.GetDataNum(0, sizeof(baseData));
+		baseData* monsterData = new baseData[dataNum];
+		data.GetData(0, monsterData);
+
+		for (int i = 0; i < dataNum; i++) {
+
+			baseData& data = *(monsterData + i);
+			Monster monster;
+
+			monster.SetName(data.mName);
+			monster.SetLevel(1);
+			monster.SetCost(1);
+			monster.SetId(data.mId);
+			monster.SetType((Monster::eType)data.type);
+			monster.SetHomePosition(Monster::eHomePosition_Front);
+			monster.SetHp(data.mHp);
+			monster.SetHpMax(data.mHp);
+			monster.SetMp(data.mMp);
+			monster.SetMpMax(data.mMp);
+			monster.SetAttack(data.mAttack);
+			monster.SetDeffence(data.mDeffence);
+			monster.SetSpeed(data.mSpeed);
+
+			monster.SetSkillNumber(data.mSkill[0]);
+
+			mList.push_back(monster);
+
+		}
+
+		for (int i = 0; i < SIZE(MONSTER_GRAPH_DATA_TBL); i++) {
+			MonsterGraph_t graph;
+			MonsterGraphData_t data = MONSTER_GRAPH_DATA_TBL[i];
+
+			graph.id = data.mId;
+
+			graph.graph = new Graphics();
+			graph.graph->Load(data.mFilePath);
+
+			mGraphList.push_back(graph);
+
+		}
+
+		mStateCount++;
+	}
+		break;
+	}
+
 }
