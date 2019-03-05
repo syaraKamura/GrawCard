@@ -230,6 +230,36 @@
     <ClCompile Include="..\..\scr\android\Networking\Networking.cpp">
       <Filter>src\android\Networking</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\AppData\Character\Skill\SkillBase.cpp">
+      <Filter>src\AppData\Character\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\AppData\Character\Skill\SkillMgr.cpp">
+      <Filter>src\AppData\Character\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\AppData\StoryData\StoryData.cpp">
+      <Filter>src\AppData\StoryData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\FileLoader\TblLoader\TblLoader.cpp">
+      <Filter>src\Common\FileLoader\TblLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\FileLoader\TblLoader\TblLoaderMgr.cpp">
+      <Filter>src\Common\FileLoader\TblLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Script\ScriptFunc.cpp">
+      <Filter>src\Common\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Map\Map.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Map\MapField.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Test\TestLoader.cpp">
+      <Filter>src\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Test\TestMapField.cpp">
+      <Filter>src\Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -375,6 +405,15 @@
     </Filter>
     <Filter Include="src\android\Networking">
       <UniqueIdentifier>{2f2f78df-6b01-4013-ac6c-a57919f5abfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AppData\StoryData">
+      <UniqueIdentifier>{703046bc-4d2c-44a7-b1fe-c16434358221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\FileLoader\TblLoader">
+      <UniqueIdentifier>{0a42eb97-7b10-43ca-b64a-e4e0b0671f5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon\Map">
+      <UniqueIdentifier>{f65e8cb2-82d0-4778-8026-2cb30ce43aa9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -611,6 +650,36 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\android\Networking\Networking.h">
       <Filter>src\android\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\AppData\Character\Skill\SkillBase.h">
+      <Filter>src\AppData\Character\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\AppData\Character\Skill\SkillMgr.h">
+      <Filter>src\AppData\Character\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\AppData\StoryData\StoryData.h">
+      <Filter>src\AppData\StoryData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\FileLoader\TblLoader\TblLoader.h">
+      <Filter>src\Common\FileLoader\TblLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\FileLoader\TblLoader\TblLoaderMgr.h">
+      <Filter>src\Common\FileLoader\TblLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Script\ScriptFunc.h">
+      <Filter>src\Common\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Map\Map.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Map\MapField.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Test\TestLoader.h">
+      <Filter>src\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Test\TestMapField.h">
+      <Filter>src\Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

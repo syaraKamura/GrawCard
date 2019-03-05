@@ -14,6 +14,8 @@
 #ifndef __EFFECT_H__
 #define __EFFECT_H__
 
+#ifdef ENABLE_EFFEKSEER
+
 #include <map>
 #include <string>
 
@@ -153,5 +155,7 @@ namespace EffekseerEffect {
 
 
 };
+
+#endif	// ENABLE_EFFEKSEER
 
 #endif // __EFFECT_H__

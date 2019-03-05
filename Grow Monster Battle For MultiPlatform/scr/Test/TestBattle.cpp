@@ -138,6 +138,10 @@ bool TestBattle::Updata() {
 		else if (Keyboard_Press(KEY_INPUT_DOWN)) {
 			mSelectMonster = (mSelectMonster + 1) % MonsterMgr::Instance()->GetMonsterNum();
 		}
+		
+		if (Keyboard_Press(KEY_INPUT_X)) {
+			mState = TestBattle::eState_SelectMenu;
+		}
 
 
 		break;
@@ -224,6 +228,9 @@ void TestBattle::Draw() {
 			}
 
 			Monster *data = MonsterMgr::Instance()->GetMonsterData(mSelectMonster);
+			if (data == nullptr) {
+				return;
+			}
 			Graphics monster = MonsterMgr::Instance()->GetGraphics(mSelectMonster);
 
 			monster.SetPosition(800, 300);

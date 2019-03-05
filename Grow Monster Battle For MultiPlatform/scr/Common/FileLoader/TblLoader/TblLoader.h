@@ -70,7 +70,10 @@ namespace loader {
 				return dataSize / size;
 			}
 
-			int GetDataNum() {
+			/*
+				dtlファイルに含まれているテーブルデータの数
+			*/
+			int GetDataCnt() {
 				return header.dataNum;
 			}
 

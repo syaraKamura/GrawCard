@@ -70,7 +70,7 @@ Map::Map(int posX,int posY,const char* mapTitle) : TaskBase() {
 	
 	for (int i = 0; i < mSelectButtonMax; i++) {
 		char str[128];
-		sprintf_s(str, "テスト %d", i);
+		sprintfDx(str, "テスト %d", i);
 		Button* btn = new Button(100, 100 + i * 165 , 100, 60, str);
 		btn->SetAlpha(0.0f);
 		btn->SetOnListener(this);

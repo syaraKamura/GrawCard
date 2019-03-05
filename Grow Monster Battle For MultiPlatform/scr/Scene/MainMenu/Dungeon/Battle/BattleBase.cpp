@@ -13,6 +13,7 @@
 #include "Common/GameCommon.h"
 #include "AppData/AppData.h"
 #include "AppData/Character/Player/Player.h"
+#include "AppData/Character/Skill/SkillMgr.h"
 
 #include "BattleBase.h"
 #include "BattleCalculator.h"
@@ -77,8 +78,6 @@ BattleBase::BattleBase() : TaskBase() {
 	mMoveData.clear();
 	
 	mMonsterData.clear();
-
-	
 
 	// プレイヤーモンスター
 	for (int i = 0; i < 5; i++) {
@@ -150,6 +149,8 @@ BattleBase::BattleBase() : TaskBase() {
 	mBattleAnimation = new BattleAnimation();
 	TaskMgr::getInstance().Add(mBattleAnimation);
 	
+	
+
 }
 
 BattleBase::BattleBase(Player* player) : TaskBase() {
@@ -254,6 +255,11 @@ bool BattleBase::Initialize() {
 		return false;
 	}
 	
+	GraphicsDrawMgr::GetInstance()->Add(mGraphics, -1);
+	mGraphics->SetVisible(true);
+
+	nowPlaySkillEffect = nullptr;
+
 #ifndef __MY_DEBUG__
 	SaveData* save = AppData::GetInstance().GetSaveData();
 
@@ -270,6 +276,7 @@ bool BattleBase::Initialize() {
 	}
 #endif
 
+	mActionCommand = BattleBase::eCommand_CehcekActionType;
 	mAnimPlayMonsterNum = 0;
 	mStartAnimCount = 0;
 
@@ -351,7 +358,7 @@ void BattleBase::Draw() {
 
 	//if (mNowStep < eBattleStep_Initialize) return;
 
-	mGraphics->Draw(0, 0, 255, 0.0, 1.0);
+	//mGraphics->Draw(0, 0, 255, 0.0, 1.0);
 
 #if true
 
@@ -610,6 +617,11 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 				orderAnim = BattleAnimation::eAnimationNo_Attack_01;
 			}
 
+			if (type == BattleBase::eActiveType::eActiveType_Skill) {
+				float x = move.targetPosition.posX;
+				float y = move.targetPosition.posY;
+				nowPlaySkillEffect = SkillMgr::GetInstance()->Play(move.skillId,x,y);
+			}
 			// 行動するモンスターの体力が0より大きいか判断する
 			if (moveMonster->GetHp() > 0) {
 
@@ -665,13 +677,13 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 		break;
 	case BattleBase::eBattleMainStep_BattleAnim:
 
-		if (mAnim == NULL || mAnim->IsPlay() == false) {
+		if (mAnim == NULL || mAnim->IsPlay() == false && (nowPlaySkillEffect == nullptr || nowPlaySkillEffect->IsPlay() == false)) {
 			mMainStep = eBattleMainStep_Judgement;
 
 			for (unsigned int i = 0; i < mTargetList.size(); i++) {
 				mTargetList[i].monster->SetHp(mTargetList[i].damage);
 			}
-
+			nowPlaySkillEffect = nullptr;
 		}
 
 		break;
@@ -895,12 +907,15 @@ void BattleBase::SelectCommandUpdate() {
 				mOrderMoveData.moveDeckType = data.type;
 				mOrderMoveData.moveMonster = data.monster;
 				mOrderMoveData.activeType = BattleBase::eActiveType_Attack;
+				mOrderMoveData.skillId = -1;
 
 				for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 					if (mMonsterData[i].type == BattleBase::eDeckType_Enemy) {
 						if (mMonsterData[i].isDead == true) continue;
 						mOrderMoveData.targetDeckType = BattleBase::eDeckType_Enemy;
 						mOrderMoveData.targetMonster = mMonsterData[i].monster;
+						mOrderMoveData.targetPosition.posX = mMonsterData[i].graph.GetPositionX();
+						mOrderMoveData.targetPosition.posY = mMonsterData[i].graph.GetPositionY();
 						mMoveData.push_back(mOrderMoveData);
 						break;
 					}
@@ -920,6 +935,8 @@ void BattleBase::SelectCommandUpdate() {
 					if (mMonsterData[i].isDead == true) continue;
 					mOrderMoveData.targetDeckType = BattleBase::eDeckType_Player;
 					mOrderMoveData.targetMonster = mMonsterData[i].monster;
+					mOrderMoveData.targetPosition.posX = mMonsterData[i].graph.GetPositionX();
+					mOrderMoveData.targetPosition.posY = mMonsterData[i].graph.GetPositionY();
 					mMoveData.push_back(mOrderMoveData);
 					break;
 				}
@@ -964,6 +981,8 @@ void BattleBase::SelectCommandUpdate() {
 				if (data.graph.IsTouch()) {
 					mOrderMoveData.targetDeckType = data.type;
 					mOrderMoveData.targetMonster = data.monster;
+					mOrderMoveData.targetPosition.posX = data.graph.GetPositionX();
+					mOrderMoveData.targetPosition.posY = data.graph.GetPositionY();
 					mActionCommand = BattleBase::eCommand_Decision;
 					break;
 				}
@@ -974,6 +993,7 @@ void BattleBase::SelectCommandUpdate() {
 	case BattleBase::eCommand_Decision:
 		// 行動データに設定
 		mOrderMoveData.moveMonster = data.monster;
+		mOrderMoveData.skillId = data.monster->GetSkillNumber();
 		mMoveData.push_back(mOrderMoveData);
 		mActionCommand = BattleBase::eCommand_CehcekActionType;
 		mMainStep = BattleBase::eBattleMainStep_Battle;

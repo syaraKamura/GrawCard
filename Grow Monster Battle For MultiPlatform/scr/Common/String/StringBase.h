@@ -134,7 +134,7 @@ public :
 	void SetBitMapFont(BMFont* bmfont);
 
 	void SetString(const char* string);
-	void SetString(const char* string,size_t size);
+	void SetString(const char* string,unsigned int size);
 	
 	void SetColor(unsigned int color);
 

@@ -15,7 +15,17 @@
 #ifndef __COMMON_RESOURCE_H__
 #define __COMMON_RESOURCE_H__
 
+
+namespace story {
+	class StoryData;
+}
+
+namespace AdvScript {
+	class ScriptBase;
+}
+
 class Graphics;
+
 
 enum class eEffect : int{
 	
@@ -23,6 +33,7 @@ enum class eEffect : int{
 	TestEffect2,
 
 	BATTLE_EFFECT_START = 1000,
+
 
 	BATTLE_EFFECT_END,
 
@@ -93,6 +104,8 @@ private:
 protected:
 	
 	static ComRes* mInstance;
+	story::StoryData* mStoryData;
+	int mLoadCnt;
 	ComRes();
 	
 public :
@@ -109,6 +122,7 @@ public :
 #endif
 
 	Graphics* GetGraphicHandle(eComResName name) const;
+	AdvScript::ScriptBase* StartAdvScript(int idx);
 
 };
 

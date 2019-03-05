@@ -23,6 +23,8 @@ class BattleAnimation;
 class Animation;
 class Button;
 
+struct PlaySkill;
+
 class BattleBase : public TaskBase{
 
 public :
@@ -89,11 +91,18 @@ public :
 	};
 
 	typedef struct {
+		float posX;
+		float posY;
+	}POINT;
+
+	typedef struct {
 		eDeckType moveDeckType;
 		Monster* moveMonster;
 		eDeckType targetDeckType;
 		Monster* targetMonster;
 		eActiveType activeType;
+		POINT targetPosition;
+		int skillId;
 	}MOVE_DATA_t;
 
 	typedef struct {
@@ -172,6 +181,8 @@ protected:
 	int mDamage;
 
 	bool mIsAutoAction;		// 自動操作
+
+	PlaySkill* nowPlaySkillEffect;
 
 	class ButtonAnim;
 

@@ -13,7 +13,6 @@
 
 #include"Common/GameCommon.h"
 #include "Scene/ISceneBase.h"
-#include "Common/FileLoader/TblLoader/TblLoaderMgr.h"
 #include "Scene_Boot.h"
 
 
@@ -30,10 +29,11 @@ bool Scene_Boot::Initialize(){
 	TaskMgr::getInstance().Add(Fade::GetInstance(),TaskMgr::ePriorty_Fade);
 	TaskMgr::getInstance().Add(GraphicsDrawMgr::GetInstance(), TaskMgr::ePriorty_Graphics);
 
-	loader::TblLoaderMgr::Create();
-
+	
 #ifdef __MY_WINDOWS__
+#ifdef ENABLE_EFFEKSEER
 	EffekseerEffect::Effect::Create();
+#endif // #ifdef ENABLE_EFFEKSEER
 #endif
 
 	return true;
@@ -55,8 +55,8 @@ bool Scene_Boot::Updata(){
 	mNextScene->SceneChange(ISceneBase::eScene_TestMenu);
 #else
 	//オープニングシーンへ移行
-	//mNextScene->SceneChange(ISceneBase::eScene_Opning);
-	mNextScene->SceneChange(ISceneBase::eScene_AITest);
+	mNextScene->SceneChange(ISceneBase::eScene_Opning);
+	//mNextScene->SceneChange(ISceneBase::eScene_AITest);
 #endif	//__WINDOWS__
 #else
 	//オープニングシーンへ移行

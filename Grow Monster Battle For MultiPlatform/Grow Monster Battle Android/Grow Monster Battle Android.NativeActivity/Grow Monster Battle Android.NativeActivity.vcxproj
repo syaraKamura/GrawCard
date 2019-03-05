@@ -238,7 +238,10 @@
     <ClCompile Include="..\..\scr\AppData\Character\Monster\MonsterDeck.cpp" />
     <ClCompile Include="..\..\scr\AppData\Character\Monster\MonsterMgr.cpp" />
     <ClCompile Include="..\..\scr\AppData\Character\Player\Player.cpp" />
+    <ClCompile Include="..\..\scr\AppData\Character\Skill\SkillBase.cpp" />
+    <ClCompile Include="..\..\scr\AppData\Character\Skill\SkillMgr.cpp" />
     <ClCompile Include="..\..\scr\AppData\SaveData\SaveData_android.cpp" />
+    <ClCompile Include="..\..\scr\AppData\StoryData\StoryData.cpp" />
     <ClCompile Include="..\..\scr\Common\Animation\Animation.cpp" />
     <ClCompile Include="..\..\scr\Common\Animation\Easing\Easing.cpp" />
     <ClCompile Include="..\..\scr\Common\CommonResource\CommonResource.cpp" />
@@ -250,6 +253,8 @@
     <ClCompile Include="..\..\scr\Common\FileIO\WriteBynary.cpp" />
     <ClCompile Include="..\..\scr\Common\FileLoader\File.cpp" />
     <ClCompile Include="..\..\scr\Common\FileLoader\Loader.cpp" />
+    <ClCompile Include="..\..\scr\Common\FileLoader\TblLoader\TblLoader.cpp" />
+    <ClCompile Include="..\..\scr\Common\FileLoader\TblLoader\TblLoaderMgr.cpp" />
     <ClCompile Include="..\..\scr\Common\FPS\FPS.cpp" />
     <ClCompile Include="..\..\scr\Common\GameMgr.cpp" />
     <ClCompile Include="..\..\scr\Common\Graphics\Button\Button.cpp" />
@@ -271,6 +276,7 @@
     <ClCompile Include="..\..\scr\Common\ResourceLoader\ResourceLoader.cpp" />
     <ClCompile Include="..\..\scr\Common\Script\ScriptAnimation.cpp" />
     <ClCompile Include="..\..\scr\Common\Script\ScriptBase.cpp" />
+    <ClCompile Include="..\..\scr\Common\Script\ScriptFunc.cpp" />
     <ClCompile Include="..\..\scr\Common\Sound\Sound.cpp" />
     <ClCompile Include="..\..\scr\Common\Sound\SoundMgr.cpp" />
     <ClCompile Include="..\..\scr\Common\String\FontMgr\BMFont.cpp" />
@@ -289,6 +295,8 @@
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonBase.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMenu.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMgr.cpp" />
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Map\Map.cpp" />
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Map\MapField.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\PlayerInfomation\PlayerInfomation.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.cpp" />
     <ClCompile Include="..\..\scr\Scene\Opning\Scene_Opning.cpp" />
@@ -300,6 +308,8 @@
     <ClCompile Include="..\..\scr\Test\TestADV.cpp" />
     <ClCompile Include="..\..\scr\Test\TestBattle.cpp" />
     <ClCompile Include="..\..\scr\Test\TestCommunication.cpp" />
+    <ClCompile Include="..\..\scr\Test\TestLoader.cpp" />
+    <ClCompile Include="..\..\scr\Test\TestMapField.cpp" />
     <ClCompile Include="..\..\scr\Test\TestMenu.cpp" />
     <ClCompile Include="mainAndroid.cpp" />
   </ItemGroup>
@@ -315,7 +325,10 @@
     <ClInclude Include="..\..\scr\AppData\Character\Monster\MonsterDeck.h" />
     <ClInclude Include="..\..\scr\AppData\Character\Monster\MonsterMgr.h" />
     <ClInclude Include="..\..\scr\AppData\Character\Player\Player.h" />
+    <ClInclude Include="..\..\scr\AppData\Character\Skill\SkillBase.h" />
+    <ClInclude Include="..\..\scr\AppData\Character\Skill\SkillMgr.h" />
     <ClInclude Include="..\..\scr\AppData\SaveData\SaveData.h" />
+    <ClInclude Include="..\..\scr\AppData\StoryData\StoryData.h" />
     <ClInclude Include="..\..\scr\Common\Animation\Animation.h" />
     <ClInclude Include="..\..\scr\Common\Animation\Easing\Easing.h" />
     <ClInclude Include="..\..\scr\Common\CommonResource\CommonResource.h" />
@@ -327,6 +340,8 @@
     <ClInclude Include="..\..\scr\Common\FileIO\WriteBynary.h" />
     <ClInclude Include="..\..\scr\Common\FileLoader\File.h" />
     <ClInclude Include="..\..\scr\Common\FileLoader\Loader.h" />
+    <ClInclude Include="..\..\scr\Common\FileLoader\TblLoader\TblLoader.h" />
+    <ClInclude Include="..\..\scr\Common\FileLoader\TblLoader\TblLoaderMgr.h" />
     <ClInclude Include="..\..\scr\Common\FPS\FPS.h" />
     <ClInclude Include="..\..\scr\Common\GameMgr.h" />
     <ClInclude Include="..\..\scr\Common\Graphics\Button\Button.h" />
@@ -349,6 +364,7 @@
     <ClInclude Include="..\..\scr\Common\ResourceLoader\ResourceLoader.h" />
     <ClInclude Include="..\..\scr\Common\Script\ScriptAnimation.h" />
     <ClInclude Include="..\..\scr\Common\Script\ScriptBase.h" />
+    <ClInclude Include="..\..\scr\Common\Script\ScriptFunc.h" />
     <ClInclude Include="..\..\scr\Common\Sound\Sound.h" />
     <ClInclude Include="..\..\scr\Common\Sound\SoundMgr.h" />
     <ClInclude Include="..\..\scr\Common\String\FontMgr\BMFont.h" />
@@ -369,6 +385,8 @@
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonBase.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMenu.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMgr.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Map\Map.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Map\MapField.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\PlayerInfomation\PlayerInfomation.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Scene_MainMenu.h" />
     <ClInclude Include="..\..\scr\Scene\Opning\Scene_Opning.h" />
@@ -381,6 +399,8 @@
     <ClInclude Include="..\..\scr\Test\TestADV.h" />
     <ClInclude Include="..\..\scr\Test\TestBattle.h" />
     <ClInclude Include="..\..\scr\Test\TestCommunication.h" />
+    <ClInclude Include="..\..\scr\Test\TestLoader.h" />
+    <ClInclude Include="..\..\scr\Test\TestMapField.h" />
     <ClInclude Include="..\..\scr\Test\TestMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

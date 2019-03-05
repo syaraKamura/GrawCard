@@ -224,7 +224,7 @@ void StringBase::SetString(const char* string) {
 
 }
 
-void StringBase::SetString(const char* string, size_t size) {
+void StringBase::SetString(const char* string, unsigned int size) {
 
 	if (strcmpDx(mString, string) != 0) {
 		memset(mString, 0, sizeof(char) * 1024);

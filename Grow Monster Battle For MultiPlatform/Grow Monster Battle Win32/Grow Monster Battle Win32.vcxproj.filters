@@ -166,6 +166,9 @@
     <Filter Include="ソース ファイル\scr\Common\FileLoader\TblLoader">
       <UniqueIdentifier>{45e450c5-5ca9-40b7-a5d8-7a04b9865b63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\AppData\StoryData">
+      <UniqueIdentifier>{ed491dc6-24ab-4e85-be35-ef4736bd5b91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -425,6 +428,12 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\FileLoader\TblLoader\TblLoaderMgr.cpp">
       <Filter>ソース ファイル\scr\Common\FileLoader\TblLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\Character\Skill\SkillMgr.cpp">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\AppData\StoryData\StoryData.cpp">
+      <Filter>ソース ファイル\scr\AppData\StoryData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -697,6 +706,12 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\FileLoader\TblLoader\TblLoaderMgr.h">
       <Filter>ソース ファイル\scr\Common\FileLoader\TblLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\AppData\Character\Skill\SkillMgr.h">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\AppData\StoryData\StoryData.h">
+      <Filter>ソース ファイル\scr\AppData\StoryData</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

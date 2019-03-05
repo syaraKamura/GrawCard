@@ -163,7 +163,9 @@
     <ClCompile Include="..\scr\AppData\Character\Monster\MonsterMgr.cpp" />
     <ClCompile Include="..\scr\AppData\Character\Player\Player.cpp" />
     <ClCompile Include="..\scr\AppData\Character\Skill\SkillBase.cpp" />
+    <ClCompile Include="..\scr\AppData\Character\Skill\SkillMgr.cpp" />
     <ClCompile Include="..\scr\AppData\SaveData\SaveData_win32.cpp" />
+    <ClCompile Include="..\scr\AppData\StoryData\StoryData.cpp" />
     <ClCompile Include="..\scr\Common\Animation\Animation.cpp" />
     <ClCompile Include="..\scr\Common\Animation\Easing\Easing.cpp" />
     <ClCompile Include="..\scr\Common\CommonResource\CommonResource.cpp" />
@@ -251,7 +253,9 @@
     <ClInclude Include="..\scr\AppData\Character\Monster\MonsterMgr.h" />
     <ClInclude Include="..\scr\AppData\Character\Player\Player.h" />
     <ClInclude Include="..\scr\AppData\Character\Skill\SkillBase.h" />
+    <ClInclude Include="..\scr\AppData\Character\Skill\SkillMgr.h" />
     <ClInclude Include="..\scr\AppData\SaveData\SaveData.h" />
+    <ClInclude Include="..\scr\AppData\StoryData\StoryData.h" />
     <ClInclude Include="..\scr\Common\Animation\Animation.h" />
     <ClInclude Include="..\scr\Common\Animation\Easing\Easing.h" />
     <ClInclude Include="..\scr\Common\CommonResource\CommonResource.h" />

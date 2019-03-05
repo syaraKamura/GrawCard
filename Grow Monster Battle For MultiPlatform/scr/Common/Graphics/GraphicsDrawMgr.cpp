@@ -137,18 +137,20 @@ void GraphicsDrawMgr::Draw()  {
 
 	for (auto it = mList->begin(); it != mList->end();) {
 
+		GraphicsDraw& graph = *(*it).graph;
+
 		//int posX = (*it).graph->GetPositionX();
 		//int posY = (*it).graph->GetPositionY();
 		//int alpha = (*it).graph->GetAlpah();
 		//double scale = (*it).graph->GetScale();
 		//double angle = (*it).graph->GetAngleRadian();
 
-		if ((*it).graph->IsVisible() == true && (*it).graph->IsRelese() == false) {
+		if (graph.IsVisible() == true && graph.IsRelese() == false) {
 			//(*it).graph->Draw(posX, posY, alpha,angle,scale);
-			(*it).graph->Draw();
+			graph.Draw();
 		}
-		else if ((*it).graph->IsRelese() == true) {
-			(*it).graph->Relese();
+		else if (graph.IsRelese() == true) {
+			graph.Relese();
 			
 			bool bExits = false;
 			for (auto j = mKillList->begin(); j != mKillList->end();j++) {

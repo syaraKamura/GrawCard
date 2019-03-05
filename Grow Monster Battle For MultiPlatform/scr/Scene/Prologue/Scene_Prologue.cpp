@@ -33,7 +33,8 @@ bool Scene_Prologue::Initialize() {
 
 	Fade::GetInstance()->FadeIn();
 
-	mPrologue = new AdvScript::ScriptBase("ADV_0000.txt");
+	//mPrologue = new AdvScript::ScriptBase("ADV_0000.txt");
+	mPrologue = ComRes::Instance()->StartAdvScript(0);
 	this->GetTask().Add(mPrologue);
 
 	return true;

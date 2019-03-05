@@ -12,6 +12,7 @@
 !*/
 
 #include "Common/GameCommon.h"
+#include "AppData/Character/Skill/SkillMgr.h"
 #include "Common/FileLoader/TblLoader/TblLoader.h"
 #include "Common/FileLoader/TblLoader/TblLoaderMgr.h"
 #include "MonsterMgr.h"
@@ -108,9 +109,11 @@ MonsterMgr* MonsterMgr::mInstance = NULL;
 
 MonsterMgr::MonsterMgr() {
 
-
+	SkillMgr::Create();
 	mLoad = loader::TblLoaderMgr::GetInstance()->LoadRequest(MONSTER_DATA_PATH);
 	mStateCount = 0;
+
+	
 
 #if 0
 	char filePath[1024] = MONSTER_DATA_PATH;
@@ -182,6 +185,8 @@ MonsterMgr::MonsterMgr() {
 }
 
 MonsterMgr::~MonsterMgr() {
+
+	SkillMgr::Destroy();
 
 	for (auto itr = this->mGraphList.begin(); itr != this->mGraphList.end(); ) {
 		Graphics *graph = itr->graph;
@@ -259,6 +264,8 @@ int MonsterMgr::GetMonsterNum() {
 
 void MonsterMgr::Updata() {
 
+	SkillMgr::GetInstance()->Updata();
+
 	switch (mStateCount) {
 	case 0:
 		if (mLoad->IsLoadEnd()) {
@@ -331,6 +338,8 @@ void MonsterMgr::Updata() {
 			mGraphList.push_back(graph);
 
 		}
+
+		DeleteArry(monsterData);
 
 		mStateCount++;
 	}

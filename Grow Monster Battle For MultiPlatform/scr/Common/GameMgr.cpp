@@ -13,6 +13,7 @@
 
 #include "Common/GameCommon.h"
 #include "Common/GameMgr.h"
+#include "Common/FileLoader/TblLoader/TblLoaderMgr.h"
 #include "Scene/SceneMgr.h"
 #include "Common/FPS/FPS.h"
 
@@ -37,8 +38,14 @@ GameMgr::GameMgr(){
 	mSceneMgr = new SceneMgr();
 #endif
 
+	TaskMgr::getInstance().Initialize();
+
+	loader::TblLoaderMgr::Create();
+
 #ifdef __MY_WINDOWS__
+#ifdef ENABLE_EFFEKSEER
 	EffekseerEffect::EffectLoader::Create();
+#endif // ENABLE_EFFEKSEER
 #endif
 
 	SoundMgr::Create();
@@ -50,7 +57,9 @@ GameMgr::GameMgr(){
 GameMgr::~GameMgr(){
 
 #ifdef __MY_WINDOWS__
+#ifdef ENABLE_EFFEKSEER
 	EffekseerEffect::EffectLoader::Destroy();
+#endif // ENABLE_EFFEKSEER
 #endif
 
 	SoundMgr::Destroy();
@@ -68,7 +77,7 @@ GameMgr::~GameMgr(){
 
 void GameMgr::Initialize(){
 	
-	TaskMgr::getInstance().Initialize();
+	
 	mSceneMgr->Initialize();
 
 #ifdef __MY_DEBUG__
@@ -89,7 +98,9 @@ void GameMgr::Initialize(){
 void GameMgr::Finalize(){
 	
 #ifdef __MY_WINDOWS__
+#ifdef ENABLE_EFFEKSEER
 	EffekseerEffect::Effect::Destroy();
+#endif // ENABLE_EFFEKSEER
 #endif
 
 	TaskMgr::getInstance().Finalize();

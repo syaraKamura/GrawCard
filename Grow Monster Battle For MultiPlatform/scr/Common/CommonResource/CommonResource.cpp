@@ -12,6 +12,8 @@
 				
 !*/
 
+#include "AppData/StoryData/StoryData.h"
+
 #include "Common/GameCommon.h"
 #include "Common/Graphics/Graphics.h"
 #include "CommonResource.h"
@@ -20,7 +22,7 @@ ComRes* ComRes::mInstance = NULL;
 
 #ifdef __MY_DEBUG__
 static int mStartTime;
-static const int TIME_OUT = 6000;	//6秒でタイムアウト
+static const int TIME_OUT = 60000;	//60秒でタイムアウト
 #endif
 
 ComRes::ComRes() {
@@ -61,10 +63,15 @@ ComRes::ComRes() {
 	for (int i = 0; i < eComResName_Num; i++) {
 		mComRes[i] = COM_RES_TBL[i];
 	}
+
+	mStoryData = new story::StoryData();
+
 #ifdef __MY_DEBUG__
 	mStartTime = 0;
 	mIsError = false;
 #endif
+
+	mLoadCnt = 0;
 
 }
 
@@ -103,26 +110,46 @@ bool ComRes::Load() {
 	
 #endif	// __MY_DEBUG__
 
-	for (int i = 0; i < eComResName_Num; i++) {
-		if (mComRes[i].kind != eComResKind_Graphic) continue;
-		mComRes[i].Graphic = new Graphics();
-		if (mComRes[i].Graphic->Load(mComRes[i].fileName) == false) {
-			Debug::LogPrintf("画像の読み込みに失敗しました.(%s)", mComRes[i].fileName);
-			return false;
+	bool ret = false;
+
+	if (mLoadCnt == 0) {
+		for (int i = 0; i < eComResName_Num; i++) {
+			if (mComRes[i].kind != eComResKind_Graphic) continue;
+			mComRes[i].Graphic = new Graphics();
+			if (mComRes[i].Graphic->Load(mComRes[i].fileName) == false) {
+				Debug::LogPrintf("画像の読み込みに失敗しました.(%s)", mComRes[i].fileName);
+				return false;
+			}
 		}
+		mLoadCnt++;
 	}
+	else if (mLoadCnt == 1) {
+		for (int i = 0; i < eComResName_Num; i++) {
+			if (mComRes[i].kind != eComResKind_SoundBgm) continue;
 
-	for (int i = 0; i < eComResName_Num; i++) {
-		if (mComRes[i].kind != eComResKind_SoundBgm) continue;
+			SoundMgr::GetInstance()->Add(mComRes[i].buffer, mComRes[i].fileName);
+
+		}
+		mLoadCnt++;
+	}
+	else if (mLoadCnt == 2) {
+
+		if (mStoryData->IsLoadEnd()) {
+			mStoryData->LoadData();
+			mLoadCnt++;
+		}
 		
-		SoundMgr::GetInstance()->Add(mComRes[i].buffer, mComRes[i].fileName);
-
+	}
+	else {
+#ifdef ENABLE_EFFEKSEER
+		EffekseerEffect::EffectLoader::Instance()->Load((int)eEffect::TestEffect1, "Resources/Effect/sword.efk");
+		EffekseerEffect::EffectLoader::Instance()->Load((int)eEffect::TestEffect2, "Resources/Effect/aura.efk");
+#endif // ENABLE_EFFEKSEER
+		mLoadCnt++;
+		ret = true;
 	}
 
-	EffekseerEffect::EffectLoader::Instance()->Load((int)eEffect::TestEffect1, "Resources/Effect/sword.efk");
-	EffekseerEffect::EffectLoader::Instance()->Load((int)eEffect::TestEffect2, "Resources/Effect/aura.efk");
-
-	return true;
+	return ret;
 }
 
 /*
@@ -150,6 +177,11 @@ Graphics* ComRes::GetGraphicHandle(ComRes::eComResName name) const {
 
 	return graph;
 }
+
+AdvScript::ScriptBase* ComRes::StartAdvScript(int idx) {
+	return mStoryData->RequestADV(idx);
+}
+
 
 #ifdef __MY_DEBUG__
 bool ComRes::IsError() {

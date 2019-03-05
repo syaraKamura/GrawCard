@@ -91,8 +91,10 @@ static Sound* mSound;
 
 static Map* mMap;
 
+#ifdef ENABLE_EFFEKSEER
 static EffekseerEffect::EffectPlayData mEftData;
 static EffekseerEffect::EffectManual* mEftManual;
+#endif	// ENABLE_EFFEKSEER
 
 void Map_Initialize(){
 
@@ -597,7 +599,7 @@ bool AITest::Initialize(){
 
 	mMap = new Map(255, 1000,"ƒeƒXƒg‚ ‚ ‚ ‚ ");
 
-	
+#ifdef ENABLE_EFFEKSEER	
 	EffekseerEffect::Effect::Instance()->Play(&mEftData, EffekseerEffect::EffectLoader::Instance()->Get((int)eEffect::TestEffect1));
 	EffekseerEffect::Effect::Instance()->SetPosition(mEftData, 200.0f, 300.0f, 0.0f);
 	EffekseerEffect::Effect::Instance()->SetScale(mEftData, 10.0f, 10.0f, 10.0f);
@@ -607,7 +609,7 @@ bool AITest::Initialize(){
 	EffekseerEffect::Effect::Instance()->SetScale(mEftManual->GetEffectPlayData(), 10.0f, 10.0f, 10.0f);
 
 	GraphicsDrawMgr::GetInstance()->Add(mEftManual, 1);
-
+#endif	// ENABLE_EFFEKSEER
 	return true;
 }
 
@@ -617,9 +619,9 @@ void AITest::Finalize(){
 	mGraphicsMulti->ReleseRequest();
 	mWindowGraph->ReleseRequest();
 	mButton->ReleseRequest();
-
+#ifdef ENABLE_EFFEKSEER
 	mEftManual->ReleseRequest();
-
+#endif // ENABLE_EFFEKSEER
 	mSound->Release();
 
 	Delete(mJoyPad);
@@ -633,9 +635,11 @@ void AITest::Finalize(){
 
 	mGraphicsMulti2->ReleseRequest();
 
+#ifdef ENABLE_EFFEKSEER
 	if (EffekseerEffect::Effect::Instance() != NULL) {
 		EffekseerEffect::Effect::Instance()->StopAll();
 	}
+#endif // ENABLE_EFFEKSEER
 
 
 	//mGraphics->Relese();
@@ -721,6 +725,7 @@ bool AITest::Updata() {
 		mGraphicsMulti2->SetDivVisible(mVisibleNum, true);
 	}
 	static int x = 200.0f;
+#ifdef ENABLE_EFFEKSEER
 	if (timer % 60 == 0) {
 		mGraphics->SetPriorty(count % 2 * 10);
 		x = 200.0f;
@@ -731,6 +736,7 @@ bool AITest::Updata() {
 	}
 	EffekseerEffect::Effect::Instance()->SetPosition(mEftData, x, 300.0f, 0.0f);
 	x += 10.0f;
+#endif // ENABLE_EFFEKSEER
 #endif
 	Enemy_Updata();
 

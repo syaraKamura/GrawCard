@@ -11,10 +11,13 @@
 				
 !*/
 
-#include "EffekseerForDXLib.h"
 
-#include "Common/GameCommon.h"
 #include "Effect.h"
+
+#ifdef ENABLE_EFFEKSEER
+
+#include "EffekseerForDXLib.h"
+#include "Common/GameCommon.h"
 
 namespace EffekseerEffect {
 
@@ -240,7 +243,7 @@ namespace EffekseerEffect {
 			eft.playHandle = PlayEffekseer3DEffect(handle);
 			break;
 		}
-
+		
 		src->effecthandle = eft.effecthandle;
 		src->playHandle = eft.playHandle;
 		src->playMode = eft.playMode;
@@ -347,3 +350,5 @@ namespace EffekseerEffect {
 	}
 
 }
+
+#endif	// ENABLE_EFFEKSEER

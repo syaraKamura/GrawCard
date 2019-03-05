@@ -32,9 +32,12 @@ namespace loader {
 	bool TblLoader::LoadRequest(const char* filePath, bool isAsync /*= false*/) {
 
 #ifdef __MY_DEBUG__
+#ifdef __WINDOWS___
 		RESORCES_PATH(mFilePath);
-#endif
 		strcatDx(mFilePath, "/");
+#endif // __WINDOWS___
+#endif
+		
 		strcatDx(mFilePath, filePath);
 
 		mIsAsync = isAsync;
@@ -49,7 +52,7 @@ namespace loader {
 		switch (mStateCnt) {
 		case eState_Load:
 			mHandle = DxLib::FileRead_open(mFilePath, mIsAsync ? TRUE : FALSE);
-			if (mHandle == -1) {
+			if (mHandle == 0) {
 				mStateCnt = eState_Error;
 				mIsExist = false;
 			}
