@@ -79,7 +79,8 @@ private:
 	eState mOldState;
 
 	int mTaskId;
-	
+	TaskBase* mTask;
+
 	/*
 		ステート切り替え
 	*/

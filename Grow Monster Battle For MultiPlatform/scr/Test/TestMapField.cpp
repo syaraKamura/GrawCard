@@ -21,7 +21,7 @@
 
 TestMapField::TestMapField(ISceneBase* changer) : SceneBase(changer){
 
-	mMapField = new MapField();
+	mMapField = new MapField(1);
 
 }
 

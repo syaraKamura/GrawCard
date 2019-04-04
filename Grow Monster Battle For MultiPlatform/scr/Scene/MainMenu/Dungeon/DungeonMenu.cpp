@@ -11,11 +11,15 @@
 				
 !*/
 #include "Common/GameCommon.h"
+
+#include "Common/ResourceTable/GraphTable.h"
+
 #include "DungeonMenu.h"
 #include "DungeonMgr.h"
 
 #include "Battle/BattleBase.h"
 #include "Common/Script/ScriptBase.h"
+#include "Scene/MainMenu/Dungeon/Map/MapField.h"
 
 
 typedef struct {
@@ -65,7 +69,9 @@ bool DungeonMenu::Initialize() {
 	
 	if (Fade::GetInstance()->IsFadeEnd() == false) return false;
 	
-	Graphics* add = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_CommonBG);
+	//Graphics* add = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_CommonBG);
+	Graphics* add = new Graphics();
+	add->Initialize(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_CommonBG));
 	add->SetPosition(0, 0);
 	mBackImageOrder = GraphicsDrawMgr::GetInstance()->Add(add, 1);
 	
@@ -77,6 +83,8 @@ bool DungeonMenu::Initialize() {
 	mStroySelectNum = 0;
 
 	mTaskId = -1;
+
+	mTask = nullptr;
 
 	//フェードイン
 	Fade::GetInstance()->FadeIn(30);
@@ -96,7 +104,7 @@ void DungeonMenu::PreviousUpdate() {
 bool DungeonMenu::Updata() {
 	if (Fade::GetInstance()->IsFadeEnd() == false) return true;
 
-		
+#if 0	
 	if (mTaskId != -1) {
 		AdvScript::ScriptBase* scriptTask = dynamic_cast<AdvScript::ScriptBase*>(TaskMgr::getInstance().GetTask(mTaskId));
 		
@@ -111,7 +119,17 @@ bool DungeonMenu::Updata() {
 		}
 		return true;
 	}
+#else 1
+	
+	if (mTask != nullptr) {
+		if (mTask->IsRelease()) {
+			mTask = nullptr;
+			ChangeState(eState_SelectMode, eFade_Out);
+		}
+		return true;
+	}
 
+#endif
 	switch (mState) {
 	case eState_SelectMode:
 
@@ -141,13 +159,20 @@ bool DungeonMenu::Updata() {
 		if (ClickInput::GetInstance()->Relese(0)) {
 			//mState = eState_Fade;
 			//ChangeState(eState_ExitDone, eFade_Out);
-			mTaskId = TaskMgr::getInstance().Add(new BattleBase());
+			//mTaskId = TaskMgr::getInstance().Add(new BattleBase());
+			eState next = (eState)(mSelect + eState_SelectStoryMap);
+			ChangeState(next, eFade_Out);
 		}
 
 #endif
 		break;
 	case eState_SelectStoryMap:
 		
+		//mTask = (TaskBase*)new MapField(1);
+
+		//mTaskId = TaskMgr::getInstance().Add(new MapField(1), TaskMgr::ePriorty_0);
+		//mTaskId = TaskMgr::getInstance().Add(mTask, TaskMgr::ePriorty_0);
+
 #ifdef __WINDOWS__
 		if (Keyboard_Press(KEY_INPUT_Z)) {
 			//mTaskId = TaskMgr::getInstance().Add(new BattleBase(),TaskMgr::ePriorty_0);
@@ -182,7 +207,9 @@ bool DungeonMenu::Updata() {
 #endif // __WINDOWS__
 		break;
 	case eState_Adventure:
-		mTaskId = TaskMgr::getInstance().Add(new AdvScript::ScriptBase("ADV_0003.txt"), TaskMgr::ePriorty_0);
+		mTask = (TaskBase*)new AdvScript::ScriptBase("ADV_0003.txt");
+		//mTaskId = TaskMgr::getInstance().Add(new AdvScript::ScriptBase("ADV_0003.txt"), TaskMgr::ePriorty_0);
+		mTaskId = TaskMgr::getInstance().Add(mTask, TaskMgr::ePriorty_0);
 		ChangeState(eState_SelectStoryMap, eFade_None);
 		break;
 	case eState_Fade:
@@ -201,6 +228,25 @@ bool DungeonMenu::Updata() {
 						graph->SetVisible(true);
 					}
 				}
+
+				// タスクを設定する
+				Delete(mTask);
+				switch (mState) {
+				case eState_SelectStoryMap:
+					mTask = (TaskBase*)new MapField(1);
+					break;
+				case eState_SelectQuestMap:
+
+					break;
+				case eState_SelectDungeonMap:
+
+					break;
+				}
+
+				if (mTask != nullptr) {
+					mTaskId = TaskMgr::getInstance().Add(mTask, TaskMgr::ePriorty_0);
+				}
+
 			}
 		}
 		break;
@@ -261,6 +307,7 @@ void DungeonMenu::ChangeState(eState next, eFade fade, int fadeTime/* = 30*/){
 			Fade::GetInstance()->FadeOut(fadeTime);
 		}
 		mState = eState_Fade;
+
 	}
 	
 }

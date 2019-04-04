@@ -12,6 +12,7 @@
 				
 !*/
 #include "Common/GameCommon.h"
+#include "Common/ResourceTable/GraphTable.h"
 #include "../StringBase.h"
 #include <stdlib.h>
 
@@ -49,7 +50,8 @@ BMFont::BMFont() {
 	}
 
 	//mFontHandle = LoadGraph(filePath);
-	mFontHandle = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_BMFont)->GetHandle();
+	//mFontHandle = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_BMFont)->GetHandle();
+	mFontHandle = graphics::LoadGraphics::GetInstance()->Get(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_BMFont));
 			
 	//strcpy(mString, "あいうえお 0123456789 abcdefghijklmnopqrstuvwxyz にほんご　日本語　ニホンゴ");
 	//StrCopyW(mString, L"");

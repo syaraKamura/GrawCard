@@ -203,6 +203,12 @@ void TaskMgr::RequestKill(int taskId ){
 	}
 
 	if(isReqest == true){
+		for (auto& task : this->mList) {
+			if (task->GetTaskId() == taskId) {
+				task->RequestKill();
+				break;
+			}
+		}
 		mKillOrderList.push_back(taskId);
 	}
 }
@@ -217,6 +223,19 @@ TaskMgr::~TaskMgr(){DeleteAll();}
 //削除依頼があったタスクを消す
 void TaskMgr::KillTaskProc(){
 
+#if 1
+	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
+		if ((*itr)->IsRelease()) {
+			int taskId = (*itr)->GetTaskId();		//タスク検索用mapデータから削除するタスク番号を設定
+			(*itr)->Finalize();						//削除
+			Delete(*itr);							//メモリから削除
+			mList.erase(itr);						//リストから削除
+			mKillOrderList.remove(taskId);			//削除依頼リストからタスク番号を削除
+			mSarchList.erase(taskId);				//タスク検索用mapデータからタスク番号を削除
+			itr = mList.begin();
+		}
+	}
+#else
 	if(mKillOrderList.size() == 0) return ;
 
 	//指定のリストを削除する
@@ -234,7 +253,7 @@ void TaskMgr::KillTaskProc(){
 
 				int taskId = (*itr)->GetTaskId();		//タスク検索用mapデータから削除するタスク番号を設定
 				(*itr)->Finalize();						//削除
-				delete (*itr);							//メモリから削除
+				Delete (*itr);							//メモリから削除
 				mList.erase(itr);						//リストから削除
 				mKillOrderList.erase(reqKillOrder);		//削除依頼リストからタスク番号を削除
 				mSarchList.erase(taskId);				//タスク検索用mapデータからタスク番号を削除
@@ -255,7 +274,7 @@ void TaskMgr::KillTaskProc(){
 			break;
 		}
 	}
-		
+#endif	
 
 
 #ifdef __MY_DEBUG__

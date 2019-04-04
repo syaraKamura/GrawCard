@@ -13,6 +13,7 @@
 
 #include "Common/GameCommon.h"
 #include "Common/System/OnListener.h"
+#include "Common/ResourceTable/GraphTable.h"
 #include "Button.h"
 
 
@@ -37,9 +38,33 @@ Button::Button(int posX, int posY, int width, int height, const char* str) : mLi
 }
 
 Button::Button(const char* fileName, int posX, int posY, const char* str) : mLinstener(NULL) {
-
+	
 	mGraph = new Graphics();
 	mGraph->Load(fileName);
+
+	mGraph->GetSize(&mWidth, &mHeight);
+
+	mPosX = posX;
+	mPosY = posY;
+
+#ifdef __WINDOWS__
+	strcpy_s(mStr, str);
+#else
+	strcpyDx(mStr, str);
+#endif
+
+	mIsPressed = false;
+	mIsVisible = true;
+
+	mAlpha = 255.0f;
+
+}
+
+Button::Button(int graphicsTag, int posX, int posY, const char* str) : mLinstener(NULL) {
+
+	mGraph = new Graphics();
+	//mGraph->Load(fileName);
+	mGraph->Initialize(graphicsTable::GetGraphTag(graphicsTag));
 
 	mGraph->GetSize(&mWidth, &mHeight);
 
@@ -104,7 +129,7 @@ void Button::Draw() {
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
 	if (mGraph != NULL) {
-
+		mAlpha = 255;
 		if (mIsPressed) {
 			mAlpha = 123;
 		}

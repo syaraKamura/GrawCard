@@ -43,6 +43,19 @@ public:
 		eAnimState_Out,
 	};
 
+	struct StoryData {
+		int id;					// 管理番号
+		char title[64];			// タイトル名
+		int beforADV;			// バトル前ADV
+		int afterADV;			// バトル後ADV
+		int isBattle;			// バトルがあるか？
+		int battleId;			// バトル用データID
+
+		void Set(StoryData data) {
+			*this = data;
+		}
+	};
+
 private:
 
 	static const int DUGEON_TITLE_POS_X = 200;	// ダンジョン題名表示座標
@@ -60,6 +73,8 @@ private:
 	// クエストボタン
 	std::vector<Button*> mButtons;
 	ButtonGraph* mButtonGraph;
+	
+	std::vector<StoryData> mStoryDataList;
 
 	int mSelectButtonNum;
 	int mSelectButtonMax;
@@ -81,6 +96,10 @@ public:
 	void Draw() override;
 	void PostUpdate() override;
 	bool Updata() override;
+
+	void SetUp(StoryData* pinData,int size);
+
+	bool GetStoryData(StoryData* poutData);
 
 	int GetIndex();
 

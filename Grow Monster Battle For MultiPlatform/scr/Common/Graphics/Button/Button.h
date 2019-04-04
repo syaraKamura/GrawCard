@@ -45,7 +45,8 @@ public :
 		const char* str	:文字列
 	*/
 	Button(int posX,int posY,int width,int height,const char* str);
-	Button(const char* fileName,int posX, int posY, const char* str);
+	Button(int graphicsTag,int posX, int posY, const char* str);
+	Button(const char* fileName, int posX, int posY, const char* str);
 	
 	~Button() override;
 	void Draw() override;

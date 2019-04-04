@@ -13,10 +13,22 @@
 !*/
 
 #include "AppData/StoryData/StoryData.h"
+#include "Common/ResourceTable/GraphTable.h"
 
 #include "Common/GameCommon.h"
 #include "Common/Graphics/Graphics.h"
 #include "CommonResource.h"
+
+enum eSoundTag {
+	eSoundTag_Title,
+	eSoundTag_Batlle_1,
+	eSoundTag_Max,
+};
+
+static const char* smSOUND_TAG_TABLE[eSoundTag_Max] = {
+	"Title",
+	"Battle_1",
+};
 
 ComRes* ComRes::mInstance = NULL;
 
@@ -29,35 +41,14 @@ ComRes::ComRes() {
 
 	COMMON_RES_t COM_RES_TBL[eComResName_Num] = {
 		// リソースの種類　　	ファイルパス
-		{ eComResKind_Graphic,	"Resources/Graphics/BG/menu_ui_re.png"	},
-		{ eComResKind_Graphic,	"Resources/Graphics/BG/deckedit.png"	},
-		{ eComResKind_Graphic,	"Resources/Graphics/UI/msgBox.png"		},
-		{ eComResKind_Graphic,  "Resources/Data/Font/MS_Gothic_0.png"   },
-		{ eComResKind_Graphic,	"Resources/Graphics/Map/MapIcon.png"	},
-		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0001.mp3","Title"	},
-		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0002.mp3","Battle_1"	},
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00001.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00002.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00003.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00004.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00005.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00006.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00007.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00008.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00009.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00010.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00011.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00012.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00013.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00014.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00015.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00016.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00017.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00018.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00019.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00020.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00021.png" },
-		//{ eComResKind_Graphic,	"Resources/Graphics/Monster/mon_00022.png" },
+		{ eComResKind_Graphic,	"Resources/Graphics/BG/menu_ui_re.png"	,	graphicsTable::eGraphTag_MainMenuBG	},
+		{ eComResKind_Graphic,	"Resources/Graphics/BG/deckedit.png"	,	graphicsTable::eGraphTag_CommonBG	},
+		{ eComResKind_Graphic,	"Resources/Graphics/UI/msgBox.png"		,	graphicsTable::eGraphTag_MsgBox		},
+		{ eComResKind_Graphic,  "Resources/Data/Font/MS_Gothic_0.png"	,	graphicsTable::eGraphTag_BMFont		},
+		{ eComResKind_Graphic,	"Resources/Graphics/Map/MapIcon.png"	,	graphicsTable::eGraphTag_MapIcon	},
+		{ eComResKind_Graphic,	"Resources/Graphics/UI/story_button.png",	graphicsTable::eGraphTag_StoryButton},
+		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0001.mp3"		,	eSoundTag_Title					},
+		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0002.mp3"		,	eSoundTag_Batlle_1				},
 	};
 
 	for (int i = 0; i < eComResName_Num; i++) {
@@ -116,18 +107,20 @@ bool ComRes::Load() {
 		for (int i = 0; i < eComResName_Num; i++) {
 			if (mComRes[i].kind != eComResKind_Graphic) continue;
 			mComRes[i].Graphic = new Graphics();
-			if (mComRes[i].Graphic->Load(mComRes[i].fileName) == false) {
-				Debug::LogPrintf("画像の読み込みに失敗しました.(%s)", mComRes[i].fileName);
-				return false;
-			}
+			const char* tag = graphicsTable::GetGraphTag(mComRes[i].tagNum);
+			graphics::LoadGraphics::GetInstance()->Load(mComRes[i].fileName, tag);
+			//if (mComRes[i].Graphic->Load(mComRes[i].fileName) == false) {
+			//	Debug::LogPrintf("画像の読み込みに失敗しました.(%s)", mComRes[i].fileName);
+			//	return false;
+			//}
 		}
 		mLoadCnt++;
 	}
 	else if (mLoadCnt == 1) {
 		for (int i = 0; i < eComResName_Num; i++) {
 			if (mComRes[i].kind != eComResKind_SoundBgm) continue;
-
-			SoundMgr::GetInstance()->Add(mComRes[i].buffer, mComRes[i].fileName);
+			const char* tag = smSOUND_TAG_TABLE[mComRes[i].tagNum];
+			SoundMgr::GetInstance()->Add(tag, mComRes[i].fileName);
 
 		}
 		mLoadCnt++;

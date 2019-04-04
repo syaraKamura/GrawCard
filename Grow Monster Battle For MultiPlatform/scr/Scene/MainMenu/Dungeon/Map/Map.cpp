@@ -14,6 +14,7 @@
 #include "Common/GameCommon.h"
 #include "Common/Graphics/Button/Button.h"
 #include "Common/Graphics/Button/ButtonGraph.h"
+#include "Common/ResourceTable/GraphTable.h"
 
 #include "Common/String/FontMgr/BMFont.h"
 
@@ -47,7 +48,9 @@ static const TEST_MAP_DATA_t TEST_MAP_DATA[5] = {
 };
 
 Map::Map() : TaskBase() {
-	mMapIcon = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MapIcon);
+	//mMapIcon = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MapIcon);
+	mMapIcon = new Graphics();
+	mMapIcon->Initialize(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_MapIcon));
 	mMapIcon->SetPosition(0, 0);
 	mAnimState = Map::eAnimState_None;
 	mIsTouchEnable = true;
@@ -59,32 +62,15 @@ Map::Map() : TaskBase() {
 
 Map::Map(int posX,int posY,const char* mapTitle) : TaskBase() {
 	
-	mMapIcon = new Graphics(*ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MapIcon));
+	//mMapIcon = new Graphics(*ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MapIcon));
+	mMapIcon = new Graphics();
+	mMapIcon->Initialize(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_MapIcon));
 	mMapIcon->SetPosition(posX, posY);
 
+	GraphicsDrawMgr::GetInstance()->Add(mMapIcon, 0);
+
 	mSelectButtonNum = -1;
-	mSelectButtonMax = 5;
-
-	mButtonGraph = new ButtonGraph();
-	
-	
-	for (int i = 0; i < mSelectButtonMax; i++) {
-		char str[128];
-		sprintfDx(str, "テスト %d", i);
-		Button* btn = new Button(100, 100 + i * 165 , 100, 60, str);
-		btn->SetAlpha(0.0f);
-		btn->SetOnListener(this);
-		mButtonGraph->AddButton(btn);
-		mButtons.push_back(btn);
-	}
-
-	Button* returnBtn = new Button(20, 20, 100, 60, "戻る");
-	returnBtn->SetOnListener(this);
-	mButtonGraph->AddButton(returnBtn);
-	mButtons.push_back(returnBtn);
-
-	mOrderDrawGraphic = GraphicsDrawMgr::GetInstance()->Add(mButtonGraph,0);
-	mButtonGraph->SetVisible(false);
+	mSelectButtonMax = 0;
 
 	mAnimState = Map::eAnimState_None;
 
@@ -99,6 +85,7 @@ Map::Map(int posX,int posY,const char* mapTitle) : TaskBase() {
 
 Map::~Map() {
 	
+	mMapIcon->ReleseRequest();
 	GraphicsDrawMgr::GetInstance()->Remove(mOrderDrawGraphic);
 
 	for (int i = 0; i < mSelectButtonMax; i++) {
@@ -114,14 +101,14 @@ void Map::Draw() {
 	
 	if (mMapIcon == NULL) return;
 
-	mMapIcon->Draw();
+	//mMapIcon->Draw();
 
 	mFontString->Draw(DUGEON_TITLE_POS_X, DUGEON_TITLE_POS_Y,true);
 }
 
 bool Map::Updata() {
 
-	if (mMapIcon == NULL) return true;
+	//if (mMapIcon == NULL) return true;
 
 	switch (mAnimState) {
 	case Map::eAnimState_In:
@@ -202,7 +189,35 @@ bool Map::Updata() {
 }
 
 void Map::PostUpdate() {
-	if (mMapIcon == NULL) return;
+	//if (mMapIcon == NULL) return;
+
+}
+
+void Map::SetUp(StoryData* pinData,int size) {
+
+	mButtonGraph = new ButtonGraph();
+
+	for (int i = 0; i < size; i++) {
+		StoryData& data = *(pinData + i);
+		mStoryDataList.push_back(data);
+		Button* btn = new Button(100, 100 + i * 165, 100, 60, data.title);
+		//Button* btn = new Button(graphicsTable::eGraphTag_StoryButton,100, 100 + i * 165, data.title);
+		btn->SetAlpha(0.0f);
+		btn->SetOnListener(this);
+		mButtonGraph->AddButton(btn);
+		mButtons.push_back(btn);
+	}
+
+
+	Button* returnBtn = new Button(20, 20, 100, 60, "戻る");
+	returnBtn->SetOnListener(this);
+	mButtonGraph->AddButton(returnBtn);
+	mButtons.push_back(returnBtn);
+
+	mOrderDrawGraphic = GraphicsDrawMgr::GetInstance()->Add(mButtonGraph, 100);
+	mButtonGraph->SetVisible(false);
+
+	mSelectButtonMax = size;
 
 }
 
@@ -212,6 +227,12 @@ int Map::GetIndex() {
 	return selectNum;
 }
 
+bool Map::GetStoryData(Map::StoryData* poutData) {
+	int idx = GetIndex();
+	if (idx == -1)return false;
+	*poutData = mStoryDataList[idx];
+	return true;
+}
 
 void Map::OnClick(View* view) {
 

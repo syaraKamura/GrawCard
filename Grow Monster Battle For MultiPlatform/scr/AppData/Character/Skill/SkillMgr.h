@@ -79,10 +79,21 @@ private:
 
 public :
 
+	/*
+		生成
+	*/
 	static void Create();
+
+	/*
+		削除
+	*/
 	static void Destroy();
 
 	static SkillMgr* GetInstance();
+
+	/*
+		更新
+	*/
 	void Updata();
 	PlaySkill* Play(int id);
 	PlaySkill* Play(int id,float posX,float posY);

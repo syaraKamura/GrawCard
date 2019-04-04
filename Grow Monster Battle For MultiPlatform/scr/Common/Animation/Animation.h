@@ -27,7 +27,7 @@ typedef struct {
 	float alpha;
 	Easing::eEasingType easingType;
 }ANIMATION_DATA_t;
-
+	
 class Animation {
 
 private:

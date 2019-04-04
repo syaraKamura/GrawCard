@@ -260,6 +260,12 @@
     <ClCompile Include="..\..\scr\Test\TestMapField.cpp">
       <Filter>src\Test</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Common\ResourceTable\GraphTable.cpp">
+      <Filter>src\Common\ResourceTable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Graphics\LoadGraphics.cpp">
+      <Filter>src\Common\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -414,6 +420,9 @@
     </Filter>
     <Filter Include="src\Scene\MainMenu\Dungeon\Map">
       <UniqueIdentifier>{f65e8cb2-82d0-4778-8026-2cb30ce43aa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\ResourceTable">
+      <UniqueIdentifier>{b1707d1c-7fa8-4159-a66d-71eb8660f6b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -680,6 +689,12 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Test\TestMapField.h">
       <Filter>src\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\ResourceTable\GraphTable.h">
+      <Filter>src\Common\ResourceTable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Graphics\LoadGraphics.h">
+      <Filter>src\Common\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

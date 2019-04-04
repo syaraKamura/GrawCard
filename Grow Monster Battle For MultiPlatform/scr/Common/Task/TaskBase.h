@@ -37,7 +37,7 @@ private:
 protected:
 	bool mIsInitalize;	//初期化フラグ
 	int mTaskId;		//タスク番号	
-	
+	bool mIsRequestKill;
 public :
 
 	
@@ -46,6 +46,7 @@ public :
 		mTaskId = 0;
 		mIsInitalize = false;
 		mPriorty = 0;
+		mIsRequestKill = false;
 	}
 
 	virtual ~TaskBase(){};
@@ -73,6 +74,9 @@ public :
 	void Draw()override;
 	
 	void SetFunction(pointer_func updata,pointer_func draw,pointer_func destroy);
+
+	void RequestKill() { mIsRequestKill = true; }
+	bool IsRelease() const { return mIsRequestKill; }
 
 };
 

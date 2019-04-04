@@ -14,6 +14,7 @@
 //	------- インクルード宣言
 
 #include "Common/GameCommon.h"
+#include "Common/ResourceTable/GraphTable.h"
 #include "../ISceneBase.h"
 #include "Scene_MainMenu.h"
 #include "Common/Graphics/Button/Button.h"
@@ -38,7 +39,9 @@ Scene_MainMenu::Scene_MainMenu(ISceneBase* changer, Debug* debug) : SceneBase(ch
 
 bool Scene_MainMenu::Initialize() {
 
-	Graphics* add = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MainMenuBG);
+	//Graphics* add = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MainMenuBG);
+	Graphics* add = new Graphics();
+	add->Initialize(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_MainMenuBG));
 	if (add != NULL) {
 		add->SetPosition(0, 0);
 		mBackImageOrder = GraphicsDrawMgr::GetInstance()->Add(add, 0);

@@ -35,7 +35,7 @@ protected:
 public :
 
 	ResourceLoader();
-	~ResourceLoader();
+	virtual ~ResourceLoader();
 
 	/*
 		非同期読み読み込み

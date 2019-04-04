@@ -264,6 +264,7 @@
     <ClCompile Include="..\..\scr\Common\Graphics\GraphicsDraw.cpp" />
     <ClCompile Include="..\..\scr\Common\Graphics\GraphicsDrawMgr.cpp" />
     <ClCompile Include="..\..\scr\Common\Graphics\GraphicsMulti.cpp" />
+    <ClCompile Include="..\..\scr\Common\Graphics\LoadGraphics.cpp" />
     <ClCompile Include="..\..\scr\Common\Graphics\Window\WindowGraph.cpp" />
     <ClCompile Include="..\..\scr\Common\Input\ClickInput.cpp" />
     <ClCompile Include="..\..\scr\Common\Input\InputBase.cpp" />
@@ -274,6 +275,7 @@
     <ClCompile Include="..\..\scr\Common\Input\PadInput.cpp" />
     <ClCompile Include="..\..\scr\Common\Input\Touch.cpp" />
     <ClCompile Include="..\..\scr\Common\ResourceLoader\ResourceLoader.cpp" />
+    <ClCompile Include="..\..\scr\Common\ResourceTable\GraphTable.cpp" />
     <ClCompile Include="..\..\scr\Common\Script\ScriptAnimation.cpp" />
     <ClCompile Include="..\..\scr\Common\Script\ScriptBase.cpp" />
     <ClCompile Include="..\..\scr\Common\Script\ScriptFunc.cpp" />
@@ -352,6 +354,7 @@
     <ClInclude Include="..\..\scr\Common\Graphics\GraphicsDraw.h" />
     <ClInclude Include="..\..\scr\Common\Graphics\GraphicsDrawMgr.h" />
     <ClInclude Include="..\..\scr\Common\Graphics\GraphicsMulti.h" />
+    <ClInclude Include="..\..\scr\Common\Graphics\LoadGraphics.h" />
     <ClInclude Include="..\..\scr\Common\Graphics\Window\WindowGraph.h" />
     <ClInclude Include="..\..\scr\Common\Input\ClickInput.h" />
     <ClInclude Include="..\..\scr\Common\Input\InputBase.h" />
@@ -362,6 +365,7 @@
     <ClInclude Include="..\..\scr\Common\Input\PadInput.h" />
     <ClInclude Include="..\..\scr\Common\Input\Touch.h" />
     <ClInclude Include="..\..\scr\Common\ResourceLoader\ResourceLoader.h" />
+    <ClInclude Include="..\..\scr\Common\ResourceTable\GraphTable.h" />
     <ClInclude Include="..\..\scr\Common\Script\ScriptAnimation.h" />
     <ClInclude Include="..\..\scr\Common\Script\ScriptBase.h" />
     <ClInclude Include="..\..\scr\Common\Script\ScriptFunc.h" />

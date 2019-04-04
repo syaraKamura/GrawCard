@@ -38,8 +38,10 @@ GraphicsDrawMgr::~GraphicsDrawMgr() {
 
 int GraphicsDrawMgr::Add(GraphicsBase* graphics,int prio) {
 	
-	((GraphicsDraw*)(graphics))->SetPriorty(prio);
-	GRAPHICS_DRAW_ORDER_t add = { 0,(GraphicsDraw*)(graphics) };
+	GraphicsDraw* graph = dynamic_cast<GraphicsDraw*>(graphics);
+
+	graph->SetPriorty(prio);
+	GRAPHICS_DRAW_ORDER_t add = { 0,graph };
 	add.order = ++mOrder;
 	mList->push_back(add);
 	mList->sort(sort_priorty);
@@ -138,6 +140,7 @@ void GraphicsDrawMgr::Draw()  {
 	for (auto it = mList->begin(); it != mList->end();) {
 
 		GraphicsDraw& graph = *(*it).graph;
+		
 
 		//int posX = (*it).graph->GetPositionX();
 		//int posY = (*it).graph->GetPositionY();

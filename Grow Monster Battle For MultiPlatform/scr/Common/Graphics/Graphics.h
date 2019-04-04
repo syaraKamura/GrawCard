@@ -33,6 +33,14 @@ public:
 
 	Graphics();
 	~Graphics();
+
+	/*
+		初期化
+		std::string tag	:画像取得タグ
+
+	*/
+	bool Initialize(std::string tag);
+
 	bool Load(const char* path) override;
 	
 	void Relese() override;

@@ -32,7 +32,7 @@ namespace loader {
 	bool TblLoader::LoadRequest(const char* filePath, bool isAsync /*= false*/) {
 
 #ifdef __MY_DEBUG__
-#ifdef __WINDOWS___
+#ifdef __WINDOWS__
 		RESORCES_PATH(mFilePath);
 		strcatDx(mFilePath, "/");
 #endif // __WINDOWS___
@@ -109,6 +109,7 @@ namespace loader {
 		}
 		break;
 		case eState_End:
+			Debug::LogPrintf("tdlファイルの読み込み完了.(%s)\n", mFilePath);
 			mIsLoadEnd = true;
 			mStateCnt = eState_Exit;
 			break;

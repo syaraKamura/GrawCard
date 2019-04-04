@@ -42,12 +42,14 @@ enum class eEffect : int{
 class ComRes {
 
 public :
+	
 	enum eComResName {
 		eComResName_MainMenuBG,			//メインメニュー背景
 		eComResName_CommonBG,			//汎用背景
 		eComResName_MsgBox,				//メッセージボックス
 		eComResName_BMFont,				//フォント画像
 		eComResName_MapIcon,			// マップアイコン
+		eComResName_StoryButtion,		// ストーリボタン
 		eComResname_CommonBGM,			// 汎用BGM
 		eComResname_CommonBGM2,			// 汎用BGM2
 		//eComResName_Monster_00001,			//モンスターカード
@@ -87,8 +89,8 @@ private:
 
 	typedef struct {
 		eComResKind kind;
-		char fileName[1024];
-		char buffer[1024];
+		char* fileName;
+		int tagNum;
 		Graphics* Graphic;
 	}COMMON_RES_t;
 

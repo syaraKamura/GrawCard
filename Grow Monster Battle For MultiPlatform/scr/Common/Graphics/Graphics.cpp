@@ -38,6 +38,20 @@ void Graphics::DestoryResource(int handle) {
 	DxLib::DeleteGraph(handle);
 }
 
+bool Graphics::Initialize(std::string tag) {
+
+	int handle = graphics::LoadGraphics::GetInstance()->Get(tag);
+
+	if (handle == eGraphicsResult_ERROR) {
+		Debug::LogPrintf("[ERORR : FUNC %s] Graphic Load ERROR.(%s)\n", __func__);
+		return false;
+	}
+
+	mHandle = handle;
+	DxLib::GetGraphSize(mHandle, &mWidth, &mHeight);
+	return true;
+}
+
 bool Graphics::Load(const char* path) {
 
 	if (path == NULL) {

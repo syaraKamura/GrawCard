@@ -386,7 +386,7 @@ void SaveData::Save(SaveData save) {
 	for (int i = 0; i < MAX_FLAGS;i++) {
 		mFile->WriteUInt(mFlag.mFlags[i]);
 	}
-
+	
 	mFile->Close();
 
 	Delete(mFile)

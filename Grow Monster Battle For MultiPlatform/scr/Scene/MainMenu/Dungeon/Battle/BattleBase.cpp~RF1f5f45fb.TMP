@@ -382,7 +382,7 @@ void BattleBase::Draw() {
 			int drawY = y - 35;
 			DrawBox(x, drawY, x + 100 * ((float)monster->GetHp() / (float)monster->GetHpMax()), drawY + 20, GetColor(0, 255, 255), TRUE);
 		}
-#ifdef __MY_DEBUG__ 
+#ifdef __MY_DEBUG__
 		DxLib::DrawString(x, y += 20, monster->GetName(), GetColor(0, 255, 0));
 		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Lvele   :%d", monster->GetLevel());
 		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Type    :%d", monster->GetType());
@@ -398,7 +398,7 @@ void BattleBase::Draw() {
 #endif // __MY_DEBUG__
 
 	}
-	
+
 	mButtons[BattleBase::eButtonType_Auto]->Draw();
 
 
@@ -480,13 +480,6 @@ void BattleBase::Draw() {
 		break;
 	case eBattleStep_Result:
 
-#ifdef __ANDROID__
-		if (ClickInput::GetInstance()->Press(0)) {
-			TaskMgr::getInstance().RequestKill(this->mTaskId);
-		}
-#endif
-
-
 		break;
 	}
 
@@ -504,6 +497,11 @@ void BattleBase::PostUpdate() {
 #ifdef __WINDOWS__
 	
 	if (Keyboard_Press(KEY_INPUT_X)) {
+		TaskMgr::getInstance().RequestKill(this->mTaskId);
+	}
+#else
+
+	if (ClickInput::GetInstance()->Press(0) ){
 		TaskMgr::getInstance().RequestKill(this->mTaskId);
 	}
 

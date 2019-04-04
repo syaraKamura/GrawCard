@@ -13,6 +13,7 @@
 !*/
 
 #include "Common/GameCommon.h"
+#include "Common/ResourceTable/GraphTable.h"
 #include "Common/String/StringClick.h"
 #include "Common/String/FontMgr/BMFont.h"
 #include "ScriptAnimation.h"
@@ -90,7 +91,8 @@ bool ScriptBase::Initialize() {
 	mNowLine = 0;
 	mMaxLine = 0;
 
-	mMsgGraphics = *ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MsgBox);
+	//mMsgGraphics = *ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_MsgBox);
+	mMsgGraphics.Initialize(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_MsgBox));
 
 	mStringDrawState = StringBase::eDrawState_None;
 	mOldStringDrawState = StringBase::eDrawState_None;

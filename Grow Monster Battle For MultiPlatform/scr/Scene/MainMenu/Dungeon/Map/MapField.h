@@ -16,16 +16,36 @@
 
 #include "Common/Task/TaskBase.h"
 #include "Common/Graphics/Button/Button.h"
+#include "Map.h"
 #include <vector>
 
-class Map;
+namespace loader {
+	class TblLoader;
+}
+
+//class Map;
 
 class MapField : public TaskBase{
 
 private:
 	
+	enum eState {
+		eState_Wait,
+		eState_Read,
+		eState_Fade,
+		eState_Main,
+		eState_Story,
+		eState_Battle,
+		eState_Exit,
+	};
+
+	eState mState;
 	Graphics* mMapImageHandle;
 	std::vector<Map*> mMapIcons;
+
+	Map::StoryData* mStoryData;
+
+	loader::TblLoader* mLoader;
 
 public :
 
@@ -43,6 +63,11 @@ public :
 	bool Updata()override;
 	void PostUpdate() override;
 	void Draw()override;
+
+	Map::StoryData* GetStoryData() const {
+		return mStoryData;
+	}
+
 
 
 };
