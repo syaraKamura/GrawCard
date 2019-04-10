@@ -57,7 +57,7 @@ ScriptBase::ScriptBase() : TaskBase() {
 	mString = new StringBase();
 	mAdvData = NULL;
 	mSaveData = AppData::GetInstance()->GetSaveData();
-
+	mIsEnd = false;
 
 }
 
@@ -77,7 +77,7 @@ ScriptBase::ScriptBase(const char* scriptName) : TaskBase() {
 	mSaveData = AppData::GetInstance()->GetSaveData();
 
 	CreateFilePath(scriptName);
-	
+	mIsEnd = false;
 }
 
 bool ScriptBase::Initialize() {

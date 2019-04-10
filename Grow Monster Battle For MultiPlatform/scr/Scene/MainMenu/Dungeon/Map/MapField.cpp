@@ -14,6 +14,7 @@
 #include "Common/GameCommon.h"
 #include "Common/FileLoader/TblLoader/TblLoader.h"
 #include "Common/FileLoader/TblLoader/TblLoaderMgr.h"
+#include "Common/Script/ScriptBase.h"
 
 #include "Map.h"
 #include "MapField.h"
@@ -46,6 +47,7 @@ MapField::MapField() : TaskBase(){
 	this->mMapIcons.push_back(map1);
 	//this->mMapIcons.push_back(new Map(380.0f,380.0f,"テスト２"));
 
+	mStoryTask = -1;
 	mStoryData = nullptr;
 
 }
@@ -67,7 +69,7 @@ MapField::MapField(int stageNum) {
 
 	// クリア状況を取得
 	
-
+	mStoryTask = -1;
 	mStoryData = nullptr;
 
 }
@@ -180,6 +182,7 @@ bool MapField::Updata(){
 
 			mStoryData = new Map::StoryData();
 			mStoryData->Set(storyData);
+			mState = eState_Story;
 		}
 
 #ifdef __MY_WINDOWS__
@@ -192,9 +195,29 @@ bool MapField::Updata(){
 		break;
 	case eState_Story:
 
+		if (mStoryData->beforADV == -1) {
+			mState = eState_Battle;
+		}
+		else {
+			// ストーリー再生
+			// ストーリー再生終了確認
+			if (UpdateStory(mStoryData->beforADV)) {
+				mState = eState_Battle;
+				for (int i = 0; i < this->mMapIcons.size(); i++) {
+					this->mMapIcons[i]->SetDrawFlag(true);
+				}
+			}
+		}
+
 		break;
 	case eState_Battle:
 
+		//バトル開始
+		//バトル終了確認
+		//バトル後ストーリー再生
+
+
+		mState = eState_Main;
 		break;
 	case eState_Exit:
 
@@ -210,7 +233,13 @@ void MapField::PostUpdate() {
 
 void MapField::Draw() {
 
-	if (mState != eState_Main) return;
+	if (mState != eState_Main) {
+		mMapImageHandle->SetVisible(false);
+		return;
+	}
+	else {
+		mMapImageHandle->SetVisible(true);
+	}
 
 	//this->mMapImageHandle->Draw();
 
@@ -222,3 +251,31 @@ void MapField::Draw() {
 
 
 
+bool MapField::UpdateStory(int storyNo) {
+
+	if (storyNo == -1) {
+		return true;
+	}
+	
+	if (mStoryTask == -1) {
+		char path[1024];
+		sprintfDx(path, "ADV_%04d.txt", storyNo);
+		mStoryTask = TaskMgr::getInstance().Add(new AdvScript::ScriptBase(path));
+		Fade::GetInstance()->FadeIn(20);
+		for (int i = 0; i < this->mMapIcons.size(); i++) {
+			this->mMapIcons[i]->SetDrawFlag(false);
+		}
+	}
+	else {
+		if (Fade::GetInstance()->IsFadeEnd() == false) return false;
+		AdvScript::ScriptBase* story = dynamic_cast<AdvScript::ScriptBase*>(TaskMgr::getInstance().GetTask(mStoryTask));
+
+		if (story->IsEnd()) {
+			story->RequestKill();
+			mStoryTask = -1;
+			Fade::GetInstance()->FadeIn(20);
+			return true;
+		}
+	}
+	return false;
+}

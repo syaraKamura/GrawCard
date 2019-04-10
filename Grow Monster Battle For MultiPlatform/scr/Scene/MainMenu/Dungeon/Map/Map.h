@@ -118,6 +118,8 @@ public:
 	*/
 	bool IsOpenSelectButton();
 
+	void SetDrawFlag(bool isDraw);
+
 };
 
 

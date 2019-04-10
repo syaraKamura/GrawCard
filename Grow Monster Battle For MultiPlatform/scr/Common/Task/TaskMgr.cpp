@@ -224,6 +224,29 @@ TaskMgr::~TaskMgr(){DeleteAll();}
 void TaskMgr::KillTaskProc(){
 
 #if 1
+
+#ifdef __MY_DEBUG__
+
+	bool isDelete = false;
+	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
+		if ((*itr)->IsRelease()) {
+			int taskId = (*itr)->GetTaskId();		//タスク検索用mapデータから削除するタスク番号を設定
+			(*itr)->Finalize();						//削除
+			Delete(*itr);							//メモリから削除
+			mList.erase(itr);						//リストから削除
+			mKillOrderList.remove(taskId);			//削除依頼リストからタスク番号を削除
+			mSarchList.erase(taskId);				//タスク検索用mapデータからタスク番号を削除
+			itr = mList.begin();
+			isDelete = true;
+		}
+	}
+
+	if (isDelete == false) {
+		return ;
+	}
+
+#else
+
 	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
 		if ((*itr)->IsRelease()) {
 			int taskId = (*itr)->GetTaskId();		//タスク検索用mapデータから削除するタスク番号を設定
@@ -235,6 +258,8 @@ void TaskMgr::KillTaskProc(){
 			itr = mList.begin();
 		}
 	}
+#endif
+
 #else
 	if(mKillOrderList.size() == 0) return ;
 

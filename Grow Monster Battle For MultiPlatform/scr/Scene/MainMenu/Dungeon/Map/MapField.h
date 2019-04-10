@@ -46,6 +46,9 @@ private:
 	Map::StoryData* mStoryData;
 
 	loader::TblLoader* mLoader;
+	int mStoryTask;
+
+	bool UpdateStory(int storyNo);
 
 public :
 
@@ -63,6 +66,8 @@ public :
 	bool Updata()override;
 	void PostUpdate() override;
 	void Draw()override;
+
+	
 
 	Map::StoryData* GetStoryData() const {
 		return mStoryData;

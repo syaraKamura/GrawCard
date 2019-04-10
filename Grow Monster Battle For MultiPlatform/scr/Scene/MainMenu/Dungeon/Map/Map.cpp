@@ -266,3 +266,13 @@ void Map::SetToucheEnable(bool enable) {
 bool Map::IsOpenSelectButton() {
 	return mIsOpenSelectButton;
 }
+
+void Map::SetDrawFlag(bool isDraw) {
+
+	for (int i = 0; i < mButtons.size(); i++) {
+		mButtons[i]->SetVisible(isDraw);
+	}
+
+	mMapIcon->SetVisible(isDraw);
+
+}
