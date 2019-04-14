@@ -84,10 +84,13 @@ namespace loader {
 		// 読み込みが終わったもしくはファイルが存在していなければロードリストから除外する
 		for (auto itr = mLoadList.begin(); itr != mLoadList.end(); ) {
 			TblLoader* load = *itr;
-			if (load->IsExist() == false || load->IsLoadEnd() == true) {
+			if (load->IsLoadEnd() == true) {
 				mLoadList.erase(itr);
 				itr = mLoadList.begin();
 				continue;
+			}
+			if (load->IsExist() == false) {
+				Debug::ErorrMessage("Not Exist DTL FILE.(%s)", load->GetTableData().fileData->fileName);
 			}
 			itr++;
 		}

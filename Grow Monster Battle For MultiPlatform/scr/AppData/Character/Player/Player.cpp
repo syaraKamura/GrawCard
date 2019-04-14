@@ -18,6 +18,9 @@ Player::Player() : CharacterBase() {
 	SetCost(10);
 	SetName("あゆみ");
 	SetGender(eGender_Female);
+
+	mMonsterDeck.Clear();
+
 }
 
 Player::~Player() {
@@ -64,4 +67,11 @@ Monster* Player::GetMonster(int idx) {
 */
 int Player::GetSetMonsterNum() {
 	return mMonsterDeck.GetSetNum();
+}
+
+/*
+		モンスターデッキを取得する
+*/
+MonsterDeck Player::GetMonsterDeck() const {
+	return mMonsterDeck;
 }

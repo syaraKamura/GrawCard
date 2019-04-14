@@ -58,6 +58,8 @@ Map::Map() : TaskBase() {
 
 	mFontString = new BMFont();
 
+	mButtonGraph = nullptr;
+
 }
 
 Map::Map(int posX,int posY,const char* mapTitle) : TaskBase() {
@@ -81,6 +83,7 @@ Map::Map(int posX,int posY,const char* mapTitle) : TaskBase() {
 
 	strcpyDx(mMapTitleText, mapTitle);
 
+	mButtonGraph = nullptr;
 }
 
 Map::~Map() {
@@ -176,12 +179,14 @@ bool Map::Updata() {
 	}
 
 	if (mIsTouchEnable == true) {
-		// ボタンの表示がされていない かつ マップアイコン画像をクリックを行ったか
-		if (mButtonGraph->IsVisible() == false && mMapIcon->IsTouch()) {
-			mButtonGraph->SetVisible(true);
-			mAnimState = Map::eAnimState_In;
-			//mFontString->SetString("テストああああ");
-			mFontString->SetString(mMapTitleText);
+		if (mButtonGraph != nullptr) {
+			// ボタンの表示がされていない かつ マップアイコン画像をクリックを行ったか
+			if (mButtonGraph->IsVisible() == false && mMapIcon->IsTouch()) {
+				mButtonGraph->SetVisible(true);
+				mAnimState = Map::eAnimState_In;
+				//mFontString->SetString("テストああああ");
+				mFontString->SetString(mMapTitleText);
+			}
 		}
 	}
 	

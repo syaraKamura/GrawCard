@@ -73,3 +73,25 @@ void MonsterDeck::Detach(int idx) {
 int MonsterDeck::GetSetNum() {
 	return mSetMonsterCount;
 }
+
+/*
+		モンスターが一体も設定されていないか？
+		return	true	:いない
+				false	:いる
+	*/
+bool MonsterDeck::IsEmpty() {
+	
+	for (int i = 0; i < MONSTER_DECK_NUM; i++) {
+		if (mMonster[i].isAttach == true || mMonster[i].monster != nullptr) {
+			return false;
+		}
+	}
+	return true;
+}
+
+void MonsterDeck::Clear() {
+	for (int i = 0; i < MONSTER_DECK_NUM; i++) {
+		mMonster[i].monster = nullptr;
+		mMonster[i].isAttach == false;
+	}
+}

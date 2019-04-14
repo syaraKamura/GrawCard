@@ -62,6 +62,15 @@ public :
 
 	int GetSetNum();
 
+	/*
+		モンスターが一体も設定されていないか？
+		return	true	:いない
+				false	:いる
+	*/
+	bool IsEmpty();
+
+	void Clear();
+
 };
 
 #endif // __MONSTER_DECK_H__

@@ -64,6 +64,11 @@ public:
 	Monster* GetMonster(int idx);
 
 	/*
+		モンスターデッキを取得する
+	*/
+	MonsterDeck GetMonsterDeck() const;
+
+	/*
 		モンスターをデッキから除外する
 	*/
 	void RemoveMonster(int idx);

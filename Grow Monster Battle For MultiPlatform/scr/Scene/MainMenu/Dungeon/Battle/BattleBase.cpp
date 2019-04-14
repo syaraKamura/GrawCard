@@ -177,12 +177,43 @@ BattleBase::BattleBase(Player* player) : TaskBase() {
 
 	mMonsterData.clear();
 
+
+
+	if (mPlayer->GetMonsterDeck().IsEmpty() == true) {
+
+#ifdef __MY_DEBUG__
+
+		Monster* monster = new Monster();
+
+		monster->SetName("モンスター1");
+		monster->SetLevel(1);
+		monster->SetAttack(12);
+		monster->SetDeffence(8);
+		monster->SetSpeed(5);
+		monster->SetHp(120);
+		monster->SetHpMax(120);
+
+		mPlayer->SetMonster(0, MonsterMgr::Instance()->GetMonsterData(0));
+		monster->SetName("モンスター2");
+		mPlayer->SetMonster(1, MonsterMgr::Instance()->GetMonsterData(1));
+		monster->SetName("モンスター3");
+		mPlayer->SetMonster(2, MonsterMgr::Instance()->GetMonsterData(2));
+		monster->SetName("モンスター4");
+		mPlayer->SetMonster(3, MonsterMgr::Instance()->GetMonsterData(3));
+		monster->SetName("モンスター5");
+		mPlayer->SetMonster(4, MonsterMgr::Instance()->GetMonsterData(4));
+
+		Debug::LogPrintf("プレイヤーデータのデッキにモンスターが設定されていません");
+
+#endif//__MY_DEBUG__
+	}
+	
 	// プレイヤーモンスター
 	for (int i = 0; i < 5; i++) {
 
 		MONSTER_DATA_t add;
 		Monster* monster = mPlayer->GetMonster(i);
-		if (monster == NULL) continue;
+		if (monster == nullptr) continue;
 		add.monster = monster;
 		add.moveOreder = 0;
 		add.type = BattleBase::eDeckType_Player;
@@ -200,7 +231,7 @@ BattleBase::BattleBase(Player* player) : TaskBase() {
 
 		mMonsterData.push_back(add);
 	}
-
+	
 
 	// エネミーモンスター
 	for (int i = 0; i < 5; i++) {

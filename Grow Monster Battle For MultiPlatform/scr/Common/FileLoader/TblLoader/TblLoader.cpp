@@ -34,7 +34,6 @@ namespace loader {
 #ifdef __MY_DEBUG__
 #ifdef __WINDOWS__
 		RESORCES_PATH(mFilePath);
-		strcatDx(mFilePath, "/");
 #endif // __WINDOWS___
 #endif
 		

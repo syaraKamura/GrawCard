@@ -28,8 +28,110 @@ static const int DEBUG_WINDOW_TOP = 0;
 static const int DEBUG_WINDOW_RIGHT = (600.0f * WINDOW_WIDTH / WINDOW_BASE_WIDTH);
 static const int DEBUG_WINDOW_BOTTOM = (WINDOW_HEIGHT * WINDOW_HEIGHT / WINDOW_BASE_HEIGHT);
 
+static const int INFOBOARD_MAX = 100;
+
+enum eDEBUG_PRINT_TYPE {
+	eDEBUG_PRINT_TYPE_None,
+	eDEBUG_PRINT_TYPE_Warning,
+	eDEBUG_PRINT_TYPE_Error,
+};
+
+struct POSITION {
+	float x;
+	float y;
+};
+
+struct INFOBOARD_DATA {
+	char info[1024];
+	int count;
+	bool isSet;
+	POSITION pos;
+	unsigned int color;
+};
+
 Debug::DEBUG_LOG_t Debug::mDebugStrings[DEBUG_LOG_NUM] = {};
 int Debug::mDebugLogCnt = 0;
+
+int mInfobardPosY = 0;
+
+
+INFOBOARD_DATA mInfoBoardData[INFOBOARD_MAX];
+
+void InfoBard_Init() {
+
+	memset(mInfoBoardData, 0, sizeof(INFOBOARD_DATA) * INFOBOARD_MAX);
+	for (int i = 0; i < INFOBOARD_MAX; i++) {
+		mInfoBoardData[i].isSet = false;
+	}
+	mInfobardPosY = 0;
+}
+
+
+void InfoBoard_Update() {
+
+	for (int i = 0; i < INFOBOARD_MAX; i++) {
+		INFOBOARD_DATA& data = mInfoBoardData[i];
+		if (data.isSet == true) {
+			data.count++;
+			if (data.count < 30) {
+				data.pos.x = WINDOW_WIDTH - 1200.0f * data.count / 30.0f;
+			}
+			if (data.count >= 210 && data.count <= 240) {
+				int t = data.count - 210;
+				data.pos.x = WINDOW_WIDTH - 1200.0f * (1 - t / 30.0f);
+			}
+			if (data.count >= 241) {
+				data.isSet = false;
+			}
+		}
+	}
+}
+
+void InfoBoard_Draw() {
+	for (int i = 0; i < INFOBOARD_MAX; i++) {
+		INFOBOARD_DATA& data = mInfoBoardData[i];
+		if (data.isSet == true) {
+			int x = data.pos.x;
+			int y = data.pos.y;
+			int width = WINDOW_WIDTH;
+			int height = y + 20;
+			DrawBox(x, y, width, height, GetColor(255, 255, 255), TRUE);
+			DrawString(x, y, data.info, data.color);
+		}
+	}
+}
+
+unsigned int _GetColor(eDEBUG_PRINT_TYPE type) {
+	switch (type) {
+		case eDEBUG_PRINT_TYPE_None:
+			return GetColor(0, 0, 0);
+		case eDEBUG_PRINT_TYPE_Warning:
+			return GetColor(255, 255, 0);
+		case eDEBUG_PRINT_TYPE_Error:
+			return GetColor(255, 0, 0);
+	}
+}
+
+void InfoBard_SetString(const char* info,eDEBUG_PRINT_TYPE type) {
+	
+	for (int i = 0; i < INFOBOARD_MAX; i++) {
+		INFOBOARD_DATA& data = mInfoBoardData[i];
+		if (data.isSet == false) {
+			strcpyDx(data.info,info);
+			data.count = 0;
+			data.color = _GetColor(type);
+			data.pos.x = WINDOW_WIDTH;
+			data.pos.y = mInfobardPosY;
+			mInfobardPosY += 20;
+			if (mInfobardPosY >= WINDOW_HEIGHT - 20) {
+				mInfobardPosY = 0;
+			}
+			data.isSet = true;
+			break;
+		}
+	}
+
+}
 
 Debug::Debug() {
 	mIsActive = false;
@@ -65,6 +167,9 @@ bool Debug::ChcekActive() {
 void Debug::Initialize() {
 	mOldAllocSize = DxGetAllocSize();
 	mOldAllocNum = DxGetAllocNum();
+
+	InfoBard_Init();
+
 }
 
 void Debug::Finalize() {
@@ -74,6 +179,7 @@ void Debug::Finalize() {
 bool Debug::Updata() {
 
 	if (ChcekActive() == false) {
+		InfoBoard_Update();
 		return false;
 	}
 
@@ -86,7 +192,10 @@ bool Debug::Updata() {
 
 void Debug::Draw() {
 
-	if (mIsActive == false) return;
+	if (mIsActive == false) {
+		InfoBoard_Draw();
+		return;
+	}
 
 #ifdef __ANDROID__
 	// デバッグログを描画する(Andoroidのみ)
@@ -166,6 +275,8 @@ void Debug::LogPrintf(const char* str, ...) {
 
 #endif	// __WINDOWS__
 
+	InfoBard_SetString(buffer, eDEBUG_PRINT_TYPE_None);
+
 #endif //__MY_DEBUG__
 }
 
@@ -195,7 +306,7 @@ void Debug::ErorrMessage(const TCHAR* str,...) {
 	
 
 #endif
-
+	InfoBard_SetString(buffer, eDEBUG_PRINT_TYPE_Error);
 #endif
 
 }

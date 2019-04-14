@@ -47,8 +47,10 @@ private:
 
 	loader::TblLoader* mLoader;
 	int mStoryTask;
+	int mBatlleTask;
 
 	bool UpdateStory(int storyNo);
+	bool UpdataBattle(int battleNo);
 
 public :
 

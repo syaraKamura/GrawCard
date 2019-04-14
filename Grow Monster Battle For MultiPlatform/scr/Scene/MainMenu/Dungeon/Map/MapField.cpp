@@ -15,6 +15,7 @@
 #include "Common/FileLoader/TblLoader/TblLoader.h"
 #include "Common/FileLoader/TblLoader/TblLoaderMgr.h"
 #include "Common/Script/ScriptBase.h"
+#include "Scene/MainMenu/Dungeon/Battle/BattleBase.h"
 
 #include "Map.h"
 #include "MapField.h"
@@ -50,6 +51,8 @@ MapField::MapField() : TaskBase(){
 	mStoryTask = -1;
 	mStoryData = nullptr;
 
+	mBatlleTask = -1;
+
 }
 
 MapField::MapField(int stageNum) {
@@ -71,7 +74,7 @@ MapField::MapField(int stageNum) {
 	
 	mStoryTask = -1;
 	mStoryData = nullptr;
-
+	mBatlleTask = -1;
 }
 
 MapField::~MapField() {
@@ -115,6 +118,11 @@ bool MapField::Updata(){
 		if (mLoader->IsLoadEnd()) {
 			mState = eState_Read;
 		}
+
+		if (mLoader->IsExist() == false) {
+			TaskMgr::getInstance().RequestKill(this->mTaskId);
+		}
+
 		break;
 	case eState_Read:
 	{
@@ -148,6 +156,10 @@ bool MapField::Updata(){
 		break;
 	case eState_Fade:
 
+		for (int i = 0; i < this->mMapIcons.size(); i++) {
+			this->mMapIcons[i]->SetDrawFlag(true);
+		}
+		mState = eState_Main;
 		break;
 	case eState_Main:
 	{
@@ -203,9 +215,6 @@ bool MapField::Updata(){
 			// ストーリー再生終了確認
 			if (UpdateStory(mStoryData->beforADV)) {
 				mState = eState_Battle;
-				for (int i = 0; i < this->mMapIcons.size(); i++) {
-					this->mMapIcons[i]->SetDrawFlag(true);
-				}
 			}
 		}
 
@@ -215,9 +224,12 @@ bool MapField::Updata(){
 		//バトル開始
 		//バトル終了確認
 		//バトル後ストーリー再生
-
-
-		mState = eState_Main;
+		if (UpdataBattle(mStoryData->battleId)) {
+			if (UpdateStory(mStoryData->afterADV)) {
+				mState = eState_Fade;
+			}
+		}
+		
 		break;
 	case eState_Exit:
 
@@ -277,5 +289,33 @@ bool MapField::UpdateStory(int storyNo) {
 			return true;
 		}
 	}
+	return false;
+}
+
+bool MapField::UpdataBattle(int battleNo) {
+
+	//if (battleNo == -1) {
+	//	return true;
+	//}
+
+	if (mBatlleTask == -1) {
+#ifdef false
+		mBatlleTask = TaskMgr::getInstance().Add(new BattleBase());
+#else
+		SaveData* save = AppData::GetInstance()->GetSaveData();
+		Player* player = save->GetPlayer();
+		mBatlleTask = TaskMgr::getInstance().Add(new BattleBase(player));
+#endif
+	}
+	else {
+
+		BattleBase* battle = dynamic_cast<BattleBase*>(TaskMgr::getInstance().GetTask(mBatlleTask));
+		if (battle == nullptr) {
+			mBatlleTask = -1;
+			return true;
+		}
+	}
+
+
 	return false;
 }
