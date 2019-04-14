@@ -13,6 +13,10 @@
 
 #include "Common/GameCommon.h"
 #include "Common/String/StringClick.h"
+#include "Common/ResourceTable/GraphTable.h"
+
+#include "AppData/Character/Player/Player.h"
+
 #include "PlayerInfomation.h"
 
 
@@ -25,7 +29,9 @@ bool PlayerInfomation::Initialize() {
 
 	if (Fade::GetInstance()->IsFadeEnd() == false) return false;
 
-	Graphics* add = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_CommonBG);
+	Graphics* add = new Graphics();
+	add->Initialize(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_CommonBG));
+
 	add->SetPosition(0, 0);
 	mOrderBackGraph = GraphicsDrawMgr::GetInstance()->Add(add, 1);
 
@@ -37,6 +43,8 @@ bool PlayerInfomation::Initialize() {
 	mButtons->Load("Resources/Graphics/UI/button/button-growcrystal.png", 1000, 300);
 	GraphicsDrawMgr::GetInstance()->Add(mButtons,1);
 
+
+	mPlayer = AppData::GetInstance()->GetSaveData()->GetPlayer();
 
 
 	//フェードイン
@@ -98,6 +106,11 @@ void PlayerInfomation::Draw() {
 	DrawString(0, 10, "プレイヤー情報画面", GetColor(255, 255, 255));
 
 	StringClick::Draw(0, 40);
+
+	DrawFormatString(0, 100, GetColor(255, 255, 255), "Name: %s", mPlayer->GetName());
+	DrawFormatString(0, 120, GetColor(255, 255, 255), "Level: %d", mPlayer->GetLevel());
+	DrawFormatString(0, 140, GetColor(255, 255, 255), "Exp: %d/%d", mPlayer->GetExp(), mPlayer->GetNextExp());
+	DrawFormatString(0, 160, GetColor(255, 255, 255), "Cost: %d", mPlayer->GetCost());
 
 }
 

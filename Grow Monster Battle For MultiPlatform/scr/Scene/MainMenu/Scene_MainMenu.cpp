@@ -74,6 +74,9 @@ bool Scene_MainMenu::Initialize() {
 
 	mButtonImageOrder = GraphicsDrawMgr::GetInstance()->Add(buttonGraph, 1);
 
+	SoundMgr::GetInstance()->Play("MainMenu", SoundMgr::ePlayType_Loop);
+
+
 #else
 	GraphicsMulti* multiAdd = new GraphicsMulti();
 	multiAdd->Load("Resources/Graphics/UI/button/menu_adventure2.png", 160, 600);
@@ -121,6 +124,8 @@ void Scene_MainMenu::Finalize() {
 	GraphicsDrawMgr::GetInstance()->Remove(mBackImageOrder);
 	GraphicsDrawMgr::GetInstance()->ReleseRequest(mButtonImageOrder);
 
+	SoundMgr::GetInstance()->Stop();
+
 #ifdef __MY_DEBUG__
 	//mDebug->DeleteList();
 #endif	//__MY_DEBUG__
@@ -163,6 +168,9 @@ void Scene_MainMenu::Draw() {
 	case eMenu_MainMenu:
 		MainMenuDraw();
 		break;
+	case eMenu_Fade:
+
+		break;
 	case eMenu_Quest:
 
 		break;
@@ -179,7 +187,7 @@ void Scene_MainMenu::Draw() {
 
 		break;
 	default:
-		Debug::LogPrintf("mState は 不正な値です。(%d)", (int)mMenu);
+		Debug::LogPrintf("mState は 不正な値です。(%d)", (int)mState);
 		break;
 	}
 
@@ -247,6 +255,7 @@ bool Scene_MainMenu::UpdataProc() {
 		}
 		else {
 			mMenu = eMenu_MainMenu;
+			SoundMgr::GetInstance()->Play("MainMenu", SoundMgr::ePlayType_Loop);
 		}
 		
 	}

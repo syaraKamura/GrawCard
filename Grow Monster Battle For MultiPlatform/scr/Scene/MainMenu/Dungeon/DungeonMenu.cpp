@@ -86,6 +86,8 @@ bool DungeonMenu::Initialize() {
 
 	mTask = nullptr;
 
+	SoundMgr::GetInstance()->Stop();
+
 	//フェードイン
 	Fade::GetInstance()->FadeIn(30);
 

@@ -22,12 +22,14 @@
 enum eSoundTag {
 	eSoundTag_Title,
 	eSoundTag_Batlle_1,
+	eSoundTag_MainMenu,
 	eSoundTag_Max,
 };
 
 static const char* smSOUND_TAG_TABLE[eSoundTag_Max] = {
 	"Title",
 	"Battle_1",
+	"MainMenu",
 };
 
 ComRes* ComRes::mInstance = NULL;
@@ -49,6 +51,7 @@ ComRes::ComRes() {
 		{ eComResKind_Graphic,	"Resources/Graphics/UI/story_button.png",	graphicsTable::eGraphTag_StoryButton},
 		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0001.mp3"		,	eSoundTag_Title					},
 		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0002.mp3"		,	eSoundTag_Batlle_1				},
+		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0003.mp3"		,	eSoundTag_MainMenu				}
 	};
 
 	for (int i = 0; i < eComResName_Num; i++) {

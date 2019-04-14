@@ -675,7 +675,8 @@ bool AITest::Updata() {
 		mData->Save(*mData);
 	}
 	if (Keyboard_Press(KEY_INPUT_A)) {
-		SaveData* buffer = mData->Load();
+		SaveData* buffer = nullptr;
+		mData->Load(buffer);
 		if (buffer != NULL) {
 			mData = buffer;
 		}

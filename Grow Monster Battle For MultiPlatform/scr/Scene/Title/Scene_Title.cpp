@@ -88,10 +88,6 @@ bool Scene_Title::Initialize(){
 
 	mWork.isLoadSaveData = false;
 
-	if (AppData::GetInstance()->Exits() == true) {
-		mWork.isLoadSaveData = true;
-	}
-
 	//MonsterData_Initalize();	//初期化
 
 	//memset(&Player,0,sizeof(Player_g));		//Playerの初期化
@@ -108,6 +104,7 @@ bool Scene_Title::Initialize(){
 	//SaveData読み込み
 	if (AppData::GetInstance()->Exits() == true) {
 		mWork.isLoadSaveData = true;
+		AppData::GetInstance()->Load();
 	}
 	
 	mWork.counter = 0;

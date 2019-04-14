@@ -28,6 +28,37 @@ namespace loader {
 class MapField : public TaskBase{
 
 private:
+
+	class ReturnButton : public OnListener {
+
+		Button* mBtn;
+		MapField* mMapField;
+
+	public:
+		ReturnButton(MapField* pThis) {
+			mBtn = new Button(1920 - 240, 50, 200, 100, "戻る");
+			mBtn->SetOnListener(this);
+			mMapField = pThis;
+		}
+
+		~ReturnButton() {
+
+		}
+
+		void Update() { mBtn->Update(); }
+		void Draw() { mBtn->Draw(); }
+		void SetVisible(bool isVisible) { mBtn->SetVisible(isVisible); }
+
+		void OnClick(View* view) override {
+
+			if (view == mBtn) {
+				mMapField->RequestKill();
+			}
+
+		}
+	};
+
+private:
 	
 	enum eState {
 		eState_Wait,
@@ -48,6 +79,8 @@ private:
 	loader::TblLoader* mLoader;
 	int mStoryTask;
 	int mBatlleTask;
+
+	ReturnButton* mButton;
 
 	bool UpdateStory(int storyNo);
 	bool UpdataBattle(int battleNo);
@@ -74,7 +107,6 @@ public :
 	Map::StoryData* GetStoryData() const {
 		return mStoryData;
 	}
-
 
 
 };

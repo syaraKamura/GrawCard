@@ -16,6 +16,8 @@
 
 #include "Common/Task/TaskBase.h"
 
+class Player;
+
 class PlayerInfomation : public TaskBase {
 
 public:
@@ -36,6 +38,7 @@ private :
 	eState mNowState;
 
 	GraphicsMulti* mButtons;
+	Player* mPlayer;
 
 public :
 

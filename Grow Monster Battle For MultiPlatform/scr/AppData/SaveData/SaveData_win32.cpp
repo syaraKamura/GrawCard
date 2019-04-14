@@ -32,7 +32,7 @@ SaveData::~SaveData() {
 
 }
 
-SaveData* SaveData::Load() {
+bool SaveData::Load(SaveData* pOutData) {
 	SaveData* data = new SaveData();
 
 	const char *path = GetFilePath();
@@ -69,7 +69,7 @@ SaveData* SaveData::Load() {
 	bool isUpdate = false;
 
 	//ファイルの読み込みが成功していたら
-	if (mFile->Open("Test_%s", path) == true) {
+	if (mFile->Open(path) == true) {
 
 		int hash = 0;
 		char version[10];
@@ -240,18 +240,25 @@ SaveData* SaveData::Load() {
 
 		mFile->Close();
 	}
+	else {
+		Delete(mFile);
+		return false;
+	}
 
 	Delete(mFile);
 
 	if (isHack == true) {
-		return NULL;
+		return false;
+	}
+	else {
+
+		if (isUpdate == true) {
+			this->Save(*data);
+		}
+		pOutData = data;
 	}
 
-	if (isUpdate == true) {
-		this->Save(*data);
-	}
-
-	return data;
+	return true;
 }
 
 void SaveData::Save(SaveData save) {
@@ -283,7 +290,7 @@ void SaveData::Save(SaveData save) {
 
 	WriteBynary* mFile = new WriteBynary();
 
-	mFile->Open("Test_%s", path);
+	mFile->Open(path);
 
 	mFile->WriteInt(save.HASTH);
 	
@@ -389,7 +396,8 @@ void SaveData::Save(SaveData save) {
 	
 	mFile->Close();
 
-	Delete(mFile)
+	Delete(mFile);
+
 }
 
 /*
@@ -400,6 +408,14 @@ void SaveData::Save(SaveData save) {
 bool SaveData::Exists() {
 
 	const char *path = GetFilePath();
+
+#ifdef __ANDROID__
+	char file[1024];
+	DxLib::GetInternalDataPath(file, 1024);
+	strcatDx(file, "/");
+	strcatDx(file, path);
+	strcpyDx(path, file);
+#endif
 
 	FILE *fp;
 	fp = fopen(path, "rb");

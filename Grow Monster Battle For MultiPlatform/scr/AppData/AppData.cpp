@@ -48,10 +48,8 @@ void AppData::Load() {
 	//読み込み前の状態をバックアップ
 	SaveData* mBackupSaveData = mSaveData;
 	
-	mSaveData = mSaveData->Load();
-
 	//読み込みが失敗したら読み込み前のデータを設定
-	if (mSaveData == NULL) {
+	if (mSaveData->Load(mSaveData) == false) {
 		mSaveData = mBackupSaveData;
 	}
 

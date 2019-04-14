@@ -15,7 +15,12 @@
 #define __SAE_DATA_H__
 
 #define SAVE_HASH(S,A,V,E,N) ((S << 16) + (A << 8) + (V << 4) + (E << 2) + (N))
+#ifdef __MY_DEBUG__
+#define SAVE_DATA_PATH "Test_saveData.txt"
+#else
 #define SAVE_DATA_PATH "saveData.txt"
+#endif
+
 #define BASE_SIZE (32)
 
 #include "AppData/Character/Player/Player.h"
@@ -68,7 +73,7 @@ public :
 	SaveData();
 	~SaveData();
 
-	SaveData* Load();
+	bool Load(SaveData* pOutData);
 	void Save(SaveData save);
 	
 	/*

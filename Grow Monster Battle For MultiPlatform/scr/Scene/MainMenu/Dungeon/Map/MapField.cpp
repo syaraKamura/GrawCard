@@ -53,6 +53,8 @@ MapField::MapField() : TaskBase(){
 
 	mBatlleTask = -1;
 
+	mButton = new ReturnButton(this);
+
 }
 
 MapField::MapField(int stageNum) {
@@ -75,6 +77,9 @@ MapField::MapField(int stageNum) {
 	mStoryTask = -1;
 	mStoryData = nullptr;
 	mBatlleTask = -1;
+
+	mButton = new ReturnButton(this);
+
 }
 
 MapField::~MapField() {
@@ -88,6 +93,7 @@ MapField::~MapField() {
 	}
 	
 	Delete(mStoryData);
+	Delete(mButton);
 
 	mMapIcons.clear();
 
@@ -236,6 +242,8 @@ bool MapField::Updata(){
 		break;
 	}
 
+	mButton->Update();
+
 	return true;
 }
 
@@ -252,6 +260,8 @@ void MapField::Draw() {
 	else {
 		mMapImageHandle->SetVisible(true);
 	}
+
+	mButton->Draw();
 
 	//this->mMapImageHandle->Draw();
 

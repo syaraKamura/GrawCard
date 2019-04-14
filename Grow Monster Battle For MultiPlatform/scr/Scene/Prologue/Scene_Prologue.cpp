@@ -41,6 +41,11 @@ bool Scene_Prologue::Initialize() {
 }
 void Scene_Prologue::Finalize() {
 	this->GetTask().RequestKill(mPrologue->GetTaskId());
+
+	SaveData* save = AppData::GetInstance()->GetSaveData();
+	save->SetFlag(AppData::eAPPDATA_FLAG_DipsOpenRogue, true);
+	AppData::GetInstance()->Save();
+
 	mPrologue = NULL;
 }
 
