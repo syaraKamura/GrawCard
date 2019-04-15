@@ -16,8 +16,107 @@
 #define __DUNGEON_MENU_H__
 
 #include "Common/Task/TaskBase.h"
+#include "Common/Graphics/Button/Button.h"
+
+#include <vector>
 
 class DungeonMenu : public TaskBase {
+
+	class ReturnButton : public OnListener {
+
+		Button* mBtn;
+		DungeonMenu* mMenu;
+
+	public:
+		ReturnButton(DungeonMenu* pThis) {
+			mBtn = new Button(1920 - 240, 50, 200, 100, "戻る");
+			mBtn->SetOnListener(this);
+			mMenu = pThis;
+		}
+
+		~ReturnButton() {
+			Delete(mBtn);
+		}
+
+		void Update() { mBtn->Update(); }
+		void Draw() {
+			mBtn->Draw(); 
+		}
+		void SetVisible(bool isVisible) { mBtn->SetVisible(isVisible); }
+
+		void OnClick(View* view) override {
+
+			if (view == mBtn) {
+				mMenu->RequestKill();
+			}
+
+		}
+	};
+
+	struct ButtonData {
+		int state;
+		Button* btn;
+
+		void init(Button* btn, int state) {
+			this->btn = btn;
+			this->state = state;
+		}
+
+	};
+
+	class ButtonList : public OnListener {
+
+	private :
+
+		std::vector<ButtonData*> mList;
+		DungeonMenu* mMenu;
+
+	public:
+
+		ButtonList(DungeonMenu* pThis) {
+			mMenu = pThis;
+		}
+
+		~ButtonList() {
+			for (int i = 0; i < mList.size(); i++) {
+				Delete(mList[i]->btn);
+			}
+			mList.clear();
+		}
+
+		void Add(ButtonData* data) {
+
+			ButtonData* add = new ButtonData();
+			add->btn = data->btn;
+			add->state = data->state;
+			add->btn->SetOnListener(this);
+			mList.push_back(add);
+		}
+
+		void Update() {
+			for (int i = 0; i < mList.size(); i++) {
+				mList[i]->btn->Update();
+			}
+		}
+
+		void Draw() {
+			for (int i = 0; i < mList.size(); i++) {
+				mList[i]->btn->Draw();
+			}
+		}
+
+		void OnClick(View* view) override {
+
+			for (int i = 0; i < mList.size(); i++) {
+				const ButtonData* data = mList[i];
+				if (data->btn == view) {
+					mMenu->ChangeState((eState)data->state, eFade_Out);
+				}
+			}
+		}
+
+	};
+
 
 private:
 
@@ -80,6 +179,9 @@ private:
 
 	int mTaskId;
 	TaskBase* mTask;
+
+	ReturnButton* mRetBtn;
+	ButtonList* mSelectButton;
 
 	/*
 		ステート切り替え

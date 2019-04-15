@@ -90,7 +90,7 @@ namespace loader {
 				continue;
 			}
 			if (load->IsExist() == false) {
-				Debug::ErorrMessage("Not Exist DTL FILE.(%s)", load->GetTableData().fileData->fileName);
+				Debug::ErorrMessage("Not Exist DTL FILE.(%s)", load->GetFileName());
 			}
 			itr++;
 		}

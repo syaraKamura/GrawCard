@@ -128,7 +128,7 @@ void Button::Draw() {
 	if (mIsVisible == false) return;
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
-	if (mGraph != NULL) {
+	if (mGraph != nullptr) {
 		mAlpha = 255;
 		if (mIsPressed) {
 			mAlpha = 123;

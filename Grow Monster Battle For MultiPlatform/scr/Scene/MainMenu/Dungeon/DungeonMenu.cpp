@@ -87,6 +87,21 @@ bool DungeonMenu::Initialize() {
 	mTask = nullptr;
 
 	SoundMgr::GetInstance()->Stop();
+		
+	mRetBtn = new ReturnButton(this);
+
+	mSelectButton = new ButtonList(this);
+
+	ButtonData selectBtn[] = {
+		{(int)eState_SelectStoryMap,	new Button(  0,100,200,400,"ストリーモード")	},
+		{(int)eState_SelectQuestMap,	new Button(250,100,200,400,"クエストモード")	},
+		{(int)eState_SelectDungeonMap,	new Button(500,100,200,400,"ダンジョンモード")	},
+	};
+
+	for (int i = 0; i < ArrySize(selectBtn); i++) {
+		mSelectButton->Add(&selectBtn[i]);
+	}
+
 
 	//フェードイン
 	Fade::GetInstance()->FadeIn(30);
@@ -124,8 +139,9 @@ bool DungeonMenu::Updata() {
 #else 1
 	
 	if (mTask != nullptr) {
-		if (mTask->IsRelease()) {
+		if (mTask->IsRelease() || TaskMgr::getInstance().GetTask(mTaskId) == nullptr) {
 			mTask = nullptr;
+			mTaskId = -1;
 			ChangeState(eState_SelectMode, eFade_Out);
 		}
 		return true;
@@ -134,7 +150,7 @@ bool DungeonMenu::Updata() {
 #endif
 	switch (mState) {
 	case eState_SelectMode:
-
+		 
 #ifdef __WINDOWS__
 		if (Keyboard_Press(KEY_INPUT_DOWN)) {
 			mSelect = (mSelect + 1) % eMenu_Num;
@@ -155,7 +171,7 @@ bool DungeonMenu::Updata() {
 		}
 
 #else
-
+#if 0
 		//とりあえず自身のタスクを削除する
 		//if (Touch_Relese(0)) {
 		if (ClickInput::GetInstance()->Relese(0)) {
@@ -165,8 +181,12 @@ bool DungeonMenu::Updata() {
 			eState next = (eState)(mSelect + eState_SelectStoryMap);
 			ChangeState(next, eFade_Out);
 		}
-
 #endif
+#endif
+
+		mRetBtn->Update();
+		mSelectButton->Update();
+
 		break;
 	case eState_SelectStoryMap:
 		
@@ -221,12 +241,12 @@ bool DungeonMenu::Updata() {
 				Fade::GetInstance()->FadeIn(30);
 				GraphicsBase* graph = GraphicsDrawMgr::GetInstance()->Get(mBackImageOrder);
 				if (mNextState != eState_SelectMode) {
-					if (graph != NULL) {
+					if (graph != nullptr) {
 						graph->SetVisible(false);
 					}
 				}
 				else {
-					if (graph != NULL) {
+					if (graph != nullptr) {
 						graph->SetVisible(true);
 					}
 				}
@@ -274,6 +294,10 @@ void DungeonMenu::Draw() {
 		for (int i = 0; i < eMenu_Num; i++) {
 			DrawString(200, 100 + 60 * i, NAME_LIST[i], GetColor(255, 0, 0));
 		}
+
+		mRetBtn->Draw();
+		mSelectButton->Draw();
+
 		break;
 	case eState_SelectStoryMap:
 		DrawString(0, 300, "ストーリーマップ選択画面", GetColor(255, 255, 255));

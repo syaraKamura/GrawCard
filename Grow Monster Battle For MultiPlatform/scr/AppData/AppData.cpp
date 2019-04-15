@@ -13,7 +13,7 @@
 #include "Common/GameCommon.h"
 #include "AppData.h"
 
-AppData* AppData::mInst = NULL;
+AppData* AppData::mInst = nullptr;
 
 AppData::AppData() {
 	mSaveData = new SaveData();
@@ -24,7 +24,7 @@ AppData::~AppData() {
 }
 
 AppData* AppData::GetInstance() {
-	if (mInst == NULL) {
+	if (mInst == nullptr) {
 		Create();
 	}
 	return mInst;
@@ -32,7 +32,7 @@ AppData* AppData::GetInstance() {
 
 
 bool AppData::Exits() {
-	if (mSaveData == NULL) {
+	if (mSaveData == nullptr) {
 		Debug::ErorrMessage("mSaveData is Not Create Instance.");
 		return false;
 	}
@@ -56,9 +56,9 @@ void AppData::Load() {
 }
 
 SaveData* AppData::GetSaveData() const {
-	if (mSaveData == NULL) {
+	if (mSaveData == nullptr) {
 		Debug::ErorrMessage("mSaveData is Not Create Instance.");
-		return NULL;
+		return nullptr;
 	}
 	return mSaveData;
 }

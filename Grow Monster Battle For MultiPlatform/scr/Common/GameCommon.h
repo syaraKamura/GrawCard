@@ -46,8 +46,8 @@
 #define WINDOW_HEIGHT 1080
 
 
-#define Delete(x) {if(x != NULL){delete x;x = NULL;}}
-#define DeleteArry(x) {if(x!= NULL){delete[] x;x = NULL;}}
+#define Delete(x) {if(x != nullptr){delete x;x = nullptr;}}
+#define DeleteArry(x) {if(x!= nullptr){delete[] x;x = nullptr;}}
 #define ArrySize(x) (sizeof(x)/sizeof(x[0]))
 
 #ifdef __WINDOWS__

@@ -42,7 +42,7 @@ private:
 		}
 
 		~ReturnButton() {
-
+			Delete(mBtn);
 		}
 
 		void Update() { mBtn->Update(); }

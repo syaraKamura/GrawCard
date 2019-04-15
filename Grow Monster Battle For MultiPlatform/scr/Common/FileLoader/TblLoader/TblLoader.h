@@ -101,6 +101,7 @@ namespace loader {
 		TblData& GetTableData() const;
 		bool IsLoadEnd();
 		bool IsExist();
+		const char* GetFileName() { return mFilePath; }
 	};
 
 }

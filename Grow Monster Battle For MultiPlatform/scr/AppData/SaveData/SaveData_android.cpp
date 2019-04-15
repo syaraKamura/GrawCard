@@ -26,42 +26,216 @@ SaveData::~SaveData() {
 
 }
 
-SaveData* SaveData::Load() {
+bool SaveData::Load(SaveData* pOutData) {
+#if 1
 	SaveData* data = new SaveData();
 
 	const char* path = GetFilePath();
+	ReadBynary* mFile = new ReadBynary();
+	bool isHack = false;
+	bool isUpdate = false;
 
-	FILE *fp;
-	fp = fopen(path, "rb");
+	//ファイルの読み込みが成功していたら
+	if (mFile->Open(path) == true) {
 
-	if (fp == NULL) {
-		Debug::LogPrintf("not Found File.(%s)", path);
-		return NULL;
+		int hash = 0;
+		char version[10];
+
+		mFile->ReadInt(&hash);
+
+		if (hash != this->HASTH) {
+			isHack = true;
+		}
+
+		if (isHack == false) {
+
+			mFile->ReadString(version);
+
+			if (strcmpDx(version, this->mVersion) != 0) {
+
+				float nowVersion = atofDx(this->mVersion);
+				float oldVersion = atofDx(version);
+
+				if (nowVersion > oldVersion) {
+					isUpdate = true;
+				}
+
+			}
+
+			//PlayerCharctor
+			int level;
+			char name[256] = "";
+			int gender;
+			int exp;
+			int nextExp;
+			int cost;
+			Player* player = data->GetPlayer();
+
+			mFile->ReadInt(&level);
+			mFile->ReadString(name);
+			mFile->ReadInt(&gender);
+			mFile->ReadInt(&exp);
+			mFile->ReadInt(&nextExp);
+			mFile->ReadInt(&cost);
+
+			player->SetLevel(level);
+			player->SetName(name);
+			player->SetGender((Player::eGender)gender);
+			player->SetExp(exp);
+			player->SetNextExp(nextExp);
+			player->SetCost(cost);
+
+
+
+			//デッキ
+			for (int i = 0; i < 5; i++) {
+
+
+
+				int level;
+				char name[256] = "";
+				int type;
+				int exp;
+				int nextExp;
+				int hp;
+				int maxHp;
+				int mp;
+				int maxMp;
+				int atk;
+				int def;
+				int spd;
+				int cost;
+
+				mFile->ReadInt(&level);
+				mFile->ReadString(name);
+				mFile->ReadInt(&type);
+				mFile->ReadInt(&exp);
+				mFile->ReadInt(&nextExp);
+				mFile->ReadInt(&hp);
+				mFile->ReadInt(&maxHp);
+				mFile->ReadInt(&mp);
+				mFile->ReadInt(&maxMp);
+				mFile->ReadInt(&atk);
+				mFile->ReadInt(&def);
+				mFile->ReadInt(&spd);
+				mFile->ReadInt(&cost);
+
+				Monster* monster = new Monster();
+
+				monster->SetLevel(level);
+				monster->SetName(name);
+				monster->SetType((Monster::eType)type);
+				monster->SetExp(exp);
+				monster->SetNextExp(nextExp);
+				monster->SetHp(hp);
+				monster->SetHpMax(maxHp);
+				monster->SetMp(mp);
+				monster->SetMpMax(maxMp);
+				monster->SetAttack(atk);
+				monster->SetDeffence(def);
+				monster->SetSpeed(spd);
+				monster->SetCost(cost);
+
+				data->GetPlayer()->SetMonster(i, monster);
+			}
+
+			//モンスターボックス
+			int monsterNum = 0;
+
+			mFile->ReadInt(&monsterNum);
+
+			MonsterBox* monsterBox = data->GetMonsterBox();
+
+			for (int i = 0; i < monsterNum; i++) {
+
+				int level;
+				char name[256] = "";
+				int type;
+				int exp;
+				int nextExp;
+				int hp;
+				int maxHp;
+				int mp;
+				int maxMp;
+				int atk;
+				int def;
+				int spd;
+				int cost;
+
+				mFile->ReadInt(&level);
+				mFile->ReadString(name);
+				mFile->ReadInt(&type);
+				mFile->ReadInt(&exp);
+				mFile->ReadInt(&nextExp);
+				mFile->ReadInt(&hp);
+				mFile->ReadInt(&maxHp);
+				mFile->ReadInt(&mp);
+				mFile->ReadInt(&maxMp);
+				mFile->ReadInt(&atk);
+				mFile->ReadInt(&def);
+				mFile->ReadInt(&spd);
+				mFile->ReadInt(&cost);
+
+				Monster monster;
+
+				monster.SetLevel(level);
+				monster.SetName(name);
+				monster.SetType((Monster::eType)type);
+				monster.SetExp(exp);
+				monster.SetNextExp(nextExp);
+				monster.SetHp(hp);
+				monster.SetHpMax(maxHp);
+				monster.SetMp(mp);
+				monster.SetMpMax(maxMp);
+				monster.SetAttack(atk);
+				monster.SetDeffence(def);
+				monster.SetSpeed(spd);
+				monster.SetCost(cost);
+
+
+				monsterBox->Add(monster);
+
+			}
+		}
+
+		for (int i = 0; i < MAX_FLAGS; i++) {
+			unsigned int flag = 0;
+			mFile->ReadUInt(&flag);
+			mFlag.mFlags[i] = flag;
+		}
+
+
+		mFile->Close();
+	}
+	else {
+		Delete(mFile);
+		return false;
 	}
 
-	/*
-	ここに保存するデータを追加する
-	*/
+	Delete(mFile);
 
-	const int divSizeNum = GetAilmentSize(BASE_SIZE);
+	if (isHack == true) {
+		return false;
+	}
+	else {
 
-	//セーブデータ分のバイトのデータを一つ書き込む
-	fread(data, BASE_SIZE, divSizeNum, fp);
-
-	fclose(fp);
-
-	if (data->HASTH != HASTH && strcmpDx(data->mVersion, mVersion) != 0) {
-		Debug::LogPrintf("セーブデータが改ざんされています.", path);
-		return NULL;
+		if (isUpdate == true) {
+			this->Save(*data);
+		}
+		pOutData = data;
 	}
 
-	return data;
+	return true;
+#else
+	return true;
+#endif
 }
 
 void SaveData::Save(SaveData save) {
 
 	const char* path = GetFilePath();
 
+#if 0
 	FILE *fp;
 	fp = fopen(path, "wb");
 
@@ -81,11 +255,11 @@ void SaveData::Save(SaveData save) {
 	fwrite(&save, sizeof(save), divSizeNum,fp);
 
 	fclose(fp);
-
+#endif
 
 	WriteBynary* mFile = new WriteBynary();
 
-	mFile->Open("Test_%s",path);
+	mFile->Open(path);
 
 	mFile->WriteInt(save.HASTH);
 
@@ -144,7 +318,11 @@ void SaveData::Save(SaveData save) {
 	//デッキ
 	for (int i = 0; i < 5; i++) {
 
-		Monster monster = *save.GetPlayer()->GetMonster(i);
+		//Monster monster = *save.GetPlayer()->GetMonster(i);
+		Monster* mon = save.GetPlayer()->GetMonster(i);
+		Monster monster;
+
+		if (mon != nullptr) monster = *mon;
 
 		int level = monster.GetLevel();
 		const char* name = monster.GetName();
@@ -225,6 +403,14 @@ bool SaveData::IsFlag(int i) {
 	return (mFlag.mFlags[i] == 1);
 }
 
+bool SaveData::SetFlag(int i, bool isFlag) {
+	if (i < 0 || i >= MAX_FLAGS) {
+		Debug::ErorrMessage("フラグデータの範囲外です");
+		return 0;
+	}
+	return mFlag.mFlags[i] = isFlag ? 1 : 0;
+}
+
 /*
 	フラグデータを返却する
 	return	:	フラグデータ
@@ -246,7 +432,7 @@ bool SaveData::Exists() {
 	FILE *fp;
 	fp = fopen(path, "rb");
 
-	if (fp == NULL) {
+	if (fp == nullptr) {
 		return false;
 	}
 
