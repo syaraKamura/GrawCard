@@ -16,6 +16,8 @@
 #include "Common/FileIO/WriteBynary.h"
 #include "Common/FileIO/ReadBynary.h"
 
+using namespace monsterBox;
+
 #ifdef __ANDROID__
 
 SaveData::SaveData() {
@@ -176,21 +178,21 @@ bool SaveData::Load(SaveData* pOutData) {
 				mFile->ReadInt(&spd);
 				mFile->ReadInt(&cost);
 
-				Monster monster;
+				Monster* monster = new Monster();
 
-				monster.SetLevel(level);
-				monster.SetName(name);
-				monster.SetType((Monster::eType)type);
-				monster.SetExp(exp);
-				monster.SetNextExp(nextExp);
-				monster.SetHp(hp);
-				monster.SetHpMax(maxHp);
-				monster.SetMp(mp);
-				monster.SetMpMax(maxMp);
-				monster.SetAttack(atk);
-				monster.SetDeffence(def);
-				monster.SetSpeed(spd);
-				monster.SetCost(cost);
+				monster->SetLevel(level);
+				monster->SetName(name);
+				monster->SetType((Monster::eType)type);
+				monster->SetExp(exp);
+				monster->SetNextExp(nextExp);
+				monster->SetHp(hp);
+				monster->SetHpMax(maxHp);
+				monster->SetMp(mp);
+				monster->SetMpMax(maxMp);
+				monster->SetAttack(atk);
+				monster->SetDeffence(def);
+				monster->SetSpeed(spd);
+				monster->SetCost(cost);
 
 
 				monsterBox->Add(monster);
@@ -270,19 +272,19 @@ void SaveData::Save(SaveData save) {
 
 	for (int i = 0; i < monsterNum; i++) {
 
-		int level = save.GetMonsterBox()->GetMonster(i).GetLevel();
-		const char* name = save.GetMonsterBox()->GetMonster(i).GetName();
-		int type = (int)save.GetMonsterBox()->GetMonster(i).GetType();
-		int exp = save.GetMonsterBox()->GetMonster(i).GetExp();
-		int nextExp = save.GetMonsterBox()->GetMonster(i).GetNextExp();
-		int hp = save.GetMonsterBox()->GetMonster(i).GetHp();
-		int maxHp = save.GetMonsterBox()->GetMonster(i).GetHpMax();
-		int mp = save.GetMonsterBox()->GetMonster(i).GetMp();
-		int maxMp = save.GetMonsterBox()->GetMonster(i).GetMpMax();
-		int atk = save.GetMonsterBox()->GetMonster(i).GetAttack();
-		int def = save.GetMonsterBox()->GetMonster(i).GetDeffence();
-		int spd = save.GetMonsterBox()->GetMonster(i).GetSpeed();
-		int cost = save.GetMonsterBox()->GetMonster(i).GetCost();
+		int level = save.GetMonsterBox()->GetMonster(i)->GetLevel();
+		const char* name = save.GetMonsterBox()->GetMonster(i)->GetName();
+		int type = (int)save.GetMonsterBox()->GetMonster(i)->GetType();
+		int exp = save.GetMonsterBox()->GetMonster(i)->GetExp();
+		int nextExp = save.GetMonsterBox()->GetMonster(i)->GetNextExp();
+		int hp = save.GetMonsterBox()->GetMonster(i)->GetHp();
+		int maxHp = save.GetMonsterBox()->GetMonster(i)->GetHpMax();
+		int mp = save.GetMonsterBox()->GetMonster(i)->GetMp();
+		int maxMp = save.GetMonsterBox()->GetMonster(i)->GetMpMax();
+		int atk = save.GetMonsterBox()->GetMonster(i)->GetAttack();
+		int def = save.GetMonsterBox()->GetMonster(i)->GetDeffence();
+		int spd = save.GetMonsterBox()->GetMonster(i)->GetSpeed();
+		int cost = save.GetMonsterBox()->GetMonster(i)->GetCost();
 
 		mFile->WriteInt(level);
 		mFile->WriteString(name);

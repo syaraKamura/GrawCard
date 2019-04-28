@@ -24,14 +24,8 @@
 #include <string.h>
 #endif
 
-
-static StringClick s_mString[5] = {
-	StringClick(),
-	StringClick(),
-	StringClick(),
-	StringClick(),
-	StringClick(),
-};
+#define AUTO_BUTTON_POS_X 1600
+#define AUTO_BUTTON_POS_Y 1000
 
 static char testScript[] = {
 	"$mes 目が覚めると、木々の隙間から木漏れ日がゆらゆらとあゆみの頬を照らす。\n"
@@ -106,8 +100,9 @@ bool ScriptBase::Initialize() {
 	// ---------------------------
 	// 
 
-	s_mString[0].SetString("オート再生");
-	s_mString[0].SetColor(GetColor(0,0,0));
+	mCMDButton = new CMDButton(this);
+	mCMDButton->AddButton(eCMDButton_Auto, AUTO_BUTTON_POS_X, AUTO_BUTTON_POS_Y, "オート再生");
+	mCMDButton->AddButton(eCMDButton_Skip, AUTO_BUTTON_POS_X + 120, AUTO_BUTTON_POS_Y, "Skip");
 
 	ScriptFunc_Initialize(*this);
 
@@ -121,6 +116,7 @@ void ScriptBase::Finalize() {
 	Delete(mTalkName);
 	DeleteArry(mAdvData);
 	Delete(mBMFont);
+	Delete(mCMDButton);
 
 	this->mStringDatas.clear();
 	this->mFlagDatas.clear();
@@ -210,6 +206,8 @@ void ScriptBase::InputUpdate() {
 		}
 	}
 
+	mCMDButton->Update();
+
 #ifdef __WINDOWS__
 
 	if (mIsAutoFeed == false) {
@@ -236,7 +234,7 @@ void ScriptBase::InputUpdate() {
 	}
 
 	//自動会話送りをON/OFF
-	if (Keyboard_Press(KEY_INPUT_A) || s_mString[0].IsInSide(StringClick::eClickType_Press)) {
+	if (Keyboard_Press(KEY_INPUT_A)) {
 		mIsAutoFeed = !mIsAutoFeed;
 	}
 
@@ -246,7 +244,6 @@ void ScriptBase::InputUpdate() {
 		//if (Touch_Press(1)) {
 		if (ClickInput::GetInstance()->Press(0)) {
 			if (mStringDrawState == StringBase::eDrawState_DrawEnd) {
-				//mString->SetString("目が覚めると、木々の隙間から木漏れ日がゆらゆらとあゆみの頬を照らす。");
 				mNowLine++;
 				mIsAllDrawString = false;
 				mIsDrawNextIcon = true;
@@ -308,17 +305,9 @@ void ScriptBase::Draw() {
 		mIsDrawNextIcon = true;
 	}
 
-	s_mString[0].Draw(820, 750);
+	mCMDButton->Draw();
 
-	char msg[126];
-#ifdef __WINDOWS__
-	strcpyDx(msg, "Aボタンでオート");
-#else
-	strcpyDx(msg, "2タップでオート");
-#endif
-
-	DrawString(780, 650, msg, GetColor(255, 255, 255));
-
+	
 }
 
 void ScriptBase::SplitString(char* str,const char* delim,std::list<std::string>* list,char* context/* = NULL*/) {
@@ -331,11 +320,11 @@ void ScriptBase::SplitString(char* str,const char* delim,std::list<std::string>*
 	char* ret = strtok_r(str, delim, &contex);
 #endif
 
-	if (ret == NULL) return;
+	if (ret == nullptr) return;
 
 	list->push_back(std::string(ret));
 
-	SplitString(NULL, delim, list, contex);
+	SplitString(nullptr, delim, list, contex);
 
 }
 

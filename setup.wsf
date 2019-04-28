@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="Shift_JIS" standalone="yes" ?>
+<package>
+  <job id="environment">
+  <?job error="true" debug="true" ?>
+  <object id="objFs" progid="Scripting.FileSystemObject" />
+  <script language="VBScript">
+  <![CDATA[
+  Set WshShell=WScript.CreateObject("WScript.Shell")
+  ' 環境変数の情報を管理するWshEnvironmentオブジェクトは、WshShellオブジェクトのEnvironmentプロパティを介して取得することができる。Environmentプロパティの引数には、環境変数の種類を指定する
+  Set WshEnvironment=WshShell.Environment("User")
+  ' 設定したい環境変数の情報を示したenv.datを開き、1行単位で読み込む。env.datの中身は「環境変数名」の形式で記述されている
+  Set objTs=objFs.OpenTextFile("env.dat",1,True)
+  Do While Not objTs.AtEndOfStream
+    pathName=objTs.readLine
+    WScript.Echo "環境変数" & pathName & "を設定します"
+    strFullPath = WScript.ScriptFullName
+	Path = createObject("Scripting.FileSystemObject").GetFile(strFullPath).ParentFolder 
+    ' 環境変数名がPathである場合には、既存の値を消去しないように、既存の値の末尾にセミコロン（;）区切りで新しい値を連結する。既存の値を取得するには、ExpandEnvironmentStringsプロパティで「%環境変数名%」を指定すればよい。
+    ' 環境変数名がPath以外である場合には、そのままenv.datで設定された内容で環境変数を更新する  
+   If pathName="Path" Then
+      WshEnvironment.Item(pathName)=WshShell.ExpandEnvironmentStrings("%Path%") & ";" & Path
+   Else
+	WshEnvironment.Item(PathName)=Path
+    End If
+  Loop
+  WScript.Echo "環境変数を設定しました"
+  ]]>
+  </script>
+  </job>
+</package>

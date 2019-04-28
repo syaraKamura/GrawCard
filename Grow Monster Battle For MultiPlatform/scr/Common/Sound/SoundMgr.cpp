@@ -122,7 +122,7 @@ bool SoundMgr::Add(std::string soundId, std::string soundPath,int volume /*= 255
 */
 bool SoundMgr::Remove(std::string soundId) {
 	Sound* sound  = SarchSoundData(soundId);
-	if (sound == NULL) return false;
+	if (sound == nullptr) return false;
 	sound->Release();
 	mSoundData.erase(soundId);
 
@@ -164,7 +164,7 @@ void SoundMgr::Play(std::string soundId, ePlayType playType/* = ePlayType_BackGr
 */
 void SoundMgr::PlayOnShot(std::string soundId) {
 	Sound* sound = SarchSoundData(soundId);
-	if (sound == NULL) {
+	if (sound == nullptr) {
 		Debug::ErorrMessage("サウンドIDが見つかりませんでした.(%s)",soundId.c_str());
 		return;
 	}
@@ -178,7 +178,7 @@ void SoundMgr::PlayOnShot(std::string soundId) {
 void SoundMgr::Stop(std::string soundId) {
 	if (mIsCrossFade == true) return;
 	Sound* nowSound = SarchSoundData(soundId);
-	if (nowSound == NULL) return ;
+	if (nowSound == nullptr) return ;
 	nowSound->Stop();
 	if (soundId == mNowSoundId) {
 		mNowSoundId = "";
@@ -190,12 +190,12 @@ void SoundMgr::Stop(std::string soundId) {
 */
 void SoundMgr::Stop() {
 	Sound* nowSound = SarchSoundData(mNowSoundId);
-	if (nowSound == NULL) return;
+	if (nowSound == nullptr) return;
 	nowSound->Stop();
 	mNowSoundId = "";
 
 	Sound* nextSound = SarchSoundData(mNextSoundId);
-	if (nextSound == NULL) return;
+	if (nextSound == nullptr) return;
 	nextSound->Stop();
 	mNextSoundId = "";
 }
@@ -237,7 +237,7 @@ bool SoundMgr::Updata() {
 	Sound* nowSound = SarchSoundData(mNowSoundId);
 	Sound* nextSound = SarchSoundData(mNextSoundId);
 	
-	if (nextSound == NULL) {
+	if (nextSound == nullptr) {
 		Debug::ErorrMessage("指定されたサウンド識別IDが存在していません%s", mNowSoundId.c_str());
 		return true;
 	}
@@ -247,7 +247,7 @@ bool SoundMgr::Updata() {
 		float volumRange = (float)mCrossFadeCount / (float)mCrossFadeTime;
 
 		if (mCrossFadeCount == 0) {
-			if (nowSound != NULL) {
+			if (nowSound != nullptr) {
 				mNowSoundVolume = nowSound->GetVolume();
 			}
 			mNextSoundVolume = nextSound->GetVolume();
@@ -256,7 +256,7 @@ bool SoundMgr::Updata() {
 
 		float volume = (1.0f - volumRange) * (float)mNowSoundVolume;
 		
-		if (nowSound != NULL) {
+		if (nowSound != nullptr) {
 			nowSound->ChangeVolume(volume);
 		}
 
@@ -267,7 +267,7 @@ bool SoundMgr::Updata() {
 		if (mCrossFadeCount > mCrossFadeTime) {
 			mIsCrossFade = false;
 			
-			if (nowSound != NULL) {
+			if (nowSound != nullptr) {
 				nowSound->Stop();
 				nowSound->ChangeVolume(mNowSoundVolume);
 			}
@@ -278,12 +278,11 @@ bool SoundMgr::Updata() {
 
 	}
 	else {
-		if (nowSound != NULL) {
+		if (nowSound != nullptr) {
 			nowSound->Stop();
 		}
 		
 		nextSound->Play(PlayType(mPlayType));
-
 		mNowSoundId = mNextSoundId;
 		mNextSoundId = "";
 	}
@@ -298,7 +297,7 @@ bool SoundMgr::Updata() {
 */
 SoundMgr* SoundMgr::GetInstance() {
 
-	if (mInstance == NULL) {
+	if (mInstance == nullptr) {
 		Create();
 	}
 	return mInstance;

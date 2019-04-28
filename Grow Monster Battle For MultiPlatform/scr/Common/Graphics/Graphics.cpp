@@ -153,7 +153,9 @@ void Graphics::Draw() {
 
 	//画像データが存在していないならば処理を抜ける
 	if (mHandle <= eGraphicsResult_NONE) {
+		Debug::InfoboardOff();
 		Debug::LogPrintf("[ERORR : (FUNC %s)] Graphic is Not Exist.\nFileName(%s) \n", __func__, this->mFileName);
+		Debug::InfoboardOn();
 		return;
 	}
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);

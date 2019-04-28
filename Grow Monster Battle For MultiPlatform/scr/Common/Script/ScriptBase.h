@@ -23,6 +23,7 @@
 #include "Common/Task/TaskBase.h" 
 #include "Common/String/StringBase.h"
 #include "Common/Graphics/Graphics.h"
+#include "Common/Graphics/Button/Button.h"
 #include <vector>
 
 class ScriptAnimation;
@@ -30,7 +31,13 @@ class BMFont;
 class SaveData;
 
 namespace AdvScript {
+	
+	enum eCMDButton {
+		eCMDButton_Auto,		// オート再生
+		eCMDButton_Skip,		// スキップ
+	};
 
+	class CMDButton;
 	class ScriptBase : public TaskBase {
 
 	private:
@@ -41,6 +48,8 @@ namespace AdvScript {
 		const char* DELIM_STRINGS = " ";
 
 		const int AUTO_FEED_INTERVAL_TIME = 60 * 6;		//自動会話送り待ち時間
+
+		CMDButton* mCMDButton;
 
 	public:
 
@@ -190,9 +199,101 @@ namespace AdvScript {
 		*/
 		ADV_DATA_t& GetNowActAdvData();
 
+		/*
+			オート再生にする
+		*/
+		void SetAutoPlay() {
+			mIsAutoFeed = !mIsAutoFeed;
+		}
+		/*
+			スキップする
+		*/
+		void SetSkip() {
+			mIsEnd = true;
+		}
 
+		void SetState(eCMDButton state) {
+			switch (state) {
+			case eCMDButton_Auto:
+				SetAutoPlay();
+				break;
+			case eCMDButton_Skip:
+				SetSkip();
+				break;
+			}
+		}
 
 	};
+
+	class CMDButton : public OnListener {
+
+	public :
+
+		struct ButtonInfo {
+			eCMDButton type;
+			Button* button;
+		};
+
+	private:
+
+		std::vector<ButtonInfo> mButtonList;
+		ScriptBase* mScript;
+
+	public:
+
+		CMDButton() : mScript(nullptr) {}
+		CMDButton(ScriptBase* script): mScript( script ) {}
+
+		~CMDButton() {
+			for (int i = 0; i < mButtonList.size(); i++) {
+				Button* btn = mButtonList[i].button;
+				Delete(btn)
+			}
+			mButtonList.clear();
+		}
+
+		void Update() {
+			for (int i = 0; i < mButtonList.size(); i++) {
+				Button* btn = mButtonList[i].button;
+				btn->Update();
+			}
+		}
+
+		void Draw() {
+			for (int i = 0; i < mButtonList.size(); i++) {
+				Button* btn = mButtonList[i].button;
+				btn->Draw();
+			}
+		}
+
+		void OnClick(View *view) override {
+			
+			if (mScript == nullptr)return;
+
+			for (int i = 0; i < mButtonList.size(); i++) {
+				Button* btn = mButtonList[i].button;
+				eCMDButton type = mButtonList[i].type;
+				if (view == btn) {
+					mScript->SetState(type);
+					if (type == eCMDButton_Auto) {
+						int alpha = mScript->mIsAutoFeed ? 123 : 255;
+						btn->SetAlpha(alpha);
+					}
+				}
+			}
+		}
+
+		void AddButton(eCMDButton type,int posX,int posY,const char* text) {
+			ButtonInfo add;
+			add.type = type;
+			add.button = new Button(posX, posY, 100, 60, text);
+			add.button->SetOnListener(this);
+			mButtonList.push_back(add);
+
+		}
+
+	};
+
 
 }
 

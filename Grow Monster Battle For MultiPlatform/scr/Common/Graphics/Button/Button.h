@@ -17,6 +17,7 @@
 #include "View.h"
 class OnListener;
 class Graphics;
+class StringBase;
 
 class Button : public View {
 
@@ -30,6 +31,8 @@ private:
 	char mStr[1024];
 	Graphics* mGraph;
 	OnListener* mLinstener;
+
+	StringBase* mString;
 
 	float mAlpha;
 

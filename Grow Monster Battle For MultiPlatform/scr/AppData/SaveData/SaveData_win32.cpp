@@ -19,6 +19,8 @@
 #include "Common/FileIO/WriteBynary.h"
 #include "Common/FileIO/ReadBynary.h"
 
+using namespace monsterBox;
+
 #ifdef __WINDOWS__
 
 SaveData::SaveData() {
@@ -181,6 +183,12 @@ bool SaveData::Load(SaveData* pOutData) {
 
 			for (int i = 0; i < monsterNum; i++) {
 
+				int boxId;
+				int deckNo;
+				int deckIndex;
+				int useState;
+
+				int id;
 				int level;
 				char name[256] = "";
 				int type;
@@ -195,6 +203,12 @@ bool SaveData::Load(SaveData* pOutData) {
 				int spd;
 				int cost;
 
+				mFile->ReadInt(&boxId);
+				mFile->ReadInt(&deckNo);
+				mFile->ReadInt(&deckIndex);
+				mFile->ReadInt(&useState);
+
+				mFile->ReadInt(&id);
 				mFile->ReadInt(&level);
 				mFile->ReadString(name);
 				mFile->ReadInt(&type);
@@ -209,24 +223,33 @@ bool SaveData::Load(SaveData* pOutData) {
 				mFile->ReadInt(&spd);
 				mFile->ReadInt(&cost);
 
-				Monster monster;
+				Monster* monster = new Monster();
 
-				monster.SetLevel(level);
-				monster.SetName(name);
-				monster.SetType((Monster::eType)type);
-				monster.SetExp(exp);
-				monster.SetNextExp(nextExp);
-				monster.SetHp(hp);
-				monster.SetHpMax(maxHp);
-				monster.SetMp(mp);
-				monster.SetMpMax(maxMp);
-				monster.SetAttack(atk);
-				monster.SetDeffence(def);
-				monster.SetSpeed(spd);
-				monster.SetCost(cost);
+				monster->SetId(id);
+				monster->SetLevel(level);
+				monster->SetName(name);
+				monster->SetType((Monster::eType)type);
+				monster->SetExp(exp);
+				monster->SetNextExp(nextExp);
+				monster->SetHp(hp);
+				monster->SetHpMax(maxHp);
+				monster->SetMp(mp);
+				monster->SetMpMax(maxMp);
+				monster->SetAttack(atk);
+				monster->SetDeffence(def);
+				monster->SetSpeed(spd);
+				monster->SetCost(cost);
 
+				Monster_t data;
+				data.id = boxId;
+				data.deckNo = deckNo;
+				data.deckIndex = deckIndex;
+				data.useState = (eUseState)useState;
 
-				monsterBox->Add(monster);
+				data.monster = monster;
+				monsterBox->SetMonsterInfo(i,data);
+
+				//monsterBox->Add(monster);
 
 			}
 		}
@@ -319,22 +342,23 @@ void SaveData::Save(SaveData save) {
 		//Monster monster = *save.GetPlayer()->GetMonster(i);
 		Monster* mon = player.GetMonster(i);
 		
-		Monster monster;
-		if (mon != NULL) monster = *mon;
+		if (mon == nullptr) {
+			mon = new Monster();
+		}
 
-		int level = monster.GetLevel();
-		const char* name = monster.GetName();
-		int type = (int)monster.GetType();
-		int exp = monster.GetExp();
-		int nextExp = monster.GetNextExp();
-		int hp = monster.GetHp();
-		int maxHp = monster.GetHpMax();
-		int mp = monster.GetMp();
-		int maxMp = monster.GetMpMax();
-		int atk = monster.GetAttack();
-		int def = monster.GetDeffence();
-		int spd = monster.GetSpeed();
-		int cost = monster.GetCost();
+		int level = mon->GetLevel();
+		const char* name = mon->GetName();
+		int type = (int)mon->GetType();
+		int exp = mon->GetExp();
+		int nextExp = mon->GetNextExp();
+		int hp = mon->GetHp();
+		int maxHp = mon->GetHpMax();
+		int mp = mon->GetMp();
+		int maxMp = mon->GetMpMax();
+		int atk = mon->GetAttack();
+		int def = mon->GetDeffence();
+		int spd = mon->GetSpeed();
+		int cost = mon->GetCost();
 
 		mFile->WriteInt(level);
 		mFile->WriteString(name);
@@ -353,26 +377,62 @@ void SaveData::Save(SaveData save) {
 	}
 
 	//モンスターボックス
-	int monsterNum = save.GetMonsterBox()->Count();
+	int monsterNum = save.GetMonsterBox()->GetSize();
 
 	mFile->WriteInt(monsterNum);
 
 	for (int i = 0; i < monsterNum; i++) {
 
-		int level = save.GetMonsterBox()->GetMonster(i).GetLevel();
-		const char* name = save.GetMonsterBox()->GetMonster(i).GetName();
-		int type = (int)save.GetMonsterBox()->GetMonster(i).GetType();
-		int exp = save.GetMonsterBox()->GetMonster(i).GetExp();
-		int nextExp = save.GetMonsterBox()->GetMonster(i).GetNextExp();
-		int hp = save.GetMonsterBox()->GetMonster(i).GetHp();
-		int maxHp = save.GetMonsterBox()->GetMonster(i).GetHpMax();
-		int mp = save.GetMonsterBox()->GetMonster(i).GetMp();
-		int maxMp = save.GetMonsterBox()->GetMonster(i).GetMpMax();
-		int atk = save.GetMonsterBox()->GetMonster(i).GetAttack();
-		int def = save.GetMonsterBox()->GetMonster(i).GetDeffence();
-		int spd = save.GetMonsterBox()->GetMonster(i).GetSpeed();
-		int cost = save.GetMonsterBox()->GetMonster(i).GetCost();
+		Monster_t data = save.GetMonsterBox()->GetMonsterInfo(i);
+		Monster* mon = data.monster;
+		int boxId = data.id;
+		int deckNo = data.deckNo;
+		int deckIndex = data.deckIndex;
+		int useState = data.useState;
 
+
+		int id = -1;
+		int level = 0;
+		const char* name = "";
+		int type = 0;
+		int exp = 0;
+		int nextExp = 0;
+		int hp = 0;
+		int maxHp = 0;
+		int mp = 0;
+		int maxMp = 0;
+		int atk = 0;
+		int def = 0;
+		int spd = 0;
+		int cost = 0;
+
+		if (mon != nullptr) {
+
+			id = mon->GetId();
+			level = mon->GetLevel();
+			name = mon->GetName();
+			type = (int)mon->GetType();
+			exp = mon->GetExp();
+			nextExp = mon->GetNextExp();
+			hp = mon->GetHp();
+			maxHp = mon->GetHpMax();
+			mp = mon->GetMp();
+			maxMp = mon->GetMpMax();
+			atk = mon->GetAttack();
+			def = mon->GetDeffence();
+			spd = mon->GetSpeed();
+			cost = mon->GetCost();
+
+		}
+
+		//ボックス内情報
+		mFile->WriteInt(boxId);
+		mFile->WriteInt(deckNo);
+		mFile->WriteInt(deckIndex);
+		mFile->WriteInt(useState);
+
+		//モンスターデータ
+		mFile->WriteInt(id);
 		mFile->WriteInt(level);
 		mFile->WriteString(name);
 		mFile->WriteInt(type);

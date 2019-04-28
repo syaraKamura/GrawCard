@@ -375,7 +375,9 @@ void Scene_MainMenu::OnClick(View* viewe) {
 		mNextMenu = eMenu_Quest;
 	}
 	else if (viewe == mButtons[Scene_MainMenu::eButton_MonsterBox]) {
+#ifdef __MY_DEBUG__
 		mNextScene->SceneChange(ISceneBase::eScene_TestADV);
+#endif //__MY_DEBUG__
 	}
 	else if (viewe == mButtons[Scene_MainMenu::eButton_Player]) {
 		mNextMenu = eMenu_PlayerStatus;

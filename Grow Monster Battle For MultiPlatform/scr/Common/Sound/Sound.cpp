@@ -24,6 +24,18 @@ int Sound::LoadResource(std::string fileName) {
 #endif // __WINDOWS__
 #endif // __MY_DEBUG__
 
+
+#if 0
+	int handle = DxLib::FileRead_open(fileName.c_str());
+
+	if (handle == 0) {
+		Debug::LogPrintf("Not Exist Graphics File.(%s)\n");
+		return Sound::eResult_Error;
+	}
+
+	DxLib::FileRead_close(handle);
+#endif
+
 	return DxLib::LoadSoundMem(mFilePath);
 }
 
@@ -43,10 +55,10 @@ Sound::~Sound() {
 
 bool Sound::Load(const char* filePath, int volume/* = 255*/) {
 
-	if (LoadASync(filePath)) {
-		mHandle = Get(filePath);
+	if (LoadASync(filePath, &mHandle) == false) {
+		return false;
 	}
-
+	
 	if (mHandle == Sound::eResult_Error) {
 		Debug::ErorrMessage("サウンドデータの読み込みに失敗しました.\n(%s)",mFilePath);
 		return false;
@@ -65,7 +77,11 @@ void Sound::Release() {
 
 void Sound::Play(ePlayType playType) {
 
-	if (mHandle <= Sound::eResult_None) return;
+	if (mHandle == Sound::eResult_Error) return;
+	if (mHandle == Sound::eResult_None) {
+		mHandle = Get(mFilePath);
+	}
+	
 
 	unsigned int type = 0;
 	switch (playType) {
@@ -78,6 +94,7 @@ void Sound::Play(ePlayType playType) {
 	}
 
 	PlaySoundMem(mHandle, type);
+	Debug::LogPrintf("%sを再生\n", mFilePath );
 
 }
 

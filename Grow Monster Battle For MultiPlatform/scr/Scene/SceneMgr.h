@@ -32,6 +32,8 @@ private:
 	ISceneBase::eScene mNowScene;	//今のシーン
 	ISceneBase::eScene mNextScene;	//次のシーン
 
+	int mLoadingPosX;
+
 private:
 
 	//シーン切り替えプロセス

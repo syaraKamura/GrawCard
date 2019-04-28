@@ -45,6 +45,8 @@ SceneMgr::SceneMgr(){
 	memset(m_DbgNowSceneName, 0, sizeof(char) * 126);
 #endif	//__MY_DEBUG__
 
+	mLoadingPosX = 0;
+
 }
 
 #ifdef __MY_DEBUG__
@@ -55,6 +57,7 @@ SceneMgr::SceneMgr(Debug* debug){
 	mScene = (SceneBase*) new Scene_Boot(this);	//ブートシーンを設定
 	mDebug = debug;
 	memset(m_DbgNowSceneName, 0, sizeof(char) * 126);
+	mLoadingPosX = 0;
 }	
 
 #endif
@@ -180,6 +183,8 @@ bool SceneMgr::SceneChangeProc(){
 
 		mNextScene = ISceneBase::eScene_None;
 		
+		mLoadingPosX = 0;
+
 		if(mScene != NULL){	
 			mIsLoadEnd = mScene->Initialize();
 			if (mIsLoadEnd == false) {
@@ -198,7 +203,13 @@ bool SceneMgr::SceneChangeProc(){
 }
 
 void SceneMgr::SceneChangeDraw(){
-	DrawString(0,0,"Now Loading...",GetColor(255,255,255));
+
+	mLoadingPosX += 8;
+	if (WINDOW_WIDTH <= mLoadingPosX) {
+		mLoadingPosX = 0;
+	}
+
+	DrawString(mLoadingPosX,0,"Now Loading...",GetColor(255,255,255));
 }
 
 

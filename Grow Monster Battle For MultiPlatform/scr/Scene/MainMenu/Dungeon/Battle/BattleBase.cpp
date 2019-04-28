@@ -292,7 +292,7 @@ bool BattleBase::Initialize() {
 	nowPlaySkillEffect = nullptr;
 
 #ifndef __MY_DEBUG__
-	SaveData* save = AppData::GetInstance().GetSaveData();
+	SaveData* save = AppData::GetInstance()->GetSaveData();
 
 	if (!save->Exists()) {
 		Debug::ErorrMessage("セーブデータが存在していません.");

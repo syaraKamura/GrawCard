@@ -69,6 +69,7 @@ private:
 
 	bool mIsActive;	//デバッグ機能起動フラグ
 	bool mIsAssert;	//アサートがおきたかフラグ
+	static bool mIsVisibleInfoBard;
 
 	size_t mOldAllocSize;
 	int mOldAllocNum;
@@ -111,6 +112,12 @@ public :
 	static void LogPrintf(const char* str, ...);
 	static void ErorrMessage(const TCHAR* str, ...);
 	
+	static void InfoboardOff() {
+		mIsVisibleInfoBard = false;
+	}
+	static void InfoboardOn() {
+		mIsVisibleInfoBard = true;
+	}
 };
 
 

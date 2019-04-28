@@ -53,6 +53,7 @@ public :
 		eComResname_CommonBGM,			// 汎用BGM
 		eComResname_CommonBGM2,			// 汎用BGM2
 		eComResname_CommonBGM3,			// 汎用BGM3
+		eComResName_PlayerStatusBar,	// プレイヤーステータスバー
 		//eComResName_Monster_00001,			//モンスターカード
 		//eComResName_Monster_00002,			//モンスターカード
 		//eComResName_Monster_00003,			//モンスターカード

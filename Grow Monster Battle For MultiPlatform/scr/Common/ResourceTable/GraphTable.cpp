@@ -17,12 +17,13 @@ namespace graphicsTable {
 
 
 	const char* mGRAPH_TAG_TABLE[eGraphTag_Max] = {
-		"tag_MainMenuBG",	// eGraphTag_MainMenuBG
-		"tag_CommonBG",		// eGraphTag_CommonBG
-		"tag_MsgBox",		// eGraphTag_MsgBox
-		"tag_BMFont",		// eGraphTag_BMFont
-		"tag_MapIcon",		// eGraphTag_MapIcon
-		"tag_StoryButton",	// eGraphTag_StoryButton
+		"tag_MainMenuBG",		// eGraphTag_MainMenuBG
+		"tag_CommonBG",			// eGraphTag_CommonBG
+		"tag_MsgBox",			// eGraphTag_MsgBox
+		"tag_BMFont",			// eGraphTag_BMFont
+		"tag_MapIcon",			// eGraphTag_MapIcon
+		"tag_StoryButton",		// eGraphTag_StoryButton
+		"tag_PlayerStatusBar",	// eGraphTag_PlayerStatusBar
 	};
 
 	/*

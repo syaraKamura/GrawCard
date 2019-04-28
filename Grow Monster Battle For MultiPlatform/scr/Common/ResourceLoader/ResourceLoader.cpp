@@ -35,7 +35,7 @@ void ResourceLoader::DestoryResource(int handle) {
 
 非同期読み読み込み
 */
-bool ResourceLoader::LoadASync(std::string fileName) {
+bool ResourceLoader::LoadASync(std::string fileName,int* pOutHandle) {
 
 	int handle = -1;
 	SetUseASyncLoadFlag(TRUE);
@@ -46,6 +46,9 @@ bool ResourceLoader::LoadASync(std::string fileName) {
 
 
 	if (handle == -1)	return false;
+	if (pOutHandle != nullptr) {
+		*pOutHandle = handle;
+	}
 	
 	mResourceList.insert(std::make_pair(fileName,handle));
 	

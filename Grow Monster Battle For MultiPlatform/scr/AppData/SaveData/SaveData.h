@@ -50,7 +50,7 @@ private:
 	Player mPlayer;
 
 	//モンスターボックスデータ
-	MonsterBox mMonsterBox;
+	monsterBox::MonsterBox mMonsterBox;
 
 	FLAG_DATA_t mFlag;
 
@@ -81,7 +81,7 @@ public :
 	*/
 	bool Exists();
 
-	MonsterBox* GetMonsterBox();
+	monsterBox::MonsterBox* GetMonsterBox();
 	Player* GetPlayer();
 
 	unsigned int GetFlag(int i);

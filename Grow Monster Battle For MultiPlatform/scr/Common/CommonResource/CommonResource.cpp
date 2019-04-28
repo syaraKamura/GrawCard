@@ -32,7 +32,7 @@ static const char* smSOUND_TAG_TABLE[eSoundTag_Max] = {
 	"MainMenu",
 };
 
-ComRes* ComRes::mInstance = NULL;
+ComRes* ComRes::mInstance = nullptr;
 
 #ifdef __MY_DEBUG__
 static int mStartTime;
@@ -49,9 +49,16 @@ ComRes::ComRes() {
 		{ eComResKind_Graphic,  "Resources/Data/Font/MS_Gothic_0.png"	,	graphicsTable::eGraphTag_BMFont		},
 		{ eComResKind_Graphic,	"Resources/Graphics/Map/MapIcon.png"	,	graphicsTable::eGraphTag_MapIcon	},
 		{ eComResKind_Graphic,	"Resources/Graphics/UI/story_button.png",	graphicsTable::eGraphTag_StoryButton},
+		{ eComResKind_Graphic,	"Resources/Graphics/UI/PlayerBar.png"	,	graphicsTable::eGraphTag_PlayerStatusBar,			},
+#ifdef __WINDOWS__
 		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0001.mp3"		,	eSoundTag_Title					},
 		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0002.mp3"		,	eSoundTag_Batlle_1				},
 		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0003.mp3"		,	eSoundTag_MainMenu				}
+#else
+		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0001.ogg"		,	eSoundTag_Title					},
+		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0002.ogg"		,	eSoundTag_Batlle_1				},
+		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0003.ogg"		,	eSoundTag_MainMenu				}
+#endif	//__WINDOWS__
 	};
 
 	for (int i = 0; i < eComResName_Num; i++) {
@@ -111,6 +118,10 @@ bool ComRes::Load() {
 			if (mComRes[i].kind != eComResKind_Graphic) continue;
 			mComRes[i].Graphic = new Graphics();
 			const char* tag = graphicsTable::GetGraphTag(mComRes[i].tagNum);
+			if (tag == nullptr) {
+				Debug::ErorrMessage("タグが設定されていません.(%s)",mComRes[i].fileName);
+				continue;
+			}
 			graphics::LoadGraphics::GetInstance()->Load(mComRes[i].fileName, tag);
 			//if (mComRes[i].Graphic->Load(mComRes[i].fileName) == false) {
 			//	Debug::LogPrintf("画像の読み込みに失敗しました.(%s)", mComRes[i].fileName);

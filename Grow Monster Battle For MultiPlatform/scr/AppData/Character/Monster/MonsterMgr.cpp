@@ -20,7 +20,7 @@
 //#define MONSTER_DATA_PATH "Resources/Data/Monster/MonsterData.dat"
 #define MONSTER_DATA_PATH "Resources/Data/Table/MonsterData/MonsterData.dtl"
 
-#ifdef __MY_DEBUG__
+//#ifdef __MY_DEBUG__
 
 #define SIZE(X) (sizeof(X)/sizeof(X[0]))
 #define __TEST_DATA__	//テストデータ読み込み用
@@ -103,7 +103,7 @@ static MonsterGraphData_t MONSTER_GRAPH_DATA_TBL[] =
 	{ 21,"Resources/Graphics/Monster/mon_00022.png" },
 };
 
-#endif
+//#endif
 
 MonsterMgr* MonsterMgr::mInstance = NULL;
 

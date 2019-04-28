@@ -14,6 +14,8 @@
 #include "Common/GameCommon.h"
 #include "Common/System/OnListener.h"
 #include "Common/ResourceTable/GraphTable.h"
+#include "Common/String/StringBase.h"
+#include "Common/String/FontMgr/BMFont.h"
 #include "Button.h"
 
 
@@ -33,6 +35,12 @@ Button::Button(int posX, int posY, int width, int height, const char* str) : mLi
 	mIsPressed = false;
 	mIsVisible = true;
 
+	
+	mString = new StringBase();
+	mString->FontCreate("ＭＳ ゴシック",16,1,DX_FONTTYPE_NORMAL,GetColor(0,0,0));
+	mString->SetString(str);
+	mString->SetColor(GetColor(0, 0, 0));
+
 	mAlpha = 255.0f;
 
 }
@@ -43,6 +51,7 @@ Button::Button(const char* fileName, int posX, int posY, const char* str) : mLin
 	mGraph->Load(fileName);
 
 	mGraph->GetSize(&mWidth, &mHeight);
+	mGraph->SetPosition(posX, posY);
 
 	mPosX = posX;
 	mPosY = posY;
@@ -55,6 +64,11 @@ Button::Button(const char* fileName, int posX, int posY, const char* str) : mLin
 
 	mIsPressed = false;
 	mIsVisible = true;
+
+	mString = new StringBase();
+	mString->FontCreate("ＭＳ ゴシック", 16, 1, DX_FONTTYPE_NORMAL, GetColor(0, 0, 0));
+	mString->SetString(str);
+	mString->SetColor(GetColor(0, 0, 0));
 
 	mAlpha = 255.0f;
 
@@ -67,9 +81,10 @@ Button::Button(int graphicsTag, int posX, int posY, const char* str) : mLinstene
 	mGraph->Initialize(graphicsTable::GetGraphTag(graphicsTag));
 
 	mGraph->GetSize(&mWidth, &mHeight);
-
+	mGraph->SetPosition(posX, posY);
 	mPosX = posX;
 	mPosY = posY;
+
 
 #ifdef __WINDOWS__
 	strcpy_s(mStr, str);
@@ -79,6 +94,11 @@ Button::Button(int graphicsTag, int posX, int posY, const char* str) : mLinstene
 
 	mIsPressed = false;
 	mIsVisible = true;
+
+	mString = new StringBase();
+	mString->FontCreate("ＭＳ ゴシック", 16, 1, DX_FONTTYPE_NORMAL, GetColor(0, 0, 0));
+	mString->SetString(str);
+	mString->SetColor(GetColor(0,0,0));
 
 	mAlpha = 255.0f;
 
@@ -91,6 +111,8 @@ Button::~Button() {
 		Delete(mGraph);
 	}
 	
+	Delete(mString);
+
 }
 
 bool Button::Update() {
@@ -161,7 +183,8 @@ void Button::Draw() {
 	int strY = mPosY + mHeight / 2 - GetFontSize() / 2;
 
 	// 文字列描画
-	DrawString(strX, strY, mStr, GetColor(0, 0, 0));
+	//DrawString(strX, strY, mStr, GetColor(0, 0, 0));
+	mString->DrawString(strX,strY,(int)mAlpha);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 

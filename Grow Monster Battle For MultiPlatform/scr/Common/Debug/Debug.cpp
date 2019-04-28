@@ -51,6 +51,7 @@ struct INFOBOARD_DATA {
 
 Debug::DEBUG_LOG_t Debug::mDebugStrings[DEBUG_LOG_NUM] = {};
 int Debug::mDebugLogCnt = 0;
+bool Debug::mIsVisibleInfoBard = true;
 
 int mInfobardPosY = 0;
 
@@ -274,8 +275,9 @@ void Debug::LogPrintf(const char* str, ...) {
 	LOGI(buffer);
 
 #endif	// __WINDOWS__
-
-	InfoBard_SetString(buffer, eDEBUG_PRINT_TYPE_None);
+	if (mIsVisibleInfoBard == true) {
+		InfoBard_SetString(buffer, eDEBUG_PRINT_TYPE_None);
+	}
 
 #endif //__MY_DEBUG__
 }
@@ -306,7 +308,9 @@ void Debug::ErorrMessage(const TCHAR* str,...) {
 	
 
 #endif
-	InfoBard_SetString(buffer, eDEBUG_PRINT_TYPE_Error);
+	if (mIsVisibleInfoBard == true) {
+		InfoBard_SetString(buffer, eDEBUG_PRINT_TYPE_Error);
+	}
 #endif
 
 }

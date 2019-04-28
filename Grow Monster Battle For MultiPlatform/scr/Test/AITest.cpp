@@ -450,8 +450,8 @@ bool AITest::Initialize(){
 	Enemy_Initialize();
 	
 	
-	mData->GetMonsterBox()->Add(* new Monster());
-	mData->GetMonsterBox()->ChangeUseState(0, MonsterBox::eUseState_UnUse);
+	mData->GetMonsterBox()->Add(new Monster());
+	mData->GetMonsterBox()->ChangeUseState(0, monsterBox::eUseState_UnUse);
 
 	//XMLの書き込み、書き出し
 #if true
@@ -683,21 +683,21 @@ bool AITest::Updata() {
 	}
 	if (Keyboard_Press(KEY_INPUT_Q)) {
 		static int num = 0;
-		Monster mon;
-		mon.SetName("テスト");
-		mon.SetLevel(++num);
+		Monster* mon = new Monster();
+		mon->SetName("テスト");
+		mon->SetLevel(++num);
 		mData->GetMonsterBox()->Add(mon);
 	}
 
 	if (Keyboard_Press(KEY_INPUT_W)) {
 		static int num = 0;
-		MonsterBox* monBox = mData->GetMonsterBox();
-		if (monBox->UseState(0) == MonsterBox::eUseState_UnUse) {
-			monBox->ChangeUseState(0, MonsterBox::eUseState_Use);
-			Monster mon = monBox->GetMonster(0);
+		monsterBox::MonsterBox* monBox = mData->GetMonsterBox();
+		if (monBox->UseState(0) == monsterBox::eUseState_UnUse) {
+			monBox->ChangeUseState(0, monsterBox::eUseState_Use);
+			Monster* mon = monBox->GetMonster(0);
 			
 			Player* player = mData->GetPlayer();
-			player->SetMonster(0, &mon);
+			player->SetMonster(0, mon);
 
 		}
 	}

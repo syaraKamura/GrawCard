@@ -14,11 +14,61 @@
 #ifndef __PLAYER_INFOMATION_H__
 #define __PLAYER_INFOMATION_H__
 
+#include <vector>
 #include "Common/Task/TaskBase.h"
+#include "Common/Graphics/Button/Button.h"
 
+
+class Button;
 class Player;
 
 class PlayerInfomation : public TaskBase {
+
+public :
+
+	class CMDButton : public OnListener {
+
+	private :
+
+		std::vector<Button*> mList;
+		PlayerInfomation* mPlayerInfo;
+	public :
+		CMDButton():mPlayerInfo(nullptr){}
+		CMDButton(PlayerInfomation* pThis):mPlayerInfo(pThis){}
+		
+		~CMDButton() {
+			for (int i = 0; i < mList.size(); i++) {
+				Delete(mList[i]);
+			}
+			mList.clear();
+		}
+
+		void Updata() {
+			for (int i = 0; i < mList.size(); i++) {
+				mList[i]->Update();
+			}
+		}
+		void Draw() {
+			for (int i = 0; i < mList.size(); i++) {
+				mList[i]->Draw();
+			}
+		}
+
+		void AddButton(const char* filePath, int posX, int posY, const char* text) {
+			Button* add = new Button(filePath, posX, posY, text);
+			add->SetOnListener(this);
+			mList.push_back(add);
+		}
+
+		void OnClick(View* view) override {
+			for (int i = 0; i < mList.size(); i++) {
+				if (view == mList[i]) {
+					mPlayerInfo->Exit();
+				}
+			}
+		}
+
+	};
 
 public:
 
@@ -39,6 +89,8 @@ private :
 
 	GraphicsMulti* mButtons;
 	Player* mPlayer;
+	Graphics* mGraph;
+	CMDButton* mCMD;
 
 public :
 
@@ -65,6 +117,9 @@ public :
 	//終了処理
 	void Finalize() override;
 
+	void Exit() {
+		mNowState = PlayerInfomation::eState_Exit;
+	}
 
 };
 

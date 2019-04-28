@@ -20,6 +20,11 @@
 #include "PlayerInfomation.h"
 
 
+#define PLAYER_STATUS_BAR_POS_X 100
+#define PLAYER_STATUS_BAR_POS_Y 60
+#define BASE_BUTTON_POS_X 1000
+#define BASE_BUTTON_POS_Y 900
+
 PlayerInfomation::PlayerInfomation() :TaskBase() {
 
 }
@@ -35,18 +40,26 @@ bool PlayerInfomation::Initialize() {
 	add->SetPosition(0, 0);
 	mOrderBackGraph = GraphicsDrawMgr::GetInstance()->Add(add, 1);
 
+	mCMD = new CMDButton(this);
+
+	mCMD->AddButton("Resources/Graphics/UI/button/button-kaiihuku1.png", BASE_BUTTON_POS_X, BASE_BUTTON_POS_Y, "");
+	mCMD->AddButton("Resources/Graphics/UI/button/button-oubu1.png", BASE_BUTTON_POS_X + 250, BASE_BUTTON_POS_Y, "");
+	mCMD->AddButton("Resources/Graphics/UI/button/button-growcrystal.png", BASE_BUTTON_POS_X + 500, BASE_BUTTON_POS_Y, "");
+
+	//mButtons = new GraphicsMulti();
+	//mButtons->Load("Resources/Graphics/UI/button/button-kaiihuku1.png", BASE_BUTTON_POS_X, BASE_BUTTON_POS_Y);
+	//mButtons->Load("Resources/Graphics/UI/button/button-oubu1.png", BASE_BUTTON_POS_X + 250, BASE_BUTTON_POS_Y);
+	//mButtons->Load("Resources/Graphics/UI/button/button-growcrystal.png", BASE_BUTTON_POS_X + 450, BASE_BUTTON_POS_Y);
+	//GraphicsDrawMgr::GetInstance()->Add(mButtons,1);
 
 
-	mButtons = new GraphicsMulti();
-	mButtons->Load("Resources/Graphics/UI/button/button-kaiihuku1.png", 500, 300);
-	mButtons->Load("Resources/Graphics/UI/button/button-oubu1.png", 750, 300);
-	mButtons->Load("Resources/Graphics/UI/button/button-growcrystal.png", 1000, 300);
-	GraphicsDrawMgr::GetInstance()->Add(mButtons,1);
+	mGraph = new Graphics();
+	mGraph->Initialize(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_PlayerStatusBar));
+	mGraph->SetPosition(PLAYER_STATUS_BAR_POS_X, PLAYER_STATUS_BAR_POS_Y);
 
 
 	mPlayer = AppData::GetInstance()->GetSaveData()->GetPlayer();
-
-
+	
 	//フェードイン
 	Fade::GetInstance()->FadeIn(30);
 
@@ -70,20 +83,25 @@ void PlayerInfomation::InputUpdate() {
 		mNowState = PlayerInfomation::eState_Exit;
 	}
 #endif // __WINDOWS__
-
+#if  0
 	if (StringClick::IsInSide(StringClick::eClickType_Relese)) {
 		mNowState = PlayerInfomation::eState_Exit;
 	}
-
+#endif
 
 }
 
 //更新処理
 bool PlayerInfomation::Updata() {
 
+	if (Fade::GetInstance()->IsFadeEnd() == false) { 
+		return true; 
+	}
 	
 	switch (mNowState) {
 	case PlayerInfomation::eState_Select:
+
+		mCMD->Updata();
 
 		break;
 	case PlayerInfomation::eState_Exit:
@@ -96,6 +114,8 @@ bool PlayerInfomation::Updata() {
 		}
 		break;
 	}
+	
+	
 
 	return true;
 }
@@ -107,10 +127,14 @@ void PlayerInfomation::Draw() {
 
 	StringClick::Draw(0, 40);
 
-	DrawFormatString(0, 100, GetColor(255, 255, 255), "Name: %s", mPlayer->GetName());
-	DrawFormatString(0, 120, GetColor(255, 255, 255), "Level: %d", mPlayer->GetLevel());
-	DrawFormatString(0, 140, GetColor(255, 255, 255), "Exp: %d/%d", mPlayer->GetExp(), mPlayer->GetNextExp());
-	DrawFormatString(0, 160, GetColor(255, 255, 255), "Cost: %d", mPlayer->GetCost());
+	mGraph->Draw();
+	
+	DrawFormatString(PLAYER_STATUS_BAR_POS_X + 100, PLAYER_STATUS_BAR_POS_Y + 60, GetColor(0, 0, 0), "%s", mPlayer->GetName());								//名前
+	DrawFormatString(PLAYER_STATUS_BAR_POS_X + 280, PLAYER_STATUS_BAR_POS_Y + 60, GetColor(0, 0, 0), "%d", mPlayer->GetLevel());							//レベル
+	DrawFormatString(PLAYER_STATUS_BAR_POS_X + 390, PLAYER_STATUS_BAR_POS_Y + 60, GetColor(0, 0, 0), "%d", mPlayer->GetCost());								//コスト
+	DrawFormatString(PLAYER_STATUS_BAR_POS_X + 300, PLAYER_STATUS_BAR_POS_Y + 100, GetColor(0, 0, 0), "%d/%d", mPlayer->GetExp(), mPlayer->GetNextExp());	//経験値
+
+	mCMD->Draw();
 
 }
 
@@ -123,8 +147,8 @@ void PlayerInfomation::PostUpdate() {
 void PlayerInfomation::Finalize() {
 
 	GraphicsDrawMgr::GetInstance()->Remove(mOrderBackGraph);
-	mButtons->ReleseRequest();
-
+	//mButtons->ReleseRequest();
+	Delete(mCMD);
 }
 
 

@@ -17,86 +17,95 @@
 
 #include "Monster.h"
 
+namespace monsterBox {
 
-class MonsterBox {
-
-private:
-
-	static const int MONSTER_MAX = 1000;
-
-
-public:
-	
 	enum eUseState {
 		eUseState_None = -1,	//エラー
 		eUseState_UnUse,		//使用していない
 		eUseState_Use,			//使用中
 	};
 
-private:
-
 	typedef struct {
 		int id;
-		Monster monster;
+		int deckNo;			// デッキ番号
+		int deckIndex;		// デッキ配置番号
+		Monster* monster;
 		eUseState useState;
 	}Monster_t;
 
 
-private:
+	class MonsterBox {
 
-	//std::list<Monster_t> mList;
+	private:
 
-	Monster_t mMonsterData[MONSTER_MAX];
-	int mMonsterCount;
-	int mIndex;
+		static const int MONSTER_MAX = 1000;
 
-private:
+	private:
 
-	bool Exits();
+		//std::list<Monster_t> mList;
 
-public :
+		Monster_t mMonsterData[MONSTER_MAX];
+		int mMonsterCount;
+		int mIndex;
 
-	MonsterBox();
-	~MonsterBox();
+	private:
 
-	bool Add(Monster monster);
-	void Relese(int idx);
-	void AllDelete();
+		bool Exits();
 
-	int Count();
-	/*
-		次のモンスターの情報を返却する
+	public:
 
-	*/
-	Monster* Next();
+		MonsterBox();
+		~MonsterBox();
 
-	/*
-		前のモンスターの情報を返却する
-	*/
-	Monster* Prev();
+		bool Add(Monster* monster);
+		void Relese(int idx);
+		void AllDelete();
 
-	/*
-		インデックス番号を返却する
-	*/
-	int Index();
+		int Count();
+		/*
+			次のモンスターの情報を返却する
 
-	/*
-	使用状態を確認する
-	return	 0	:使用していない
-			 1	:使用中
-			-1	:エラー
-	*/
-	eUseState UseState(int idx);
+		*/
+		Monster* Next();
 
-	/*
-		使用状態を変更する
-	*/
-	void ChangeUseState(int idx,eUseState useState);
+		/*
+			前のモンスターの情報を返却する
+		*/
+		Monster* Prev();
+
+		/*
+			インデックス番号を返却する
+		*/
+		int Index();
+
+		/*
+		使用状態を確認する
+		return	 0	:使用していない
+				 1	:使用中
+				-1	:エラー
+		*/
+		eUseState UseState(int idx);
+
+		/*
+			使用状態を変更する
+		*/
+		void ChangeUseState(int idx, eUseState useState);
 
 
-	Monster GetMonster(int idx);
-	void SetMonster(int idx,Monster monster);
+		Monster* GetMonster(int idx);
+		void SetMonster(int idx, Monster* monster);
 
-};
+		void Draw();
 
+		const Monster_t GetMonsterInfo(int idx);
+		/*
+			ロードするときに使用する
+		*/
+		void SetMonsterInfo(int idx,Monster_t& info);
+		/*
+			ボックスサイズ
+		*/	
+		unsigned int GetSize();
+	};
+}
 #endif // __MONSTER_BOX_H__

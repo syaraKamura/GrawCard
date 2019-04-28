@@ -24,6 +24,7 @@ namespace graphicsTable {
 		eGraphTag_BMFont,
 		eGraphTag_MapIcon,
 		eGraphTag_StoryButton,
+		eGraphTag_PlayerStatusBar,
 		eGraphTag_Max,
 	};
 

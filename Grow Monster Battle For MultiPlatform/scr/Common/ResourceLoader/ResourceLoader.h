@@ -40,7 +40,7 @@ public :
 	/*
 		非同期読み読み込み
 	*/
-	bool LoadASync(std::string fileName);
+	bool LoadASync(std::string fileName, int* pOutHandle = nullptr);
 	int Get(std::string fileName);
 
 	bool Destory(std::string fileName);

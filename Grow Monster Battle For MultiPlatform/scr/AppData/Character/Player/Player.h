@@ -16,6 +16,7 @@
 
 #include "../CharacterBase.h"
 #include "../Monster/MonsterDeck.h"
+#include "../Monster/MonsterBox.h"
 
 class Player : public CharacterBase {
 
@@ -46,7 +47,8 @@ private:
 	eGender mGender;	//性別
 
 	MonsterDeck mMonsterDeck;	//モンスターデッキ
-
+	
+	monsterBox::MonsterBox mMonsterBox;	// モンスターボックス
 public:
 
 	Player();
