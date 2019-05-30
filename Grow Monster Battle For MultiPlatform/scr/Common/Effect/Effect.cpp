@@ -351,4 +351,317 @@ namespace EffekseerEffect {
 
 }
 
+#else
+
+#include "Common/GameCommon.h"
+
+namespace Effect{
+
+	EffectMgr*	EffectMgr::mInstance = nullptr;
+
+	int EffectLoader::LoadResource(std::string fileName) {
+
+		char path[2048];
+		//ファイル名取得
+		strcpyDx(path, fileName.c_str());
+
+#ifdef __WINDOWS__ 
+#ifdef  __MY_DEBUG__
+
+		RESORCES_PATH(path);
+
+#endif	
+#endif
+
+		int check = FileRead_open(path);
+		if (check == 0) {
+			return -1;
+		}
+		FileRead_close(check);
+
+		int handle = LoadGraph(path);
+		if (handle == -1) {
+			return 0;
+		}
+
+		return handle;
+	}
+
+	void EffectLoader::DestoryResource(int handle) {
+		DeleteGraph(handle);
+	}
+
+	//===========================================
+	//	EffectPlayer
+	//===========================================
+
+	EffectPlayer::~EffectPlayer() {
+		Delete(mPlayData);
+	}
+
+	void EffectPlayer::Init(EffectData eft, int startPosX/* = 0*/, int startPosY/* = 0*/) {
+
+		if (mPlayData == nullptr) {
+			mPlayData = new EffectPlayData();
+		}
+		mHandle = eft.mHandle;
+		mPlayData->posX = startPosX;
+		mPlayData->posY = startPosY;
+
+		for (int y = 0; y < eft.divYNum; y++) {
+			for (int x = 0; x < eft.divXNum; x++) {
+				EffectPlayData::RECT rect;
+				rect.posX = x * eft.DivWidth;
+				rect.posY = y * eft.DivHeight;
+				rect.width = x + eft.DivWidth;
+				rect.heigth = y + eft.DivHeight;
+				mPlayData->rectList.push_back(rect);
+			}
+		}
+
+		mPlayData->length = eft.divXNum * eft.divYNum;
+
+		if (eft.sound.se != nullptr) {
+			mPlayData->SEPlayTime = eft.sound.delayTime;
+			mSE = new Sound(*eft.sound.se);
+		}
+
+	}
+
+	void EffectPlayer::Play() {
+		mPlayData->isPlay = true;
+	}
+
+	void EffectPlayer::Stop() {
+		mPlayData->isPlay = false;
+		mPlayData->playTime = 0;
+	}
+
+	void EffectPlayer::LoopOn() {
+		mPlayData->isLoop = true;
+	}
+
+	void EffectPlayer::LoopOff() {
+		mPlayData->isLoop = false;
+	}
+
+	int EffectPlayer::Length() {
+		return mPlayData->length;
+	}
+
+	void EffectPlayer::Update() {
+
+		if (mPlayData->isPlay == false) return;
+		if (mPlayData->length > mPlayData->playTime) {
+
+			if (mSE != nullptr) {
+				if (mPlayData->SEPlayTime == mPlayData->playTime) {
+					mSE->Play(Sound::ePlayType_BackGround);
+				}
+			}
+
+			mPlayData->playTime++;
+		}
+		else {
+			
+			Stop();
+			if (mPlayData->isLoop == true) {
+				Play();
+			}
+		}
+
+	}
+
+	void EffectPlayer::Draw() {
+
+		if (mPlayData->isPlay == false) return;
+		EffectPlayData::RECT rect = {};
+		if (mPlayData->rectList.size() > mPlayData->playTime ) {
+			rect = mPlayData->rectList[mPlayData->playTime];
+		}
+
+#ifdef __WINDOWS__
+		DxLib::DrawRectGraph(mPlayData->posX,mPlayData->posY,rect.posX, rect.posY, rect.width, rect.heigth, mHandle, TRUE);
+#elif __ANDROID__
+		DxLib::DrawRectGraph(mPlayData->posX, mPlayData->posY, rect.posX, rect.posY, rect.width, rect.heigth, mHandle, TRUE, FALSE);
+#endif
+		
+	}
+
+	//==================================
+	// EffectMgr
+	//==================================
+
+	EffectData EffectMgr::_GetEffectData(int handle) {
+		EffectData data = {};
+		for (int i = 0; i < GetEffectDataNum(); i++) {
+			GetEffectData(i, &data);
+			if (data.id == handle) {
+				return data;
+			}
+		}
+		return data;
+	}
+
+	EffectMgr::EffectMgr() {
+		mList.clear();
+		mEffectGraphList.clear();
+		mLoadOrder = 0;
+	}
+
+	EffectMgr::~EffectMgr() {
+
+		AllRelease();
+		mEffectGraphList.clear();
+		mList.clear();
+	}
+
+	void EffectMgr::Create() {
+		if (mInstance == nullptr) {
+			mInstance = new EffectMgr();
+		}
+	}
+
+	void EffectMgr::Destroy() {
+		Delete(mInstance);
+	}
+	
+	EffectPlayData* EffectMgr::Play(int handle) {
+		return Play(handle, 0, 0);
+	}
+
+	EffectPlayData* EffectMgr::Play(int handle, float posX, float posY, int prio/* = 1000*/) {
+		EffectData data = _GetEffectData(handle);
+		EffectPlayer* add = new EffectPlayer();
+		add->Init(data, posX, posY);
+		add->Play();
+		GraphicsDrawMgr::GetInstance()->Add(add, prio);
+		mList.push_back(add);
+		return add->GetPlayData();
+	}
+
+	void EffectMgr::Update() {
+
+		for (int i = 0; i < mList.size(); i++) {
+			EffectPlayer* eft = mList[i];
+			if (eft == nullptr) {
+				continue;
+			}
+			if (eft->GetPlayData()->isPlay == false) {
+				eft->ReleseRequest();	//	描画マネージャーから削除
+				mList.erase(mList.begin() + i);
+				i--;
+				continue;
+			}
+			eft->Update();
+		}
+		
+	}
+
+	void EffectMgr::Draw() {
+
+		for (int i = 0; i < mList.size(); i++) {
+			EffectPlayer* eft = mList[i];
+			if (eft == nullptr) {
+				continue;
+			}
+			eft->Draw();
+		}
+
+	}
+
+	int EffectMgr::Load(std::string fileName, int divWidth, int divHeight) {
+
+		int handle = 0;
+		if (mLoader.LoadASync(fileName, &handle) == false) {
+			return -1;
+		}
+
+		EffectData add = {};
+		int width = 0;
+		int height = 0;
+		handle = mLoader.Get(fileName);
+		GetGraphSize(handle, &width, &height);
+		add.wdith = width;
+		add.height = height;
+		add.DivWidth = divWidth;
+		add.DivHeight = divHeight;
+		strcpyDx(add.path, fileName.c_str());
+		add.id = ++mLoadOrder;
+		add.mHandle = handle;
+		add.divXNum = add.wdith / divWidth;
+		add.divYNum = add.height / divHeight;
+
+		mEffectGraphList.push_back(add);
+
+		return add.id;
+	}
+
+	bool EffectMgr::LoadSE(std::string fileName, int attachHandle, int delayTime/* = 0*/) {
+		EffectData data = {};
+		int num = -1;
+		for (int i = 0; i < GetEffectDataNum(); i++) {
+			GetEffectData(i, &data);
+			if (data.id == attachHandle) {
+				num = i;
+			}
+		}
+		
+		// アタッチ対象がなかった
+		if (num == -1) {
+			return false;
+		}
+
+		EffectData& eft = mEffectGraphList[num];
+		eft.sound.se = new Sound();
+		Sound& se = *eft.sound.se;
+		if (se.Load(fileName.c_str()) == false) {
+			return false;
+		}
+		eft.sound.delayTime = delayTime;
+		return true;
+	}
+
+	void EffectMgr::Release(int handle) {
+		EffectData data = {};
+		for (int i = 0; i < GetEffectDataNum(); i++) {
+			GetEffectData(i, &data);
+			if (data.id == handle) {
+				mLoader.Destory(data.path);
+
+				if (data.sound.se != nullptr) {
+					data.sound.se->Release();
+					Delete(data.sound.se);
+				}
+
+				mEffectGraphList.erase(mEffectGraphList.begin() + i);
+				break;
+			}
+		}
+	}
+
+	void EffectMgr::AllRelease() {
+		for (int i = 0; i < GetEffectDataNum(); i++) {
+			if (mEffectGraphList[i].sound.se != nullptr) {
+				mEffectGraphList[i].sound.se->Release();
+				Delete(mEffectGraphList[i].sound.se);
+			}
+			mLoader.Destory(mEffectGraphList[i].path);
+		}
+	}
+
+	int EffectMgr::GetEffectDataNum() {
+		return mEffectGraphList.size();
+	}
+
+	void EffectMgr::GetEffectData(int idx,EffectData* pOutData) {
+		if (idx < 0 || GetEffectDataNum() < idx) {
+			return;
+		}
+		*pOutData = mEffectGraphList[idx];
+	}
+		
+
+}
+
 #endif	// ENABLE_EFFEKSEER

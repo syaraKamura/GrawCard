@@ -20,8 +20,14 @@ class GraphicsDraw : public ResourceLoader {
 
 public :
 
+	struct Color {
+		int r;
+		int g;
+		int b;
+	};
 
 protected:
+
 
 	int mHandle;
 	char mFileName[1024];
@@ -32,6 +38,8 @@ protected:
 	int mPosX;
 	int mPosY;
 	int mAlpha;
+	
+	Color mBright;
 
 	int mBasePosX;
 	int mBasePosY;
@@ -61,6 +69,7 @@ public:
 	void SetBasePosition(int basePosX, int basePosY);
 	int GetBasePositionX();
 	int GetBasePositionY();
+	Color GetBright();
 
 	double GetScale();
 
@@ -85,7 +94,8 @@ public:
 	*/
 	void SetAngleDegree(double deg);
 
-	void  SetAlpha(int alpha);
+	void SetAlpha(int alpha);
+	void SetBright(int r, int g, int b);
 	void SetPosition(int posX, int posY);
 
 	void SetPriorty(int prio);

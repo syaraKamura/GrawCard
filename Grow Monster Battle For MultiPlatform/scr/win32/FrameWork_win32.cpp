@@ -52,6 +52,10 @@ bool Framework::Initialize(int width, int height, const char* titleName/* = ""*/
 	
 	SetUseDirect3DVersion(DX_DIRECT3D_9);
 
+#ifdef __MY_DEBUG__
+	SetAlwaysRunFlag(TRUE);
+#endif
+
 	SetDrawScreen(DX_SCREEN_BACK); //ウィンドウモード変更と初期化と裏画面設定
 
 	if (mGameMgr == NULL) {

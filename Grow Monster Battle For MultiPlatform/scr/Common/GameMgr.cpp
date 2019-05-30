@@ -14,6 +14,7 @@
 #include "Common/GameCommon.h"
 #include "Common/GameMgr.h"
 #include "Common/FileLoader/TblLoader/TblLoaderMgr.h"
+#include "Common/Effect/Effect.h"
 #include "Scene/SceneMgr.h"
 #include "Common/FPS/FPS.h"
 
@@ -48,6 +49,8 @@ GameMgr::GameMgr(){
 #endif // ENABLE_EFFEKSEER
 #endif
 
+	Effect::EffectMgr::Create();
+
 	SoundMgr::Create();
 	ComRes::Create();
 	DungeonMgr::Create();
@@ -61,6 +64,8 @@ GameMgr::~GameMgr(){
 	EffekseerEffect::EffectLoader::Destroy();
 #endif // ENABLE_EFFEKSEER
 #endif
+
+	Effect::EffectMgr::Destroy();
 
 	SoundMgr::Destroy();
 	DungeonMgr::Destory();
@@ -161,6 +166,9 @@ bool GameMgr::Updata(){
 	MonsterMgr::Instance()->Updata();
 
 	mSceneMgr->Updata();
+	
+	Effect::EffectMgr::GetInstance()->Update();
+	
 	TaskMgr::getInstance().Updata();
 	SoundMgr::GetInstance()->Updata();
 	

@@ -31,6 +31,25 @@ void ResourceLoader::DestoryResource(int handle) {
 
 }
 
+bool ResourceLoader::CheckFileExists(std::string fileName) {
+#ifdef __MY_DEBUG__
+#ifdef __WINDOWS__
+	char filePath[2048];
+	strcpyDx(filePath, fileName.c_str());
+
+	RESORCES_PATH(filePath);
+
+	FILE *fp;
+	fopen_s(&fp, filePath, "r");
+	if (fp == nullptr) {
+		Debug::LogPrintf("Not Exist File.(%s)\n", fileName.c_str());
+		return false;
+	}
+	fclose(fp);
+#endif // __WINDOWS__
+#endif // __MY_DEBUG__
+	return true;
+}
 /*
 
 非同期読み読み込み
@@ -38,6 +57,9 @@ void ResourceLoader::DestoryResource(int handle) {
 bool ResourceLoader::LoadASync(std::string fileName,int* pOutHandle) {
 
 	int handle = -1;
+	if (CheckFileExists(fileName) == false ) {
+		return false;
+	}
 	SetUseASyncLoadFlag(TRUE);
 	
 	handle = LoadResource(fileName);

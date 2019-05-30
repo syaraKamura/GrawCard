@@ -50,15 +50,11 @@ ComRes::ComRes() {
 		{ eComResKind_Graphic,	"Resources/Graphics/Map/MapIcon.png"	,	graphicsTable::eGraphTag_MapIcon	},
 		{ eComResKind_Graphic,	"Resources/Graphics/UI/story_button.png",	graphicsTable::eGraphTag_StoryButton},
 		{ eComResKind_Graphic,	"Resources/Graphics/UI/PlayerBar.png"	,	graphicsTable::eGraphTag_PlayerStatusBar,			},
-#ifdef __WINDOWS__
-		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0001.mp3"		,	eSoundTag_Title					},
-		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0002.mp3"		,	eSoundTag_Batlle_1				},
-		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0003.mp3"		,	eSoundTag_MainMenu				}
-#else
+
 		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0001.ogg"		,	eSoundTag_Title					},
 		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0002.ogg"		,	eSoundTag_Batlle_1				},
 		{ eComResKind_SoundBgm ,"Resources/Sound/BGM/BGM_0003.ogg"		,	eSoundTag_MainMenu				}
-#endif	//__WINDOWS__
+
 	};
 
 	for (int i = 0; i < eComResName_Num; i++) {

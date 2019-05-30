@@ -21,6 +21,7 @@
 #include "Common/Script/ScriptBase.h"
 #include "Scene/MainMenu/Dungeon/Map/MapField.h"
 
+using namespace battle;
 
 typedef struct {
 	int mQuestNo;

@@ -172,6 +172,9 @@
     <Filter Include="ソース ファイル\scr\Common\ResourceTable">
       <UniqueIdentifier>{d3c9947e-8c7d-43c5-96cd-1c1ed1531463}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Effect\Particle">
+      <UniqueIdentifier>{b78c31a9-d758-41c7-928a-93108d68f04a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -443,6 +446,18 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\ResourceTable\GraphTable.cpp">
       <Filter>ソース ファイル\scr\Common\ResourceTable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Test\TestMonsterBox.cpp">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Test\TestEffectPlayer.cpp">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Effect\Particle\Particle.cpp">
+      <Filter>ソース ファイル\scr\Common\Effect\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -728,5 +743,28 @@
     <ClInclude Include="..\scr\Common\ResourceTable\GraphTable.h">
       <Filter>ソース ファイル\scr\Common\ResourceTable</Filter>
     </ClInclude>
+    <ClInclude Include="..\scr\Test\TestMonsterBox.h">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Test\TestEffectPlayer.h">
+      <Filter>ソース ファイル\scr\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Effect\Particle\Particle.h">
+      <Filter>ソース ファイル\scr\Common\Effect\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.inc">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
+    </None>
+    <None Include="..\scr\AppData\Character\Monster\ElementType.inc">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster</Filter>
+    </None>
+    <None Include="..\scr\AppData\Character\Skill\SkillAttackType.inc">
+      <Filter>ソース ファイル\scr\AppData\Character\Monster\Skill</Filter>
+    </None>
   </ItemGroup>
 </Project>

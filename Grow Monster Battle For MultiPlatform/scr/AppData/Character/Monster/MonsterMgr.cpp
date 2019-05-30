@@ -27,7 +27,7 @@
 
 typedef struct MonsterData_t{
 
-	Monster::eType mType;
+	eElementType mType;
 
 	char mName[1024];
 	int mId;		//管理番号
@@ -52,29 +52,29 @@ typedef struct MonsterGraphData_t {
 
 static MonsterData_t MONSTER_DATA_TBL[] =
 {
-	{ Monster::eType_Fire ,"ベルフレア",0,20,20,10,10,6,5,2 },
-	{ Monster::eType_Fire ,"フレアドラゴン",1,200,200,10,10,16,15,4 },
-	{ Monster::eType_Water,"ウォルシャーク",2,20,20,10,10,6,5,2 },
-	{ Monster::eType_Water,"ジルトゥーガー",3,200,200,10,10,16,20,2 },
-	{ Monster::eType_Grass,"プラタン",4,20,20,10,10,6,5,2 },
-	{ Monster::eType_Grass,"ディーバル",5,200,200,10,10,16,21,1 },
+	{ eElementType_Fire ,"ベルフレア",0,20,20,10,10,6,5,2 },
+	{ eElementType_Fire ,"フレアドラゴン",1,200,200,10,10,16,15,4 },
+	{ eElementType_Water,"ウォルシャーク",2,20,20,10,10,6,5,2 },
+	{ eElementType_Water,"ジルトゥーガー",3,200,200,10,10,16,20,2 },
+	{ eElementType_Grass,"プラタン",4,20,20,10,10,6,5,2 },
+	{ eElementType_Grass,"ディーバル",5,200,200,10,10,16,21,1 },
 	
-	{ Monster::eType_Fire,"ウォルフ",6,100,100,10,10,16,21,1 },
-	{ Monster::eType_Fire,"フェリル",7,200,200,10,10,16,21,1 },
-	{ Monster::eType_Fire,"レッドジェドー",8,200,200,10,10,16,21,1 },
-	{ Monster::eType_Water,"ブルージェドー",9,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"グリーンジェドー",10,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"ディーバル",11,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"ディーバル",12,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"ディーバル",13,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"ディーバル",14,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"ディーバル",15,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"ディーバル",16,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"ディーバル",17,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"ディーバル",18,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"ディーバル",19,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"ディーバル",20,200,200,10,10,16,21,1 },
-	{ Monster::eType_Grass,"ディーバル",21,200,200,10,10,16,21,1 },
+	{ eElementType_Fire,"ウォルフ",6,100,100,10,10,16,21,1 },
+	{ eElementType_Fire,"フェリル",7,200,200,10,10,16,21,1 },
+	{ eElementType_Fire,"レッドジェドー",8,200,200,10,10,16,21,1 },
+	{ eElementType_Water,"ブルージェドー",9,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"グリーンジェドー",10,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"ディーバル",11,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"ディーバル",12,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"ディーバル",13,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"ディーバル",14,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"ディーバル",15,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"ディーバル",16,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"ディーバル",17,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"ディーバル",18,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"ディーバル",19,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"ディーバル",20,200,200,10,10,16,21,1 },
+	{ eElementType_Grass,"ディーバル",21,200,200,10,10,16,21,1 },
 };
 
 static MonsterGraphData_t MONSTER_GRAPH_DATA_TBL[] = 
@@ -281,6 +281,7 @@ void MonsterMgr::Updata() {
 			int mId;		//管理番号
 			char mName[64];
 			int type;
+			int cost;
 			int mHp;
 			int mMp;
 
@@ -308,9 +309,9 @@ void MonsterMgr::Updata() {
 
 			monster.SetName(data.mName);
 			monster.SetLevel(1);
-			monster.SetCost(1);
+			monster.SetCost(data.cost);
 			monster.SetId(data.mId);
-			monster.SetType((Monster::eType)data.type);
+			monster.SetType((eElementType)data.type);
 			monster.SetHomePosition(Monster::eHomePosition_Front);
 			monster.SetHp(data.mHp);
 			monster.SetHpMax(data.mHp);

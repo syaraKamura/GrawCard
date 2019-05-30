@@ -16,7 +16,7 @@
 
 float Easing::InQuad(float time, float totalTime, float min, float max) {
 
-	max -= min;
+	
 	time /= totalTime;
 	
 	return max * time  * time + min;
@@ -24,7 +24,7 @@ float Easing::InQuad(float time, float totalTime, float min, float max) {
 
 float Easing::OutQuad(float time, float totalTime, float min, float max) {
 
-	max -= min;
+	
 	time /= totalTime;
 
 	return -max * time  * (time - 2.0f) + min;
@@ -33,10 +33,8 @@ float Easing::OutQuad(float time, float totalTime, float min, float max) {
 
 float Easing::InOutQuad(float time, float totalTime, float min, float max) {
 
-	max -= min;
-
-	time /= totalTime;
-	if (time * 2.0f < 1.0f) {
+	time /= totalTime / 2.0f;
+	if (time < 1.0f) {
 		return max / 2.0f * time*time + min;
 	}
 
@@ -48,7 +46,7 @@ float Easing::InOutQuad(float time, float totalTime, float min, float max) {
 
 float Easing::InCubic(float time, float totalTime, float min, float max) {
 	
-	max -= min;
+	
 	time /= totalTime;
 
 	return max * time * time * time + min;
@@ -57,22 +55,23 @@ float Easing::InCubic(float time, float totalTime, float min, float max) {
 
 float Easing::OutCubic(float time, float totalTime, float min, float max) {
 
-	max -= min;
-	time /= totalTime - 1.0f;
+	
+	time /= totalTime;
+	time -= 1.0f;
 
 	return max * (time * time * time + 1.0f) + min;
 }
 
 float Easing::InOutCubic(float time, float totalTime, float min, float max) {
 
-	max -= min;
-	time /= totalTime;
+	
+	time /= totalTime / 2.0f;
 
-	if (time * 2.0f < 1.0f) {
+	if (time < 1.0f) {
 		return max / 2.0f * time * time * time + min;
 	}
 
-	time -= 1.0f;
+	time -= 2.0f;
 
 	return max / 2.0f * (time * time * time + 2.0f) + min;
 
@@ -81,12 +80,22 @@ float Easing::InOutCubic(float time, float totalTime, float min, float max) {
 float Easing::EasingValue(Easing::eEasingType type, float time, float totalTime, float min, float max) {
 
 	float ret = 0.0f;
+	bool isReverse = false;
+	max -= min;
+	if (min > max) {
+		//float buff = min;
+		//min = max;
+		//max = buff;
+		//isReverse = true;
+	}
+	else if (min == max) {
+		return min;
+	}
 
 	if (type == Easing::eEasingType_None) {
 		
-		max -= min;
 		time /= totalTime;
-		return max * time + min;
+		ret =  max * time + min;
 	}
 
 	switch (type) {
@@ -110,5 +119,5 @@ float Easing::EasingValue(Easing::eEasingType type, float time, float totalTime,
 		break;
 	}
 
-	return ret;
+	return (isReverse == true ) ? min - ret: ret;
 }

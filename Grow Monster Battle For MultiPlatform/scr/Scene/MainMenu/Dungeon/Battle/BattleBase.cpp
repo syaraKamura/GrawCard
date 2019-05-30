@@ -18,10 +18,251 @@
 #include "BattleBase.h"
 #include "BattleCalculator.h"
 #include "BattleAnimation.h"
+#include "BattleEffect.h"
 #include "../DungeonMgr.h"
 #include "Common/Script/ScriptBase.h"
 #include "Common/Graphics/Button/Button.h"
 
+namespace battle{
+
+using namespace effect;
+using namespace anim;
+
+#ifdef __MY_DEBUG__
+void SetEnemy(MonsterDeck* enemy) {
+	enemy->SetMonster(0, MonsterMgr::Instance()->GetMonsterData(5));
+	enemy->Attach(0);
+	enemy->SetMonster(1, MonsterMgr::Instance()->GetMonsterData(6));
+	enemy->Attach(1);
+	enemy->SetMonster(2, MonsterMgr::Instance()->GetMonsterData(7));
+	enemy->Attach(2);
+	enemy->SetMonster(3, MonsterMgr::Instance()->GetMonsterData(8));
+	enemy->Attach(3);
+	enemy->SetMonster(4, MonsterMgr::Instance()->GetMonsterData(9));
+	enemy->Attach(4);
+	enemy->GetMonster(4)->SetLevel(25);
+}
+
+#endif	//__MY_DEBUG__
+
+void DrawMonsterStateus(Monster monster,int x,int y) {
+
+	if (monster.GetHp() > 0) {
+		int drawY = y - 35;
+		float rateHp = ((float)monster.GetHp() / (float)monster.GetHpMax());
+		float rateMp = ((float)monster.GetMp() / (float)monster.GetMpMax());
+		DrawBox(x, drawY, x + 100 * rateHp, drawY + 10, GetColor(0, 255, 255), TRUE);
+		DrawBox(x, drawY + 10, x + 100 * rateMp, drawY + 20, GetColor(0, 255, 0), TRUE);
+	}
+
+#ifdef __MY_DEBUG__ 
+	DxLib::DrawString(x, y += 20, monster.GetName(), GetColor(0, 255, 0));
+	DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Lvele   :%d", monster.GetLevel());
+	DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Type    :%d", monster.GetType());
+	DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Cost    :%d", monster.GetCost());
+	DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "HP      :%d/%d", monster.GetHp(), monster.GetHpMax());
+	DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "MP      :%d/%d", monster.GetMp(), monster.GetMpMax());
+	DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Attack  :%d", monster.GetAttack());
+	DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Deffence:%d", monster.GetDeffence());
+	DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Speed   :%d", monster.GetSpeed());
+	DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Exp     :%d", monster.GetExp());
+	DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "HomePos :%d", monster.GetHomePosition());
+	//DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Pos X :%d Y :%d", mPlayerCard[i].GetPositionX(), mPlayerCard[i].GetPositionY());
+			
+#endif // __MY_DEBUG__
+}
+
+void DrawMonster(std::vector<BattleBase::MONSTER_DATA_t>& list) {
+	for (unsigned int i = 0; i < list.size(); i++) {
+		BattleBase::MONSTER_DATA_t& data = list[i];
+		Monster* monster = data.monster;
+		if (monster == NULL) continue;
+		Graphics& graph = data.getGraph();
+		int x = graph.GetPositionX();
+		int y = graph.GetPositionY();
+		float rateHp = (float)monster->GetHp() / (float)monster->GetHpMax();
+
+		if (monster->GetHp() <= 0) {
+			if (data.type == BattleBase::eDeckType_Enemy) {
+				if (graph.GetAlpah() > 0) {
+					graph.SetAlpha(graph.GetAlpah() - 10);
+				}
+				else {
+					graph.SetVisible(false);
+				}
+				continue;
+			}
+			graph.SetAlpha(100);
+			graph.SetBright(255, 255, 255);
+		}
+		else if( rateHp <=  0.5f){
+			if (data.type == BattleBase::eDeckType_Player) {
+				graph.SetBright(255, 0, 0);
+			}
+		}
+
+		//data.getGraph().Draw();	//味方
+		
+		DrawMonsterStateus(*monster, x, y);
+	}
+}
+
+/*
+	行動する対象を明示的に描画する
+*/
+void BattleBase::_DrawMovwTarget() {
+
+	if (mNowStep != BattleBase::eBattleStep_Main) { return; }
+	else if (mMainStep != BattleBase::eBattleMainStep_Command) { return; }
+	else if (mActionCommand != BattleBase::eCommand_Select) { return; }
+	else if (mMoveOrderMonsterNum < 0 || mMoveOrderMonsterNum >= mMonsterData.size()) { return; }
+	else if (mMonsterData[this->mMoveOrderMonsterNum].moveType == BattleBase::eMoveType_Auto) { return; }
+	else if (mMonsterData[this->mMoveOrderMonsterNum].type == eDeckType_Enemy) { return; }
+	else if (mMonsterData[this->mMoveOrderMonsterNum].isDead == true) { return; }
+	
+	float basePosX = mMonsterData[this->mMoveOrderMonsterNum].getGraph().GetPositionX();
+	float basePosY = mMonsterData[this->mMoveOrderMonsterNum].getGraph().GetPositionY() - 10;
+
+	//mTarget.boxPosX = basePosX;
+	//mTarget.boxPosY = basePosY;
+	if (mOldMovetOrderNum != this->mMoveOrderMonsterNum) {
+		mTarget.Init(basePosX, basePosY);
+		mOldMovetOrderNum = this->mMoveOrderMonsterNum;
+	}
+
+	mTarget.t = 120;
+
+	float time = mTarget.cnt / mTarget.t;
+	float  targetPos = 0;
+
+	if (mTarget.step == 0) {
+		targetPos = 120;
+		mTarget.boxPosX += time * targetPos;
+		if (mTarget.boxPosX >= basePosX + targetPos) {
+			mTarget.cnt = 0;
+			mTarget.step++;
+		}
+	}
+	else if (mTarget.step == 1) {
+		targetPos = 175;
+		mTarget.boxPosY += time * targetPos;
+		if (mTarget.boxPosY >= basePosY + targetPos) {
+			mTarget.cnt = 0;
+			mTarget.step++;
+		}
+	}
+	else if (mTarget.step == 2) {
+		targetPos = -120;
+		mTarget.boxPosX += time * targetPos;
+		if (mTarget.boxPosX <= basePosX + 120 + targetPos) {
+			mTarget.cnt = 0;
+			mTarget.step++;
+		}
+	}
+	else if (mTarget.step == 3) {
+		targetPos = -165;
+		mTarget.boxPosY += time * targetPos;
+		if (mTarget.boxPosY <= basePosY + 175 + targetPos) {
+			mTarget.cnt = 0;
+			mTarget.step = 0;
+		}
+	}
+
+	DrawBox(mTarget.boxPosX, mTarget.boxPosY, mTarget.boxPosX + 20, mTarget.boxPosY + 20, GetColor(255, 0, 0), TRUE);
+
+	for (int i = 0; i < ArrySize(mTarget.oldPos); i++) {
+		if (mTarget.oldPos[i].isLive == false) {
+			mTarget.oldPos[i].x = mTarget.boxPosX;
+			mTarget.oldPos[i].y = mTarget.boxPosY;
+			mTarget.oldPos[i].alpha = 255;
+			mTarget.oldPos[i].isLive = true;
+			break;
+		}
+	}
+
+	// 残像
+	for (int i = 0; i < ArrySize(mTarget.oldPos); i++) {
+		if (mTarget.oldPos[i].alpha <= 0) {
+			mTarget.oldPos[i].isLive = false;
+		}
+		else {
+
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, mTarget.oldPos[i].alpha);
+			DrawBox(mTarget.oldPos[i].x, mTarget.oldPos[i].y, mTarget.oldPos[i].x + 20, mTarget.oldPos[i].y + 20, GetColor(255, 0, 0), TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+			mTarget.oldPos[i].alpha -= 10;
+		}
+	}
+
+	mTarget.cnt++;
+
+}
+
+void BattleBase::_DrawAttackTarget() {
+	
+	if (mNowStep != BattleBase::eBattleStep_Main) { return; }
+	else if (mMainStep != BattleBase::eBattleMainStep_Command) { return; }
+	else if (mActionCommand != BattleBase::eCommand_SelectTarget) { 
+		mCounter = 0;
+		for (auto& mon : mMonsterData) {
+			mon.getGraph().SetBright(255, 255, 255);
+		}
+		return; 
+	}
+	else if (mMoveOrderMonsterNum < 0 || mMoveOrderMonsterNum >= mMonsterData.size()) { return; }
+	
+	eActiveType type = mOrderMoveData.activeType;
+	
+	eDeckType banishType = eDeckType_All;
+
+	switch (type) {
+	case BattleBase::eActiveType_Attack:
+		banishType = eDeckType_Player;
+		break;
+	case BattleBase::eActiveType_Recovery:
+		banishType = eDeckType_Enemy;
+		break;
+	case BattleBase::eActiveType_Skill:
+		if(SkillMgr::GetInstance()->GetSkillData(mOrderMoveData.skillId).attackType == eSkillAttackType_Attack) {
+			banishType = eDeckType_Player;
+		}
+		break;
+	}
+
+	for (auto& mon : mMonsterData) {
+		if (banishType != eDeckType_All) {
+			if (mon.type == banishType) {
+				continue;
+			}
+		}
+		if (mon.isDead) { continue; }
+		float dy = sin(DX_PI * 2 * mCounter / 60) * 20;
+		int x = mon.getGraph().GetPositionX();
+		int y = mon.getGraph().GetPositionY();
+		int color = (1.0f + sin(DX_PI * 2 * mCounter / 120)) / 2.0f * 255;
+		mon.getGraph().SetBright(255, 255, color);
+		DrawString(x, y + dy, "選択可能", GetColor(0, 255, 255));
+	}
+
+	mCounter++;
+
+}
+
+/*
+	リザルト
+*/
+void BattleBase::_DrewRresult() {
+
+	if (this->mNowStep != eBattleStep_Result) { return; }
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 123);
+	DrawBox(100, 100, 1820, 980, GetColor(123, 123, 123), TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	DrawString(200, 300, "リザルト", GetColor(0, 255, 255));
+
+}
 
 BattleBase::BattleBase() : TaskBase() {
 	mGraphics = new Graphics();
@@ -64,17 +305,9 @@ BattleBase::BattleBase() : TaskBase() {
 		mPlayer = player;
 	}
 
-	//mEnemy->SetMonster(0, MonsterMgr::Instance()->getMonsterData(5));
-	//mEnemy->Attach(0);
-	mEnemy->SetMonster(1, MonsterMgr::Instance()->GetMonsterData(6));
-	mEnemy->Attach(1);
-	//mEnemy->SetMonster(2, MonsterMgr::Instance()->getMonsterData(7));
-	//mEnemy->Attach(2);
-	mEnemy->SetMonster(3, MonsterMgr::Instance()->GetMonsterData(8));
-	mEnemy->Attach(3);
-	//mEnemy->SetMonster(4, MonsterMgr::Instance()->getMonsterData(9));
-	//mEnemy->Attach(4);
-	
+#ifdef __MY_DEBUG__
+	SetEnemy(mEnemy);
+#endif //__MY_DEBUG__
 	mMoveData.clear();
 	
 	mMonsterData.clear();
@@ -90,15 +323,16 @@ BattleBase::BattleBase() : TaskBase() {
 		add.type = BattleBase::eDeckType_Player;
 		add.isDead = false;
 		add.moveType = BattleBase::eMoveType_Manual;
-		add.graph = MonsterMgr::Instance()->GetGraphics(monster->GetId());
-		add.graph.SetVisible(true);
+		Graphics* graph = new Graphics(MonsterMgr::Instance()->GetGraphics(monster->GetId()));
+		add.graph = graph;
+		add.getGraph().SetVisible(true);
 		int y = 1100;
 		if (monster->GetHomePosition() == Monster::eHomePosition_Back) {
 			y = 1200;
 		}
-		add.graph.SetPosition(200 + i * 300, y);
-		add.graph.SetBasePosition(200 + i * 300, y);
-		//GraphicsDrawMgr::GetInstance()->Add(&add.graph, 0);
+		add.getGraph().SetPosition(200 + i * 300, y);
+		add.getGraph().SetBasePosition(200 + i * 300, y);
+		GraphicsDrawMgr::GetInstance()->Add(graph, 0);
 
 		mMonsterData.push_back(add);
 	}
@@ -114,15 +348,18 @@ BattleBase::BattleBase() : TaskBase() {
 		add.type = BattleBase::eDeckType_Enemy;
 		add.isDead = false;
 		add.moveType = BattleBase::eMoveType_Auto;
-		add.graph = MonsterMgr::Instance()->GetGraphics(monster->GetId());
-		add.graph.SetVisible(true);
+		Graphics* graph = new Graphics(MonsterMgr::Instance()->GetGraphics(monster->GetId()));
+		add.graph = graph;
+		add.getGraph().SetVisible(true);
 		int y = 200;
 		if (monster->GetHomePosition() == Monster::eHomePosition_Back) {
 			y = 100;
 		}
-		add.graph.SetPosition(200 + i * 300, y);
-		add.graph.SetBasePosition(200 + i * 300, y);
-		//GraphicsDrawMgr::GetInstance()->Add(&add.graph, 0);
+		add.getGraph().SetPosition(200 + i * 300, y);
+		add.getGraph().SetBasePosition(200 + i * 300, y);
+		add.getGraph().SetScale(0.0);
+		add.getGraph().SetAlpha(0);
+		GraphicsDrawMgr::GetInstance()->Add(graph, 0);
 
 		mMonsterData.push_back(add);
 }
@@ -162,16 +399,9 @@ BattleBase::BattleBase(Player* player) : TaskBase() {
 	mEnemy = new MonsterDeck();
 
 
-	//mEnemy->SetMonster(0, MonsterMgr::Instance()->getMonsterData(5));
-	//mEnemy->Attach(0);
-	mEnemy->SetMonster(1, MonsterMgr::Instance()->GetMonsterData(6));
-	mEnemy->Attach(1);
-	//mEnemy->SetMonster(2, MonsterMgr::Instance()->getMonsterData(7));
-	//mEnemy->Attach(2);
-	mEnemy->SetMonster(3, MonsterMgr::Instance()->GetMonsterData(8));
-	mEnemy->Attach(3);
-	//mEnemy->SetMonster(4, MonsterMgr::Instance()->getMonsterData(9));
-	//mEnemy->Attach(4);
+#ifdef __MY_DEBUG__
+	SetEnemy(mEnemy);
+#endif //__MY_DEBUG__
 
 	mMoveData.clear();
 
@@ -219,15 +449,16 @@ BattleBase::BattleBase(Player* player) : TaskBase() {
 		add.type = BattleBase::eDeckType_Player;
 		add.isDead = false;
 		add.moveType = BattleBase::eMoveType_Manual;
-		add.graph = MonsterMgr::Instance()->GetGraphics(monster->GetId());
-		add.graph.SetVisible(true);
+		Graphics* graph = new Graphics(MonsterMgr::Instance()->GetGraphics(monster->GetId()));
+		add.graph = graph;
+		add.getGraph().SetVisible(true);
 		int y = 1100;
 		if (monster->GetHomePosition() == Monster::eHomePosition_Back) {
 			y = 1200;
 		}
-		add.graph.SetPosition(200 + i * 300, y);
-		add.graph.SetBasePosition(200 + i * 300, y);
-		//GraphicsDrawMgr::GetInstance()->Add(&add.graph, 0);
+		add.getGraph().SetPosition(200 + i * 300, y);
+		add.getGraph().SetBasePosition(200 + i * 300, y);
+		GraphicsDrawMgr::GetInstance()->Add(graph, 0);
 
 		mMonsterData.push_back(add);
 	}
@@ -243,15 +474,19 @@ BattleBase::BattleBase(Player* player) : TaskBase() {
 		add.type = BattleBase::eDeckType_Enemy;
 		add.isDead = false;
 		add.moveType = BattleBase::eMoveType_Auto;
-		add.graph = MonsterMgr::Instance()->GetGraphics(monster->GetId());
-		add.graph.SetVisible(true);
+		Graphics* graph = new Graphics(MonsterMgr::Instance()->GetGraphics(monster->GetId()));
+		add.graph = graph;
+		add.getGraph().SetVisible(true);
 		int y = 200;
 		if (monster->GetHomePosition() == Monster::eHomePosition_Back) {
 			y = 100;
 		}
-		add.graph.SetPosition(200 + i * 300, y);
-		add.graph.SetBasePosition(200 + i * 300, y);
-		//GraphicsDrawMgr::GetInstance()->Add(&add.graph, 0);
+		add.getGraph().SetPosition(200 + i * 300, y);
+		add.getGraph().SetBasePosition(200 + i * 300, y);
+		add.getGraph().SetScale(0.0);
+		add.getGraph().SetAlpha(0);
+		//
+		GraphicsDrawMgr::GetInstance()->Add(graph, 0);
 
 		mMonsterData.push_back(add);
 	}
@@ -307,6 +542,8 @@ bool BattleBase::Initialize() {
 	}
 #endif
 
+	mBattleEffect = new BattleEffect();
+
 	mActionCommand = BattleBase::eCommand_CehcekActionType;
 	mAnimPlayMonsterNum = 0;
 	mStartAnimCount = 0;
@@ -315,6 +552,9 @@ bool BattleBase::Initialize() {
 
 	mNowStep = eBattleStep_Fade;
 	mMainStep = eBattleMainStep_MoveOrder;
+
+	mButtons[BattleBase::eButtonType_Menu] = new Button(20, 20, 200, 100, "Menu");
+	mButtons[BattleBase::eButtonType_Menu]->SetOnListener(this);
 
 	mButtons[BattleBase::eButtonType_Auto] = new Button(1700, 900, 200, 100, "Auto");
 	mButtons[BattleBase::eButtonType_Auto]->SetOnListener(this);
@@ -328,16 +568,38 @@ bool BattleBase::Initialize() {
 	mButtons[BattleBase::eButtonType_Item] = new Button(0, 0, 100, 40, "Item");
 	mButtons[BattleBase::eButtonType_Item]->SetOnListener(this);
 
+	mText = StringBase();
+	
+	mCounter = 0;
+
 	NexetStepRequest(eBattleStep_Initialize, eFadeType_In);
 
 	return true;
 }
 
 void BattleBase::Finalize() {
+
+	for (int i = 0; i < mMonsterData.size(); i++) {
+		GraphicsDrawMgr::GetInstance()->Remove(mMonsterData[i].graph);
+	}
+
+	for (int i = 0; i < 5; i++) {
+		Monster* mon = mPlayer->GetMonster(i);
+		if (mon != nullptr) {
+			mon->SetHp(mon->GetHpMax());
+		}
+	}
+
+	for (int i = 0; i < BattleBase::eButtonType_Num; i++) {
+		Delete(mButtons[i]);
+	}
+
 	mGraphics->ReleseRequest();
 	//Delete(mGraphics);
 	Delete(mCard);
 	mMoveData.clear();
+
+	Delete(mBattleEffect);
 
 	TaskMgr::getInstance().RequestKill(mBattleAnimation->GetTaskId());
 	mBattleAnimation = NULL;
@@ -373,7 +635,11 @@ bool BattleBase::Updata() {
 	}	
 		break;
 	case eBattleStep_Result:
-
+#ifdef __ANDROID__
+		if (ClickInput::GetInstance()->Press(0)) {
+			TaskMgr::getInstance().RequestKill(this->mTaskId);
+		}
+#endif
 		break;
 	default: 
 #ifdef __MY_DEBUG__
@@ -381,6 +647,8 @@ bool BattleBase::Updata() {
 #endif
 		break;
 	}
+
+	mButtons[BattleBase::eButtonType_Menu]->Update();
 
 	return true;
 }
@@ -393,44 +661,13 @@ void BattleBase::Draw() {
 
 #if true
 
-	for (unsigned int i = 0; i < mMonsterData.size(); i++) {
-		MONSTER_DATA_t data = mMonsterData[i];
-		Monster* monster = data.monster;
-		if (monster == NULL) continue;
-		int x = data.graph.GetPositionX();
-		int y = data.graph.GetPositionY();
+	DrawMonster(mMonsterData);
+	_DrawMovwTarget();
+	_DrawAttackTarget();
+	_DrewRresult();
 
-		if(monster->GetHp() < 0){
-			if (data.type == BattleBase::eDeckType_Enemy) {
-				data.graph.SetVisible(false);
-				continue;
-			}
-			data.graph.SetAlpha(100);
-		}
-
-		data.graph.Draw();	//味方
-		if (monster->GetHp() > 0) {
-			int drawY = y - 35;
-			DrawBox(x, drawY, x + 100 * ((float)monster->GetHp() / (float)monster->GetHpMax()), drawY + 20, GetColor(0, 255, 255), TRUE);
-		}
-#ifdef __MY_DEBUG__ 
-		DxLib::DrawString(x, y += 20, monster->GetName(), GetColor(0, 255, 0));
-		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Lvele   :%d", monster->GetLevel());
-		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Type    :%d", monster->GetType());
-		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Cost    :%d", monster->GetCost());
-		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "HP      :%d/%d", monster->GetHp(), monster->GetHpMax());
-		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "MP      :%d/%d", monster->GetMp(), monster->GetMpMax());
-		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Attack  :%d", monster->GetAttack());
-		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Deffence:%d", monster->GetDeffence());
-		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Speed   :%d", monster->GetSpeed());
-		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Exp     :%d", monster->GetExp());
-		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "HomePos :%d", monster->GetHomePosition());
-		DxLib::DrawFormatString(x, y += 20, GetColor(0, 255, 0), "Pos X :%d Y :%d", mPlayerCard[i].GetPositionX(), mPlayerCard[i].GetPositionY());
-#endif // __MY_DEBUG__
-
-	}
-	
 	mButtons[BattleBase::eButtonType_Auto]->Draw();
+	mButtons[BattleBase::eButtonType_Menu]->Draw();
 
 
 #ifdef __MY_DEBUG__
@@ -511,16 +748,12 @@ void BattleBase::Draw() {
 		break;
 	case eBattleStep_Result:
 
-#ifdef __ANDROID__
-		if (ClickInput::GetInstance()->Press(0)) {
-			TaskMgr::getInstance().RequestKill(this->mTaskId);
-		}
-#endif
-
-
 		break;
 	}
 
+	mText.Update(120);
+	mText.SetColor(GetColor(0, 0, 0));
+	mText.DrawString(20,100);
 
 #ifdef __MY_DEBUG__
 		DxLib::DrawFormatString(0, 40, GetColor(255, 0, 0), "Now Step:%s", dbg_STEP_TITLE[mNowStep]);
@@ -586,7 +819,7 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 	*/
 
 	mButtons[BattleBase::eButtonType_Auto]->Update();
-
+	
 	switch (mMainStep) {
 	case BattleBase::eBattleMainStep_MoveOrder:
 
@@ -650,17 +883,21 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 
 			BattleAnimation::eAnimationNo orderAnim = BattleAnimation::eAnimationNo_Attack_00;
 
-			Graphics* graph = &mMonsterData[mMoveOrderMonsterNum].graph;
+			Graphics* graph = mMonsterData[mMoveOrderMonsterNum].graph;
 			graph->SetBasePosition(graph->GetPositionX(), graph->GetPositionY());
 			if (move.moveDeckType == BattleBase::eDeckType_Enemy) {
 				orderAnim = BattleAnimation::eAnimationNo_Attack_01;
 			}
 
+			float targetX = move.targetPosition.posX;
+			float targetY = move.targetPosition.posY;
 			if (type == BattleBase::eActiveType::eActiveType_Skill) {
-				float x = move.targetPosition.posX;
-				float y = move.targetPosition.posY;
-				nowPlaySkillEffect = SkillMgr::GetInstance()->Play(move.skillId,x,y);
+				nowPlaySkillEffect = SkillMgr::GetInstance()->Play(move.skillId, targetX, targetY);
 			}
+			else if (type == BattleBase::eActiveType_Attack) {
+				mBattleEffect->Play(0, targetX, targetY);
+			}
+
 			// 行動するモンスターの体力が0より大きいか判断する
 			if (moveMonster->GetHp() > 0) {
 
@@ -679,8 +916,11 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 					case BattleBase::eActiveType_Recovery:
 						damageResult = -20;
 						break;
-					case BattleBase::eActiveType_Skill:
-						damageResult = BattleCalculator::SkillDamage(*moveMonster, *targetMonster);
+					case BattleBase::eActiveType_Skill: {
+						SkillData data = SkillMgr::GetInstance()->GetSkillData(move.skillId);
+						damageResult = BattleCalculator::SkillDamage(*moveMonster, *targetMonster,data);
+						move.moveMonster->SetMp(move.moveMonster->GetMp() - data.mp);
+					}
 						break;
 					}
 
@@ -727,9 +967,9 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 
 		break;
 	case BattleBase::eBattleMainStep_Judgement:
-
+	{
 		// 死亡チェック
-	
+
 		bool isDead = CheckAllDead(BattleBase::eDeckType_Enemy);
 		if (isDead) {
 			step = BattleBase::eBattleStep_Result;
@@ -740,18 +980,26 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 			step = BattleBase::eBattleStep_Result;
 		}
 
+		bool isEnemyDead = false;
 		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
-			if (mMonsterData[i].monster->GetHp() < 0) {
-				mMonsterData[i].isDead = true;
+			MONSTER_DATA_t& data = mMonsterData[i];
+			if (data.monster->GetHp() < 0 && data.isDead == false) {
+				data.isDead = true;
+				if (data.type == eDeckType_Enemy) {
+					isEnemyDead = true;
+				}
 			}
-			else {
-				mMonsterData[i].isDead = false;
+			else if(data.monster->GetHp() > 0){
+				data.isDead = false;
 			}
 		}
 
 		//if (Keyboard_Press(KEY_INPUT_Z)) 
 		{
-			if ((unsigned int)mMoveOrderMonsterNum >= mMonsterData.size()) {
+			if (isEnemyDead) {
+				mMainStep = eBattleMainStep_getExp;
+			}
+			else if ((unsigned int)mMoveOrderMonsterNum >= mMonsterData.size()) {
 				mMainStep = eBattleMainStep_MoveOrder;
 			}
 			else {
@@ -763,6 +1011,30 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 			step = BattleBase::eBattleStep_Result;
 		}
 #endif
+	}
+		break;
+	case eBattleMainStep_getExp:
+
+		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
+			if (mMonsterData[i].type == eDeckType_Player) {
+				if (mMonsterData[i].monster != nullptr) {
+					mMonsterData[i].monster->SetExp(mMonsterData[i].monster->GetExp() + 1000);
+					while (mMonsterData[i].monster->GetNextExp() <= mMonsterData[i].monster->GetExp()) {
+						mMonsterData[i].monster->SetLevel(mMonsterData[i].monster->GetLevel() + 1);
+						int exp = mMonsterData[i].monster->GetExp() - mMonsterData[i].monster->GetNextExp();
+						mMonsterData[i].monster->SetExp(exp);
+						mMonsterData[i].monster->SetNextExp(mMonsterData[i].monster->GetNextExp() + 10);
+					}
+				}
+			}
+		}
+
+		if ((unsigned int)mMoveOrderMonsterNum >= mMonsterData.size()) {
+			mMainStep = eBattleMainStep_MoveOrder;
+		}
+		else {
+			mMainStep = eBattleMainStep_Command;
+		}	
 		break;
 	}
 
@@ -886,6 +1158,17 @@ bool BattleBase::CheckAllDead(eDeckType type) {
 }
 
 void BattleBase::BattleStartAnimation() {
+
+	if (mStartAnimCount == 0) {
+		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
+			for (int j = 0; j < mEnemy->GetSetNum(); j++) {
+				if (mMonsterData[i].monster == mEnemy->GetMonster(j)) {
+					mBattleAnimation->RequestAnim(BattleAnimation::eAnimationNo_Transrate_Scale_01, &mMonsterData[i].getGraph(), true);
+				}
+			}
+		}
+	}
+
 	mStartAnimCount++;
 
 	if (mStartAnimCount % 20 != 0) return ;
@@ -919,12 +1202,16 @@ void BattleBase::BattleStartAnimation() {
 	}
 
 	//mBattleAnimation->RequestAnim(animNo, &mPlayerCard[mAnimPlayMonsterNum], true);
-	mBattleAnimation->RequestAnim(animNo, &mMonsterData[monsterNum].graph, true);
+	mBattleAnimation->RequestAnim(animNo, &mMonsterData[monsterNum].getGraph(), true);
 	mAnimPlayMonsterNum++;
 }
 
 void BattleBase::SelectCommandUpdate() {
 
+	if (mMoveOrderMonsterNum >= mMonsterData.size()) {
+		mMainStep = BattleBase::eBattleMainStep_MoveOrder;
+		return;
+	}
 	MONSTER_DATA_t data = mMonsterData[mMoveOrderMonsterNum];
 
 	if (data.isDead == true || data.monster->GetHp() <= 0) {
@@ -939,6 +1226,7 @@ void BattleBase::SelectCommandUpdate() {
 
 			if (data.moveType == BattleBase::eMoveType_Manual) {
 				mActionCommand = BattleBase::eCommand_Select;
+				mText.SetString("行動選択");
 			}
 			else if (data.moveType == BattleBase::eMoveType_Auto) {
 				// 自動攻撃(通常攻撃)
@@ -948,17 +1236,22 @@ void BattleBase::SelectCommandUpdate() {
 				mOrderMoveData.activeType = BattleBase::eActiveType_Attack;
 				mOrderMoveData.skillId = -1;
 
+				int retIdx = 0;
+				int minHP = 999999;
 				for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 					if (mMonsterData[i].type == BattleBase::eDeckType_Enemy) {
 						if (mMonsterData[i].isDead == true) continue;
-						mOrderMoveData.targetDeckType = BattleBase::eDeckType_Enemy;
-						mOrderMoveData.targetMonster = mMonsterData[i].monster;
-						mOrderMoveData.targetPosition.posX = mMonsterData[i].graph.GetPositionX();
-						mOrderMoveData.targetPosition.posY = mMonsterData[i].graph.GetPositionY();
-						mMoveData.push_back(mOrderMoveData);
-						break;
+						if (minHP > mMonsterData[i].monster->GetHp()) {
+							retIdx = i;
+						}
 					}
 				}
+
+				mOrderMoveData.targetDeckType = BattleBase::eDeckType_Enemy;
+				mOrderMoveData.targetMonster = mMonsterData[retIdx].monster;
+				mOrderMoveData.targetPosition.posX = mMonsterData[retIdx].getGraph().GetPositionX();
+				mOrderMoveData.targetPosition.posY = mMonsterData[retIdx].getGraph().GetPositionY();
+				mMoveData.push_back(mOrderMoveData);
 
 				mMainStep = BattleBase::eBattleMainStep_Battle;
 			}
@@ -969,17 +1262,20 @@ void BattleBase::SelectCommandUpdate() {
 			mOrderMoveData.moveDeckType = data.type;
 			mOrderMoveData.moveMonster = data.monster;
 			mOrderMoveData.activeType = BattleBase::eActiveType_Attack;
+			std::vector<int> target;
 			for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 				if (mMonsterData[i].type == BattleBase::eDeckType_Player) {
 					if (mMonsterData[i].isDead == true) continue;
-					mOrderMoveData.targetDeckType = BattleBase::eDeckType_Player;
-					mOrderMoveData.targetMonster = mMonsterData[i].monster;
-					mOrderMoveData.targetPosition.posX = mMonsterData[i].graph.GetPositionX();
-					mOrderMoveData.targetPosition.posY = mMonsterData[i].graph.GetPositionY();
-					mMoveData.push_back(mOrderMoveData);
-					break;
+					target.push_back(i);
 				}
 			}
+			int retIdx = GetRand(target.size() - 1);
+			retIdx = target[retIdx];
+			mOrderMoveData.targetDeckType = BattleBase::eDeckType_Player;
+			mOrderMoveData.targetMonster = mMonsterData[retIdx].monster;
+			mOrderMoveData.targetPosition.posX = mMonsterData[retIdx].getGraph().GetPositionX();
+			mOrderMoveData.targetPosition.posY = mMonsterData[retIdx].getGraph().GetPositionY();
+			mMoveData.push_back(mOrderMoveData);
 
 			mMainStep = BattleBase::eBattleMainStep_Battle;
 		}
@@ -990,8 +1286,8 @@ void BattleBase::SelectCommandUpdate() {
 	case BattleBase::eCommand_Select:
 
 	{
-		int x = data.graph.GetPositionX() - 120;
-		int y = data.graph.GetPositionY() - 100;
+		int x = data.getGraph().GetPositionX() - 120;
+		int y = data.getGraph().GetPositionY() - 100;
 		for (int i = BattleBase::eButtonType_Attack; i < BattleBase::eButtonType_Num; i++) {
 			mButtons[i]->SetVisible(true);
 			mButtons[i]->SetPosition(x, y);
@@ -1012,20 +1308,43 @@ void BattleBase::SelectCommandUpdate() {
 		// 　回復系
 		// 　復活系
 		// プレイヤーデッキの選択もする
+		if (mOrderMoveData.moveDeckType == eDeckType_Player) {
+			mText.SetString("対象選択");
+		}
 
-		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
-			MONSTER_DATA_t  data = mMonsterData[i];
-			if (data.type == BattleBase::eDeckType_Enemy) {
-				if (data.isDead) continue;
-				if (data.graph.IsTouch()) {
-					mOrderMoveData.targetDeckType = data.type;
-					mOrderMoveData.targetMonster = data.monster;
-					mOrderMoveData.targetPosition.posX = data.graph.GetPositionX();
-					mOrderMoveData.targetPosition.posY = data.graph.GetPositionY();
-					mActionCommand = BattleBase::eCommand_Decision;
-					break;
+		if (mOrderMoveData.activeType == eActiveType_Recovery) {
+			for (unsigned int i = 0; i < mMonsterData.size(); i++) {
+				MONSTER_DATA_t  data = mMonsterData[i];
+				if (data.type == BattleBase::eDeckType_Player) {
+					if (data.isDead) continue;
+					if (data.getGraph().IsTouch()) {
+						mOrderMoveData.targetDeckType = data.type;
+						mOrderMoveData.targetMonster = data.monster;
+						mOrderMoveData.targetPosition.posX = data.getGraph().GetPositionX();
+						mOrderMoveData.targetPosition.posY = data.getGraph().GetPositionY();
+						mActionCommand = BattleBase::eCommand_Decision;
+						break;
+					}
 				}
 			}
+		}
+		else {
+
+			for (unsigned int i = 0; i < mMonsterData.size(); i++) {
+				MONSTER_DATA_t  data = mMonsterData[i];
+				if (data.type == BattleBase::eDeckType_Enemy) {
+					if (data.isDead) continue;
+					if (data.getGraph().IsTouch()) {
+						mOrderMoveData.targetDeckType = data.type;
+						mOrderMoveData.targetMonster = data.monster;
+						mOrderMoveData.targetPosition.posX = data.getGraph().GetPositionX();
+						mOrderMoveData.targetPosition.posY = data.getGraph().GetPositionY();
+						mActionCommand = BattleBase::eCommand_Decision;
+						break;
+					}
+				}
+			}
+
 		}
 
 		break;
@@ -1041,6 +1360,8 @@ void BattleBase::SelectCommandUpdate() {
 			mButtons[i]->SetVisible(false);
 		}
 
+		mText.SetString("");
+
 		break;
 	}
 
@@ -1049,6 +1370,9 @@ void BattleBase::SelectCommandUpdate() {
 
 void BattleBase::SelectCommandDraw() {
 
+	if (mMoveOrderMonsterNum >= mMonsterData.size()) {
+		return;
+	}
 	MONSTER_DATA_t data = mMonsterData[mMoveOrderMonsterNum];
 	switch (mActionCommand) {
 	case BattleBase::eCommand_CehcekActionType:
@@ -1058,8 +1382,8 @@ void BattleBase::SelectCommandDraw() {
 	{
 		// 行動選択を表示
 
-		int x = data.graph.GetPositionX();
-		int y = data.graph.GetPositionY() - 100;
+		int x = data.getGraph().GetPositionX();
+		int y = data.getGraph().GetPositionY() - 100;
 
 		for (int i = BattleBase::eButtonType_Attack; i < BattleBase::eButtonType_Num; i++) {
 			mButtons[i]->Draw();
@@ -1087,7 +1411,12 @@ void BattleBase::SelectCommandDraw() {
 
 void BattleBase::OnClick(View* view) {
 	
-	if (view == mButtons[BattleBase::eButtonType_Auto]) {
+	if (view == mButtons[BattleBase::eButtonType_Menu]) {
+		
+		//とりあえず強制終了する
+		this->RequestKill();
+
+	}else if (view == mButtons[BattleBase::eButtonType_Auto]) {
 		
 		mIsAutoAction = !mIsAutoAction;
 		
@@ -1184,3 +1513,5 @@ bool BattleBase::ButtonAnim::IsPlayAnim() {
 void BattleBase::ButtonAnim::PlayAnim(eAnim anim) {
 	this->mAnim = anim;
 }
+
+} // battle

@@ -15,6 +15,7 @@
 #define __MONSTER_H__
 
 #include "../CharacterBase.h"
+#include "ElementType.inc"
 
 static const int SKILL_HAVE_NUM = 1;	//スキル所持数
 
@@ -32,19 +33,9 @@ public :
 		eHomePosition_Back,		//後衛
 	};
 
-
-	enum eType {
-		eType_None = -1,
-		eType_Fire,
-		eType_Grass,
-		eType_Water,
-		eType_Light,
-		eType_dark,
-	};
-
 private:
 
-	eType mType;
+	eElementType mType;
 	eHomePosition mHhomePosition;
 	
 	int mId;		//管理番号
@@ -65,7 +56,7 @@ public :
 	~Monster();
 
 	void SetId(int id);
-	void SetType(eType type);
+	void SetType(eElementType type);
 	void SetHomePosition(eHomePosition homePosition);
 	void SetHp(int hp);
 	void SetHpMax(int hpMax);
@@ -79,7 +70,8 @@ public :
 	void SetSkillNumber(int skill);
 	
 	int GetId() const;
-	eType GetType()const;
+	eElementType GetType()const;
+	const char* GetTypeString() const;
 	eHomePosition GetHomePosition()const;
 
 	int GetHp()const;

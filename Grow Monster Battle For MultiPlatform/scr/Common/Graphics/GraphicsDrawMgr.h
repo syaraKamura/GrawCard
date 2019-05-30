@@ -71,6 +71,7 @@ public:
 				false	:失敗
 	*/
 	bool Remove(int order);
+	bool Remove(GraphicsBase* graph);
 
 	bool Initialize()override;
 	void Finalize() override;

@@ -15,6 +15,7 @@
 #define __SKILL_MGR_H__
 
 #include <vector>
+#include "SkillAttackType.inc"
 
 namespace loader {
 	class TblLoader;
@@ -76,6 +77,8 @@ private:
 #endif // ENABLE_EFFEKSEER
 	SkillMgr();
 	~SkillMgr();
+
+	std::vector<int> mHandle;
 
 public :
 

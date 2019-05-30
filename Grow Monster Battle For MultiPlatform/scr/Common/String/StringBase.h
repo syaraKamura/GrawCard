@@ -16,6 +16,7 @@
 #define __STRING_BASE_H__
 
 #include <list>
+#include <vector>
 
 class FontMgr;
 class BMFont;
@@ -40,9 +41,19 @@ public :
 
 	static const int STRING_LINE_MAX = 6;
 
+	struct RubyText {
+		char text[256];
+		int pos;
+		int baseLength;
+		int rubyLengh;
+		int line;
+	};
+
+
 private:
 
 	FontMgr * mFontMgr;
+	FontMgr * mRuby;
 	BMFont* mBMFont;
 	unsigned int mColor;
 	char mString[1024];
@@ -58,8 +69,10 @@ private:
 	char mDrawString[STRING_LINE_MAX][1024];
 	bool mIsOnletter;	//一文字ずつ描画するか？
 	int mInputPos;
-
+	bool mIsUpdateSting;	// 文字列の更新行う
 	int mCounter;
+
+	std::vector<RubyText> mRubyList;
 
 public:
 

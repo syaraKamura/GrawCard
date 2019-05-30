@@ -111,6 +111,10 @@ public :
 	*/
 	void DeleteFont();
 
+	int GetFontSize() {
+		return m_Size;
+	}
+
 };
 
 

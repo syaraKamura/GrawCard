@@ -148,13 +148,14 @@ bool TestBattle::Updata() {
 	case TestBattle::eState_BattleStart:
 		SoundMgr::GetInstance()->CroosFadePlay("Battle_1", 60 * 3,SoundMgr::ePlayType_Loop);
 		
-		mBattle = new BattleBase(mPlayer);
+		mBattle = new battle::BattleBase(mPlayer);
 		TaskMgr::getInstance().Add(mBattle);
 		mState = TestBattle::eState_BattleEnd;
 		break;
 	case TestBattle::eState_BattleEnd:
 
-		if (mBattle == NULL) {
+		if (mBattle->IsRelease()) {
+			SoundMgr::GetInstance()->CroosFadePlay("Title", 60 * 3, SoundMgr::ePlayType_Loop);
 			mState = TestBattle::eState_SelectMenu;
 		}
 

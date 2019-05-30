@@ -1,5 +1,5 @@
 ﻿#include "Common/GameCommon.h"
-#include "Scene/ISCeneBase.h"
+#include "Scene/ISceneBase.h"
 #include "Test/TestMenu.h"
 
 
@@ -13,16 +13,18 @@ typedef struct{
 }SCENE_LIST;
 
 static const SCENE_LIST s_cSceneListTbl[] = {
-	{ISceneBase::eScene_Opning,"オープニング"},
-	{ISceneBase::eScene_Title,"タイトル"},
-	{ ISceneBase::eScene_Prologue,"プロローグ" },
-	{ISceneBase::eScene_MainMenu,"メインメニュー"},
-	{ISceneBase::eScene_AITest,"AIテスト"},
-	{ISceneBase::eScene_TestComunication,"通信テスト"},
-	{ISceneBase::eScene_TestBattle,"バトルテスト" },
-	{ISceneBase::eScene_TestADV,"アドベンチャーテスト"},
-	{ISceneBase::eScene_TestMapField,"マップフィールドテスト"},
-	{ISceneBase::eScene_TestLoader,"データ読み込みテスト"},
+	{	ISceneBase::eScene_Opning,				"オープニング"				},
+	{	ISceneBase::eScene_Title,				"タイトル"					},
+	{	ISceneBase::eScene_Prologue,			"プロローグ"				},
+	{	ISceneBase::eScene_MainMenu,			"メインメニュー"			},
+	{	ISceneBase::eScene_AITest,				"AIテスト"					},
+	{	ISceneBase::eScene_TestComunication,	"通信テスト"				},
+	{	ISceneBase::eScene_TestBattle,			"バトルテスト"				},
+	{	ISceneBase::eScene_TestADV,				"アドベンチャーテスト"		},
+	{	ISceneBase::eScene_TestMapField,		"マップフィールドテスト"	},
+	{	ISceneBase::eScene_TestLoader,			"データ読み込みテスト"		},
+	{	ISceneBase::eScene_TestMonsterBox,		"モンスターボックス"		},
+	{	ISceneBase::eScene_TestEffectPlayer,	"エフェクト再生テスト"		},
 };
 
 //シーンリスト数

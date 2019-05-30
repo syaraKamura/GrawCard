@@ -21,85 +21,89 @@ class GraphicsDraw;
 #include "Common/Task/TaskBase.h"
 #include "Common/Animation/Animation.h"
 
-class BattleAnimation : public TaskBase{
+namespace battle {
+namespace anim {
 
-public:
+	class BattleAnimation : public TaskBase {
 
-	enum eAnimationNo {
-		eAnimationNo_None = -1,
-		eAnimationNo_InSide_00,
-		eAnimationNo_InSide_01,
-		eAnimationNo_InSide_02,
-		eAnimationNo_Transrate_Scale,
-		eAnimationNo_Attack_00,
-		eAnimationNo_Attack_01,
-		eAnimationNo_Transrate_Scale_01,
-		eAnimationNo_Transrate_Scale_02,
-		eAnimationNo_Num,
+	public:
+
+		enum eAnimationNo {
+			eAnimationNo_None = -1,
+			eAnimationNo_InSide_00,
+			eAnimationNo_InSide_01,
+			eAnimationNo_InSide_02,
+			eAnimationNo_Transrate_Scale,
+			eAnimationNo_Attack_00,
+			eAnimationNo_Attack_01,
+			eAnimationNo_Transrate_Scale_01,
+			eAnimationNo_Transrate_Scale_02,
+			eAnimationNo_Num,
+		};
+
+		typedef struct {
+			int mOrderId;
+			Animation* mAnim;
+			GraphicsDraw* mGraph;
+			bool mIsNowPositionBase;	// 画像の現在の座標を基準とするか
+		}BATTLE_ANIMATION_DATA_t;
+
+		typedef struct {
+			char mAnimName[128];
+			int mSize;
+			ANIMATION_DATA_t* mData;
+		}ANIMATION_LIST_t;
+
+
+	private:
+
+		std::list <BATTLE_ANIMATION_DATA_t> mAnimData;
+
+		static ANIMATION_LIST_t ANIMATION_LIST_TBL[BattleAnimation::eAnimationNo_Num];
+
+	public:
+
+		BattleAnimation();
+
+		/*
+			int idx				:アニメーション番号
+			GraphicsDraw* graph	:グラフィックス
+			return	NULL以外	: リクエスト成功
+					NULL		: リスエスト失敗
+		*/
+		Animation* RequestAnim(int animNo, GraphicsDraw* graph, bool isNowPositionBase = false);
+
+		Animation* RequestAnim(ANIMATION_DATA_t* animData, int animDataSize, GraphicsDraw* graph, bool isNowPositionBase = false);
+
+		//初期化
+		bool Initialize() override;
+
+		//前　更新処理
+		void PreviousUpdate() override;
+
+		//入力更新処理
+		void InputUpdate() override;
+
+		//更新処理
+		bool Updata() override;
+
+		//描画
+		void Draw() override;
+
+		//後 更新処理
+		void PostUpdate()override;
+
+		//終了処理
+		void Finalize() override;
+
+		/*
+			再生中か判断する
+			return	true	: 再生中
+					false	: 再生中ではない
+		*/
+		bool IsPlay();
+
 	};
-
-	typedef struct {
-		int mOrderId;
-		Animation* mAnim;
-		GraphicsDraw* mGraph;
-		bool mIsNowPositionBase;	// 画像の現在の座標を基準とするか
-	}BATTLE_ANIMATION_DATA_t;
-
-	typedef struct {
-		char mAnimName[128];
-		int mSize;
-		ANIMATION_DATA_t* mData;
-	}ANIMATION_LIST_t;
-
-
-private:
-
-	std::list <BATTLE_ANIMATION_DATA_t> mAnimData;
-
-	static ANIMATION_LIST_t ANIMATION_LIST_TBL[BattleAnimation::eAnimationNo_Num];
-
-public :
-
-	BattleAnimation();
-	
-	/*
-		int idx				:アニメーション番号
-		GraphicsDraw* graph	:グラフィックス
-		return	NULL以外	: リクエスト成功
-				NULL		: リスエスト失敗
-	*/
-	Animation* RequestAnim(int animNo,GraphicsDraw* graph,bool isNowPositionBase = false);
-
-	Animation* RequestAnim(ANIMATION_DATA_t* animData, int animDataSize, GraphicsDraw* graph, bool isNowPositionBase = false);
-
-	//初期化
-	bool Initialize() override;
-
-	//前　更新処理
-	void PreviousUpdate() override;
-
-	//入力更新処理
-	void InputUpdate() override;
-
-	//更新処理
-	bool Updata() override;
-
-	//描画
-	void Draw() override;
-
-	//後 更新処理
-	void PostUpdate()override;
-
-	//終了処理
-	void Finalize() override;
-
-	/*
-		再生中か判断する
-		return	true	: 再生中
-				false	: 再生中ではない
-	*/
-	bool IsPlay();
-
-};
-
+}
+}
 #endif // __BATTLE_ANIMATION_H__

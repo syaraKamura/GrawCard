@@ -13,125 +13,144 @@
 !*/
 
 #include "Common/GameCommon.h"
+
 #include "BattleCalculator.h"
+
 
 static const int VOUCH_DAMAGE_VALUE = 1;			//最低限保証するダメージ量
 static const int VOUCH_MAX_RANDAM_DAMAGE_VALUE = 10;	//最低限保証するランダムダメージ量最大値
 
-/*
-		属性相性の倍率を返却する
+namespace battle {
+	/*
+			属性相性の倍率を返却する
+			Monster::eType owner	:自分
+			Monster::eType target	:対象
+			return 0.0f以上の相性倍率を返却する
+	*/
+	float BattleCalculator::TypeCompatibilityRate(eElementType owner, eElementType target) {
+
+		float rate = 1.0f;
+
+		//属性設定がどちらかがなければ等倍で返却
+		if (owner == eElementType_None || target == eElementType_None) return rate;
+
+		int ret = (owner + 1) % (eElementType_Water + 1);
+
+		if (owner == target)	rate *= 1.0f;	//同じ属性
+		else if (ret == target)	rate *= 2.0f;	//相手の属性に有利
+		else {
+
+			if (owner == eElementType_Lighter && target == eElementType_Dark) rate *= 2.0f;
+			else if (owner == eElementType_Dark && target == eElementType_Lighter) rate *= 2.0f;
+			else rate *= 0.5f;					//相手の属性に不利
+
+		}
+
+		return rate;
+	}
+
+	/*
+		ホームポジション相性倍率を返却する
 		Monster::eType owner	:自分
 		Monster::eType target	:対象
 		return 0.0f以上の相性倍率を返却する
-*/
-float BattleCalculator::TypeCompatibilityRate(Monster::eType owner, Monster::eType target) {
+	*/
+	float BattleCalculator::HomePositionCompatibilityRate(Monster::eHomePosition owner, Monster::eHomePosition target) {
 
-	float rate = 1.0f;
+		float rat = 1.0f;
 
-	//属性設定がどちらかがなければ等倍で返却
-	if (owner == Monster::eType_None || target == Monster::eType_None) return rate;	
+		if (owner == Monster::eHomePosition_Front && target == Monster::eHomePosition_Front) rat = 1.0f;
+		else if (owner == Monster::eHomePosition_Front && target == Monster::eHomePosition_Back) rat = 0.5f;
+		else if (owner == Monster::eHomePosition_Back && target == Monster::eHomePosition_Front) rat = 0.75f;
+		else if (owner == Monster::eHomePosition_Back && target == Monster::eHomePosition_Back) rat = 0.25f;
+		else {
+			Debug::ErorrMessage("不正なホームポジションが設定されています");
+		}
 
-	int ret = (owner + 1) % (Monster::eType_Water + 1);
-
-	if (owner == target)	rate *= 1.0f;	//同じ属性
-	else if (ret == target)	rate *= 2.0f;	//相手の属性に有利
-	else {									
-
-		if (owner == Monster::eType_Light && target == Monster::eType_dark) rate *= 2.0f;
-		else if (owner == Monster::eType_dark && target == Monster::eType_Light) rate *= 2.0f;
-		else rate *= 0.5f;					//相手の属性に不利
-
+		return rat;
 	}
 
-	return rate;
-}
+	/*
+		ダメージ量ランダム加算
+		Monster atkOwner	:攻撃側
+		Monster atkTarget	:攻撃対象
+		return ランダムダメージ量
+	*/
+	float BattleCalculator::AddRandomDamage(Monster atkOwner, Monster atkTarget) {
 
-/*
-	ホームポジション相性倍率を返却する
-	Monster::eType owner	:自分
-	Monster::eType target	:対象
-	return 0.0f以上の相性倍率を返却する
-*/
-float BattleCalculator::HomePositionCompatibilityRate(Monster::eHomePosition owner, Monster::eHomePosition target) {
+		int max = atkOwner.GetAttack() - atkTarget.GetDeffence();
+		float damage = 0.0f;
 
-	float rat = 1.0f;
+		if (max <= 0) {
+			max = VOUCH_MAX_RANDAM_DAMAGE_VALUE;
+		}
 
-	if (owner == Monster::eHomePosition_Front && target == Monster::eHomePosition_Front) rat = 1.0f;
-	else if (owner == Monster::eHomePosition_Front && target == Monster::eHomePosition_Back) rat = 0.5f;
-	else if (owner == Monster::eHomePosition_Back && target == Monster::eHomePosition_Front) rat = 0.75f;
-	else if (owner == Monster::eHomePosition_Back && target == Monster::eHomePosition_Back) rat = 0.25f;
-	else {
-		Debug::ErorrMessage("不正なホームポジションが設定されています");
+		// -(max/2) ~ (max/2)になるようにする
+		damage = (float)DxLib::GetRand(max) - (float)(max / 2.0f);
+
+		return damage;
 	}
 
-	return rat;
-}
+	/*
+		通常攻撃ダメージ計算
+		Monster atkOwner	:攻撃側
+		Monster atkTarget	:攻撃対象
+		return	1以上のダメージを返却する
+	*/
+	int BattleCalculator::NormalDamage(Monster atkOwner, Monster atkTarget) {
 
-/*
-	ダメージ量ランダム加算
-	Monster atkOwner	:攻撃側
-	Monster atkTarget	:攻撃対象
-	return ランダムダメージ量
-*/
-float BattleCalculator::AddRandomDamage(Monster atkOwner, Monster atkTarget) {
+		float damage = VOUCH_DAMAGE_VALUE;
 
-	int max = atkOwner.GetAttack() - atkTarget.GetDeffence();
-	float damage = 0.0f;
+		float ownerAtk = (float)atkOwner.GetAttack() * (float)atkOwner.GetLevel();
+		float targetDef = (float)atkTarget.GetDeffence() * (float)atkTarget.GetLevel() * 0.5f;
 
-	if (max <= 0) {
-		max = VOUCH_MAX_RANDAM_DAMAGE_VALUE;
+		//タイプ相性分を乗算
+		ownerAtk *= TypeCompatibilityRate(atkOwner.GetType(), atkTarget.GetType());
+
+		//ホームポジション相性を乗算
+		ownerAtk *= HomePositionCompatibilityRate(atkOwner.GetHomePosition(), atkTarget.GetHomePosition());
+
+		damage = ownerAtk - targetDef;
+
+		damage += AddRandomDamage(atkOwner, atkTarget);
+
+		if (damage <= 0.0f) {
+			damage = VOUCH_DAMAGE_VALUE;
+		}
+
+		return (int)damage;
 	}
 
-	// -(max/2) ~ (max/2)になるようにする
-	damage = (float)DxLib::GetRand(max) - (float)(max / 2.0f);
+	/*
+		スキル攻撃ダメージ計算
+		Monster atkOwner	:攻撃側
+		Monster atkTarget	:攻撃対象
+		return	1以上のダメージを返却する
+	*/
+	int BattleCalculator::SkillDamage(Monster atkOwner, Monster atkTarget, SkillData skill) {
 
-	return damage;
-}
+		//とりあえずこれで計算
+		float damage = 0;
+		eSkillAttackType type = (eSkillAttackType)skill.attackType;
+		switch (type) {
+		case eSkillAttackType_Attack:
+			atkOwner.SetAttack(atkOwner.GetAttack() + skill.attack);
+			damage = (float)NormalDamage(atkOwner, atkTarget);
+			break;
+		case eSkillAttackType_Recovery:
 
-/*
-	通常攻撃ダメージ計算
-	Monster atkOwner	:攻撃側
-	Monster atkTarget	:攻撃対象
-	return	1以上のダメージを返却する
-*/
-int BattleCalculator::NormalDamage(Monster atkOwner, Monster atkTarget) {
+			break;
+		case eSkillAttackType_Support:
 
-	float damage = VOUCH_DAMAGE_VALUE;
+			break;
+		}
+		
+		if (type == eSkillAttackType_Attack) {
+			if (damage <= 0.0f) {
+				damage = VOUCH_DAMAGE_VALUE;
+			}
+		}
 
-	float ownerAtk = (float)atkOwner.GetAttack() * (float)atkOwner.GetLevel();
-	float targetDef = (float)atkTarget.GetDeffence() * (float)atkTarget.GetLevel() * 0.5f;
-
-	//タイプ相性分を乗算
-	ownerAtk *= TypeCompatibilityRate(atkOwner.GetType(), atkTarget.GetType());
-
-	//ホームポジション相性を乗算
-	ownerAtk *= HomePositionCompatibilityRate(atkOwner.GetHomePosition(), atkTarget.GetHomePosition());
-
-	damage = ownerAtk - targetDef;
-
-	damage += AddRandomDamage(atkOwner, atkTarget);
-
-	if (damage <= 0.0f) {
-		damage = VOUCH_DAMAGE_VALUE;
+		return (int)damage;
 	}
-
-	return (int)damage;
-}
-
-/*
-	スキル攻撃ダメージ計算
-	Monster atkOwner	:攻撃側
-	Monster atkTarget	:攻撃対象
-	return	1以上のダメージを返却する
-*/
-int BattleCalculator::SkillDamage(Monster atkOwner, Monster atkTarget) {
-
-	//とりあえずこれで計算
-	float damage = (float)NormalDamage(atkOwner, atkTarget);
-
-	if (damage <= 0.0f) {
-		damage = VOUCH_DAMAGE_VALUE;
-	}
-
-	return (int)damage;
 }

@@ -173,6 +173,7 @@
     <ClCompile Include="..\scr\Common\Debug\Debug.cpp" />
     <ClCompile Include="..\scr\Common\Debug\DebugList.cpp" />
     <ClCompile Include="..\scr\Common\Effect\Effect.cpp" />
+    <ClCompile Include="..\scr\Common\Effect\Particle\Particle.cpp" />
     <ClCompile Include="..\scr\Common\Fade\Fade.cpp" />
     <ClCompile Include="..\scr\Common\FileIO\FileIO.cpp" />
     <ClCompile Include="..\scr\Common\FileIO\ReadBynary.cpp" />
@@ -220,6 +221,7 @@
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleAnimation.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.cpp" />
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonMenu.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonBase.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\DungeonMgr.cpp" />
@@ -236,9 +238,11 @@
     <ClCompile Include="..\scr\Test\TestADV.cpp" />
     <ClCompile Include="..\scr\Test\TestBattle.cpp" />
     <ClCompile Include="..\scr\Test\TestCommunication.cpp" />
+    <ClCompile Include="..\scr\Test\TestEffectPlayer.cpp" />
     <ClCompile Include="..\scr\Test\TestLoader.cpp" />
     <ClCompile Include="..\scr\Test\TestMapField.cpp" />
     <ClCompile Include="..\scr\Test\TestMenu.cpp" />
+    <ClCompile Include="..\scr\Test\TestMonsterBox.cpp" />
     <ClCompile Include="..\scr\win32\Communication\ReceiveUDP_win32.cpp" />
     <ClCompile Include="..\scr\win32\Communication\SendUDP_win32.cpp" />
     <ClCompile Include="..\scr\win32\FrameWork_win32.cpp" />
@@ -267,6 +271,7 @@
     <ClInclude Include="..\scr\Common\Debug\Debug.h" />
     <ClInclude Include="..\scr\Common\Debug\DebugList.h" />
     <ClInclude Include="..\scr\Common\Effect\Effect.h" />
+    <ClInclude Include="..\scr\Common\Effect\Particle\Particle.h" />
     <ClInclude Include="..\scr\Common\Fade\Fade.h" />
     <ClInclude Include="..\scr\Common\FileIO\FileIO.h" />
     <ClInclude Include="..\scr\Common\FileIO\ReadBynary.h" />
@@ -319,6 +324,7 @@
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleAnimation.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.h" />
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonMenu.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonBase.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\DungeonMgr.h" />
@@ -336,11 +342,18 @@
     <ClInclude Include="..\scr\Test\TestADV.h" />
     <ClInclude Include="..\scr\Test\TestBattle.h" />
     <ClInclude Include="..\scr\Test\TestCommunication.h" />
+    <ClInclude Include="..\scr\Test\TestEffectPlayer.h" />
     <ClInclude Include="..\scr\Test\TestLoader.h" />
     <ClInclude Include="..\scr\Test\TestMapField.h" />
     <ClInclude Include="..\scr\Test\TestMenu.h" />
+    <ClInclude Include="..\scr\Test\TestMonsterBox.h" />
     <ClInclude Include="..\scr\win32\KeyBoard.h" />
     <ClInclude Include="..\scr\win32\MouseInput.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\scr\AppData\Character\Monster\ElementType.inc" />
+    <None Include="..\scr\AppData\Character\Skill\SkillAttackType.inc" />
+    <None Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.inc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

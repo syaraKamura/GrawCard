@@ -18,7 +18,7 @@ Monster::Monster() : CharacterBase() {
 
 	SetLevel(LEVEL_MIN);
 	SetName("None");
-	SetType(eType_None);
+	SetType(eElementType_None);
 	SetHomePosition(eHomePosition_Front);
 	SetHp(10);
 	SetHpMax(GetHp());
@@ -39,7 +39,7 @@ void Monster::SetId(int id) {
 	mId = id;
 }
 
-void Monster::SetType(eType type) {
+void Monster::SetType(eElementType type) {
 	mType = type;
 }
 
@@ -83,8 +83,23 @@ int Monster::GetId() const {
 	return mId;
 }
 
-Monster::eType Monster::GetType() const {
+eElementType Monster::GetType() const {
 	return mType;
+}
+
+const char* Monster::GetTypeString() const {
+	struct type{
+		const char* Text;
+	};
+	type t[]=
+	{
+		"炎",		//eType_Fire,
+		"草",		//eType_Grass,
+		"水",		//eType_Water,
+		"光",		//eType_Light,
+		"闇",		//eType_dark,
+	};
+	return t[mType].Text;
 }
 
 Monster::eHomePosition Monster::GetHomePosition() const {

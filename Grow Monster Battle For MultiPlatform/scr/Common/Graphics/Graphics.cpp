@@ -158,13 +158,17 @@ void Graphics::Draw() {
 		Debug::InfoboardOn();
 		return;
 	}
+	if (mIsVisible == false) {
+		return;
+	}
+	SetDrawBright(mBright.r, mBright.g, mBright.b);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
 	//DxLib::DrawGraph(mPosX, mPosY, mHandle, TRUE);
 	int drawX = mPosX + mWidth / 2;
 	int drawY = mPosY + mHeight / 2;
 	DxLib::DrawRotaGraph2(drawX, drawY, mWidth / 2, mHeight / 2, mScale, mAngle, mHandle, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
+	SetDrawBright(255, 255, 255);
 }
 
 bool Graphics::IsTouch() {

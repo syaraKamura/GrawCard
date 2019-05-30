@@ -29,6 +29,8 @@ GraphicsDraw::GraphicsDraw() {
 	mScale = 1.0;
 	mAngle = 0.0;
 
+	SetBright(255, 255, 255);
+
 	mIsVisible = true;
 	mIsRelese = false;
 
@@ -48,6 +50,10 @@ int GraphicsDraw::GetAlpah() {
 	return mAlpha; 
 }
 
+GraphicsDraw::Color GraphicsDraw::GetBright() {
+	return mBright;
+}
+
 void GraphicsDraw::SetAlpha(int alpha) { 
 	if (alpha < 0) {
 		alpha = 0;
@@ -56,6 +62,12 @@ void GraphicsDraw::SetAlpha(int alpha) {
 		alpha = 255;
 	}
 	mAlpha = alpha; 
+}
+
+void GraphicsDraw::SetBright(int r, int g, int b) {
+	mBright.r = r;
+	mBright.g = g;
+	mBright.b = b;
 }
 
 void GraphicsDraw::SetPosition(int posX, int posY) {
@@ -166,9 +178,11 @@ void GraphicsDraw::Draw() {
 		return;
 	}
 
+	SetDrawBright(mBright.r, mBright.g, mBright.b);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
 	DxLib::DrawGraph(mPosX, mPosY, mHandle, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	SetDrawBright(255, 255, 255);
 
 
 }

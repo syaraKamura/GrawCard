@@ -31,6 +31,7 @@ protected:
 	virtual int LoadResource(std::string fileName);
 	virtual void DestoryResource(int handle);
 
+	bool CheckFileExists(std::string fileName);
 
 public :
 

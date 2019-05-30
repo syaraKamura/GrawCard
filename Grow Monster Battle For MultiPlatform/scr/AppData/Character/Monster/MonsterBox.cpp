@@ -23,11 +23,19 @@ namespace monsterBox {
 		mIndex = 0;
 
 		memset(mMonsterData, 0, sizeof(Monster_t) * MONSTER_MAX);
+		mSelctMonster = nullptr;
+
+		mSelectGraph = new Graphics();
+		mSelectGraph->Load("Resources/Graphics/Monster/mon_box1.png");
+
+		mSelectGraph->SetBright(255, 255, 0);
+		mSelectGraph->SetVisible(false);
 
 	}
 
 	MonsterBox::~MonsterBox() {
-
+		mSelectGraph->Relese();
+		Delete(mSelectGraph);
 	}
 
 
@@ -147,18 +155,73 @@ namespace monsterBox {
 	}
 
 
+	void MonsterBox::Update() {
+		
+		for (int i = 0; i < MONSTER_MAX; i++) {
+			Monster_t& monData = mMonsterData[i];
+			Monster* mon = monData.monster;
+			if (mon == nullptr) {
+				continue;
+			}
+			Graphics graph = MonsterMgr::Instance()->GetGraphics(mon->GetId());
+			int w;
+			int h;
+			graph.GetSize(&w, &h);
+			int posX = i % 5 * w;
+			int posY = i / 5 * h;
+			graph.SetPosition(posX, posY);
+			if (graph.IsTouch()) {
+				if (mSelctMonster != mon) {
+					mSelctMonster = mon;
+					mSelectGraph->SetPosition(posX, posY);
+					mSelectGraph->SetVisible(true);
+				}
+				else {
+					mSelctMonster = nullptr;
+					mSelectGraph->SetVisible(false);
+				}
+				break;
+			}
+		}
+		
+	}
 
 	void MonsterBox::Draw() {
 
 		for (int i = 0; i < MONSTER_MAX; i++) {
 			Monster_t monData = mMonsterData[i];
 			Monster* mon = monData.monster;
+			if (mon == nullptr) {
+				continue;
+			}
 			Graphics graph = MonsterMgr::Instance()->GetGraphics(mon->GetId());
-			int posX = i % 5 * 100;
-			int posY = i / 5 * 100;
+			int w;
+			int h;
+			graph.GetSize(&w, &h);
+			int posX = i % 5 * w;
+			int posY = i / 5 * h;
 			graph.SetPosition(posX, posY);
 			graph.Draw();
 
+			if (mSelctMonster == mon) {
+				posX = i % 5 * w;
+				posY = i / 5 * h;
+				DrawString(posX, posY, "選択中", GetColor(255, 0, 0));
+			}
+		}
+
+		mSelectGraph->Draw();
+
+		if (mSelctMonster != nullptr) {
+			DrawString(1000, 300, "情報を表示する", GetColor(255, 0, 0));
+			int y = 320;
+			DrawFormatString(1000, y, GetColor(255, 0, 0), "%s", mSelctMonster->GetName());
+			DrawFormatString(1000, y += 20, GetColor(255, 0, 0), "Level:%d", mSelctMonster->GetLevel());
+			DrawFormatString(1100, y , GetColor(255, 0, 0), "Cost:%d", mSelctMonster->GetCost());
+			DrawFormatString(1000, y += 20, GetColor(255, 0, 0), "Type:%s", mSelctMonster->GetTypeString());
+			DrawFormatString(1000, y += 20, GetColor(255, 0, 0), "EXP:%d/%d", mSelctMonster->GetExp(), mSelctMonster->GetNextExp());
+			DrawFormatString(1000, y += 20, GetColor(255, 0, 0), "HP:%d/%d", mSelctMonster->GetHp(), mSelctMonster->GetHpMax());
+			DrawFormatString(1000, y += 20, GetColor(255, 0, 0), "MP:%d/%d", mSelctMonster->GetMp(), mSelctMonster->GetMpMax());
 		}
 
 	}

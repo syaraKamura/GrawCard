@@ -266,6 +266,21 @@
     <ClCompile Include="..\..\scr\Common\Graphics\LoadGraphics.cpp">
       <Filter>src\Common\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Test\TestEffectPlayer.cpp">
+      <Filter>src\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Test\TestMonsterBox.cpp">
+      <Filter>src\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Effect\Effect.cpp">
+      <Filter>src\Common\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Effect\Particle\Particle.cpp">
+      <Filter>src\Common\Effect\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -423,6 +438,12 @@
     </Filter>
     <Filter Include="src\Common\ResourceTable">
       <UniqueIdentifier>{b1707d1c-7fa8-4159-a66d-71eb8660f6b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Effect">
+      <UniqueIdentifier>{49a8fd8a-b6d9-42ef-a0ab-69c481378d1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Effect\Particle">
+      <UniqueIdentifier>{cb5f26b1-d6e8-4849-b0ea-ed7ec6434cff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -696,5 +717,25 @@
     <ClInclude Include="..\..\scr\Common\Graphics\LoadGraphics.h">
       <Filter>src\Common\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\scr\Test\TestEffectPlayer.h">
+      <Filter>src\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Test\TestMonsterBox.h">
+      <Filter>src\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Effect\Effect.h">
+      <Filter>src\Common\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Effect\Particle\Particle.h">
+      <Filter>src\Common\Effect\Particle</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.inc">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle</Filter>
+    </None>
   </ItemGroup>
 </Project>

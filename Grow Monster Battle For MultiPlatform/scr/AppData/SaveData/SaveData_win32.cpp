@@ -159,7 +159,7 @@ bool SaveData::Load(SaveData* pOutData) {
 
 				monster->SetLevel(level);
 				monster->SetName(name);
-				monster->SetType((Monster::eType)type);
+				monster->SetType((eElementType)type);
 				monster->SetExp(exp);
 				monster->SetNextExp(nextExp);
 				monster->SetHp(hp);
@@ -228,7 +228,7 @@ bool SaveData::Load(SaveData* pOutData) {
 				monster->SetId(id);
 				monster->SetLevel(level);
 				monster->SetName(name);
-				monster->SetType((Monster::eType)type);
+				monster->SetType((eElementType)type);
 				monster->SetExp(exp);
 				monster->SetNextExp(nextExp);
 				monster->SetHp(hp);

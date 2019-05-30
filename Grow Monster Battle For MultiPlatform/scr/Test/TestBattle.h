@@ -18,7 +18,9 @@
 
 #include "Scene/SceneBase.h"
 
-class BattleBase;
+namespace battle {
+	class BattleBase;
+}
 
 class TestBattle: public SceneBase {
 
@@ -51,7 +53,7 @@ private:
 	int mSelectMonster;
 	int mSelectDeckNum;
 
-	BattleBase* mBattle;
+	battle::BattleBase* mBattle;
 	Player* mPlayer;
 	SaveData* mSaveData;
 public :

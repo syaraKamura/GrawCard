@@ -23,6 +23,15 @@ SkillMgr* SkillMgr::mInstance = nullptr;
 SkillMgr::SkillMgr() {
 	mLoad = loader::TblLoaderMgr::GetInstance()->LoadRequest(FILE_PATH);
 	mStateCnt = SkillMgr::eState_Load;
+
+#ifdef __MY_DEBUG__
+
+	mHandle.push_back(Effect::EffectMgr::GetInstance()->Load("Resources/Effect/Test/Test00.png", 320, 120));
+	mHandle.push_back(Effect::EffectMgr::GetInstance()->Load("Resources/Effect/Test/Test01.png", 120, 120));
+	mHandle.push_back(Effect::EffectMgr::GetInstance()->Load("Resources/Effect/Test/Test02.png", 120, 120));
+
+#endif //__MY_DEBUG__
+
 }
 
 SkillMgr::~SkillMgr() {
@@ -199,6 +208,9 @@ PlaySkill* SkillMgr::Play(int id, float posX, float posY) {
 			
 			return &skill;
 #endif // #ifdef ENABLE_EFFEKSEER
+			int handle = mHandle[data.effectNo];
+			Effect::EffectMgr::GetInstance()->Play(handle, posX, posY);
+			return nullptr;
 		}
 
 	}

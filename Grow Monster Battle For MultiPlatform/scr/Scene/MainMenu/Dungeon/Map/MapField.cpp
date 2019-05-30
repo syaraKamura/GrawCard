@@ -20,6 +20,8 @@
 #include "Map.h"
 #include "MapField.h"
 
+using namespace battle;
+
 struct MapData {
 	int id;
 	char title[64];

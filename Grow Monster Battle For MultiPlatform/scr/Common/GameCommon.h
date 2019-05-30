@@ -12,6 +12,7 @@
 #include "Common/Sound/SoundMgr.h"
 #include "Common/CommonResource/CommonResource.h"
 #include "Common/XML/XmlPurser.h"
+#include "Common/Effect/Effect.h"
 
 #include "Common/Debug/Debug.h"
 #include "Common/Debug/DebugList.h"
@@ -30,7 +31,6 @@
 #ifdef __WINDOWS__
 	#include <Windows.h>
 	#include "win32/KeyBoard.h"
-	#include "Common/Effect/Effect.h"
 
 	//#include "win32/MouseInput.h"
 #endif

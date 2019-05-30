@@ -40,6 +40,8 @@ public :
 		eScene_TestADV,				//アドベンチャーテスト
 		eScene_TestMapField,		//マップフィールドテスト
 		eScene_TestLoader,			//データロードテスト
+		eScene_TestMonsterBox,		//モンスターボックス
+		eScene_TestEffectPlayer,	//エフェクト再生テスト
 #endif
 
 		eScene_Num,

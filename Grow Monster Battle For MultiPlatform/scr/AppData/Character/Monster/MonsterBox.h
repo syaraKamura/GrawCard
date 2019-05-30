@@ -31,6 +31,7 @@ namespace monsterBox {
 		int deckIndex;		// デッキ配置番号
 		Monster* monster;
 		eUseState useState;
+		int touchCounter;
 	}Monster_t;
 
 
@@ -47,6 +48,10 @@ namespace monsterBox {
 		Monster_t mMonsterData[MONSTER_MAX];
 		int mMonsterCount;
 		int mIndex;
+		
+		Monster* mSelctMonster;
+
+		Graphics* mSelectGraph;
 
 	private:
 
@@ -95,6 +100,7 @@ namespace monsterBox {
 		Monster* GetMonster(int idx);
 		void SetMonster(int idx, Monster* monster);
 
+		void Update();
 		void Draw();
 
 		const Monster_t GetMonsterInfo(int idx);

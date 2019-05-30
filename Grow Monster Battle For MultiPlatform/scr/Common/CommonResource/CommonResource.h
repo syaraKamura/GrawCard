@@ -26,7 +26,7 @@ namespace AdvScript {
 
 class Graphics;
 
-
+#if 0
 enum class eEffect : int{
 	
 	TestEffect1,
@@ -38,6 +38,7 @@ enum class eEffect : int{
 	BATTLE_EFFECT_END,
 
 };
+#endif
 
 class ComRes {
 

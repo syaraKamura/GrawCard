@@ -28,6 +28,8 @@
 	#include "Test/TestADV.h"
 	#include "Test/TestMapField.h"
 	#include "Test/TestLoader.h"
+	#include "Test/TestMonsterBox.h"
+	#include "Test/TestEffectPlayer.h"
 #endif
 
 typedef struct {
@@ -299,6 +301,14 @@ SceneBase* SceneMgr::CreateNextScene(ISceneBase::eScene next) {
 			case ISceneBase::eScene_TestLoader:
 				scene = (SceneBase*)new TestLoader(this);
 				strcpyDx(sceneName, "Scene_TestLader");
+				break;
+			case ISceneBase::eScene_TestMonsterBox:
+				scene = (SceneBase*)new TestMonsterBox(this);
+				strcpyDx(sceneName, "Scene_TestMonsterBox");
+				break;
+			case ISceneBase::eScene_TestEffectPlayer:
+				scene = (SceneBase*)new TestEffectPlayer(this);
+				strcpyDx(sceneName, "Scene_TestEffectPlayer");
 				break;
 #endif // __MY_DEBUG__
 	}

@@ -16,53 +16,57 @@
 #define __BATTLE_CALCULATOR_H__
 
 #include "AppData/Character/Monster/Monster.h"
+#include "AppData/Character/Skill/SkillMgr.h"
 
-class BattleCalculator {
+namespace battle {
 
-private:
+	class BattleCalculator {
 
-	/*
-		属性相性の倍率を返却する
-		Monster::eType owner	:自分
-		Monster::eType target	:対象
-		return 0.0f以上の相性倍率を返却する
-	*/
-	static float TypeCompatibilityRate(Monster::eType owner, Monster::eType target);
+	private:
 
-	/*
-		ホームポジション相性倍率を返却する
-		Monster::eType owner	:自分
-		Monster::eType target	:対象
-		return 0.0f以上の相性倍率を返却する
-	*/
-	static float HomePositionCompatibilityRate(Monster::eHomePosition owner, Monster::eHomePosition target);
+		/*
+			属性相性の倍率を返却する
+			Monster::eType owner	:自分
+			Monster::eType target	:対象
+			return 0.0f以上の相性倍率を返却する
+		*/
+		static float TypeCompatibilityRate(eElementType owner, eElementType target);
 
-	/*
-		ダメージ量ランダム加算
-		Monster atkOwner	:攻撃側
-		Monster atkTarget	:攻撃対象
-		return ランダムダメージ量
-	*/
-	static float AddRandomDamage(Monster atkOwner, Monster atkTarget);
+		/*
+			ホームポジション相性倍率を返却する
+			Monster::eType owner	:自分
+			Monster::eType target	:対象
+			return 0.0f以上の相性倍率を返却する
+		*/
+		static float HomePositionCompatibilityRate(Monster::eHomePosition owner, Monster::eHomePosition target);
 
-public :
+		/*
+			ダメージ量ランダム加算
+			Monster atkOwner	:攻撃側
+			Monster atkTarget	:攻撃対象
+			return ランダムダメージ量
+		*/
+		static float AddRandomDamage(Monster atkOwner, Monster atkTarget);
 
-	/*
-		通常攻撃ダメージ計算
-		Monster atkOwner	:攻撃側
-		Monster atkTarget	:攻撃対象
-		return	1以上のダメージを返却する
-	*/
-	static int NormalDamage(Monster atkOwner,Monster atkTarget);
+	public:
 
-	/*
-		スキル攻撃ダメージ計算
-		Monster atkOwner	:攻撃側
-		Monster atkTarget	:攻撃対象
-		return	1以上のダメージを返却する
-	*/
-	static int SkillDamage(Monster atkOwner, Monster atkTarget);
+		/*
+			通常攻撃ダメージ計算
+			Monster atkOwner	:攻撃側
+			Monster atkTarget	:攻撃対象
+			return	1以上のダメージを返却する
+		*/
+		static int NormalDamage(Monster atkOwner, Monster atkTarget);
 
-};
+		/*
+			スキル攻撃ダメージ計算
+			Monster atkOwner	:攻撃側
+			Monster atkTarget	:攻撃対象
+			SkillData skill		:スキル情報
+			return	1以上のダメージを返却する
+		*/
+		static int SkillDamage(Monster atkOwner, Monster atkTarget,SkillData skill);
 
+	};
+}//battle
 #endif // __BATTLE_CALCULATOR_H__

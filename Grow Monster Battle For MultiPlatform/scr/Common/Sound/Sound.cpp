@@ -24,18 +24,6 @@ int Sound::LoadResource(std::string fileName) {
 #endif // __WINDOWS__
 #endif // __MY_DEBUG__
 
-
-#if 0
-	int handle = DxLib::FileRead_open(fileName.c_str());
-
-	if (handle == 0) {
-		Debug::LogPrintf("Not Exist Graphics File.(%s)\n");
-		return Sound::eResult_Error;
-	}
-
-	DxLib::FileRead_close(handle);
-#endif
-
 	return DxLib::LoadSoundMem(mFilePath);
 }
 

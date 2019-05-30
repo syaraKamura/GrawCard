@@ -44,23 +44,7 @@ public:
 	virtual bool Load(const char* path) = 0;
 
 	int GetHandle() { return mHandle; }
-	void SetFileName(const char* fileName) {
-		int length = strlenDx(fileName);
-		
-		const char* name = NULL;
-
-		if (length >= 64) {
-			name = (fileName + (length - 65));
-		}
-		else {
-			name = fileName;
-		}
-		
-//#ifdef __MY_DEBUG__
-		strcpyDx(mFileName, name);
-//#endif // __MY_DEBUG__
-
-	}
+	void SetFileName(const char* fileName);
 
 	virtual bool IsTouch() { return false; }
 	virtual int TouchNumber() { return 0; }

@@ -47,7 +47,8 @@ SoundMgr::~SoundMgr() {
 Sound* SoundMgr::SarchSoundData(std::string soundId) const {
 	// C++11以降でのみ使用できる機能.
 	try {
-		return mSoundData.at(soundId);
+		Sound* ret = mSoundData.at(soundId);
+		return (ret ? new Sound(*ret) : nullptr);
 	}
 	catch (std::out_of_range) {
 		return NULL;
@@ -209,14 +210,18 @@ void SoundMgr::Stop() {
 void SoundMgr::CroosFadePlay(std::string nextSoundId, int frameTime, ePlayType playType/* = ePlayType_BackGround*/) {
 
 	if (mNextSoundId.empty() == false) {
-		Debug::LogPrintf("すでに次に再生するサウンドの識別IDが設定されています.\n%s",mNextSoundId.c_str());
-		return;
+		//Debug::LogPrintf("すでに次に再生するサウンドの識別IDが設定されています.\n%s",mNextSoundId.c_str());
+		mNowSoundId = mNextSoundId;
+		mNextSoundId = "";
+		//return;
+	}
+	else {
+		mCrossFadeCount = 0;
 	}
 
 	mPlayType = playType;
 	mNextSoundId = nextSoundId;
 	mCrossFadeTime = frameTime;
-	mCrossFadeCount = 0;
 	mIsCrossFade = true;
 }
 
@@ -238,7 +243,7 @@ bool SoundMgr::Updata() {
 	Sound* nextSound = SarchSoundData(mNextSoundId);
 	
 	if (nextSound == nullptr) {
-		Debug::ErorrMessage("指定されたサウンド識別IDが存在していません%s", mNowSoundId.c_str());
+		Debug::ErorrMessage("指定されたサウンド識別IDが存在していません%s", mNextSoundId.c_str());
 		return true;
 	}
 

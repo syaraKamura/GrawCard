@@ -21,7 +21,7 @@ static ANIMATION_DATA_t BTL_ANIM_CARD_INSIDE_00[] =
 {
 	// keyframe	positionX	positionY				angle	scale	alpha	easing
 	{ 0 ,		0,			WINDOW_HEIGHT,			0.0f,	1.0f,	0.0f									},
-	{ 20,		0,			WINDOW_HEIGHT - 350,	0.0f,	1.0f,	255.0f	,Easing::eEasingType_InCubic	},
+	{ 20,		0,			WINDOW_HEIGHT - 350,	0.0f,	1.0f,	255.0f	,Easing::eEasingType_None		},
 };
 
 // 下からカードを画面内へ移動させる(後衛設定)
@@ -53,8 +53,8 @@ static ANIMATION_DATA_t BTL_ANIM_CARD_TRANSRATE_SCALE[]{
 static ANIMATION_DATA_t BTL_ANIM_CARD_ATTACK_00[]{
 	// keyframe	positionX	positionY	angle	scale	alpha	easing
 	{ 0 ,		0,			0,			0.0f,	1.0f,	255.0f ,Easing::eEasingType_InCubic },
-	{ 30 ,		0,			-50,			0.0f,	1.0f,	255.0f ,Easing::eEasingType_InCubic },
-	{ 35 ,		0,			0,		0.0f,	1.0f,	255.0f },
+	{ 30 ,		0,			-50,		0.0f,	1.0f,	255.0f ,Easing::eEasingType_InCubic },
+	{ 35 ,		0,			0,			0.0f,	1.0f,	255.0f },
 };
 
 // 通常攻撃_01
@@ -79,7 +79,8 @@ static ANIMATION_DATA_t BTL_ANIM_CARD_TRANSRATE_SCALE_02[]{
 	{ 30 ,		0,			-20,		0.0f,	0.0f,	0.0f },
 };
 
-
+namespace battle{
+namespace anim{
 BattleAnimation::ANIMATION_LIST_t BattleAnimation::ANIMATION_LIST_TBL[BattleAnimation::eAnimationNo_Num] =
 {
 	{ "下から画面内へ移動する（前衛）" ,ArrySize(BTL_ANIM_CARD_INSIDE_00),BTL_ANIM_CARD_INSIDE_00},
@@ -247,3 +248,6 @@ bool BattleAnimation::IsPlay() {
 	
 	return false;
 }
+
+}//battle
+}//anim

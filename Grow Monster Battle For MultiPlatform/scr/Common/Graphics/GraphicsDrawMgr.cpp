@@ -106,6 +106,16 @@ bool GraphicsDrawMgr::Remove(int order) {
 	}
 	return false;
 }
+bool GraphicsDrawMgr::Remove(GraphicsBase* graph) {
+	for (auto it = mList->begin(); it != mList->end();) {
+		if ((*it).graph == graph) {
+			mList->erase(it);
+			return true;
+		}
+		it++;
+	}
+	return false;
+}
 
 bool GraphicsDrawMgr::Initialize() {
 	return true;
