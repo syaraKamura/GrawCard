@@ -108,6 +108,11 @@ public :
 		return mStoryData;
 	}
 
+#ifdef __MY_DEBUG__
+	bool dbg_IsStateMain() {
+		return (mState == eState_Main);
+	}
+#endif
 
 };
 

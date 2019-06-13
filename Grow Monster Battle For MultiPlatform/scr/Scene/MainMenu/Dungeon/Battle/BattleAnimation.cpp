@@ -249,5 +249,59 @@ bool BattleAnimation::IsPlay() {
 	return false;
 }
 
+
+//====================================
+// ダメージアニメーション
+//====================================
+
+DamageNum::DamageNum() : mCounter(0),
+mPosX(0), 
+mPosY(0), 
+mAlpha(255.0f), 
+mDamageType(eType_Damage),mColor(GetColor(255,255,255)) {
+
+}
+
+void DamageNum::Draw() {
+
+	// 0フレーム目は描画しない
+	if (mCounter <= 0) { return; }
+
+	int drawX = mBasePosX + mPosX;
+	int drawY = mBasePosY + mPosY;
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)mAlpha);
+	DrawFormatString(drawX, drawY, mColor, "%d",mDamage);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+}
+void DamageNum::Update() {
+
+	if (mCounter <= 0 ) {
+		switch (mDamageType) {
+		case eType_Damage:
+			mColor = GetColor(255, 0, 0);
+			break;
+		case eType_Recavery:
+			mColor = GetColor(0, 255, 0);
+			break;
+		}
+	}
+
+	float rate =  (float)mCounter / (float)mLifeTime;
+
+	if (rate <= 0.2f) {
+		mPosX = 20.0f * (rate / 0.2f);
+	}
+	if (rate >= 0.8f) {
+		float r = ((rate - 0.8f) / 0.2f);
+		mPosY = - 20.0f * r;
+		mAlpha = 255 * (1.0f - r);
+	}
+
+	mCounter++;
+}
+
+
 }//battle
 }//anim

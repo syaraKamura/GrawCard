@@ -2,12 +2,12 @@
 // 
 // 		ＤＸライブラリ		Nintendo Switch用データタイプ定義ヘッダファイル
 // 
-// 				Ver 3.19 
+// 				Ver 3.20f
 // 
 // -------------------------------------------------------------------------------
 
-#ifndef __DXDATATYPENSW_H__
-#define __DXDATATYPENSW_H__
+#ifndef DX_DATATYPENSW_H
+#define DX_DATATYPENSW_H
 
 // インクルード ------------------------------------------------------------------
 #include "DxCompileConfig.h"
@@ -117,7 +117,11 @@ typedef int *		LPLONG ;
 typedef uint32_t *	LPDWORD ;
 
 #ifndef DWORD_PTR
+#ifdef __LP64__
+#define DWORD_PTR	uint64_t
+#else
 #define DWORD_PTR	uint32_t
+#endif
 #endif
 
 #ifndef LONG_PTR
@@ -224,4 +228,4 @@ typedef struct tagBITMAPINFO
 // 
 // #endif // DX_NON_NAMESPACE
 
-#endif // __DXDATATYPENSW_H__
+#endif // DX_DATATYPENSW_H

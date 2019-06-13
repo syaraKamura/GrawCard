@@ -34,8 +34,8 @@ SaveData::~SaveData() {
 
 }
 
-bool SaveData::Load(SaveData* pOutData) {
-	SaveData* data = new SaveData();
+bool SaveData::Load(SaveData& pOutData) {
+	SaveData& data = pOutData;
 
 	const char *path = GetFilePath();
 
@@ -104,7 +104,7 @@ bool SaveData::Load(SaveData* pOutData) {
 			int exp;
 			int nextExp;
 			int cost;
-			Player* player = data->GetPlayer();
+			Player* player = data.GetPlayer();
 
 			mFile->ReadInt(&level);
 			mFile->ReadString(name);
@@ -171,7 +171,7 @@ bool SaveData::Load(SaveData* pOutData) {
 				monster->SetSpeed(spd);
 				monster->SetCost(cost);
 
-				data->GetPlayer()->SetMonster(i, monster);
+				data.GetPlayer()->SetMonster(i, monster);
 			}
 
 			//モンスターボックス
@@ -179,7 +179,7 @@ bool SaveData::Load(SaveData* pOutData) {
 
 			mFile->ReadInt(&monsterNum);
 
-			MonsterBox* monsterBox = data->GetMonsterBox();
+			MonsterBox* monsterBox = data.GetMonsterBox();
 
 			for (int i = 0; i < monsterNum; i++) {
 
@@ -240,14 +240,14 @@ bool SaveData::Load(SaveData* pOutData) {
 				monster->SetSpeed(spd);
 				monster->SetCost(cost);
 
-				Monster_t data;
-				data.id = boxId;
-				data.deckNo = deckNo;
-				data.deckIndex = deckIndex;
-				data.useState = (eUseState)useState;
+				Monster_t monsterData;
+				monsterData.id = boxId;
+				monsterData.deckNo = deckNo;
+				monsterData.deckIndex = deckIndex;
+				monsterData.useState = (eUseState)useState;
 
-				data.monster = monster;
-				monsterBox->SetMonsterInfo(i,data);
+				monsterData.monster = monster;
+				monsterBox->SetMonsterInfo(i, monsterData);
 
 				//monsterBox->Add(monster);
 
@@ -276,9 +276,8 @@ bool SaveData::Load(SaveData* pOutData) {
 	else {
 
 		if (isUpdate == true) {
-			this->Save(*data);
+			this->Save(data);
 		}
-		pOutData = data;
 	}
 
 	return true;

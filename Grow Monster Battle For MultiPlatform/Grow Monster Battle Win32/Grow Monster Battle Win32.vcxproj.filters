@@ -175,6 +175,9 @@
     <Filter Include="ソース ファイル\scr\Common\Effect\Particle">
       <UniqueIdentifier>{b78c31a9-d758-41c7-928a-93108d68f04a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\Utility">
+      <UniqueIdentifier>{41b8a653-deed-4c7a-b293-e9bc5b882db4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -458,6 +461,9 @@
     </ClCompile>
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.cpp">
       <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\Utility\Status.cpp">
+      <Filter>ソース ファイル\scr\Common\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -754,6 +760,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.h">
       <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\Utility\Status.h">
+      <Filter>ソース ファイル\scr\Common\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

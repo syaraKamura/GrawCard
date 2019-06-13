@@ -14,7 +14,9 @@
 #ifndef __SCENE_PROLOGUE_H__
 #define __SCENE_PROLOGUE_H__
 
+#include "Common/Utility/Status.h"
 #include "../SceneBase.h"
+
 
 namespace AdvScript{
 class ScriptBase;
@@ -23,7 +25,19 @@ class ScriptBase;
 class Scene_Prologue : public SceneBase{
 
 private:
+
+	enum eState {
+		eState_Prologure,
+		eState_SelectCard,
+		eState_Exit,
+	};
+
+private:
+	Utility::Status mState;
 	AdvScript::ScriptBase* mPrologue;
+
+private:
+
 public:
 
 	Scene_Prologue(ISceneBase* changer);

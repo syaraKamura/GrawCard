@@ -4,4 +4,8 @@
     <DebuggerFlavor>AndroidDebugger</DebuggerFlavor>
     <AndroidDeviceID>CB512CHXA3;</AndroidDeviceID>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DebuggerFlavor>AndroidDebugger</DebuggerFlavor>
+    <AndroidDeviceID>F7NPFX029759;JP_P022</AndroidDeviceID>
+  </PropertyGroup>
 </Project>

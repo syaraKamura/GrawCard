@@ -72,14 +72,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(XML_BOOST_ROOT);$(DXLIB_PC_ROOT);</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(XML_BOOST_ROOT);$(DXLIB_WIN32_ROOT)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(XML_BOOST_ROOT);$(DXLIB_PC_ROOT);</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(XML_BOOST_ROOT);$(DXLIB_WIN32_ROOT)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -214,6 +214,7 @@
     <ClCompile Include="..\scr\Common\String\StringClick.cpp" />
     <ClCompile Include="..\scr\Common\Task\TaskBase.cpp" />
     <ClCompile Include="..\scr\Common\Task\TaskMgr.cpp" />
+    <ClCompile Include="..\scr\Common\Utility\Status.cpp" />
     <ClCompile Include="..\scr\Common\Window\WindowBase.cpp" />
     <ClCompile Include="..\scr\Common\XML\XmlPurser.cpp" />
     <ClCompile Include="..\scr\Scene\Boot\Scene_Boot.cpp" />
@@ -317,6 +318,7 @@
     <ClInclude Include="..\scr\Common\Task\Task.h" />
     <ClInclude Include="..\scr\Common\Task\TaskBase.h" />
     <ClInclude Include="..\scr\Common\Task\TaskMgr.h" />
+    <ClInclude Include="..\scr\Common\Utility\Status.h" />
     <ClInclude Include="..\scr\Common\Window\WindowBase.h" />
     <ClInclude Include="..\scr\Common\XML\XmlPurser.h" />
     <ClInclude Include="..\scr\Scene\Boot\Scene_Boot.h" />

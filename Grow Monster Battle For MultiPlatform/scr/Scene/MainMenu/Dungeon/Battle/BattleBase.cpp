@@ -40,7 +40,6 @@ void SetEnemy(MonsterDeck* enemy) {
 	enemy->Attach(3);
 	enemy->SetMonster(4, MonsterMgr::Instance()->GetMonsterData(9));
 	enemy->Attach(4);
-	enemy->GetMonster(4)->SetLevel(25);
 }
 
 #endif	//__MY_DEBUG__
@@ -572,6 +571,8 @@ bool BattleBase::Initialize() {
 	
 	mCounter = 0;
 
+	mKillMonsterList.clear();
+
 	NexetStepRequest(eBattleStep_Initialize, eFadeType_In);
 
 	return true;
@@ -665,6 +666,10 @@ void BattleBase::Draw() {
 	_DrawMovwTarget();
 	_DrawAttackTarget();
 	_DrewRresult();
+
+	for (auto& dmgAnim : mDamageAnim) {
+		dmgAnim->Draw();
+	}
 
 	mButtons[BattleBase::eButtonType_Auto]->Draw();
 	mButtons[BattleBase::eButtonType_Menu]->Draw();
@@ -819,7 +824,17 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 	*/
 
 	mButtons[BattleBase::eButtonType_Auto]->Update();
-	
+	for (int i = 0; i < mDamageAnim.size(); i++) {
+		DamageNum* dmgAnim = mDamageAnim[i];
+		dmgAnim->Update();
+		if (dmgAnim->IsPlay() == false) {
+			Delete(dmgAnim);
+			mDamageAnim.erase((mDamageAnim.begin() + i));
+			i--;
+		}
+	}
+
+
 	switch (mMainStep) {
 	case BattleBase::eBattleMainStep_MoveOrder:
 
@@ -920,7 +935,7 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 						SkillData data = SkillMgr::GetInstance()->GetSkillData(move.skillId);
 						damageResult = BattleCalculator::SkillDamage(*moveMonster, *targetMonster,data);
 						move.moveMonster->SetMp(move.moveMonster->GetMp() - data.mp);
-					}
+						}
 						break;
 					}
 
@@ -928,6 +943,9 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 					dmgMonster.damage = targetMonster->GetHp() - damageResult;
 					
 					mTargetList.push_back(dmgMonster);
+					DamageNum* damage = new DamageNum();
+					damage->Set(targetX, targetY, damageResult);
+					mDamageAnim.push_back(damage);
 
 					Debug::LogPrintf("Atk:%s => Def:%s Dmg:%d\n",
 						moveMonster->GetName(),
@@ -981,10 +999,12 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 		}
 
 		bool isEnemyDead = false;
+		
 		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 			MONSTER_DATA_t& data = mMonsterData[i];
 			if (data.monster->GetHp() < 0 && data.isDead == false) {
 				data.isDead = true;
+				mKillMonsterList.push_back(data.monster);
 				if (data.type == eDeckType_Enemy) {
 					isEnemyDead = true;
 				}
@@ -1015,15 +1035,27 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 		break;
 	case eBattleMainStep_getExp:
 
+	{
+
+		int addExp = 0;
+		for (auto mon : mKillMonsterList) {
+			addExp += mon->GetLevel() * mon->GetCost();
+		}
+		addExp *= 10;
+
+		Debug::LogPrintf("getExp: %d", addExp);
+
 		for (unsigned int i = 0; i < mMonsterData.size(); i++) {
 			if (mMonsterData[i].type == eDeckType_Player) {
 				if (mMonsterData[i].monster != nullptr) {
-					mMonsterData[i].monster->SetExp(mMonsterData[i].monster->GetExp() + 1000);
+					mMonsterData[i].monster->SetExp(mMonsterData[i].monster->GetExp() + addExp);
 					while (mMonsterData[i].monster->GetNextExp() <= mMonsterData[i].monster->GetExp()) {
 						mMonsterData[i].monster->SetLevel(mMonsterData[i].monster->GetLevel() + 1);
 						int exp = mMonsterData[i].monster->GetExp() - mMonsterData[i].monster->GetNextExp();
 						mMonsterData[i].monster->SetExp(exp);
 						mMonsterData[i].monster->SetNextExp(mMonsterData[i].monster->GetNextExp() + 10);
+						mMonsterData[i].monster->SetHp(mMonsterData[i].monster->GetHpMax());
+						mMonsterData[i].isDead = false;
 					}
 				}
 			}
@@ -1034,7 +1066,11 @@ BattleBase::eBattleStep BattleBase::BattleMainUpdate() {
 		}
 		else {
 			mMainStep = eBattleMainStep_Command;
-		}	
+		}
+
+		mKillMonsterList.clear();
+
+	}
 		break;
 	}
 

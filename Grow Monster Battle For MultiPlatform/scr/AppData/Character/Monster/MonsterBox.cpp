@@ -34,8 +34,10 @@ namespace monsterBox {
 	}
 
 	MonsterBox::~MonsterBox() {
-		mSelectGraph->Relese();
-		Delete(mSelectGraph);
+		//if (mSelectGraph) {
+		//	mSelectGraph->Relese();
+		//}
+		//Delete(mSelectGraph);
 	}
 
 

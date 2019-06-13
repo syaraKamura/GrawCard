@@ -14,7 +14,6 @@
 #ifndef __ANDROID_NETWORKING_H__
 #define __ANDROID_NETWORKING_H__
 
-#include<android/multinetwork.h>
 
 class Networking {
 

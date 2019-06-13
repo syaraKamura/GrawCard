@@ -14,6 +14,7 @@
 
 #ifdef _WINDOWS
 	#define __MY_WINDOWS__
+	#define __WINDOWS__
 #endif
 
 #endif	//__PRE_PROCESSOR_H__

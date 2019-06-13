@@ -25,7 +25,7 @@
 #define SIZE(X) (sizeof(X)/sizeof(X[0]))
 #define __TEST_DATA__	//テストデータ読み込み用
 
-typedef struct MonsterData_t{
+struct MonsterData_t{
 
 	eElementType mType;
 
@@ -44,7 +44,7 @@ typedef struct MonsterData_t{
 
 };
 
-typedef struct MonsterGraphData_t {
+struct MonsterGraphData_t {
 	int mId;
 	char mFilePath[1024];
 };

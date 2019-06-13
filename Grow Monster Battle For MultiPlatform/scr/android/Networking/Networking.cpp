@@ -17,10 +17,11 @@
 
 bool Networking::BeginNetwork(){
 	
-	addrinfo info;
-	addrinfo* res = nullptr;
-
-	int ret = android_getaddrinfofornetwork(0, "https:/www.google.com", "", &info, &res);
+	//addrinfo info;
+	//addrinfo* res = nullptr;
+	//
+	//int ret = android_getaddrinfofornetwork(0, "https:/www.google.com", "", &info, &res);
+	int ret = 0;
 
 	return ret != 0;
 }

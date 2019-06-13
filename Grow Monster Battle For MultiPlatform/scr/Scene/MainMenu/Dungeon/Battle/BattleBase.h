@@ -23,6 +23,7 @@ class Player;
 class Animation;
 class Button;
 
+
 struct PlaySkill;
 
 namespace battle {
@@ -31,6 +32,7 @@ namespace battle {
 	}
 	namespace anim {
 		class BattleAnimation;
+		class DamageNum;
 	}
 
 	struct TARGET_UI {
@@ -200,6 +202,8 @@ namespace battle {
 		std::vector<MONSTER_DATA_t> mMonsterData;
 		std::vector<DAMAGE_MONSTER_t> mTargetList;
 
+		std::vector<Monster*> mKillMonsterList;
+
 		MONSTER_DATA_t mNowOrderMonsterData;
 		MOVE_DATA_t mOrderMoveData;		// 行動データ
 
@@ -235,6 +239,8 @@ namespace battle {
 		TARGET_UI mTarget{};
 
 		int mCounter;
+
+		std::vector<anim::DamageNum*> mDamageAnim;
 
 		class ButtonAnim;
 

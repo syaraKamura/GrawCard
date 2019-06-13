@@ -31,11 +31,15 @@ Scene_Prologue::Scene_Prologue(ISceneBase* changer, Debug* debug) : SceneBase(ch
 
 bool Scene_Prologue::Initialize() {
 
+	if (Fade::GetInstance()->IsFadeEnd() == false) { return false; }
+
 	Fade::GetInstance()->FadeIn();
 
 	//mPrologue = new AdvScript::ScriptBase("ADV_0000.txt");
 	mPrologue = ComRes::Instance()->StartAdvScript(0);
 	this->GetTask().Add(mPrologue);
+
+	mState.SetState(eState_Prologure);
 
 	return true;
 }
@@ -51,7 +55,32 @@ void Scene_Prologue::Finalize() {
 
 bool Scene_Prologue::Updata() {
 
-	if (mPrologue->IsEnd()) {
+	eState state = (eState)mState.GetState();
+
+	switch (state) {
+	case eState_Prologure: {
+		if (mPrologue->IsEnd()) {
+			mState.SetState(eState_SelectCard);
+		}
+	}
+	break;
+	case eState_SelectCard:
+	{
+
+		SaveData* save = AppData::GetInstance()->GetSaveData();
+		
+		monsterBox::MonsterBox* box = save->GetMonsterBox();
+		box->Add(MonsterMgr::Instance()->GetMonsterData(0));
+		box->ChangeUseState(0, monsterBox::eUseState_Use);
+		save->GetPlayer()->SetMonster(0, box->GetMonster(0));
+		
+		mState.SetState(eState_Exit);
+	}
+		break;
+
+	}
+
+	if( mState.IsEnd(eState_Exit) ){
 		mNextScene->SceneChange(ISceneBase::eScene_MainMenu);
 	}
 

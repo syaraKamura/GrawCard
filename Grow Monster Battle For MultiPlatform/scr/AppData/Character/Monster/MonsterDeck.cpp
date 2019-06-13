@@ -92,6 +92,6 @@ bool MonsterDeck::IsEmpty() {
 void MonsterDeck::Clear() {
 	for (int i = 0; i < MONSTER_DECK_NUM; i++) {
 		mMonster[i].monster = nullptr;
-		mMonster[i].isAttach == false;
+		mMonster[i].isAttach = false;
 	}
 }

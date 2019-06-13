@@ -2,12 +2,12 @@
 // 
 // 		ＤＸライブラリ		Windows用データタイプ定義ヘッダファイル
 // 
-// 				Ver 3.19f
+// 				Ver 3.20f
 // 
 // -------------------------------------------------------------------------------
 
-#ifndef __DXDATATYPEWIN_H__
-#define __DXDATATYPEWIN_H__
+#ifndef DX_DATATYPEWIN_H
+#define DX_DATATYPEWIN_H
 
 // インクルード ------------------------------------------------------------------
 #include "DxCompileConfig.h"
@@ -25,7 +25,7 @@ struct IUnknown;
 
 // ライブラリリンク定義--------------------------------------------------------
 
-#ifndef __DX_MAKE
+#ifndef DX_MAKE
 	#ifndef DX_LIB_NOT_DEFAULTPATH
 		#ifndef DX_GCC_COMPILE
 			#ifndef DX_SRC_COMPILE
@@ -1248,7 +1248,7 @@ struct IUnknown;
 			#endif
 		#endif  // DX_GCC_COMPILE
 	#endif	// DX_LIB_NOT_DEFAULTPATH
-#endif // __DX_MAKE
+#endif // DX_MAKE
 
 #ifndef DX_NON_NAMESPACE
 
@@ -1337,4 +1337,4 @@ namespace DxLib
 
 #endif // DX_NON_NAMESPACE
 
-#endif // __DXDATATYPEWIN_H__
+#endif // DX_DATATYPEWIN_H

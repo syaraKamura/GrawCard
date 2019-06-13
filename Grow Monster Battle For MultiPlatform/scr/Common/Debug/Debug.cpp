@@ -111,6 +111,7 @@ unsigned int _GetColor(eDEBUG_PRINT_TYPE type) {
 		case eDEBUG_PRINT_TYPE_Error:
 			return GetColor(255, 0, 0);
 	}
+	return GetColor(0, 0, 0);
 }
 
 void InfoBard_SetString(const char* info,eDEBUG_PRINT_TYPE type) {

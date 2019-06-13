@@ -104,6 +104,57 @@ namespace anim {
 		bool IsPlay();
 
 	};
+
+	class DamageNum {
+
+		enum eType {
+			eType_None,
+			eType_Damage,
+			eType_Recavery,
+		};
+
+	private:
+
+		int mBasePosX;
+		int mBasePosY;
+		int mPosX;
+		int mPosY;
+		int mDamage;
+		int mLifeTime;
+		int mCounter;
+		float mAlpha;
+
+		eType mDamageType;
+		unsigned int mColor;
+
+	public :
+
+		DamageNum();
+
+		void Set(int posX, int posY, int damage, int lifeTime = 20) {
+			mBasePosX = posX;
+			mBasePosY = posY;
+			mDamage = damage;
+			mLifeTime = lifeTime;
+
+			if (mDamage < 0) {
+				mDamageType = eType_Recavery;
+			}
+
+			mDamage *= -1;
+
+		}
+
+		void Draw();
+		void Update();
+
+
+		bool IsPlay() {
+			return mLifeTime >= mCounter;
+		}
+	};
+
+
 }
 }
 #endif // __BATTLE_ANIMATION_H__

@@ -73,7 +73,7 @@ public :
 	SaveData();
 	~SaveData();
 
-	bool Load(SaveData* pOutData);
+	bool Load(SaveData& pOutData);
 	void Save(SaveData save);
 	
 	/*
