@@ -178,6 +178,24 @@
     <Filter Include="ソース ファイル\scr\Common\Utility">
       <UniqueIdentifier>{41b8a653-deed-4c7a-b293-e9bc5b882db4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUI">
+      <UniqueIdentifier>{345de5f7-4722-467f-bef2-ee747987ea6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase">
+      <UniqueIdentifier>{bd52738d-d486-4dc8-abbb-db348220691e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil">
+      <UniqueIdentifier>{7772d92e-d88b-4912-beaa-be91f767b1ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUnit">
+      <UniqueIdentifier>{836afd7a-c120-4221-a598-ddedd37185f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff">
+      <UniqueIdentifier>{08ce2290-6e32-4212-a055-7c8253630411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo">
+      <UniqueIdentifier>{b41e9e60-53f1-42b5-9e8e-0176f3ea6aba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -464,6 +482,27 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\Utility\Status.cpp">
       <Filter>ソース ファイル\scr\Common\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseMain.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleMgr.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUnit\MonsterUnit.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -763,6 +802,33 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\Utility\Status.h">
       <Filter>ソース ファイル\scr\Common\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseMain.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlTaskBase.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleMgr.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUnit\MonsterUnit.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BtlCommon.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

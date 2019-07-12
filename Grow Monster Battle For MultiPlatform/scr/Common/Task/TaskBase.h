@@ -30,9 +30,9 @@ private:
 	//プライオリティ 数値が小さいほど優先順位が高い
 	int mPriorty;
 	
-	pointer_func m_pUpdata;
-	pointer_func m_pDraw;
-	pointer_func m_pDestroy;
+	pointer_func m_pUpdata{};
+	pointer_func m_pDraw{};
+	pointer_func m_pDestroy{};
 
 protected:
 	bool mIsInitalize;	//初期化フラグ

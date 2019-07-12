@@ -16,6 +16,8 @@
 
 #include "Common/Task/TaskBase.h"
 #include "Common/String/StringBase.h"
+#include "Common/Graphics/Graphics.h"
+#include "AppData/Character/Monster/MonsterDeck.h"
 #include <vector>
 
 class AppData;
@@ -23,10 +25,10 @@ class Player;
 class Animation;
 class Button;
 
-
 struct PlaySkill;
 
 namespace battle {
+
 	namespace effect {
 		class BattleEffect;
 	}
@@ -34,6 +36,36 @@ namespace battle {
 		class BattleAnimation;
 		class DamageNum;
 	}
+
+	enum eActiveType {
+		eActiveType_Attack,		// 攻撃
+		eActiveType_Recovery,	// 回復
+		eActiveType_Skill		// スキル
+	};
+
+	enum eDeckType {
+		eDeckType_All,
+		eDeckType_Player,		// プレイヤー　
+		eDeckType_Enemy,		// エネミー
+	};
+
+	enum eMoveType {
+		eMoveType_Manual,		// 入力行動
+		eMoveType_Auto,			// 自動行動 
+
+	};
+
+	typedef struct {
+		Monster* monster;
+		eDeckType type;
+		Graphics* graph;
+		int moveOreder;
+		bool isDead;
+		eMoveType moveType;		// 行動方法
+		Graphics& getGraph() {
+			return *graph;
+		}
+	}MONSTER_DATA_t;
 
 	struct TARGET_UI {
 
@@ -98,24 +130,6 @@ namespace battle {
 			eBattleMainStep_Num,
 		};
 
-		enum eActiveType {
-			eActiveType_Attack,		// 攻撃
-			eActiveType_Recovery,	// 回復
-			eActiveType_Skill		// スキル
-		};
-
-		enum eDeckType {
-			eDeckType_All,
-			eDeckType_Player,		// プレイヤー　
-			eDeckType_Enemy,		// エネミー
-		};
-
-		enum eMoveType {
-			eMoveType_Manual,		// 入力行動
-			eMoveType_Auto,			// 自動行動 
-
-		};
-
 		enum eCommand {
 			eCommand_CehcekActionType,		// 行動の種類を判断する
 			eCommand_Select,		// 選択
@@ -148,18 +162,6 @@ namespace battle {
 		}MOVE_DATA_t;
 
 		typedef struct {
-			Monster* monster;
-			eDeckType type;
-			Graphics* graph;
-			int moveOreder;
-			bool isDead;
-			eMoveType moveType;		// 行動方法
-			Graphics& getGraph() {
-				return *graph;
-			}
-		}MONSTER_DATA_t;
-
-		typedef struct {
 			int damage;
 			Monster* monster;
 		}DAMAGE_MONSTER_t;
@@ -185,6 +187,8 @@ namespace battle {
 #endif
 
 	protected:
+
+		int subTaskId = 0;
 
 		Graphics* mGraphics;
 		Graphics* mCard;
@@ -304,7 +308,8 @@ namespace battle {
 		void BattleMainDraw();
 
 		void OnClick(View* view) override;
-
+		
+		int RequestBattleAnim(int animNo,int num, bool fg);
 
 	};
 

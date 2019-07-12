@@ -20,21 +20,28 @@ namespace Utility {
 	}
 
 	bool Status::IsFirstState() {
-		return mCounter <= 0;
+		return mCounter == 1;
 	}
 
-	void Status::SetState(int state) {
-		if (mState != state) {
-			mCounter = -1;
-			mState = state;
-		}
+	void Status::SetState(int state) {	
+		mNextState = state;
 	}
 
 	int Status::GetState() {
 		return mState;
 	}
 
+	int Status::GetOldState() {
+		return mOldState;
+	}
+
 	void Status::Update() {
+		if (mNextState != -1) {
+			mOldState = mState;
+			mState = mNextState;
+			mNextState = -1;
+			mCounter = 0;
+		}
 		mCounter++;
 	}
 

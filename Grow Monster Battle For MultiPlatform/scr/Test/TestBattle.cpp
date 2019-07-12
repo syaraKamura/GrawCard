@@ -17,6 +17,7 @@
 #include "Scene/MainMenu/Dungeon/Battle/BattleBase.h"
 #include "AppData/AppData.h"
 #include "Common/String/StringClick.h"
+#include "Scene/MainMenu/Dungeon/Battle/BattleMgr.h"
 
 #ifdef __MY_DEBUG__
 
@@ -148,16 +149,17 @@ bool TestBattle::Updata() {
 	case TestBattle::eState_BattleStart:
 		SoundMgr::GetInstance()->CroosFadePlay("Battle_1", 60 * 3,SoundMgr::ePlayType_Loop);
 		
-		mBattle = new battle::BattleBase(mPlayer);
-		TaskMgr::getInstance().Add(mBattle);
+		TaskMgr::getInstance().Add(battle::BattleMgr::New());
+		//mBattle = new battle::BattleBase(mPlayer);
+		//TaskMgr::getInstance().Add(mBattle);
 		mState = TestBattle::eState_BattleEnd;
 		break;
 	case TestBattle::eState_BattleEnd:
 
-		if (mBattle->IsRelease()) {
-			SoundMgr::GetInstance()->CroosFadePlay("Title", 60 * 3, SoundMgr::ePlayType_Loop);
-			mState = TestBattle::eState_SelectMenu;
-		}
+		//if (mBattle->IsRelease()) {
+		//	SoundMgr::GetInstance()->CroosFadePlay("Title", 60 * 3, SoundMgr::ePlayType_Loop);
+		//	mState = TestBattle::eState_SelectMenu;
+		//}
 
 		break;
 	}

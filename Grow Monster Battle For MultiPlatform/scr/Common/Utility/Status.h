@@ -22,16 +22,19 @@ namespace Utility {
 
 		int mCounter;
 		int mState;
-
+		int mNextState;
+		int mOldState;
 	public:
 
-		Status() : mState(-1), mCounter(-1) {}
+		Status() : mState(0), mNextState(-1), mOldState(-1),mCounter(0) {}
+		Status(int state) : mState(state), mNextState(-1), mCounter(0) {}
 
 		bool IsEnd(int state);
 		bool IsFirstState();
 
 		void SetState(int state);
 		int  GetState();
+		int GetOldState();
 
 		void Update();
 
