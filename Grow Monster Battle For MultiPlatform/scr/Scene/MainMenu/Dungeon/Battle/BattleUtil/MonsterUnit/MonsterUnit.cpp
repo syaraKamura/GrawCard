@@ -22,6 +22,8 @@ namespace battle {
 		mImg( nullptr )
 	{
 		if (mon != nullptr) {
+			mHp = mMonster->GetHp();
+			mMp = mMonster->GetMp();
 			mImg = new Graphics(MonsterMgr::Instance()->GetGraphics(mon->GetId()));
 		}
 	}
@@ -48,7 +50,7 @@ namespace battle {
 	}
 
 	int MonsterUnit::GetHp()const {
-		return mMonster->GetHp();
+		return mHp;
 	}
 
 	int MonsterUnit::GetHpMax()const {
@@ -56,7 +58,7 @@ namespace battle {
 	}
 
 	int MonsterUnit::GetMp()const {
-		return mMonster->GetMp();
+		return mMp;
 	}
 
 	int MonsterUnit::GetMpMax() const {
@@ -87,6 +89,29 @@ namespace battle {
 
 	bool MonsterUnit::IsDead() const {
 		return this->GetHp() <= 0;
+	}
+
+
+	void MonsterUnit::SubHp(int hp) {
+		mHp -= hp;
+	}
+
+	void MonsterUnit::AddHp(int hp) {
+		mHp += hp;
+		if (mHp > GetHpMax()) {
+			mHp = GetHpMax();
+		}
+	}
+
+	void MonsterUnit::SubMp(int mp) {
+		mMp -= mp;
+	}
+
+	void MonsterUnit::AddMp(int mp) {
+		mMp += mp;
+		if (mMp > GetMpMax()) {
+			mMp = GetMpMax();
+		}
 	}
 
 }

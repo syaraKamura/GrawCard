@@ -281,6 +281,33 @@
     <ClCompile Include="..\..\scr\Common\Effect\Particle\Particle.cpp">
       <Filter>src\Common\Effect\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleMgr.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseMain.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc\BattleProcCommand.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUnit\MonsterUnit.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\Utility\Status.cpp">
+      <Filter>src\Common\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -444,6 +471,30 @@
     </Filter>
     <Filter Include="src\Common\Effect\Particle">
       <UniqueIdentifier>{cb5f26b1-d6e8-4849-b0ea-ed7ec6434cff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon\Battle\BattlePhase">
+      <UniqueIdentifier>{a64312cc-a2c5-455e-b092-1c4212062cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon\Battle\BattleUI">
+      <UniqueIdentifier>{a3c753c0-3735-4f9d-90e8-24031cd1ae4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon\Battle\BattleUtil">
+      <UniqueIdentifier>{bff0b229-530d-464d-859d-c64f3b9702fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc">
+      <UniqueIdentifier>{36209872-59ba-4f4a-8e95-2febf9a9e224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff">
+      <UniqueIdentifier>{bb888f7e-e1b8-46d7-9c25-8c0c3ff1b856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo">
+      <UniqueIdentifier>{c3629dbe-7124-482b-9dae-62610f3e5196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUtil">
+      <UniqueIdentifier>{005ff33b-0fe4-4d4e-a4e7-185dc54c3dff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Utility">
+      <UniqueIdentifier>{60cdc5b9-81ff-4c36-9954-a44c0803a0af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -731,6 +782,39 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Effect\Particle\Particle.h">
       <Filter>src\Common\Effect\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleMgr.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseMain.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlTaskBase.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattlePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc\BattleProcCommand.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BtlCommon.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUnit\MonsterUnit.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\Utility\Status.h">
+      <Filter>src\Common\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

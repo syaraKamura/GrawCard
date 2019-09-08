@@ -31,6 +31,9 @@ namespace battle {
 		BuffObj mBuff;
 		Graphics* mImg;
 
+		int mHp;
+		int mMp;
+
 	public:
 
 		MonsterUnit(Monster* mon,eSide side);
@@ -55,6 +58,12 @@ namespace battle {
 		int GetSpeed()const;
 
 		int GetSkillNumber()const;
+
+		void SubHp(int hp);
+		void AddHp(int hp);
+
+		void SubMp(int mp);
+		void AddMp(int mp);
 
 		/*
 			倒されているか？

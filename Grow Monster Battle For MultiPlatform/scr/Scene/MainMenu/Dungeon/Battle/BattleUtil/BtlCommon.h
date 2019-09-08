@@ -41,7 +41,11 @@ namespace battle {
 		eBattlePhase_Num,
 	};
 
-
+	typedef struct BATTLE_MOVE_DATA_t{
+		class MonsterUnit* Attacker;	// 攻撃側
+		class MonsterUnit* Deffender;	// 防御側
+		int AttackKind;			// 攻撃の種類
+	}BATTLE_MOVE_DATA;
 
 }// battle
 

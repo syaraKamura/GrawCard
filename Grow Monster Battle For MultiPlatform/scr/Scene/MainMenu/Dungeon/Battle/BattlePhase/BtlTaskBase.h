@@ -28,7 +28,7 @@ namespace battle {
 		Utility::Status mStatus;
 
 	public:
-		
+		virtual ~BtlTaskBase() {};
 		BtlTaskBase() : TaskBase(){}
 
 		bool Updata() override { return true; }

@@ -29,7 +29,7 @@ namespace battle {
 	}
 
 	BattleMgr::~BattleMgr() {
-
+		mInstance = nullptr;
 	}
 
 	TaskBase* BattleMgr::New() {
@@ -97,6 +97,10 @@ namespace battle {
 		this->mAnim.Draw();
 
 		for (auto& monster : BtlGetInfo().GetMonsterList()) {
+			if (monster->IsDead()) {
+				monster->GetGraphics().SetAlpha(100);
+			}
+
 			monster->GetGraphics().Draw();
 		}
 
@@ -113,6 +117,15 @@ namespace battle {
 	}
 
 	void BattleMgr::_BtlPhaseUpdate() {
+
+#ifdef __MY_DEBUG__
+#ifdef __WINDOWS__
+		if (Keyboard_Press(KEY_INPUT_Z)) {
+			TaskMgr::getInstance().RequestKill(mTaskId);
+			mStatus.SetState(eBattlePhase_End);
+		}
+#endif //__WINDOWS__
+#endif	// __MY_DEBUG__
 
 		mStatus.Update();
 		eBattlePhase state = (eBattlePhase)mStatus.GetState();
@@ -225,10 +238,10 @@ namespace battle {
 	// バトルメイン
 	void BattleMgr::_BtlPhaseMain() {
 		if (mStatus.IsFirstState()) {
-
+			mTaskId = _BtlAddTask(new BtlPhaseMain());
 		}
 
-		if (Keyboard_Press(KEY_INPUT_Z)) {
+		if (_CheckTaskEnd(mTaskId)) {
 			mStatus.SetState(eBattlePhase_Result);
 		}
 
@@ -240,10 +253,12 @@ namespace battle {
 
 		}
 
+#ifdef __WINDOWS__
 		if (Keyboard_Press(KEY_INPUT_Z)) {
 			mStatus.SetState(eBattlePhase_Fade);
 			Fade::GetInstance()->FadeIn();
 		}
+#endif // __WINDOWS__
 
 	}
 

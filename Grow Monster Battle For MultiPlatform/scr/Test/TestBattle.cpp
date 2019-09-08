@@ -156,6 +156,11 @@ bool TestBattle::Updata() {
 		break;
 	case TestBattle::eState_BattleEnd:
 
+		if (battle::BattleMgr::IsIntatance() == false) {
+			SoundMgr::GetInstance()->CroosFadePlay("Title", 60 * 3, SoundMgr::ePlayType_Loop);
+			mState = TestBattle::eState_SelectMenu;
+		}
+
 		//if (mBattle->IsRelease()) {
 		//	SoundMgr::GetInstance()->CroosFadePlay("Title", 60 * 3, SoundMgr::ePlayType_Loop);
 		//	mState = TestBattle::eState_SelectMenu;

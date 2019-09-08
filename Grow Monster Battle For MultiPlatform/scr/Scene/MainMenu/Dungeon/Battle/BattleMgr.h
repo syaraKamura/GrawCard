@@ -52,6 +52,9 @@ namespace battle {
 
 		static TaskBase* New();
 		static BattleMgr* getInstance();
+		static bool IsIntatance() {
+			return (mInstance != nullptr);
+		}
 		
 		bool Initialize()override;
 		void Finalize()override;

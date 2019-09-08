@@ -313,6 +313,7 @@
     <ClCompile Include="..\..\scr\Common\String\StringClick.cpp" />
     <ClCompile Include="..\..\scr\Common\Task\TaskBase.cpp" />
     <ClCompile Include="..\..\scr\Common\Task\TaskMgr.cpp" />
+    <ClCompile Include="..\..\scr\Common\Utility\Status.cpp" />
     <ClCompile Include="..\..\scr\Common\Window\WindowBase.cpp" />
     <ClCompile Include="..\..\scr\Common\XML\XmlPurser.cpp" />
     <ClCompile Include="..\..\scr\Scene\Boot\Scene_Boot.cpp" />
@@ -321,6 +322,14 @@
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.cpp" />
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleMgr.cpp" />
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc\BattleProcCommand.cpp" />
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseMain.cpp" />
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.cpp" />
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.cpp" />
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.cpp" />
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.cpp" />
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUnit\MonsterUnit.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonBase.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMenu.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMgr.cpp" />
@@ -410,6 +419,7 @@
     <ClInclude Include="..\..\scr\Common\Task\Task.h" />
     <ClInclude Include="..\..\scr\Common\Task\TaskBase.h" />
     <ClInclude Include="..\..\scr\Common\Task\TaskMgr.h" />
+    <ClInclude Include="..\..\scr\Common\Utility\Status.h" />
     <ClInclude Include="..\..\scr\Common\Window\WindowBase.h" />
     <ClInclude Include="..\..\scr\Common\XML\XmlPurser.h" />
     <ClInclude Include="..\..\scr\Scene\Boot\Scene_Boot.h" />
@@ -418,6 +428,16 @@
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleBase.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleCalculator.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleEffect.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleMgr.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc\BattleProcCommand.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseMain.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlTaskBase.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BtlCommon.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUnit\MonsterUnit.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonBase.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMenu.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\DungeonMgr.h" />

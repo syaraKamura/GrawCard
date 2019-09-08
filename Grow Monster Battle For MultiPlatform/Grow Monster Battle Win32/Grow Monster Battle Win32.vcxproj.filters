@@ -196,6 +196,9 @@
     <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo">
       <UniqueIdentifier>{b41e9e60-53f1-42b5-9e8e-0176f3ea6aba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc">
+      <UniqueIdentifier>{10c40b69-ed49-4569-a170-cd92b8fe52d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -503,6 +506,9 @@
     </ClCompile>
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.cpp">
       <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc\BattleProcCommand.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -829,6 +835,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BtlCommon.h">
       <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc\BattleProcCommand.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

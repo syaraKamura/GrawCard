@@ -28,9 +28,9 @@ SaveData::~SaveData() {
 
 }
 
-bool SaveData::Load(SaveData* pOutData) {
+bool SaveData::Load(SaveData& pOutData) {
 #if 1
-	SaveData* data = new SaveData();
+	SaveData& data = pOutData;
 
 	const char* path = GetFilePath();
 	ReadBynary* mFile = new ReadBynary();
@@ -71,7 +71,7 @@ bool SaveData::Load(SaveData* pOutData) {
 			int exp;
 			int nextExp;
 			int cost;
-			Player* player = data->GetPlayer();
+			Player* player = data.GetPlayer();
 
 			mFile->ReadInt(&level);
 			mFile->ReadString(name);
@@ -138,7 +138,7 @@ bool SaveData::Load(SaveData* pOutData) {
 				monster->SetSpeed(spd);
 				monster->SetCost(cost);
 
-				data->GetPlayer()->SetMonster(i, monster);
+				data.GetPlayer()->SetMonster(i, monster);
 			}
 
 			//モンスターボックス
@@ -146,7 +146,7 @@ bool SaveData::Load(SaveData* pOutData) {
 
 			mFile->ReadInt(&monsterNum);
 
-			MonsterBox* monsterBox = data->GetMonsterBox();
+			MonsterBox* monsterBox = data.GetMonsterBox();
 
 			for (int i = 0; i < monsterNum; i++) {
 
@@ -222,9 +222,8 @@ bool SaveData::Load(SaveData* pOutData) {
 	else {
 
 		if (isUpdate == true) {
-			this->Save(*data);
+			this->Save(data);
 		}
-		pOutData = data;
 	}
 
 	return true;
