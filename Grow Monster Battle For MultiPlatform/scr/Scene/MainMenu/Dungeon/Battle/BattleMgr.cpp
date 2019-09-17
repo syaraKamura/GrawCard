@@ -102,6 +102,16 @@ namespace battle {
 			}
 
 			monster->GetGraphics().Draw();
+			int x = monster->GetGraphics().GetPositionX();
+			int y = monster->GetGraphics().GetPositionY();
+
+			StringBase str;
+			char buf[1024];
+			sprintfDx(buf, "HP:%d", monster->GetHp());
+			str.SetString(buf);
+			str.Update();
+			str.DrawString(x, y);
+
 		}
 
 

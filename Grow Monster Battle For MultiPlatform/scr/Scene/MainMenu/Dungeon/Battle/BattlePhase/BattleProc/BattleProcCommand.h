@@ -38,7 +38,9 @@ namespace battle {
 		BattleProcCommand() :BtlTaskBase(),
 		mMoveMonster(nullptr){}
 		BattleProcCommand(MonsterUnit* moveMonster) :BtlTaskBase(),
-			mMoveMonster(moveMonster) {}
+			mMoveMonster(moveMonster) {
+			BtlGetInfo().GetMoveData().Attacker = moveMonster;
+		}
 
 		bool Updata() override;
 		void Draw()override;

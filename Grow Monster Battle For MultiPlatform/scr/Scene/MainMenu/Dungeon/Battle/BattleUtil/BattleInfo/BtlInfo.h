@@ -26,6 +26,10 @@ namespace battle {
 
 		int mTurn;
 		std::vector<MonsterUnit*> mMonsterList;
+		std::vector<MonsterUnit*> mPlayer;
+		std::vector<MonsterUnit*> mEnemy;
+
+		BATTLE_MOVE_DATA mMoveData{};
 
 		int mMonsterNum[eSide_Max];
 
@@ -33,6 +37,8 @@ namespace battle {
 
 		BtlInfo();
 		~BtlInfo();
+
+		void ClearData();
 
 		int GetNowTurn() {
 			return mTurn;
@@ -47,6 +53,13 @@ namespace battle {
 			return mMonsterList;
 		}
 
+		std::vector<MonsterUnit*>& GetPlayerMonsterList() {
+			return mPlayer;
+		}
+		std::vector<MonsterUnit*>& GetEnmeyMonsterList() {
+			return mEnemy;
+		}
+
 		/*
 			所持しているモンスターがすべて倒されているか？
 		*/
@@ -57,6 +70,10 @@ namespace battle {
 		int GetHaveMonsterNum(eSide side) {
 			return mMonsterNum[side];
 		}
+
+		BATTLE_MOVE_DATA& GetMoveData() {
+			return mMoveData;
+		};
 
 	};
 

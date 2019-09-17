@@ -12,6 +12,9 @@
 !*/
 #include "Common/GameCommon.h"
 #include "BattleProc/BattleProcCommand.h"
+#include "../BattleCalculator.h"
+#include "../BattleEffect.inc"
+
 #include "BtlPhaseMain.h"
 
 
@@ -76,12 +79,14 @@ namespace battle {
 
 		if (mStatus.IsFirstState()) {
 
+			BtlGetInfo().ClearData();
+
 			// 全て行動した
 			if (mNextMove >= mMoveList.size()) {
 				mStatus.SetState(eState_MoveOrder);
 				return;
 			}
-
+			
 			// 行動を選択する
 			int move = mMoveList[mNextMove];
 			mAttacker = BtlGetInfo().GetMonsterList()[move];
@@ -98,11 +103,13 @@ namespace battle {
 		}
 
 	}
-
+	
+	static Effect::EffectPlayData* pEft = nullptr;
 	void BtlPhaseMain::_StateBattle() {
 
 		if (mStatus.IsFirstState()) {
 
+#if 0
 			int size = BtlGetInfo().GetMonsterList().size();
 
 			int target = GetRand(size);
@@ -113,10 +120,20 @@ namespace battle {
 			MonsterUnit* pUnit = BtlGetInfo().GetMonsterList()[target];
 
 			pUnit->SubHp( 10 );
+#endif
+
+			MonsterUnit* Attacker = BtlGetInfo().GetMoveData().Attacker;
+			MonsterUnit* Deffender = BtlGetInfo().GetMoveData().Deffender;
+			Graphics& Graph = Deffender->GetGraphics();
+			pEft = BtlGetMgr()->GetEffect().Play(eBattleEffect_FireClaw, Graph.GetPositionX(), Graph.GetPositionY());
+			
+			int damage = battle::BattleCalculator::NormalDamage(*Attacker->GetMonster(), *Deffender->GetMonster());
+			Deffender->SubHp(damage);
+
 
 		}
-
-		if (_CheckTaskEnd(mChildTaskId)) {
+		
+		if (_CheckTaskEnd(mChildTaskId) && pEft->isPlay == false) {
 			mStatus.SetState(eState_CheckTiming);
 		}
 

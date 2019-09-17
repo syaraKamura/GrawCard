@@ -55,6 +55,7 @@ void Scene_Prologue::Finalize() {
 
 bool Scene_Prologue::Updata() {
 
+	mState.Update();
 	eState state = (eState)mState.GetState();
 
 	switch (state) {

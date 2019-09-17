@@ -16,9 +16,38 @@
 #include "../StringBase.h"
 #include <stdlib.h>
 
-#include "FontData.inc"
 
 #include "BMFont.h"
+
+typedef struct {
+	unsigned int id;		// フォント番号
+	int posX;
+	int posY;
+	int offX;
+	int offY;
+	int width;
+	int height;
+	int xadvance;
+}FONT_BASE_DATA_t;
+
+static FONT_BASE_DATA_t FONT_DATA_LIST[(int)eFontSize::Max][16384] = {
+
+	// S
+	{
+		#include "Inc/Font_S.inc" 
+	}, 
+	
+	// M
+	{
+		#include "Inc/Font_M.inc"
+	},	
+
+	// L
+	{
+		#include "Inc/Font_L.inc" 
+	},	
+
+};
 
 
 static void StrCopyW(wchar_t* src, const wchar_t* dst) {
@@ -37,21 +66,25 @@ BMFont::BMFont() {
 
 	setlocale(LC_ALL, "jpn");
 
-
-	for (int i = 0; i < ArrySize(FONT_DATA_TBL); i++) {
-		mFontData[i].id = FONT_DATA_TBL[i].id;
-		mFontData[i].posX = FONT_DATA_TBL[i].posX;
-		mFontData[i].posY = FONT_DATA_TBL[i].posY;
-		mFontData[i].offX = FONT_DATA_TBL[i].offX;
-		mFontData[i].offY = FONT_DATA_TBL[i].offY;
-		mFontData[i].width = FONT_DATA_TBL[i].width;
-		mFontData[i].height = FONT_DATA_TBL[i].height;
-		mFontData[i].xadvance = FONT_DATA_TBL[i].xadvance;
+	for (int fontSize = 0; fontSize < (int)eFontSize::Max; fontSize++) {
+		auto& Font = mFontData[fontSize];
+		for (int i = 0; i < ArrySize(FONT_DATA_LIST[fontSize]); i++) {
+			Font[i].id = FONT_DATA_LIST[fontSize][i].id;
+			Font[i].posX = FONT_DATA_LIST[fontSize][i].posX;
+			Font[i].posY = FONT_DATA_LIST[fontSize][i].posY;
+			Font[i].offX = FONT_DATA_LIST[fontSize][i].offX;
+			Font[i].offY = FONT_DATA_LIST[fontSize][i].offY;
+			Font[i].width = FONT_DATA_LIST[fontSize][i].width;
+			Font[i].height = FONT_DATA_LIST[fontSize][i].height;
+			Font[i].xadvance = FONT_DATA_LIST[fontSize][i].xadvance;
+		}
 	}
 
 	//mFontHandle = LoadGraph(filePath);
 	//mFontHandle = ComRes::Instance()->GetGraphicHandle(ComRes::eComResName_BMFont)->GetHandle();
-	mFontHandle = graphics::LoadGraphics::GetInstance()->Get(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_BMFont));
+	mFontHandle[0] = graphics::LoadGraphics::GetInstance()->Get(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_BMFont_S));
+	mFontHandle[1] = graphics::LoadGraphics::GetInstance()->Get(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_BMFont_M));
+	mFontHandle[2] = graphics::LoadGraphics::GetInstance()->Get(graphicsTable::GetGraphTag(graphicsTable::eGraphTag_BMFont_L));
 			
 	//strcpy(mString, "あいうえお 0123456789 abcdefghijklmnopqrstuvwxyz にほんご　日本語　ニホンゴ");
 	//StrCopyW(mString, L"");
@@ -59,6 +92,8 @@ BMFont::BMFont() {
 	mStrId = std::vector<int>();
 
 	this->SetString("");
+
+	mFontSize = eFontSize::M;
 
 }
 
@@ -125,7 +160,7 @@ void BMFont::Draw(int posX, int posY, bool isVisible) {
 			}
 			else {
 				num = min + (max - min) / 2;
-				FONT_DATA_t font = mFontData[num];
+				FONT_DATA_t font = mFontData[(int)mFontSize][num];
 				if (font.id > ch) {
 					max--;
 				}
@@ -159,7 +194,7 @@ void BMFont::Draw(int posX, int posY, bool isVisible) {
 		int fontSize = 48;		
 		//int strPosX = i * fontSize;
 		
-		FONT_DATA_t font = mFontData[id];
+		FONT_DATA_t font = mFontData[(int)mFontSize][id];
 		if (i > 0) {
 			if (oldFontSize == 24 && font.xadvance == 48) {
 				strPosX += 24;
@@ -175,7 +210,7 @@ void BMFont::Draw(int posX, int posY, bool isVisible) {
 		oldFontSize = font.xadvance;
 		int drawX = posX + strPosX + font.offX ;
 		int drawY = posY + font.offY;
-		DxLib::DrawRectGraph(drawX, drawY, font.posX, font.posY, font.width, font.height, mFontHandle, TRUE, FALSE);
+		DxLib::DrawRectGraph(drawX, drawY, font.posX, font.posY, font.width, font.height, mFontHandle[(int)mFontSize], TRUE, FALSE);
 	}
 
 #if false
@@ -210,4 +245,8 @@ void BMFont::SetString(const char* str) {
 	
 	//DxLib::strcpyDx(mString, str);
 	//StrCopyW(mString, str);
+}
+
+void BMFont::SetFontSize(eFontSize Size) {
+	mFontSize = Size;
 }

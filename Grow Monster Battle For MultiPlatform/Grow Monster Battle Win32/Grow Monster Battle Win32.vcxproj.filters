@@ -199,6 +199,9 @@
     <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc">
       <UniqueIdentifier>{10c40b69-ed49-4569-a170-cd92b8fe52d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Common\String\CharConverter">
+      <UniqueIdentifier>{f26c0a32-7c97-44e2-96f2-dced395349fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -509,6 +512,9 @@
     </ClCompile>
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc\BattleProcCommand.cpp">
       <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Common\String\CharConverter\CharConverter.cpp">
+      <Filter>ソース ファイル\scr\Common\String\CharConverter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -838,6 +844,9 @@
     </ClInclude>
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc\BattleProcCommand.h">
       <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BattleProc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Common\String\CharConverter\CharConverter.h">
+      <Filter>ソース ファイル\scr\Common\String\CharConverter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

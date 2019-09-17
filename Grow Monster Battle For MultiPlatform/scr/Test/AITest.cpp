@@ -454,7 +454,7 @@ bool AITest::Initialize(){
 	mData->GetMonsterBox()->ChangeUseState(0, monsterBox::eUseState_UnUse);
 
 	//XML‚Ì‘‚«ž‚ÝA‘‚«o‚µ
-#if true
+#if false
 	mXml = new XmlPurser("Test.xml");
 	
 
@@ -590,7 +590,7 @@ bool AITest::Initialize(){
 	mSound = new Sound();
 	mSound->Load("Resources/Sound/BGM/BGM_0001.mp3");
 
-	mSound->Play(Sound::ePlayType_Loop);
+	//mSound->Play(Sound::ePlayType_Loop);
 
 #if __ANDROID__
 	Networking net;
@@ -787,7 +787,11 @@ void AITest::Draw(){
 
 	DxLib::DrawFormatString(600, 220, GetColor(0, 255, 0), "•¶Žš”‚Í%d‚Å‚·", mString->DrawString(600, 200));
 	
-	mBMFont->Draw(20,1040,true);
+	for (int fontSize = 0; fontSize < (int)eFontSize::Max; fontSize++) {
+		mBMFont->SetFontSize((eFontSize)fontSize);
+		mBMFont->Draw(20, 900 + fontSize * 32, true);
+	}
+
 
 }
 

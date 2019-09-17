@@ -276,6 +276,31 @@ void Debug::LogPrintf(const char* str, ...) {
 	LOGI(buffer);
 
 #endif	// __WINDOWS__
+#endif //__MY_DEBUG__
+}
+
+void Debug::LogPrintfWithInforboard(const char* str, ...) {
+#ifdef __MY_DEBUG__ 
+	va_list ap;
+	char buffer[1024];
+
+	va_start(ap, str);
+	vsprintfDx(buffer, str, ap);
+	va_end(ap);
+#ifdef __WINDOWS__
+	OutputDebugString(buffer);
+#elif __ANDROID__
+	//printfDx(buffer);
+
+	DEBUG_LOG_t add;
+	add.logType = 0;
+	add.str += buffer;
+	mDebugStrings[mDebugLogCnt] = add;
+	mDebugLogCnt = (mDebugLogCnt + 1) % DEBUG_LOG_NUM;
+
+	LOGI(buffer);
+
+#endif	// __WINDOWS__
 	if (mIsVisibleInfoBard == true) {
 		InfoBard_SetString(buffer, eDEBUG_PRINT_TYPE_None);
 	}

@@ -308,6 +308,9 @@
     <ClCompile Include="..\..\scr\Common\Utility\Status.cpp">
       <Filter>src\Common\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Common\String\CharConverter\CharConverter.cpp">
+      <Filter>src\Common\String\CharConverter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -495,6 +498,9 @@
     </Filter>
     <Filter Include="src\Common\Utility">
       <UniqueIdentifier>{60cdc5b9-81ff-4c36-9954-a44c0803a0af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\String\CharConverter">
+      <UniqueIdentifier>{076c16dc-cbea-4023-8aae-dfe908764e3d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -815,6 +821,9 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\Utility\Status.h">
       <Filter>src\Common\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\String\CharConverter\CharConverter.h">
+      <Filter>src\Common\String\CharConverter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

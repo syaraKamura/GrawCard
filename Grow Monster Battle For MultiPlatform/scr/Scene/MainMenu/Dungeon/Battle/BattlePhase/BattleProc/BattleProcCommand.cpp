@@ -49,7 +49,7 @@ namespace battle {
 	void BattleProcCommand::_StateCheck() {
 
 		if (mMoveMonster->GetSide() == eSide::eSide_Player) {
-			mStatus.SetState(eState_SelectTarget);
+			mStatus.SetState(eState_AutoTarget);
 		}
 		else {
 			mStatus.SetState(eState_AutoTarget);
@@ -59,6 +59,28 @@ namespace battle {
 
 	// 自動選択
 	void BattleProcCommand::_StateAutoTarget() {
+
+		std::vector<MonsterUnit*> targetList{};
+		if (mMoveMonster->GetSide() == eSide_Enemy) {
+			targetList = BtlGetInfo().GetPlayerMonsterList();
+		}
+		else {
+			targetList = BtlGetInfo().GetEnmeyMonsterList();
+		}
+		
+		int min = INT_MAX;
+		MonsterUnit* AttackTarget = nullptr;
+		for (auto& target : targetList) {
+			if (target->IsDead()) { continue; }
+			if (target->GetHp() < min) {
+				min = target->GetHp();
+				AttackTarget = target;
+			}
+		}
+		BtlGetInfo().GetMoveData().Deffender = AttackTarget;
+		BtlGetInfo().GetMoveData().AttackKind = eActiveType_Attack;
+		
+		
 
 		mStatus.SetState(eState_End);
 	}

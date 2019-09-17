@@ -16,6 +16,7 @@
 #include "StringBase.h"
 #include "FontMgr/BMFont.h"
 #include "FontMgr/FontMgr.h"
+#include "CharConverter/CharConverter.h"
 
 #define STRING_LINE_MAX (6)
 
@@ -250,14 +251,13 @@ void StringBase::SetColor(unsigned int color) {
 int StringBase::DrawString(int posX, int posY, bool isDisp/* = true*/) {
 
 	int length = 0;
-
 	length = GetLength(mString);
 
 	if (isDisp == false)	return length;
 
 	//一文字ずつ出力が有効なら
 	if (mIsOnletter == true) {
-
+		
 		for (int i = 0; i <= mLine; i++) {
 			if (mFontMgr == NULL && mBMFont == NULL) {
 				DxLib::DrawString(posX, posY + i * 20, mDrawString[i], mColor);
@@ -273,16 +273,21 @@ int StringBase::DrawString(int posX, int posY, bool isDisp/* = true*/) {
 
 	}
 	else {
-
+		int size;
+#ifdef __WINDOWS__
+		const char* str = mString;
+#else
+		const char* str = CharConverter::sjis_to_utf8(mString, &size);
+#endif
 		if (mFontMgr == NULL && mBMFont == NULL) {
-			DxLib::DrawString(posX, posY, mString, mColor);
+			DxLib::DrawString(posX, posY, str, mColor);
 		}
 		else if (mBMFont != NULL) {
 			mBMFont->SetString(mString);
 			mBMFont->Draw(posX, posY, true);
 		}
 		else {
-			mFontMgr->Draw(posX, posY, mString, mColor);
+			mFontMgr->Draw(posX, posY, str, mColor);
 		}
 	}
 

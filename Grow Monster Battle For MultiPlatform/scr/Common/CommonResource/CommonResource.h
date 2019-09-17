@@ -48,7 +48,9 @@ public :
 		eComResName_MainMenuBG,			//メインメニュー背景
 		eComResName_CommonBG,			//汎用背景
 		eComResName_MsgBox,				//メッセージボックス
-		eComResName_BMFont,				//フォント画像
+		eComResName_BMFont_S,				//フォント画像
+		eComResName_BMFont_M,				//フォント画像
+		eComResName_BMFont_L,				//フォント画像
 		eComResName_MapIcon,			// マップアイコン
 		eComResName_StoryButtion,		// ストーリボタン
 		eComResname_CommonBGM,			// 汎用BGM

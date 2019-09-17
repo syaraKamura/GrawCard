@@ -45,6 +45,13 @@ namespace battle {
 		class MonsterUnit* Attacker;	// 攻撃側
 		class MonsterUnit* Deffender;	// 防御側
 		int AttackKind;			// 攻撃の種類
+
+		void init() {
+			Attacker = nullptr;
+			Deffender = nullptr;
+			AttackKind = 0;
+		}
+
 	}BATTLE_MOVE_DATA;
 
 }// battle

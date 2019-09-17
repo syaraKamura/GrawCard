@@ -20,7 +20,9 @@ namespace graphicsTable {
 		"tag_MainMenuBG",		// eGraphTag_MainMenuBG
 		"tag_CommonBG",			// eGraphTag_CommonBG
 		"tag_MsgBox",			// eGraphTag_MsgBox
-		"tag_BMFont",			// eGraphTag_BMFont
+		"tag_BMFont_S",			// eGraphTag_BMFont_S
+		"tag_BMFont_M",			// eGraphTag_BMFont_M
+		"tag_BMFont_L",			// eGraphTag_BMFont_L
 		"tag_MapIcon",			// eGraphTag_MapIcon
 		"tag_StoryButton",		// eGraphTag_StoryButton
 		"tag_PlayerStatusBar",	// eGraphTag_PlayerStatusBar

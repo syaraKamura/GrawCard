@@ -25,12 +25,20 @@ namespace battle{
 			Delete(mMonsterList[i]);
 		}
 		mMonsterList.clear();
+		mPlayer.clear();
+		mEnemy.clear();
 
 	}
 
 	void BtlInfo::AddMonster(MonsterUnit* monster) {
 		eSide side = monster->GetSide();
 		mMonsterList.push_back(monster);
+		if (side == eSide_Player) {
+			mPlayer.push_back(monster);
+		}
+		else if (side == eSide_Enemy) {
+			mEnemy.push_back(monster);
+		}
 		mMonsterNum[side]++;
 	}
 
@@ -43,6 +51,10 @@ namespace battle{
 			}
 		}
 		return (deadNum >= GetHaveMonsterNum(side));
+	}
+
+	void BtlInfo::ClearData() {
+		mMoveData.init();
 	}
 
 }

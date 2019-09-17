@@ -17,6 +17,13 @@
 
 #include <vector>
 
+enum class eFontSize : int{
+	S,
+	M,
+	L,
+	Max,
+};
+
 class BMFont {
 
 private:
@@ -36,13 +43,15 @@ public :
 		int xadvance;
 	}FONT_DATA_t;
 
-	FONT_DATA_t mFontData[16384];
+	FONT_DATA_t mFontData[(int)eFontSize::Max][16384];
 
 	wchar_t mString[1024];
 
-	int mFontHandle;
+	int mFontHandle[(int)eFontSize::Max];
 
 	std::vector<int> mStrId;
+
+	eFontSize mFontSize;
 
 public :
 
@@ -50,7 +59,7 @@ public :
 	BMFont();
 	~BMFont();
 
-
+	void SetFontSize(eFontSize Size);
 
 	void SetString(const char* str);
 	void Draw(int posX,int posY,bool isVisible);

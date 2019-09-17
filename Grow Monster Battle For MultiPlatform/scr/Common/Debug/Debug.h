@@ -110,6 +110,7 @@ public :
 	//静的メソッド
 
 	static void LogPrintf(const char* str, ...);
+	static void LogPrintfWithInforboard(const char* str, ...);
 	static void ErorrMessage(const TCHAR* str, ...);
 	
 	static void InfoboardOff() {

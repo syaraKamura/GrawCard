@@ -307,6 +307,7 @@
     <ClCompile Include="..\..\scr\Common\Script\ScriptFunc.cpp" />
     <ClCompile Include="..\..\scr\Common\Sound\Sound.cpp" />
     <ClCompile Include="..\..\scr\Common\Sound\SoundMgr.cpp" />
+    <ClCompile Include="..\..\scr\Common\String\CharConverter\CharConverter.cpp" />
     <ClCompile Include="..\..\scr\Common\String\FontMgr\BMFont.cpp" />
     <ClCompile Include="..\..\scr\Common\String\FontMgr\FontMgr.cpp" />
     <ClCompile Include="..\..\scr\Common\String\StringBase.cpp" />
@@ -411,6 +412,7 @@
     <ClInclude Include="..\..\scr\Common\Script\ScriptFunc.h" />
     <ClInclude Include="..\..\scr\Common\Sound\Sound.h" />
     <ClInclude Include="..\..\scr\Common\Sound\SoundMgr.h" />
+    <ClInclude Include="..\..\scr\Common\String\CharConverter\CharConverter.h" />
     <ClInclude Include="..\..\scr\Common\String\FontMgr\BMFont.h" />
     <ClInclude Include="..\..\scr\Common\String\FontMgr\FontMgr.h" />
     <ClInclude Include="..\..\scr\Common\String\StringBase.h" />
