@@ -311,6 +311,12 @@
     <ClCompile Include="..\..\scr\Common\String\CharConverter\CharConverter.cpp">
       <Filter>src\Common\String\CharConverter</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleUIMgr.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Common\String\Text\TextObj.cpp">
+      <Filter>src\Common\String\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -501,6 +507,9 @@
     </Filter>
     <Filter Include="src\Common\String\CharConverter">
       <UniqueIdentifier>{076c16dc-cbea-4023-8aae-dfe908764e3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\String\Text">
+      <UniqueIdentifier>{a8e4f30b-a727-47c0-bb9a-ccecdff4d6fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -824,6 +833,12 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\String\CharConverter\CharConverter.h">
       <Filter>src\Common\String\CharConverter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleUIMgr.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Common\String\Text\TextObj.h">
+      <Filter>src\Common\String\Text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

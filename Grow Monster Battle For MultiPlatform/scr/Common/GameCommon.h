@@ -13,6 +13,7 @@
 #include "Common/CommonResource/CommonResource.h"
 #include "Common/XML/XmlPurser.h"
 #include "Common/Effect/Effect.h"
+#include "Common/String/Text/TextObj.h"
 
 #include "Common/Debug/Debug.h"
 #include "Common/Debug/DebugList.h"

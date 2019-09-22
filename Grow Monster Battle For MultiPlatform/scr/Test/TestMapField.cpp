@@ -48,11 +48,15 @@ bool TestMapField::Updata(){
 	mMapField->Updata();
 
 #ifdef __WINDOWS__
+#ifdef __MY_DEBUG__
 	if (mMapField->dbg_IsStateMain()) {
 		if (Keyboard_Press(KEY_INPUT_X)) {
+
 			dbg_ChangeScene_TestMenu();
+
 		}
 	}
+#endif
 #endif
 
 	return true;

@@ -15,6 +15,13 @@
 
 namespace graphics {
 
+	Loader::~Loader() {
+		for (auto& res : this->mResourceList) {
+			DxLib::DeleteGraph(res.second);
+		}
+		this->mResourceList.clear();
+	}
+
 	int Loader::LoadResource(std::string fileName) {
 
 		char filePath[1024]={};
@@ -45,6 +52,12 @@ namespace graphics {
 		DxLib::DeleteGraph(handle);
 	}
 
+	//================================================
+	//
+	//================================================
+
+	LoadGraphics::LoadGraphics() {}
+	LoadGraphics::~LoadGraphics() {}
 
 	bool LoadGraphics::Load(std::string fileName,std::string tag) {
 		if (mLoader.LoadASync(fileName)) {

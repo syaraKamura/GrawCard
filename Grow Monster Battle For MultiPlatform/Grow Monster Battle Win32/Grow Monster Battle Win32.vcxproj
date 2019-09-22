@@ -73,6 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(XML_BOOST_ROOT);$(DXLIB_WIN32_ROOT)</IncludePath>
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -80,6 +81,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(XML_BOOST_ROOT);$(DXLIB_WIN32_ROOT)</IncludePath>
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -213,6 +215,7 @@
     <ClCompile Include="..\scr\Common\String\FontMgr\FontMgr.cpp" />
     <ClCompile Include="..\scr\Common\String\StringBase.cpp" />
     <ClCompile Include="..\scr\Common\String\StringClick.cpp" />
+    <ClCompile Include="..\scr\Common\String\Text\TextObj.cpp" />
     <ClCompile Include="..\scr\Common\Task\TaskBase.cpp" />
     <ClCompile Include="..\scr\Common\Task\TaskMgr.cpp" />
     <ClCompile Include="..\scr\Common\Utility\Status.cpp" />
@@ -229,6 +232,7 @@
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseMain.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.cpp" />
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleUIMgr.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUnit\MonsterUnit.cpp" />
@@ -324,6 +328,7 @@
     <ClInclude Include="..\scr\Common\String\FontMgr\FontMgr.h" />
     <ClInclude Include="..\scr\Common\String\StringBase.h" />
     <ClInclude Include="..\scr\Common\String\StringClick.h" />
+    <ClInclude Include="..\scr\Common\String\Text\TextObj.h" />
     <ClInclude Include="..\scr\Common\System\OnListener.h" />
     <ClInclude Include="..\scr\Common\Task\Task.h" />
     <ClInclude Include="..\scr\Common\Task\TaskBase.h" />
@@ -343,6 +348,7 @@
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlTaskBase.h" />
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleUIMgr.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BtlCommon.h" />

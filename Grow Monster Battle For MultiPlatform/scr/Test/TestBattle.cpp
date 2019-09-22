@@ -170,8 +170,10 @@ bool TestBattle::Updata() {
 	}
 
 #ifdef __WINDOWS__
-	if (Keyboard_Press(KEY_INPUT_Q)) {
-		dbg_ChangeScene_TestMenu();
+	if (battle::BattleMgr::IsIntatance() == false) {
+		if (Keyboard_Press(KEY_INPUT_Q)) {
+			dbg_ChangeScene_TestMenu();
+		}
 	}
 
 	if (Keyboard_Press(KEY_INPUT_A)) {

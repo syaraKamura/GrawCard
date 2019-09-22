@@ -20,12 +20,14 @@
 #include "BattleAnimation.h"
 #include "BattleEffect.h"
 #include "BattleUtil/BattleInfo/BtlInfo.h"
+#include "BattleUI/BattleUIMgr.h"
 #include "BattlePhase/BtlTaskBase.h"
 
 namespace battle {
 
 	using namespace anim;
 	using namespace effect;
+	using namespace ui;
 
 	class BattleMgr : public TaskBase {
 
@@ -40,6 +42,7 @@ namespace battle {
 		BattleEffect mEffect;
 
 		BtlInfo mBtlInfo;
+		BattleUIMgr* mBtlUIMgr;
 
 		int mTaskId;
 
@@ -77,6 +80,10 @@ namespace battle {
 			return mBtlInfo;
 		}
 
+		BattleUIMgr& GetBtlUIMgr() {
+			return *mBtlUIMgr;
+		}
+
 	private:
 
 		// フェーズ更新
@@ -105,6 +112,10 @@ namespace battle {
 	}
 	inline BtlInfo& BtlGetInfo() {
 		return BtlGetMgr()->GetBtlInfo();
+	}
+
+	inline BattleUIMgr& BtlGetUIMgr() {
+		return BtlGetMgr()->GetBtlUIMgr();
 	}
 
 	class BtlTaskBase;

@@ -88,6 +88,11 @@ namespace battle {
 	// ユーザー選択
 	void BattleProcCommand::_StateSelectTarget() {
 
+		if (mStatus.IsFirstState()) {
+
+			
+		}
+
 		mStatus.SetState(eState_End);
 	}
 

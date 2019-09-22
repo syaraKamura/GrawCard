@@ -13,6 +13,8 @@
 
 #include "Common/GameCommon.h"
 
+#include "BattleUI/BattleUIMgr.h"
+
 #include "BattlePhase/BtlPhaseStart.h"
 #include "BattlePhase/BtlPhaseMain.h"
 #include "BattlePhase/BtlPhaseResult.h"
@@ -48,6 +50,8 @@ namespace battle {
 	}
 
 	bool BattleMgr::Initialize() {
+		mBtlUIMgr = new BattleUIMgr();
+		GraphicsDrawMgr::GetInstance()->Add(mBtlUIMgr,0);
 		return true;
 	}
 
@@ -67,6 +71,8 @@ namespace battle {
 
 		_BtlPhaseUpdate();
 		
+		mBtlUIMgr->Update();
+
 		this->mAnim.Updata();
 
 		return true;
@@ -95,26 +101,7 @@ namespace battle {
 		if (mStatus.GetState() <= eBattlePhase_Initialize) { return; }
 
 		this->mAnim.Draw();
-
-		for (auto& monster : BtlGetInfo().GetMonsterList()) {
-			if (monster->IsDead()) {
-				monster->GetGraphics().SetAlpha(100);
-			}
-
-			monster->GetGraphics().Draw();
-			int x = monster->GetGraphics().GetPositionX();
-			int y = monster->GetGraphics().GetPositionY();
-
-			StringBase str;
-			char buf[1024];
-			sprintfDx(buf, "HP:%d", monster->GetHp());
-			str.SetString(buf);
-			str.Update();
-			str.DrawString(x, y);
-
-		}
-
-
+		
 	}
 
 //==========================================================
@@ -151,6 +138,7 @@ namespace battle {
 
 		//  バトル終了
 		if (mStatus.IsEnd( eBattlePhase_End ) ) {
+			mBtlUIMgr->ReleseRequest();
 			RequestKill();
 		}
 	}
@@ -183,7 +171,7 @@ namespace battle {
 				for (int i = 0; i < 5; i++) {
 					if (deck.IsSetMonster(i)) {
 						MonsterUnit mon(deck.GetMonster(i), eSide_Player);
-						BtlGetInfo().AddMonster( mon );
+						BtlGetInfo().AddMonster( &mon );
 					}
 				}
 			}

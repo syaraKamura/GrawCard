@@ -189,6 +189,8 @@ void BMFont::Draw(int posX, int posY, bool isVisible) {
 
 	int strPosX = 0;
 	int oldFontSize = 0;
+	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, mColor.a);
+	DxLib::SetDrawBright(mColor.r, mColor.g, mColor.b);
 	for (unsigned int i = 0; i < mStrId.size(); i++) {
 		int id = mStrId[i];
 		int fontSize = 48;		
@@ -196,14 +198,22 @@ void BMFont::Draw(int posX, int posY, bool isVisible) {
 		
 		FONT_DATA_t font = mFontData[(int)mFontSize][id];
 		if (i > 0) {
-			if (oldFontSize == 24 && font.xadvance == 48) {
-				strPosX += 24;
-			}
-			else if (oldFontSize == 48 && font.xadvance == 24){
-				strPosX += 48;
+			//if (oldFontSize == 24 && font.xadvance == 48) {
+			//	strPosX += 24;
+			//}
+			//else if (oldFontSize == 48 && font.xadvance == 24){
+			//	strPosX += 48;
+			//}
+			//else 
+			//{
+			//	strPosX += font.xadvance;
+			//}
+
+			if (font.xadvance > font.width) {
+				strPosX += font.xadvance;
 			}
 			else {
-				strPosX += font.xadvance;
+				strPosX += font.width;
 			}
 			
 		}
@@ -212,6 +222,8 @@ void BMFont::Draw(int posX, int posY, bool isVisible) {
 		int drawY = posY + font.offY;
 		DxLib::DrawRectGraph(drawX, drawY, font.posX, font.posY, font.width, font.height, mFontHandle[(int)mFontSize], TRUE, FALSE);
 	}
+	DxLib::SetDrawBright(255, 255, 255);
+	DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 #if false
 	for (int i = 0; i < 16384; i++) {
@@ -224,6 +236,20 @@ void BMFont::Draw(int posX, int posY, bool isVisible) {
 
 #endif
 
+}
+
+void BMFont::SetColor(unsigned int r, unsigned int g, unsigned int b){
+
+	mColor.r = r;
+	mColor.g = g;
+	mColor.b = b;
+
+}
+void BMFont::SetColor(COLOR_t color) {
+	SetColor(color.r, color.g, color.b);
+}
+void BMFont::SetAlpha(int a) {
+	mColor.a = a;
 }
 
 void BMFont::SetString(const char* str) {

@@ -22,7 +22,7 @@ class ResourceLoader {
 public :
 
 	
-private:
+protected:
 
 	std::map<std::string, int> mResourceList;
 

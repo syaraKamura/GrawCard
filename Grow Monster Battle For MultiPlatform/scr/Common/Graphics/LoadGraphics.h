@@ -24,7 +24,7 @@ namespace graphics {
 
 	public :
 
-		~Loader() {}
+		~Loader();
 
 		int LoadResource(std::string fileName) override;
 		void DestoryResource(int handle) override;
@@ -38,6 +38,9 @@ namespace graphics {
 		Loader mLoader;
 
 		std::map<std::string, std::string> mTag;
+
+		LoadGraphics();
+		~LoadGraphics();
 
 	public:
 

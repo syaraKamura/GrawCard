@@ -789,9 +789,13 @@ void AITest::Draw(){
 	
 	for (int fontSize = 0; fontSize < (int)eFontSize::Max; fontSize++) {
 		mBMFont->SetFontSize((eFontSize)fontSize);
+		mBMFont->SetColor(255, 255, 0);
 		mBMFont->Draw(20, 900 + fontSize * 32, true);
 	}
 
+	TextObj_DrawText(0, 800, COLOR::White(), "テストですよ");
+	TextObj_DrawFormatText(0, 850, COLOR::Pink(),eFontSize::S, "テストですよ%d",3);
+	TextObj_DrawFormatText(0, 870, COLOR::Pink(), eFontSize::M, "テストですよ%f", 2.5f);
 
 }
 

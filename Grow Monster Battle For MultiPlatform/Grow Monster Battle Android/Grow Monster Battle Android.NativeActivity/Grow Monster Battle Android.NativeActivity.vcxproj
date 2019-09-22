@@ -116,21 +116,41 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <IncludePath>$(DXLIB_ANDOROID_ARM_ROOT);</IncludePath>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <IncludePath>$(DXLIB_ANDOROID_ARM_ROOT);</IncludePath>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <IncludePath>$(LLVMToolchainPrebuiltRoot)\lib64\clang\$(LLVMVersion)\include;$(DXLIB_ANDOROID_X86_ROOT);</IncludePath>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <IncludePath>$(LLVMToolchainPrebuiltRoot)\lib64\clang\$(LLVMVersion)\include;$(DXLIB_ANDOROID_X86_ROOT);</IncludePath>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
@@ -312,6 +332,7 @@
     <ClCompile Include="..\..\scr\Common\String\FontMgr\FontMgr.cpp" />
     <ClCompile Include="..\..\scr\Common\String\StringBase.cpp" />
     <ClCompile Include="..\..\scr\Common\String\StringClick.cpp" />
+    <ClCompile Include="..\..\scr\Common\String\Text\TextObj.cpp" />
     <ClCompile Include="..\..\scr\Common\Task\TaskBase.cpp" />
     <ClCompile Include="..\..\scr\Common\Task\TaskMgr.cpp" />
     <ClCompile Include="..\..\scr\Common\Utility\Status.cpp" />
@@ -328,6 +349,7 @@
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseMain.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.cpp" />
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleUIMgr.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.cpp" />
     <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\MonsterUnit\MonsterUnit.cpp" />
@@ -417,6 +439,7 @@
     <ClInclude Include="..\..\scr\Common\String\FontMgr\FontMgr.h" />
     <ClInclude Include="..\..\scr\Common\String\StringBase.h" />
     <ClInclude Include="..\..\scr\Common\String\StringClick.h" />
+    <ClInclude Include="..\..\scr\Common\String\Text\TextObj.h" />
     <ClInclude Include="..\..\scr\Common\System\OnListener.h" />
     <ClInclude Include="..\..\scr\Common\Task\Task.h" />
     <ClInclude Include="..\..\scr\Common\Task\TaskBase.h" />
@@ -436,6 +459,7 @@
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlTaskBase.h" />
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleUIMgr.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.h" />
     <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BtlCommon.h" />
