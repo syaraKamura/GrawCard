@@ -37,6 +37,9 @@ bool Framework::Initialize(int width, int height, const char* titleName/* = ""*/
 	
 	if (isWindowMode == true) {
 		ChangeWindowMode(TRUE);
+#ifdef __MY_DEBUG__
+		SetWindowInitPosition(2350, 0);
+#endif // __MY_DEBUG__
 	}
 	else {
 		SetMouseDispFlag(TRUE);
@@ -79,7 +82,7 @@ void Framework::Finalize() {
 void Framework::Run() {
 	
 	// while( 裏画面を表画面に反映, メッセージ処理, 画面クリア, )
-	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0 && Keyboard_Off(KEY_INPUT_ESCAPE)) {
+	while (/*ScreenFlip() == 0 && */ProcessMessage() == 0 && ClearDrawScreen() == 0 && Keyboard_Off(KEY_INPUT_ESCAPE)) {
 
 		mGameMgr->PreviousUpdate();
 		mGameMgr->InputUpdate();
@@ -89,7 +92,7 @@ void Framework::Run() {
 		}
 
 		mGameMgr->Draw();
-
+		ScreenFlip();
 		mGameMgr->PostUpdate();
 
 	}

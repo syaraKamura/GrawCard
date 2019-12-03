@@ -12,6 +12,7 @@
 !*/
 
 #include"Common/GameCommon.h"
+#include "Common/FPS/FPS.h"
 #include "Debug.h"
 
 #if __ANDROID__
@@ -43,7 +44,7 @@ struct POSITION {
 
 struct INFOBOARD_DATA {
 	char info[1024];
-	int count;
+	float time;
 	bool isSet;
 	POSITION pos;
 	unsigned int color;
@@ -73,15 +74,15 @@ void InfoBoard_Update() {
 	for (int i = 0; i < INFOBOARD_MAX; i++) {
 		INFOBOARD_DATA& data = mInfoBoardData[i];
 		if (data.isSet == true) {
-			data.count++;
-			if (data.count < 30) {
-				data.pos.x = WINDOW_WIDTH - 1200.0f * data.count / 30.0f;
+			data.time += FPS::GetDeltaTime();
+			if (data.time < 0.5f) {
+				data.pos.x = WINDOW_WIDTH - 1200.0f * data.time / 0.5f;
 			}
-			if (data.count >= 210 && data.count <= 240) {
-				int t = data.count - 210;
-				data.pos.x = WINDOW_WIDTH - 1200.0f * (1 - t / 30.0f);
+			if (data.time >= 3.5f && data.time <= 3.7f) {
+				int t = data.time - 3.5f;
+				data.pos.x = WINDOW_WIDTH - 1200.0f * (1 - t / 0.5f);
 			}
-			if (data.count >= 241) {
+			if (data.time >= 3.71f) {
 				data.isSet = false;
 			}
 		}
@@ -120,7 +121,7 @@ void InfoBard_SetString(const char* info,eDEBUG_PRINT_TYPE type) {
 		INFOBOARD_DATA& data = mInfoBoardData[i];
 		if (data.isSet == false) {
 			strcpyDx(data.info,info);
-			data.count = 0;
+			data.time = 0;
 			data.color = _GetColor(type);
 			data.pos.x = WINDOW_WIDTH;
 			data.pos.y = mInfobardPosY;
@@ -320,7 +321,8 @@ void Debug::ErorrMessage(const TCHAR* str,...) {
 	vsprintfDx(buffer, str, ap);
 	va_end(ap);
 #ifdef __WINDOWS__
-	MessageBox(NULL, _T(buffer), _T("エラーメッセージ"), MB_OK | MB_ICONERROR);
+	//MessageBox(NULL, _T(buffer), _T("エラーメッセージ"), MB_OK | MB_ICONERROR);
+	OutputDebugString(buffer);
 #elif __ANDROID__
 	//printfDx(str);
 	//AndroidNotification("エラーメッセージ", str);

@@ -136,7 +136,7 @@ bool Scene_MainMenu::Updata() {
 
 	switch ((int)mState) {
 	case eState_Initialize:
-		NexetState(eState_Main, eFadeType_In, 30);
+		NexetState(eState_Main, eFadeType_In, 0.5f);
 		break;
 	case eState_Fade:
 		if (Fade::GetInstance()->IsFadeEnd() == false) return true;
@@ -219,7 +219,7 @@ bool Scene_MainMenu::UpdataProc() {
 		
 		if (TaskMgr::getInstance().GetTask(mNowMenuTaskID) == NULL) {
 			mNowMenuTaskID = -1;
-			NexetState(eState_Main, eFadeType_In, 30);
+			NexetState(eState_Main, eFadeType_In, 0.5f);
 
 			GraphicsBase* graph = GraphicsDrawMgr::GetInstance()->Get(mBackImageOrder);
 			if (graph != NULL) {
@@ -279,7 +279,7 @@ bool Scene_MainMenu::UpdataProc() {
 	case eMenu_Fade:
 		mMenu = mNextMenu;
 		mNextMenu = eMenu_None;
-		Fade::GetInstance()->FadeOut(30);
+		Fade::GetInstance()->FadeOut(0.5f);
 		break;
 	case eMenu_Quest:
 	{
@@ -355,7 +355,7 @@ void Scene_MainMenu::MainMenuDraw() {
 
 }
 
-void Scene_MainMenu::NexetState(eState nextState, eFadeType type, int fadeFrame) {
+void Scene_MainMenu::NexetState(eState nextState, eFadeType type, float fadeFrame) {
 
 	mState = eState_Fade;
 	mNextState = nextState;

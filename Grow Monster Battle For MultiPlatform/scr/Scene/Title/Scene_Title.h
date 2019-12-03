@@ -39,7 +39,7 @@ private :
 
 private:
 
-	void NexetState( eState nextState, eFadeType type = eFadeType_None,int fadeFrame = 60);
+	void NexetState( eState nextState, eFadeType type = eFadeType_None,float fadeFrame = 1.0f);
 	bool UpdataProc();
 
 public :

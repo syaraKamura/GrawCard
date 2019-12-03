@@ -223,6 +223,7 @@ namespace Effect {
 		EffectPlayData* mPlayData;
 		Sound* mSE;
 		int mHandle;
+		bool mIsPlayManual;
 
 	public :
 
@@ -231,6 +232,7 @@ namespace Effect {
 			mHandle = 0;
 			mPlayData->Init();
 			mSE = nullptr;
+			mIsPlayManual = false;
 		};
 #if 0
 		EffectPlayer(EffectData eft,int startPosX = 0,int startPosY = 0) : GraphicsBase(),mPlayData(new EffectPlayData()), mHandle(eft.mHandle){
@@ -256,7 +258,7 @@ namespace Effect {
 #endif
 		~EffectPlayer();
 
-		void Init(EffectData eft, int startPosX = 0, int startPosY = 0);
+		void Init(EffectData eft,bool IsPlayManual = false, int startPosX = 0, int startPosY = 0);
 
 		void Play();
 		void Stop();
@@ -267,6 +269,8 @@ namespace Effect {
 
 		void Update();
 		void Draw() override;
+
+		bool IsPlayManual();
 
 		/*
 			未定義
@@ -315,6 +319,10 @@ namespace Effect {
 		std::vector<EffectData> mEffectGraphList;
 
 		std::vector<EffectPlayer*> mList;
+
+		// マニュアル再生用
+		std::vector<EffectPlayer*> mManualList;
+
 		static EffectMgr* mInstance;
 
 		EffectMgr();
@@ -356,6 +364,15 @@ namespace Effect {
 		EffectPlayData* Play(int handle,float posX,float posY,int prio = 1000);
 
 		/*
+			エフェクトを再生する(描画は手動)
+			int handle	:	再生するエフェクトハンドル
+			float posX	:	描画座標
+			float posY	:
+			return		:	エフェクトデータ
+		*/
+		EffectPlayData* PlayManual(int handle, float posX, float posY);
+
+		/*
 			エフェクト画像読み込み
 			std::string fileName	: ファイルパス
 			int divWidth			: 分割サイズ
@@ -382,6 +399,9 @@ namespace Effect {
 			すべてのエフェクト画像を削除する
 		*/
 		void AllRelease();
+
+		void ManualUpdate();
+		void ManualDraw();
 
 		void Update();
 		void Draw();

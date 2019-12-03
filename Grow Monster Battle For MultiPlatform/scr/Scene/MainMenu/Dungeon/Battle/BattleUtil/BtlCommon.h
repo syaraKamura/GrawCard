@@ -22,6 +22,13 @@ namespace battle {
 		eSide_Max,
 	};
 
+	enum ePlayMode {
+		ePlayMode_Input,	// 入力操作
+		ePlayMode_Auto,		// 自動操作
+		ePlayMode_Pause,	// 一時停止
+		ePlayMode_Max,
+	};
+
 	enum eBuffType {
 		eBuffType_None = -1,
 		eBuffType_AddPower,	// パワーが上昇する

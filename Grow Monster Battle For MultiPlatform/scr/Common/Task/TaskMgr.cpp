@@ -16,6 +16,16 @@
 #include "TaskBase.h"
 #include "TaskMgr.h"
 
+//==============================
+// prototype
+//==============================
+static void ChildTask_InputUpdate(std::vector<TaskBase*>& ChildTaskList);
+static void ChildTask_PreviousUpdate(std::vector<TaskBase*>& ChildTaskList);
+static void ChildTask_Update(std::vector<TaskBase*>& ChildTaskList);
+static void ChildTask_LateUpdata(std::vector<TaskBase*>& ChildTaskList);
+static void ChildTask_Draw(std::vector<TaskBase*>& ChildTaskList);
+//==============================
+
 bool TaskMgr::Initialize(){
 	mOrder = 0;
 	mList = std::list<TaskBase*>();
@@ -35,6 +45,8 @@ void TaskMgr::InputUpdate(){
 	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
 		if ((*itr)->isInitialize() == true) {
 			(*itr)->InputUpdate();
+			// 子タスク
+			ChildTask_InputUpdate((*itr)->GetChild());
 		}
 
 	}
@@ -50,6 +62,8 @@ void TaskMgr::PreviousUpdate() {
  
 		if ((*itr)->isInitialize() == true) {
 			(*itr)->PreviousUpdate();
+			// 子タスク
+			ChildTask_PreviousUpdate((*itr)->GetChild());
 		}
 
 	}
@@ -62,6 +76,8 @@ bool TaskMgr::Updata(){
 	for(auto itr = mList.begin();itr != mList.end();itr++){
 		if((*itr)->isInitialize() == true){
 			result = (*itr)->Updata();
+			// 子タスク
+			ChildTask_Update((*itr)->GetChild());
 		}
 	}
 	return result;
@@ -84,6 +100,9 @@ void TaskMgr::Draw(){
 			
 		(*itr)->Draw();
 
+		// 子タスク
+		ChildTask_Draw((*itr)->GetChild());
+
 	}
 }
 
@@ -94,6 +113,10 @@ void TaskMgr::LateUpdata(){
 	for (auto itr = mList.begin(); itr != mList.end(); itr++) {
 		if ((*itr)->isInitialize() == true) {
 			(*itr)->PostUpdate();
+
+			// 子タスク
+			ChildTask_LateUpdata((*itr)->GetChild());
+
 		}
 	}
 
@@ -312,4 +335,96 @@ void TaskMgr::KillTaskProc(){
 
 
 
+}
+
+//=======================================================
+// 子タスク処理
+//=======================================================
+
+static void ChildTask_Finalize(std::vector<TaskBase*>& ChildTaskList) {
+	if (ChildTaskList.size() <= 0) { return; }
+
+	for (auto Itr = ChildTaskList.begin(); Itr != ChildTaskList.end(); Itr++) {
+		ChildTask_LateUpdata((*Itr)->GetChild());
+		(*Itr)->Finalize();
+		Delete(*Itr);
+	}
+
+	ChildTaskList.clear();
+
+}
+
+static void ChildTask_InputUpdate(std::vector<TaskBase*>& ChildTaskList) {
+	if (ChildTaskList.size() <= 0) { return; }
+
+	for (auto Itr = ChildTaskList.begin(); Itr != ChildTaskList.end(); Itr++) {
+		if ((*Itr)->isInitialize() == false) {
+			continue;
+		}
+		(*Itr)->InputUpdate();
+		ChildTask_InputUpdate((*Itr)->GetChild());
+	}
+}
+
+static void ChildTask_PreviousUpdate(std::vector<TaskBase*>& ChildTaskList) {
+	if (ChildTaskList.size() <= 0) { return; }
+
+	for (auto Itr = ChildTaskList.begin(); Itr != ChildTaskList.end(); Itr++) {
+		if ((*Itr)->isInitialize() == false) {
+			bool ret = (*Itr)->Initialize();
+			(*Itr)->SetInitialize(ret);
+			continue;
+		}
+		(*Itr)->PreviousUpdate();
+		ChildTask_PreviousUpdate((*Itr)->GetChild());
+	}
+}
+
+static void ChildTask_Update(std::vector<TaskBase*>& ChildTaskList) {
+
+	if (ChildTaskList.size() <= 0) { return; }
+
+	for (auto Itr = ChildTaskList.begin(); Itr != ChildTaskList.end(); Itr++) {
+		if ((*Itr)->isInitialize() == false) {
+			continue;
+		}
+		if ((*Itr)->Updata() == false) {
+			ChildTask_Finalize((*Itr)->GetChild());
+			(*Itr)->Finalize();
+			Delete(*Itr);
+			ChildTaskList.erase(Itr);
+			if (ChildTaskList.size() <= 0) {
+				break;
+			}
+			Itr--;
+			continue;
+		}
+		ChildTask_Update((*Itr)->GetChild());
+
+	}
+
+}
+
+static void ChildTask_Draw(std::vector<TaskBase*>& ChildTaskList) {
+	if (ChildTaskList.size() <= 0) { return; }
+
+	for (auto Itr = ChildTaskList.begin(); Itr != ChildTaskList.end(); Itr++) {
+		if ((*Itr)->isInitialize() == false) {
+			continue;
+		}
+		(*Itr)->Draw();
+		ChildTask_Draw((*Itr)->GetChild());
+	}
+}
+
+static void ChildTask_LateUpdata(std::vector<TaskBase*>& ChildTaskList) {
+	if (ChildTaskList.size() <= 0) { return; }
+
+	for (auto Itr = ChildTaskList.begin(); Itr != ChildTaskList.end(); Itr++) {
+		if ((*Itr)->isInitialize() == false) {
+			continue;
+		}
+		(*Itr)->PostUpdate();
+		ChildTask_LateUpdata((*Itr)->GetChild());
+	}
 }

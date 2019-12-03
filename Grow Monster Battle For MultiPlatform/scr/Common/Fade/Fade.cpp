@@ -13,6 +13,7 @@
 !*/
 
 #include "Common/GameCommon.h"
+#include "Common/FPS/FPS.h"
 #include "Fade.h"
 
 
@@ -25,7 +26,7 @@ Fade::Fade() : TaskBase(){
 	
 	mFadeValue = 0.0f;
 	mFadeTime = 60;
-	mCounter = 0;
+	mThrowTime = 0;
 
 	mIsInitalize = true;
 }
@@ -38,18 +39,18 @@ void Fade::SetFadeColor(unsigned int red,unsigned int green,unsigned int blue){
 	mColor = GetColor(red,green,blue);
 }
 
-void Fade::FadeIn(int fadeTime){
+void Fade::FadeIn(float fadeTime){
 	mIsFadeIn = true;
 	mIsFadeEnd = false;
 	mFadeTime = fadeTime;
-	mCounter = 0;
+	mThrowTime = 0;
 }
 
-void Fade::FadeOut(int fadeTime){
+void Fade::FadeOut(float fadeTime){
 	mIsFadeOut = true;
 	mIsFadeEnd = false;
 	mFadeTime = fadeTime;
-	mCounter = 0;
+	mThrowTime = 0;
 }
 
 bool Fade::IsFadeEnd(){
@@ -69,33 +70,33 @@ bool Fade::Updata(){
 	if(mIsFadeEnd == true) return true;
 
 	if(mIsFadeIn == true && mIsFadeEnd == false){
-		mFadeValue = 255.0f - 255.0f * (float)(mCounter) / (float)(mFadeTime);
+		mFadeValue = 255.0f - 255.0f * (float)(mThrowTime) / (float)(mFadeTime);
 		
 		if(mFadeValue < 0){
 			mFadeValue = 0;
 		}
 
-		if(mCounter >= mFadeTime){
+		if(mThrowTime >= mFadeTime){
 			mIsFadeEnd = true;
 			mIsFadeIn = false;
 		}
 
 
 	}else if (mIsFadeOut == true && mIsFadeIn == false){
-		mFadeValue = 255.0f * (float)(mCounter) / (float)(mFadeTime);
+		mFadeValue = 255.0f * (float)(mThrowTime) / (float)(mFadeTime);
 
 		if(mFadeValue > FADE_VALUE_MAX){
 			mFadeValue = FADE_VALUE_MAX;
 		}
 
-		if(mCounter >= mFadeTime){
+		if(mThrowTime >= mFadeTime){
 			mIsFadeEnd = true;
 			mIsFadeOut = false;
 		}
 
 	}
 
-	mCounter++;
+	mThrowTime+= FPS::GetDeltaTime();
 	
 	return true;
 }

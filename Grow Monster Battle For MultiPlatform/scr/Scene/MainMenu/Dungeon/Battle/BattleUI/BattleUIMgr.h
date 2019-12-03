@@ -15,6 +15,8 @@
 #define __BATTLE_UI_MGR_H__
 
 #include "Common/Graphics/GraphicsBase.h"
+#include "BattlCommandUI/BattleCommandUI.h"
+#include "BattleOptionUI/BattleOptionUI.h"
 
 namespace battle {
 namespace ui {
@@ -23,6 +25,9 @@ namespace ui {
 	private:
 
 		// ここにUIクラス変数を宣言する
+
+		BattleCommandUI mCmdUI;
+		BattleOptionUI mOptionUI;
 
 	public:
 
@@ -38,7 +43,10 @@ namespace ui {
 		bool IsTouch() override { return false; }
 		int TouchNumber() override { return 0; }
 
+		BattleCommandUI& GetCmdUI();
+		BattleOptionUI& GetOptionUI();
 
+		Graphics* mBack;
 
 	};
 

@@ -46,8 +46,8 @@ namespace Particle {
 
 	struct ParticleGenerateData {
 		int num;						// パーティクルの数
-		int genTime;					// 生成する時間
-		int spanGenTime;				// 生成する間隔
+		float genTime;					// 生成する時間(秒)
+		float spanGenTime;				// 生成する間隔(秒)
 		eFigureType type;				// 形状種類
 		ParticleData start;
 		ParticleData end;
@@ -69,8 +69,8 @@ namespace Particle {
 		ParticleData mStart;
 		ParticleData mEnd;
 		ParticleGenerateData mData;
-		int mLifeTime;	//	生存時間
-		int mPlayTime;	// 経過時間
+		float mLifeTime;	//	生存時間(秒)
+		float mPlayTime;	// 経過時間(秒)
 		
 		
 		float mPositionX;	// 座標
@@ -114,7 +114,8 @@ namespace Particle {
 
 		int mPositionX;
 		int mPositionY;
-		int mPlayTime;
+		float mPlayTime;
+		float mOldSpanTime;
 		bool isPlay;
 		int mPrio;
 		int mAngle;

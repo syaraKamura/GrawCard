@@ -64,6 +64,9 @@ public :
 	int GetPositionX();
 	int GetPositionY();
 
+	int GetWidth();
+	int GetHieght();
+
 	float GetAlpha();
 	void SetAlpha(float alpha);
 

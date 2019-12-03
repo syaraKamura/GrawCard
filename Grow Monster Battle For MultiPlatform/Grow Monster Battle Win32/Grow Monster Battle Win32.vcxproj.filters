@@ -205,6 +205,15 @@
     <Filter Include="ソース ファイル\scr\Common\String\Text">
       <UniqueIdentifier>{da48e0d6-c23f-4770-baba-3ddca22c2122}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleCommandUI">
+      <UniqueIdentifier>{e28192d6-6895-4f53-bc0c-56ef6ae89ff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI">
+      <UniqueIdentifier>{76bb6b09-7f66-4b78-a897-c6c003271e66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleResultUI">
+      <UniqueIdentifier>{7efbad49-7d89-4503-9ebc-cfab40bf7829}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin32.cpp">
@@ -524,6 +533,12 @@
     </ClCompile>
     <ClCompile Include="..\scr\Common\String\Text\TextObj.cpp">
       <Filter>ソース ファイル\scr\Common\String\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattlCommandUI\BattleCommandUI.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleCommandUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI\BattleOptionUI.cpp">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -862,6 +877,12 @@
     </ClInclude>
     <ClInclude Include="..\scr\Common\String\Text\TextObj.h">
       <Filter>ソース ファイル\scr\Common\String\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattlCommandUI\BattleCommandUI.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleCommandUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI\BattleOptionUI.h">
+      <Filter>ソース ファイル\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

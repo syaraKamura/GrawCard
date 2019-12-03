@@ -17,6 +17,8 @@ namespace battle{
 
 	BtlInfo::BtlInfo() {
 		mTurn = 0;
+		mPlayMode = ePlayMode_Input;
+		BattleResult(eBattleResult_None);
 		memset(mMonsterNum, 0, sizeof(int) * eSide_Max);
 	}
 	BtlInfo::~BtlInfo() {

@@ -16,6 +16,7 @@
 #define __TASK_BASE_H__
 
 #include "Task.h"
+#include <vector>
 
 #ifdef __MY_DEBUG__
 #include "Common/Debug/Debug.h"
@@ -38,6 +39,12 @@ protected:
 	bool mIsInitalize;	//初期化フラグ
 	int mTaskId;		//タスク番号	
 	bool mIsRequestKill;
+
+private:
+	// 子タスク
+	std::vector<TaskBase*> mChild;
+	int mChildTaskOrder;
+
 public :
 
 	
@@ -47,6 +54,7 @@ public :
 		mIsInitalize = false;
 		mPriorty = 0;
 		mIsRequestKill = false;
+		mChildTaskOrder = 0;
 	}
 
 	virtual ~TaskBase(){};
@@ -77,6 +85,12 @@ public :
 
 	void RequestKill() { mIsRequestKill = true; }
 	bool IsRelease() const { return mIsRequestKill; }
+
+	int AddChild(TaskBase* Task);
+	std::vector<TaskBase*>& GetChild();
+
+	bool CheckChildTaskId(int Id);
+
 
 };
 

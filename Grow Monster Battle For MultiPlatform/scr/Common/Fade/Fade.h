@@ -29,9 +29,9 @@ private:
 	bool mIsFadeEnd;		//フェード終了フラグ
 
 	float mFadeValue;		//フェードの値
-	int mCounter;			//フェードカウンター
+	float mThrowTime;			//フェード経過時間
 
-	int mFadeTime;			//フェードにかかる時間
+	float mFadeTime;			//フェードにかかる時間(秒)
 
 private:
 
@@ -53,8 +53,8 @@ public :
 	//色を設定する
 	void SetFadeColor(unsigned int red,unsigned int green,unsigned int blue);
 		
-	void FadeIn(int fadeTime = 60);
-	void FadeOut(int fadeTime = 60);
+	void FadeIn(float fadeTime = 1.0f);
+	void FadeOut(float fadeTime = 1.0f);
 
 	bool IsFadeEnd();
 

@@ -19,6 +19,12 @@
 
 namespace battle {
 
+	enum eBattleResult {
+		eBattleResult_None,	// なし
+		eBattleResult_Lose,	// 負け
+		eBattleResult_Draw,	// 引き分け
+		eBattleResult_Win,	// 勝ち
+	};
 
 	class BtlInfo {
 
@@ -32,6 +38,10 @@ namespace battle {
 		BATTLE_MOVE_DATA mMoveData{};
 
 		int mMonsterNum[eSide_Max];
+
+		ePlayMode mPlayMode;
+
+		eBattleResult mBattleResult;
 
 	public:
 
@@ -47,6 +57,26 @@ namespace battle {
 			mTurn++;
 		}
 		
+		// プレイモードを変える
+		void ChangePlayMode() {
+			mPlayMode = (mPlayMode == ePlayMode_Input) ? ePlayMode_Auto : ePlayMode_Input;
+		}
+
+		// 現在のプレイモードを取得する
+		ePlayMode GetPlayMode() {
+			return mPlayMode;
+		}
+		
+		// プレイモードを設定する
+		void SetPlayMode(ePlayMode mode) {
+			mPlayMode = mode;
+		}
+
+		// プレイモードを確認する
+		bool CheckPlayMode(ePlayMode mode) {
+			return (mPlayMode == mode);
+		}
+
 		void AddMonster(MonsterUnit* monster);
 
 		std::vector<MonsterUnit*>& GetMonsterList() {
@@ -74,6 +104,21 @@ namespace battle {
 		BATTLE_MOVE_DATA& GetMoveData() {
 			return mMoveData;
 		};
+
+		/*
+			バトルの結果を設定する
+		*/
+		void BattleResult(eBattleResult Ret) {
+			mBattleResult = Ret;
+		}
+
+		/*
+			バトルの結果を返却する
+		*/
+		eBattleResult GetBattleResult() {
+			return mBattleResult;
+		}
+
 
 	};
 

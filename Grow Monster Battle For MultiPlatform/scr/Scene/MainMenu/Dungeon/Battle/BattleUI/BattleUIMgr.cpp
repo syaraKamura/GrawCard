@@ -19,18 +19,27 @@ namespace battle {
 namespace ui {
 
 	BattleUIMgr::BattleUIMgr() :GraphicsBase(){
-
+		mBack = new Graphics();
+		mBack->Load("Resources/Graphics/BG/sindennai.png");
 	}
 
 	BattleUIMgr::~BattleUIMgr() {
-
+		Delete(mBack);
 	}
 
 	void BattleUIMgr::Update() {
 
+		GetCmdUI().Update();
+		GetOptionUI().Update();
+
 	}
 
 	void BattleUIMgr::Draw() {
+
+		mBack->Draw();
+
+		TextObj_DrawFormatText(20, 20, COLOR::Cyan(), eFontSize::M, "ターン:%d", BtlGetInfo().GetNowTurn());
+
 		for (auto& monster : BtlGetInfo().GetMonsterList()) {
 			if (monster->IsDead()) {
 				monster->GetGraphics().SetAlpha(100);
@@ -49,8 +58,17 @@ namespace ui {
 
 		}
 
+		GetCmdUI().Draw();
+		GetOptionUI().Draw();
 	}
 
+	BattleCommandUI& BattleUIMgr::GetCmdUI() {
+		return mCmdUI;
+	}
+
+	BattleOptionUI& BattleUIMgr::GetOptionUI() {
+		return mOptionUI;
+	}
 
 };	// ui
 };	// battle

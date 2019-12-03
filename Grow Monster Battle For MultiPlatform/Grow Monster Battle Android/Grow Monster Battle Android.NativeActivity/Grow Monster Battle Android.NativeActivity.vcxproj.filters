@@ -317,6 +317,12 @@
     <ClCompile Include="..\..\scr\Common\String\Text\TextObj.cpp">
       <Filter>src\Common\String\Text</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattlCommandUI\BattleCommandUI.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUI\BattlCommandUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI\BattleOptionUI.cpp">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -510,6 +516,12 @@
     </Filter>
     <Filter Include="src\Common\String\Text">
       <UniqueIdentifier>{a8e4f30b-a727-47c0-bb9a-ccecdff4d6fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon\Battle\BattleUI\BattlCommandUI">
+      <UniqueIdentifier>{6405bb1e-8886-4ea5-9ce2-475b960e533d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI">
+      <UniqueIdentifier>{b5c4a528-1a2d-4edf-8666-ab19a9500501}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -839,6 +851,12 @@
     </ClInclude>
     <ClInclude Include="..\..\scr\Common\String\Text\TextObj.h">
       <Filter>src\Common\String\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattlCommandUI\BattleCommandUI.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUI\BattlCommandUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI\BattleOptionUI.h">
+      <Filter>src\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

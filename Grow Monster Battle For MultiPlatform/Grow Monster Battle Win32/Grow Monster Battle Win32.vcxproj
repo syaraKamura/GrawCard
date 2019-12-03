@@ -232,6 +232,8 @@
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseMain.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.cpp" />
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattlCommandUI\BattleCommandUI.cpp" />
+    <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI\BattleOptionUI.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleUIMgr.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.cpp" />
     <ClCompile Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.cpp" />
@@ -348,6 +350,8 @@
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseResult.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlPhaseStart.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattlePhase\BtlTaskBase.h" />
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattlCommandUI\BattleCommandUI.h" />
+    <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleOptionUI\BattleOptionUI.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUI\BattleUIMgr.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleBuff\BtlBuffObj.h" />
     <ClInclude Include="..\scr\Scene\MainMenu\Dungeon\Battle\BattleUtil\BattleInfo\BtlInfo.h" />

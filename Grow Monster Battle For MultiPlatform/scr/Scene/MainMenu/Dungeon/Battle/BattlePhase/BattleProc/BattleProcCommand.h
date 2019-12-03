@@ -26,8 +26,9 @@ namespace battle {
 
 			sState_Check,			// 行動タイプを確認
 			eState_AutoTarget,		// 自動選択
+			eState_SelectCommand,	// コマンド選択
 			eState_SelectTarget,	// ユーザー選択
-
+			
 			eState_End,
 		};
 
@@ -49,6 +50,8 @@ namespace battle {
 		void _StateCheck();
 		// 自動選択
 		void _StateAutoTarget();
+		// コマンド選択
+		void _StateSelectCommand();
 		// ユーザー選択
 		void _StateSelectTarget();
 

@@ -61,7 +61,7 @@ bool PlayerInfomation::Initialize() {
 	mPlayer = AppData::GetInstance()->GetSaveData()->GetPlayer();
 	
 	//フェードイン
-	Fade::GetInstance()->FadeIn(30);
+	Fade::GetInstance()->FadeIn(0.5f);
 
 	mNowState = PlayerInfomation::eState_Select;
 
@@ -105,7 +105,7 @@ bool PlayerInfomation::Updata() {
 
 		break;
 	case PlayerInfomation::eState_Exit:
-		Fade::GetInstance()->FadeOut(30);
+		Fade::GetInstance()->FadeOut(0.5f);
 		mNowState = PlayerInfomation::eState_ExitDone;
 		break;
 	case PlayerInfomation::eState_ExitDone:

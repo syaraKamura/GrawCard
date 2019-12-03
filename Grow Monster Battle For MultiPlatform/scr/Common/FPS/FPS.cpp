@@ -15,6 +15,9 @@
 #include "Common/GameCommon.h"
 #include "FPS.h"
 
+int FPS::mOldDeltaTime = 0.0f;
+int FPS::mNowDeltaTime = 0.0f;
+float FPS::mDeltaTime = 0.0f;
 
 /*
 	コンストラクタ
@@ -87,14 +90,14 @@ void FPS::Wait() {
 void FPS::deltaTimeCalc() {
 	
 	mNowDeltaTime = GetNowCount();
-	mDeltaTime = 1000.0f / (mNowDeltaTime - mOldDeltaTime) / mFpsRate;
+	mDeltaTime = (mNowDeltaTime - mOldDeltaTime) / 1000.0f;
 	mOldDeltaTime = mNowDeltaTime;
 }
 
 void FPS::Draw() {
 
 #ifdef  __MY_DEBUG__
-	DrawFormatString(0, WINDOW_HEIGHT - 20, GetColor(0, 255, 0), "FPS:%0.1f delta:%f", mFps,mDeltaTime);
+	DrawFormatString(WINDOW_WIDTH - 220, 10, GetColor(0, 255, 0), "FPS:%0.1f delta:%f", mFps,mDeltaTime);
 #endif //  __MY_DEBUG__
 
 

@@ -49,6 +49,10 @@ public:
 	void Draw();
 
 	bool IsTouch() override;
+	/*
+		押されている
+	*/
+	bool IsTouchPush();
 	
 
 };

@@ -22,7 +22,7 @@ namespace battle {
 
 	bool BtlPhaseMain::Updata() {
 
-		mStatus.Update();
+ 		mStatus.Update();
 		eState state = (eState)mStatus.GetState();
 		switch (state) {
 		case eState_MoveOrder	: _StateMoveOrder(); break;
@@ -72,6 +72,8 @@ namespace battle {
 			}
 		}
 		
+		BtlGetInfo().AddTrun();
+
 		mStatus.SetState(eState_Command);
 	}
 
@@ -90,14 +92,17 @@ namespace battle {
 			// 行動を選択する
 			int move = mMoveList[mNextMove];
 			mAttacker = BtlGetInfo().GetMonsterList()[move];
-			mChildTaskId = _BtlAddTask(new BattleProcCommand(mAttacker));
+			//mChildTaskId = _BtlAddTask(new BattleProcCommand(mAttacker));
+			mChildTaskId = AddChild(new BattleProcCommand(mAttacker));
 		}
 
 
 
 
 
-		if (_CheckTaskEnd(mChildTaskId)) {
+		//if (_CheckTaskEnd(mChildTaskId)) 
+		if(!CheckChildTaskId(mChildTaskId))
+		{
 
 			mStatus.SetState(eState_Battle);
 		}
@@ -124,16 +129,18 @@ namespace battle {
 
 			MonsterUnit* Attacker = BtlGetInfo().GetMoveData().Attacker;
 			MonsterUnit* Deffender = BtlGetInfo().GetMoveData().Deffender;
-			Graphics& Graph = Deffender->GetGraphics();
-			pEft = BtlGetMgr()->GetEffect().Play(eBattleEffect_FireClaw, Graph.GetPositionX(), Graph.GetPositionY());
-			
-			int damage = battle::BattleCalculator::NormalDamage(*Attacker->GetMonster(), *Deffender->GetMonster());
-			Deffender->SubHp(damage);
+			if (Deffender) {
+				Graphics& Graph = Deffender->GetGraphics();
+				pEft = BtlGetMgr()->GetEffect().Play(eBattleEffect_FireClaw, Graph.GetPositionX(), Graph.GetPositionY(), true);
 
+				int damage = battle::BattleCalculator::NormalDamage(*Attacker->GetMonster(), *Deffender->GetMonster());
+				Deffender->SubHp(damage);
+			}
 
 		}
 		
-		if (_CheckTaskEnd(mChildTaskId) && pEft->isPlay == false) {
+		//if (_CheckTaskEnd(mChildTaskId) && pEft->isPlay == false) {
+		if (!CheckChildTaskId(mChildTaskId) && pEft->isPlay == false) {
 			mStatus.SetState(eState_CheckTiming);
 		}
 
@@ -145,11 +152,20 @@ namespace battle {
 
 		bool IsAllDead = false;
 
+		eBattleResult BtlRet = eBattleResult_None;
+
 		if (BtlGetInfo().AllDeadMonster(eSide_Player)) {
 			IsAllDead = true;
+			BtlRet = eBattleResult_Lose;
 		}
 		if (BtlGetInfo().AllDeadMonster(eSide_Enemy)) {
 			IsAllDead = true;
+			if (BtlRet == eBattleResult_Lose) {
+				BtlRet = eBattleResult_Draw;
+			}
+			else {
+				BtlRet = eBattleResult_Win;
+			}
 		}
 		
 		
@@ -158,6 +174,7 @@ namespace battle {
 			mStatus.SetState(eState_Command);
 		}
 		else {
+			BtlGetMgr()->GetBtlInfo().BattleResult(BtlRet);
 			mStatus.SetState(eState_End);
 		}
 		

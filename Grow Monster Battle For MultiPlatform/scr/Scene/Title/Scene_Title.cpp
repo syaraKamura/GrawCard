@@ -143,7 +143,7 @@ bool Scene_Title::Updata(){
 
 	switch ((int)mState) {
 	case eState_Initialize:
-		NexetState(eState_Main,eFadeType_In,180);
+		NexetState(eState_Main,eFadeType_In,3.0f);
 		mGraphic[eImg_NewGame]->SetVisible(true);
 		mGraphic[eImg_Back]->SetVisible(true);
 		if (mWork.isLoadSaveData == true) {
@@ -298,7 +298,7 @@ bool Scene_Title::UpdataProc() {
 	return true;
 }
 
-void Scene_Title::NexetState(eState nextState,eFadeType type, int fadeFrame) {
+void Scene_Title::NexetState(eState nextState,eFadeType type, float fadeFrame) {
 	
 	mState = eState_Fade;
 	mNextState = nextState;

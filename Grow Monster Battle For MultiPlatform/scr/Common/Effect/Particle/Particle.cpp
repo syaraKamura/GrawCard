@@ -11,6 +11,7 @@
 				
 !*/
 #include "Common/GameCommon.h"
+#include "Common/Fps/FPS.h"
 #include "../Effect.h"
 #include "Particle.h"
 
@@ -75,7 +76,7 @@ namespace Particle {
 
 	void EffectParticle::Updata() {
 
-		if (mLifeTime <= mPlayTime) {
+		if (mLifeTime < mPlayTime) {
 			return;
 		}
 		// 移動処理などを行う
@@ -92,7 +93,7 @@ namespace Particle {
 		mBaseColor.alpha = Easing::EasingValue(mData.easingType, mPlayTime, mLifeTime, mData.start.baseColor.alpha, mData.end.baseColor.alpha);
 		mSize = Easing::EasingValue(mData.easingType, mPlayTime, mLifeTime, mData.start.mSize, mData.end.mSize);
 		
-		mPlayTime++;
+		mPlayTime += FPS::GetDeltaTime();
 	}
 
 	void EffectParticle::Draw() {
@@ -116,7 +117,7 @@ namespace Particle {
 	//==========================
 	// エミッター
 	//==========================
-	ParticleEmmiter::ParticleEmmiter() : mPlayTime(0) {
+	ParticleEmmiter::ParticleEmmiter() : mPlayTime(0), mOldSpanTime(0) {
 		
 	}
 	ParticleEmmiter::~ParticleEmmiter() {
@@ -153,8 +154,9 @@ namespace Particle {
 		}
 
 		if (mPlayTime >= mParticle.genTime) {
-			int t = mPlayTime - mParticle.genTime;
-			if (t % mParticle.spanGenTime == 0) {
+			if ((mPlayTime - mOldSpanTime) >= mParticle.spanGenTime)
+			{
+				mOldSpanTime = mPlayTime;
 #if 0
 				ParticleDrawer* drawer = new ParticleDrawer();
 				float addAngle = mParticle.startAngle;
@@ -193,7 +195,7 @@ namespace Particle {
 			}
 		}
 
-		mPlayTime++;
+		mPlayTime+=FPS::GetDeltaTime();
 	}
 
 	//==========================

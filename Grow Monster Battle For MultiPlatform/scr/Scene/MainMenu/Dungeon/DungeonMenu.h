@@ -186,7 +186,7 @@ private:
 	/*
 		ステート切り替え
 	*/
-	void ChangeState(eState next,eFade fade,int fadeTime = 30);
+	void ChangeState(eState next,eFade fade,float fadeTime = 0.5f);
 
 	
 

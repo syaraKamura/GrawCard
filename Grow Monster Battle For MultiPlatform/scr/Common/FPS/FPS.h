@@ -28,9 +28,9 @@ private:
 	
 	float mFps;
 
-	float mOldDeltaTime;
-	float mNowDeltaTime;
-	float mDeltaTime;
+	static int mOldDeltaTime;
+	static int mNowDeltaTime;
+	static float mDeltaTime;
 
 
 public:
@@ -61,14 +61,14 @@ public:
 	/*
 		デルタタイムを返却する
 	*/
-	float GetDeltaTime();
+	static float GetDeltaTime();
 
 private:
 
 	/*
 	デルタタイム計算
 	*/
-	void deltaTimeCalc();
+		void deltaTimeCalc();
 
 };
 

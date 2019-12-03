@@ -105,7 +105,7 @@ bool DungeonMenu::Initialize() {
 
 
 	//フェードイン
-	Fade::GetInstance()->FadeIn(30);
+	Fade::GetInstance()->FadeIn(0.5f);
 
 	return true;
 }
@@ -239,7 +239,7 @@ bool DungeonMenu::Updata() {
 		if (Fade::GetInstance()->IsFadeEnd()) {
 			mState = mNextState;
 			if (mNextState >= eState_SelectMode && mNextState <= eState_SelectDungeonMap) {
-				Fade::GetInstance()->FadeIn(30);
+				Fade::GetInstance()->FadeIn(0.5f);
 				GraphicsBase* graph = GraphicsDrawMgr::GetInstance()->Get(mBackImageOrder);
 				if (mNextState != eState_SelectMode) {
 					if (graph != nullptr) {
@@ -322,7 +322,7 @@ void DungeonMenu::PostUpdate() {
 /*
 	ステート切り替え
 */
-void DungeonMenu::ChangeState(eState next, eFade fade, int fadeTime/* = 30*/){
+void DungeonMenu::ChangeState(eState next, eFade fade, float fadeTime/* = 0.5f*/){
 	
 	if (Fade::GetInstance()->IsFadeEnd()) {
 		mOldState = mState;

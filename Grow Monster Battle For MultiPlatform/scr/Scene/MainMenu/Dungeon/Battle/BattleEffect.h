@@ -31,7 +31,7 @@ namespace effect {
 		BattleEffect();
 		~BattleEffect();
 
-		Effect::EffectPlayData* Play(int idx, int posX, int posY);
+		Effect::EffectPlayData* Play(int idx, int posX, int posY,bool isPlayManual = false);
 
 
 	};

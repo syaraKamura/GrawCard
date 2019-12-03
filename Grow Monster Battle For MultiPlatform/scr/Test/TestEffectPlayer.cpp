@@ -48,13 +48,13 @@ TestEffectPlayer::TestEffectPlayer(ISceneBase* changer) : SceneBase(changer) {
 
 	mEmitter = new Effect::Particle::ParticleEmmiter();
 	Effect::Particle::ParticleGenerateData data = {
-		10,0,2,Effect::Particle::eFigureType_Circle,
+		10,0.0f,0.1f,Effect::Particle::eFigureType_Circle,
 		{0,0,{255,255,0,255},{},20},
 		{0,120,{255,123,0,0},{},20},
 		Easing::eEasingType_InCubic,
 		75.0f,105.0f,
 		5.0f,
-		60,
+		1,
 		3.0f,
 	};
 	mEmitter->Init(600, 600, data);

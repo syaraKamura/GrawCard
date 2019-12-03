@@ -68,3 +68,26 @@ const char* TaskBase::GetTaskName() const throw(){
 	return "";
 #endif
 }
+
+int TaskBase::AddChild(TaskBase* Task) {
+	if (Task == nullptr) {
+		return -1;
+	}
+	Task->SetTaskId(++mChildTaskOrder);
+	mChild.push_back(Task);
+	return mChildTaskOrder;
+}
+
+std::vector<TaskBase*>& TaskBase::GetChild(){
+	return mChild;
+}
+
+bool TaskBase::CheckChildTaskId(int Id) {
+
+	for (auto Task : mChild) {
+		if (Task->GetTaskId() == Id) {
+			return true;
+		}
+	}
+	return false;
+}

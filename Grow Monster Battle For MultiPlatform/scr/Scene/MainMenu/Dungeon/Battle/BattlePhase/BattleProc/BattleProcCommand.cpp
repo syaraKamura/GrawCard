@@ -23,21 +23,17 @@ namespace battle {
 		eState state = (eState)mStatus.GetState();
 		switch (state)
 		{
-		case sState_Check:
-			_StateCheck();
-			break;
-		case eState_AutoTarget:
-			_StateAutoTarget();
-			break;
-		case eState_SelectTarget:
-			_StateSelectTarget();
-			break;
-		default:
-			break;
+		case sState_Check:			_StateCheck();			break;
+		case eState_AutoTarget:		_StateAutoTarget();		break;
+		case eState_SelectCommand:	_StateSelectCommand();	break;
+		case eState_SelectTarget:	_StateSelectTarget();	break;
+		default:											break;
 		}
 
+		//
 		if (mStatus.IsEnd(eState_End)) {
-			this->RequestKill();
+			//this->RequestKill();
+			return false;
 		}
 		return true;
 	}
@@ -49,7 +45,14 @@ namespace battle {
 	void BattleProcCommand::_StateCheck() {
 
 		if (mMoveMonster->GetSide() == eSide::eSide_Player) {
-			mStatus.SetState(eState_AutoTarget);
+			switch (BtlGetInfo().GetPlayMode()) {
+			case ePlayMode_Input:
+				mStatus.SetState(eState_SelectCommand);
+				break;
+			case ePlayMode_Auto:
+				mStatus.SetState(eState_AutoTarget);
+				break;
+			}
 		}
 		else {
 			mStatus.SetState(eState_AutoTarget);
@@ -67,7 +70,7 @@ namespace battle {
 		else {
 			targetList = BtlGetInfo().GetEnmeyMonsterList();
 		}
-		
+
 		int min = INT_MAX;
 		MonsterUnit* AttackTarget = nullptr;
 		for (auto& target : targetList) {
@@ -79,17 +82,40 @@ namespace battle {
 		}
 		BtlGetInfo().GetMoveData().Deffender = AttackTarget;
 		BtlGetInfo().GetMoveData().AttackKind = eActiveType_Attack;
-		
-		
+
+
 
 		mStatus.SetState(eState_End);
+	}
+
+	// コマンド選択
+	void BattleProcCommand::_StateSelectCommand() {
+		if (mStatus.IsFirstState()) {
+			int posX = mMoveMonster->GetGraphics().GetPositionX();
+			int posY = mMoveMonster->GetGraphics().GetPositionY();
+			BtlGetUIMgr().GetCmdUI().Open(posX, posY);
+		}
+
+		if (BtlGetInfo().CheckPlayMode(ePlayMode_Auto)) {
+			BtlGetUIMgr().GetCmdUI().Close();
+			mStatus.SetState(eState_AutoTarget);
+		}
+
+		if (BtlGetUIMgr().GetCmdUI().IsVisible()) {
+			return;
+		}
+
+		// とりあえず自動選択を行う
+		_StateAutoTarget();
+
+		BtlGetInfo().GetMoveData().AttackKind = BtlGetUIMgr().GetCmdUI().GetValue();
+		mStatus.SetState(eState_SelectTarget);
 	}
 
 	// ユーザー選択
 	void BattleProcCommand::_StateSelectTarget() {
 
 		if (mStatus.IsFirstState()) {
-
 			
 		}
 

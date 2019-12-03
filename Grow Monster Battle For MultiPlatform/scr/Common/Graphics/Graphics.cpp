@@ -200,3 +200,35 @@ bool Graphics::IsTouch() {
 
 	return result;
 }
+
+/*
+		押されている
+	*/
+bool Graphics::IsTouchPush() {
+	bool result = false;
+
+	int posX = 0;
+	int posY = 0;
+
+	posX = ClickInput::GetInstance()->GetPositionX(0);
+	posY = ClickInput::GetInstance()->GetPositionY(0);
+	if (ClickInput::GetInstance()->On(0))
+#ifdef __ANDROID__
+		//const TOUCH_DATA* data = Touch_GetParamData(0);
+		//posX = data->posX;
+		//posY = data->posY;
+		//if (Touch_Relese(0)) 
+#else
+		//Mouse_GetPosition(&posX, &posY);
+		//if(Mouse_Relese(Mouse::eInputType_Left))
+#endif		
+	{
+		if (((this->mPosX <= posX && this->mPosX + this->mWidth >= posX) &&
+			(this->mPosY <= posY && this->mPosY + this->mHeight >= posY))) {
+			result = true;
+		}
+	}
+
+
+	return result;
+}

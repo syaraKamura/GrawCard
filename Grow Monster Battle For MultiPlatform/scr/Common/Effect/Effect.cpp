@@ -399,12 +399,13 @@ namespace Effect{
 		Delete(mPlayData);
 	}
 
-	void EffectPlayer::Init(EffectData eft, int startPosX/* = 0*/, int startPosY/* = 0*/) {
+	void EffectPlayer::Init(EffectData eft, bool IsPlayManual /*= false*/, int startPosX/* = 0*/, int startPosY/* = 0*/) {
 
 		if (mPlayData == nullptr) {
 			mPlayData = new EffectPlayData();
 		}
 		mHandle = eft.mHandle;
+		mIsPlayManual = IsPlayManual;
 		mPlayData->posX = startPosX;
 		mPlayData->posY = startPosY;
 
@@ -447,6 +448,10 @@ namespace Effect{
 
 	int EffectPlayer::Length() {
 		return mPlayData->length;
+	}
+
+	bool EffectPlayer::IsPlayManual() {
+		return mIsPlayManual;
 	}
 
 	void EffectPlayer::Update() {
@@ -505,6 +510,7 @@ namespace Effect{
 
 	EffectMgr::EffectMgr() {
 		mList.clear();
+		mManualList.clear();
 		mEffectGraphList.clear();
 		mLoadOrder = 0;
 	}
@@ -514,6 +520,7 @@ namespace Effect{
 		AllRelease();
 		mEffectGraphList.clear();
 		mList.clear();
+		mManualList.clear();
 	}
 
 	void EffectMgr::Create() {
@@ -533,11 +540,54 @@ namespace Effect{
 	EffectPlayData* EffectMgr::Play(int handle, float posX, float posY, int prio/* = 1000*/) {
 		EffectData data = _GetEffectData(handle);
 		EffectPlayer* add = new EffectPlayer();
-		add->Init(data, posX, posY);
+		add->Init(data, false, posX, posY);
 		add->Play();
 		GraphicsDrawMgr::GetInstance()->Add(add, prio);
 		mList.push_back(add);
 		return add->GetPlayData();
+	}
+
+	/*
+			エフェクトを再生する(描画は手動)
+			int handle	:	再生するエフェクトハンドル
+			float posX	:	描画座標
+			float posY	:
+			return		:	エフェクトデータ
+		*/
+	EffectPlayData* EffectMgr::PlayManual(int handle, float posX, float posY) {
+		EffectData data = _GetEffectData(handle);
+		EffectPlayer* add = new EffectPlayer();
+		add->Init(data, true, posX, posY);
+		add->Play();
+		mManualList.push_back(add);
+		return add->GetPlayData();
+	}
+
+	void EffectMgr::ManualUpdate() {
+
+		for (int i = 0; i < mManualList.size(); i++) {
+			EffectPlayer* eft = mManualList[i];
+			if (eft == nullptr) {
+				continue;
+			}
+			if (eft->GetPlayData()->isPlay == false) {
+				eft->ReleseRequest();	//	描画マネージャーから削除
+				mManualList.erase(mManualList.begin() + i);
+				i--;
+				continue;
+			}
+			eft->Update();
+		}
+	}
+
+	void EffectMgr::ManualDraw() {
+		for (int i = 0; i < mManualList.size(); i++) {
+			EffectPlayer* eft = mManualList[i];
+			if (eft == nullptr) {
+				continue;
+			}
+			eft->Draw();
+		}
 	}
 
 	void EffectMgr::Update() {

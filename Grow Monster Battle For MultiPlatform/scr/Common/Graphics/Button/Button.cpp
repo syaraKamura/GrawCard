@@ -218,6 +218,15 @@ int Button::GetPositionY() {
 	return mPosY;
 }
 
+
+int Button::GetWidth() {
+	return mWidth;
+}
+
+int Button::GetHieght() {
+	return mHeight;
+}
+
 float Button::GetAlpha() {
 	return mAlpha;
 }

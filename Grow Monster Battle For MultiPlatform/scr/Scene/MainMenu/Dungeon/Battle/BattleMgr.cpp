@@ -51,12 +51,11 @@ namespace battle {
 
 	bool BattleMgr::Initialize() {
 		mBtlUIMgr = new BattleUIMgr();
-		GraphicsDrawMgr::GetInstance()->Add(mBtlUIMgr,0);
 		return true;
 	}
 
 	void BattleMgr::Finalize() {
-		
+		Delete(mBtlUIMgr);
 	}
 
 	void BattleMgr::PreviousUpdate() {
@@ -69,11 +68,16 @@ namespace battle {
 
 	bool BattleMgr::Updata() {
 
-		_BtlPhaseUpdate();
-		
 		mBtlUIMgr->Update();
 
+		// ポーズ中
+		if (BtlGetInfo().CheckPlayMode(ePlayMode_Pause)) {
+			return true;
+		}
+
+		_BtlPhaseUpdate();
 		this->mAnim.Updata();
+		Effect::EffectMgr::GetInstance()->ManualUpdate();
 
 		return true;
 	}
@@ -98,10 +102,11 @@ namespace battle {
 #endif
 
 		// 初期化が終わるまでは描画を行わない
-		if (mStatus.GetState() <= eBattlePhase_Initialize) { return; }
+		if (mStatus.GetState() <= eBattlePhase_Initialize || mStatus.GetState() > eBattlePhase_Result ) { return; }
 
 		this->mAnim.Draw();
-		
+		mBtlUIMgr->Draw();
+		Effect::EffectMgr::GetInstance()->ManualDraw();
 	}
 
 //==========================================================
@@ -248,7 +253,7 @@ namespace battle {
 	// バトル結果
 	void BattleMgr::_BtlPhaseResult() {
 		if (mStatus.IsFirstState()) {
-
+			mTaskId = _BtlAddTask(new BtlPhaseMain());
 		}
 
 #ifdef __WINDOWS__
@@ -257,6 +262,11 @@ namespace battle {
 			Fade::GetInstance()->FadeIn();
 		}
 #endif // __WINDOWS__
+
+		if (_CheckTaskEnd(mTaskId)) {
+			mStatus.SetState(eBattlePhase_Fade);
+			Fade::GetInstance()->FadeIn();
+		}
 
 	}
 

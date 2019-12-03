@@ -16,6 +16,9 @@
 #include "Common/FileLoader/TblLoader/TblLoaderMgr.h"
 #include "Common/Script/ScriptBase.h"
 #include "Scene/MainMenu/Dungeon/Battle/BattleBase.h"
+#include "Scene/MainMenu/Dungeon/Battle/BattleMgr.h"
+
+#include "Common/String/CharConverter/CharConverter.h"
 
 #include "Map.h"
 #include "MapField.h"
@@ -143,7 +146,12 @@ bool MapField::Updata(){
 			MapData tmp = mapData[i];
 			int posX = tmp.posX;
 			int posY = tmp.posY;
+#ifdef __WINDOWS__
 			char* title = tmp.title;
+#else
+			int byte = 0;
+			char* title = CharConverter::sjis_to_utf8(tmp.title, &byte);
+#endif
 			int storyId = tmp.storyId;
 			Map* map = new Map(posX, posY, title);
 
@@ -285,7 +293,7 @@ bool MapField::UpdateStory(int storyNo) {
 		char path[1024];
 		sprintfDx(path, "ADV_%04d.txt", storyNo);
 		mStoryTask = TaskMgr::getInstance().Add(new AdvScript::ScriptBase(path));
-		Fade::GetInstance()->FadeIn(20);
+		Fade::GetInstance()->FadeIn(0.3f);
 		for (int i = 0; i < this->mMapIcons.size(); i++) {
 			this->mMapIcons[i]->SetDrawFlag(false);
 		}
@@ -297,7 +305,7 @@ bool MapField::UpdateStory(int storyNo) {
 		if (story->IsEnd()) {
 			story->RequestKill();
 			mStoryTask = -1;
-			Fade::GetInstance()->FadeIn(20);
+			Fade::GetInstance()->FadeIn(0.3f);
 			return true;
 		}
 	}
@@ -316,16 +324,24 @@ bool MapField::UpdataBattle(int battleNo) {
 #else
 		SaveData* save = AppData::GetInstance()->GetSaveData();
 		Player* player = save->GetPlayer();
-		mBatlleTask = TaskMgr::getInstance().Add(new BattleBase(player));
+		//mBatlleTask = TaskMgr::getInstance().Add(new BattleBase(player));
+		mBatlleTask = TaskMgr::getInstance().Add(BattleMgr::New());
 #endif
 	}
 	else {
-
+#if false
 		BattleBase* battle = dynamic_cast<BattleBase*>(TaskMgr::getInstance().GetTask(mBatlleTask));
 		if (battle == nullptr) {
 			mBatlleTask = -1;
 			return true;
 		}
+#else 
+
+		if (BattleMgr::IsIntatance()) {
+			return true;
+		}
+
+#endif
 	}
 
 
